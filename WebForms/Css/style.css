@@ -8,6 +8,9 @@ html {
     box-sizing: inherit;
 }
 
+li a:hover {
+    color: #0dcaf0 !important;
+}
 /*Footer*/
 .footer {
     background-color: black;

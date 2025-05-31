@@ -14,36 +14,36 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand fs-2" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link fs-4 " aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Lista Articulos</a>
+                            <a class="nav-link fs-4" href="#">Lista Articulos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Proveedores</a>
+                            <a class="nav-link fs-4" href="#">Proveedores</a>
                         </li>
                         
                     </ul>
                 </div>
             </div>
             <div>
-                <asp:Button Text="Login" ID="btnLogin" OnClick="btnLogin_Click" runat="server" CssClass="btn btn-primary me-2 p-2" />
+                <asp:Button Text="Login" ID="btnLogin" OnClick="btnLogin_Click" runat="server" CssClass="btn btn-primary me-2 p-2 fs-5" />
             </div>
             <div>
-                <asp:Button Text="Registrarse" ID="btnRegistrar" OnClick="btnRegistrar_Click" runat="server" CssClass="btn btn-success p-2 me-2" />
+                <asp:Button Text="Registrarse" ID="btnRegistrar" OnClick="btnRegistrar_Click" runat="server" CssClass="btn btn-success p-2 me-2 fs-5" />
             </div>
-            <div>
+            <%--<div>
                 <p style="color: white">aca va la foto</p>
-            </div>
+            </div>--%>
         </nav>
         <div class="container ">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
