@@ -67,7 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\normalize.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Css\style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

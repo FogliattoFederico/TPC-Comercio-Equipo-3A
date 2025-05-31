@@ -1,0 +1,31 @@
+﻿html {
+    box-sizing: border-box;
+    
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer_integrantes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 767.98px) {
+    .boton {
+        color: red; /* Solo se aplica en móviles */
+        font-size: 14px;
+    }
+}
