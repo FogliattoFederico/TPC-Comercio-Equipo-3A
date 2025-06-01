@@ -14,14 +14,15 @@ namespace WebForms
 
         }
         
-        protected void btnLogin_Click(object sender, EventArgs e)
+        
+        protected void btnRegistrar_Click(object sender, EventArgs e)
         {
 
         }
 
-        protected void btnRegistrar_Click(object sender, EventArgs e)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Login.aspx");
         }
     }
 }
