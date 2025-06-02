@@ -2,52 +2,51 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Negocio
 {
-    internal class AccesoDatos
+    public class AccesoDatos
     {
-        private SqlConnection connection;
-        private SqlCommand command;
-        private SqlDataReader reader;
+        private SqlConnection conexion;
+        private SqlCommand comando;
+        private SqlDataReader lector;
+
+        public SqlDataReader Lector
+        {
+            get { return lector; }
+        }
+
 
         public AccesoDatos()
         {
-            connection = new SqlConnection("server = .\\SQLEXPRESS; database = Tienda; integrated security = true");
-            command = new SqlCommand();
+            conexion = new SqlConnection("server = .\\SQLEXPRESS; database= Comercio_DB; integrated security = true");
+            comando = new SqlCommand();
         }
 
-        public void Consulta(string consulta)
+        public void setearConsulta(string consulta)
         {
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = consulta;
+            comando.CommandType = System.Data.CommandType.Text;
+            comando.CommandText = consulta;
         }
 
-        public void EjecutarConsulta()
+        public void setearProcedimiento(string sp)
         {
-            command.Connection = connection;
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            comando.CommandText = sp;
+        }
 
+        public void ejecutarLectura()
+        {
             try
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+                comando.Connection = conexion;
+                conexion.Open();
+                lector = comando.ExecuteReader();
 
-        public void EjecutarAccion()
-        {
-            command.Connection = connection;
-
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -56,22 +55,54 @@ namespace Negocio
             }
         }
 
-        public void SetearParametros(string nombre, object valor)
+        public void ejecutarAccion()
         {
-            command.Parameters.AddWithValue(nombre, valor);
+            comando.Connection = conexion;
+
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
-        public SqlDataReader Reader
+        public void setearParametro(string nombre, object valor)
         {
-            get { return reader; }
+            comando.Parameters.AddWithValue(nombre, valor);
         }
 
-        public void CerrarConexion()
+        public void cerrarConexion()
         {
-            if (reader != null)
-                reader.Close();
-            connection.Close();
+            if (lector != null)
+            {
+                lector.Close();
+            }
+            conexion.Close();
         }
+
+        public object ejecutarScalar()
+        {
+            try
+            {
+                comando.Connection = conexion;
+                conexion.Open();
+                return comando.ExecuteScalar(); // ejecuta la consulta y devuelve el primer valor de la primera fila
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
     }
 }
-

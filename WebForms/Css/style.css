@@ -27,3 +27,25 @@ li a:hover {
     justify-content: space-around;
     margin-top: 1.5rem;
 }
+
+/*****/
+.container {
+    padding-bottom: 120px; /* Ajustá según el alto de tu footer */
+}
+
+/**** GridView ****/
+.imagen-producto {
+    /*    width: 71px;
+    height: 40px;*/
+    width: 142px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background-color: white; /* opcional, para que se vea bien si la imagen no llena el espacio */
+}
+
+.gridview td {
+    vertical-align: middle; /* Centra texto de los Productos */
+    text-align: center; /* Centrado horizontal */
+}

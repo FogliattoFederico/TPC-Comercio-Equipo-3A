@@ -26,7 +26,7 @@
                             <a class="nav-link fs-4 " aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-4" href="#">Lista Articulos</a>
+                            <a class="nav-link fs-4" href="ListaProductos.aspx">Lista Productos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-4" href="#">Proveedores</a>
