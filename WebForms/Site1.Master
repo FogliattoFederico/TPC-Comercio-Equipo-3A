@@ -29,9 +29,14 @@
                             <a class="nav-link fs-4" href="ListaProductos.aspx">Lista Productos</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link fs-4" href="#">Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-4" href="#">Compras</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link fs-4" href="#">Proveedores</a>
                         </li>
-                        
                     </ul>
                 </div>
             </div>
@@ -52,9 +57,9 @@
         <footer class="footer">
             <h5>Trabajo Practico Programacion 3</h5>
             <div class="footer_integrantes">
-            <p>Clingo Fernando</p>
-            <p>Fogliatto Federcio</p>
-            <p>Olguera Alejandro</p>
+                <p>Clingo Fernando</p>
+                <p>Fogliatto Federcio</p>
+                <p>Olguera Alejandro</p>
 
             </div>
         </footer>

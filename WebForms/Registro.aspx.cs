@@ -7,22 +7,16 @@ using System.Web.UI.WebControls;
 
 namespace WebForms
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class Registro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-        
-        
+
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Registro.aspx", false);
-        }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Login.aspx", false);
         }
     }
 }
