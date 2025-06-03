@@ -29,9 +29,9 @@
                             <a class="nav-link dropdown-toggle fs-4" href="#" id="NvDdProductos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="NvDdProductos">
-                                <li><a class="dropdown-item" href="#">Agregar Producto</a></li>
-                                <li><a class="dropdown-item" href="#">Agregar Marca </a></li>
                                 <li><a class="dropdown-item" href="#">Agregar Categoria </a></li>
+                                <li><a class="dropdown-item" href="#">Agregar Marca </a></li>
+                                <li><a class="dropdown-item" href="#">Agregar Producto</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
