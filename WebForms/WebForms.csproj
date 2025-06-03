@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Administradores.aspx" />
+    <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedor.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Css\normalize.css" />
@@ -99,6 +100,13 @@
     </Compile>
     <Compile Include="Administradores.Master.designer.cs">
       <DependentUpon>Administradores.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AltaCliente.aspx.cs">
+      <DependentUpon>AltaCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaCliente.aspx.designer.cs">
+      <DependentUpon>AltaCliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="AltaProveedor.aspx.cs">
       <DependentUpon>AltaProveedor.aspx</DependentUpon>

@@ -7,14 +7,19 @@ using System.Web.UI.WebControls;
 
 namespace WebForms
 {
-    public partial class Ventas : System.Web.UI.Page
+    public partial class AltaCliente : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void btnAgregarVenta_Click(object sender, EventArgs e)
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
         {
 
         }

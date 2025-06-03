@@ -9,5 +9,5 @@
 
         </ContentTemplate>
     </asp:UpdatePanel>
-    <asp:Button Text="Agregar Cliente" runat="server" id="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary"/>
+    <asp:Button Text="Agregar Venta" runat="server" id="btnAgregarVenta" OnClick="btnAgregarVenta_Click" CssClass="btn btn-primary"/>
 </asp:Content>

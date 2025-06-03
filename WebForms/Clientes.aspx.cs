@@ -16,7 +16,7 @@ namespace WebForms
 
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("AltaCliente.aspx", false);
         }
     }
 }
