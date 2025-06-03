@@ -14,10 +14,17 @@ namespace WebForms
         protected void Page_Load(object sender, EventArgs e)
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            List<Producto> lista = negocio.Listar();
+            List<Producto> lista = negocio.ListarConSp();
 
             GVProductos.DataSource = lista;
             GVProductos.DataBind();
+        }
+
+        protected void GVProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVProductos.PageIndex = e.NewPageIndex;
+            GVProductos.DataBind();
+
         }
     }
 }
