@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="text-center m-5">Listado de Productos</h1>
-    <asp:GridView ID="GVProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="8"
+    <asp:GridView ID="GVProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10"
         CssClass="table table-striped table-bordered table-hover text-center gridview"
         HeaderStyle-CssClass="thead-dark"
         GridLines="None" OnPageIndexChanging="GVProductos_PageIndexChanging">

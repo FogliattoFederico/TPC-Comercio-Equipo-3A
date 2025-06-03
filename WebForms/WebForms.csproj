@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Administradores.aspx" />
+    <Content Include="AltaCatTipoMarca.aspx" />
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedor.aspx" />
     <Content Include="Clientes.aspx" />
@@ -75,6 +76,7 @@
     <Content Include="Css\StyleLogin.css" />
     <Content Include="DB\Comercio_DB.sql" />
     <Content Include="DB\Inserts.sql" />
+    <Content Include="DB\Procedimientos.sql" />
     <Content Include="Default.aspx" />
     <Content Include="Css\style.css" />
     <Content Include="ListaProductos.aspx" />
@@ -100,6 +102,13 @@
     </Compile>
     <Compile Include="Administradores.Master.designer.cs">
       <DependentUpon>Administradores.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AltaCatTipoMarca.aspx.cs">
+      <DependentUpon>AltaCatTipoMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaCatTipoMarca.aspx.designer.cs">
+      <DependentUpon>AltaCatTipoMarca.aspx</DependentUpon>
     </Compile>
     <Compile Include="AltaCliente.aspx.cs">
       <DependentUpon>AltaCliente.aspx</DependentUpon>

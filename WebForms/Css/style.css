@@ -51,3 +51,8 @@ li a:hover {
     
 }
 
+/***** PLACEHOLDER TEXTBOX ******/
+::placeholder {
+    font-style: italic;
+}
+
