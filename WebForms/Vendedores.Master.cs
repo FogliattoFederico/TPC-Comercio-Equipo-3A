@@ -13,5 +13,10 @@ namespace WebForms
         {
 
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
