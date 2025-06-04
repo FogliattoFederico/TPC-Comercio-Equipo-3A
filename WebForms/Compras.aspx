@@ -4,7 +4,7 @@
     <script src="<%= ResolveUrl("~/Scripts/Funciones.js") %>"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	<ul class="nav flex-column">
+	<ul class="nav flex-column ">
         <li><img src="/Icon/CamionB.png"><span>Ordenes de compra</span>
             <ul>
                 <li>
