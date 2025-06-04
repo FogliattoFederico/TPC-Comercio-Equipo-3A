@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dominio;
 
 namespace Negocio
 {
@@ -23,6 +24,51 @@ namespace Negocio
                 return true;
             return false;
 
+        }
+
+        public List<Usuario> Listar()
+        {
+            List<Usuario> listaUsuarios = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT *
+                                    FROM Usuario
+                                    ORDER BY NombreUsuario;";
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
+                    usuario.Apellido = datos.Lector["Apellido"].ToString();
+                    usuario.Email = datos.Lector["Email"].ToString();
+                    usuario.Contrasena = datos.Lector["Contrasena"].ToString();
+                    usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
+                    usuario.Rol = datos.Lector["Rol"].ToString();
+
+                    listaUsuarios.Add(usuario);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return listaUsuarios;
         }
     }
 }

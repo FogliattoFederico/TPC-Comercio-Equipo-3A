@@ -15,13 +15,13 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control GVProveedores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.GridView GVProveedores;
 
         /// <summary>
         /// Control btnAgregar.

@@ -67,7 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Administradores.aspx" />
+    <Content Include="ListaUsuarios.aspx" />
+    <Content Include="PanelAdmin.aspx" />
     <Content Include="AltaCatTipoMarca.aspx" />
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedor.aspx" />
@@ -92,12 +93,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administradores.aspx.cs">
-      <DependentUpon>Administradores.aspx</DependentUpon>
+    <Compile Include="ListaUsuarios.aspx.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Administradores.aspx.designer.cs">
-      <DependentUpon>Administradores.aspx</DependentUpon>
+    <Compile Include="ListaUsuarios.aspx.designer.cs">
+      <DependentUpon>ListaUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAdmin.aspx.cs">
+      <DependentUpon>PanelAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelAdmin.aspx.designer.cs">
+      <DependentUpon>PanelAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Administradores.Master.cs">
       <DependentUpon>Administradores.Master</DependentUpon>

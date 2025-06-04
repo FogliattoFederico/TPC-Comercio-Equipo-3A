@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio;
 
 namespace WebForms
 {
@@ -11,7 +13,11 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            List<Proveedor> lista = negocio.Listar();
 
+            GVProveedores.DataSource = lista;
+            GVProveedores.DataBind();
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
