@@ -1,6 +1,129 @@
---USE master
---ALTER DATABASE Comercio_DB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
---DROP DATABASE Comercio_DB;
+-- Crear base de datos
+/*CREATE DATABASE Comercio_DB;
+GO*/
+
+USE Comercio_DB;
+GO
+/*
+CREATE TABLE Usuario (
+    IdUsuario INT PRIMARY KEY IDENTITY(1,1),
+    NombreUsuario VARCHAR(100) NOT NULL,
+	Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Email VARCHAR(150) NOT NULL UNIQUE,
+    Contrasena VARCHAR(200) NOT NULL, -- Guardar encriptada
+    FechaAlta DATE NOT NULL DEFAULT GETDATE(),
+    Rol VARCHAR(50) NOT NULL -- Ej: 'Vendedor', 'Admin'
+);
+-- Tabla: Categorias (ELECTRODOMESTICOS-AUDIO-INFORMATICA-GAMING-TELEFONIA)
+CREATE TABLE Categorias (
+    IdCategoria INT PRIMARY KEY IDENTITY(1,1),
+    Nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla: Marcas
+CREATE TABLE Marcas (
+    IdMarca INT PRIMARY KEY IDENTITY(1,1),
+    Nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla: TiposProducto (MICROONDAS, LAVARROPAS, CONSOLAS, CELULARES, NOTEBOOKS, AURICULARES, TV, PARLANTES)
+CREATE TABLE TiposProducto (
+    IdTipoProducto INT PRIMARY KEY IDENTITY(1,1),
+    Nombre VARCHAR(100) NOT NULL,
+    IdCategoria INT NOT NULL,
+    FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
+);
+
+
+-- Tabla: Productos
+CREATE TABLE Productos (
+    IdProducto INT PRIMARY KEY IDENTITY(1,1),
+    CodigoArticulo VARCHAR(50),
+    Nombre VARCHAR(100),
+    Descripcion VARCHAR(255),
+    PrecioCompra DECIMAL(18,2),
+    PorcentajeGanancia DECIMAL(5,2),
+    StockActual INT,
+    StockMinimo INT,
+    ImagenUrl VARCHAR(500),
+    IdMarca INT NOT NULL,
+    IdTipoProducto INT NOT NULL,
+    FOREIGN KEY (IdMarca) REFERENCES Marcas(IdMarca),
+    FOREIGN KEY (IdTipoProducto) REFERENCES TiposProducto(IdTipoProducto)
+);
+
+
+
+-- Tabla: Proveedores
+CREATE TABLE Proveedores (
+    IdProveedor INT PRIMARY KEY IDENTITY(1,1),
+    RazonSocial VARCHAR(150) NOT NULL,
+	CUIT VARCHAR(20) NOT NULL,
+	Direccion VARCHAR(50),
+    Telefono VARCHAR(20),
+    Email VARCHAR(100)
+);
+
+-- Tabla: ProductoProveedor (relación N a N)
+CREATE TABLE ProductoProveedor (
+    IdProducto INT NOT NULL,
+    IdProveedor INT NOT NULL,
+    PRIMARY KEY (IdProducto, IdProveedor),
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto),
+    FOREIGN KEY (IdProveedor) REFERENCES Proveedores(IdProveedor)
+);
+
+-- Tabla: Compras
+CREATE TABLE Compras (
+    IdCompra INT PRIMARY KEY IDENTITY(1,1),
+    Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+    IdProveedor INT NOT NULL,
+    Total DECIMAL(18,2) NOT NULL,
+    FOREIGN KEY (IdProveedor) REFERENCES Proveedores(IdProveedor)
+);
+
+-- Tabla: CompraDetalle
+CREATE TABLE CompraDetalle (
+    IdCompra INT NOT NULL,
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnit DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (IdCompra, IdProducto),
+    FOREIGN KEY (IdCompra) REFERENCES Compras(IdCompra),
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+);
+
+-- Tabla: Clientes
+CREATE TABLE Clientes (
+    IdCliente INT PRIMARY KEY IDENTITY(1,1),
+    Nombre VARCHAR(100) NOT NULL,
+	Apellido VARCHAR(100) NOT NULL,
+	Dni VARCHAR(10) NOT NULL,
+    Telefono VARCHAR(20),
+    Email VARCHAR(100),
+    Direccion VARCHAR(150)
+);
+
+-- Tabla: Ventas
+CREATE TABLE Ventas (
+    IdVenta INT PRIMARY KEY IDENTITY(1,1),
+    Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+    IdCliente INT NOT NULL,
+    Total DECIMAL(18,2) NOT NULL,
+    FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente)
+);
+
+-- Tabla: VentaDetalle
+CREATE TABLE VentaDetalle (
+    IdVenta INT NOT NULL,
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnit DECIMAL(18,2) NOT NULL,
+    PRIMARY KEY (IdVenta, IdProducto),
+    FOREIGN KEY (IdVenta) REFERENCES Ventas(IdVenta),
+    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
+);
 
 USE Comercio_DB
 
@@ -60,57 +183,6 @@ INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, Porcen
 ('WHIRL-MICGRILL20L', 'Microondas Whirlpool Grill 20L', '700W + grill, 6 niveles de potencia, blanco', 95000, 30.00, 5, 2, 'https://whirlpoolarg.vtexassets.com/arquivos/ids/165738/frente_cerrado.jpg', 8, 1),
 ('SAMS-TV32T4300', 'Smart TV Samsung 32” T4300', 'HD, HDR, Tizen OS, HDMI/USB, Wi-Fi', 165000, 32.00, 6, 2, 'https://d2pr1pn9ywx3vo.cloudfront.net/spree/products/20500/large/sam32t4300_primera_con_logo.jpg', 1, 5);
 
-INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
-('Tech Global S.A.', '20-34218594-7', 'Av. Rivadavia 4530', '011-4555-1234', 'contacto@techglobal.com'),
-('ElectroHouse', '30-28574910-3', 'Ruta 8 Km 45', '02320-478911', 'ventas@electrohouse.com'),
-('Distribuidora Gama', '23-94837210-5', 'Calle Falsa 123', '0341-4234567', 'info@dgama.com'),
-('Nova Distribución', '27-10293847-2', 'San Martín 550', '011-4789-3344', 'contacto@nova.com.ar'),
-('Supreme Tech', '20-38475629-1', 'Av. Santa Fe 3456', '011-4000-9999', 'ventas@supremetech.com'),
-('Industrias Celta', '30-92837465-0', 'Roca 980', '0341-4567890', 'info@celta.com'),
-('Grupo Andes', '27-91837462-6', 'Av. Las Heras 3300', '011-4300-5678', 'ventas@grupoandes.com'),
-('MegaDigital', '20-93746183-3', 'Boulevard Oroño 147', '0341-4892371', 'info@megadigital.com'),
-('NorteSur S.A.', '30-11223344-9', 'Alberdi 2876', '011-4875-1233', 'contacto@nortesur.com'),
-('Litoral Distribuciones', '23-81937465-5', 'Av. Pellegrini 1010', '0341-4000123', 'ventas@litoral.com'),
-('ElectroDelta', '27-82736455-1', 'Córdoba 789', '0342-4761111', 'info@electrodelta.com'),
-('Tecno Mundo', '20-74829475-0', 'Ituzaingó 984', '011-47778987', 'ventas@tecnomundo.com'),
-('Distribuidora del Sur', '30-11198273-4', 'Av. Calchaquí 3001', '011-42001233', 'info@surdistribucion.com'),
-('FullTech', '27-39284756-9', 'Ruta 3 Km 60', '011-43009876', 'ventas@fulltech.com'),
-('Galaxy Proveedores', '23-84736291-2', 'Santa Fe 2340', '0341-4210987', 'galaxy@proveedores.com'),
-('Red Zona S.A.', '20-77788899-1', 'Av. Mitre 4450', '011-44004400', 'info@redzona.com'),
-('TecnoRed', '30-93847561-7', 'Cuyo 1234', '011-48947812', 'ventas@tecnored.com'),
-('ElectroMax', '27-82736519-2', 'Castelli 1500', '0341-4321987', 'ventas@emax.com'),
-('Digitronix', '23-29384756-8', 'San Juan 6700', '011-43009000', 'info@digitronix.com'),
-('Proveedores Argentinos', '20-99988877-0', 'Av. Corrientes 900', '011-47881234', 'contacto@pa.com.ar');
+*/
 
-
-INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
-('2024-12-07 11:33:28', 10, 438404.18),
-('2025-01-23 03:25:33', 7, 903514.71),
-('2024-11-09 07:16:24', 9, 1616769.95),
-('2024-08-07 14:34:41', 6, 1673307.59),
-('2024-08-14 02:03:01', 1, 1324949.16),
-('2024-09-15 17:45:45', 3, 1271732.65),
-('2024-10-17 18:00:44', 11, 244355.71),
-('2024-06-14 20:37:52', 13, 1022092.87),
-('2024-11-25 10:15:47', 12, 1433852.58),
-('2025-05-12 15:51:50', 20, 994707.84),
-('2024-12-14 04:43:24', 17, 1950941.98),
-('2024-07-01 02:41:36', 15, 1417598.52),
-('2024-07-19 06:55:14', 4, 1011162.43),
-('2024-06-30 21:11:48', 14, 1012055.47),
-('2024-09-18 12:22:34', 19, 621874.16),
-('2024-10-13 14:48:11', 2, 631556.25),
-('2025-01-09 23:18:39', 18, 1273981.03),
-('2024-08-21 00:02:17', 8, 522503.88),
-('2024-11-16 17:21:22', 5, 725237.27),
-('2024-10-04 22:38:36', 16, 1564219.34);
-
-
-INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-(1, 8, 8, 54769.73),
-(1, 20, 6, 16691.84),
-(2, 10, 7, 116063.26),
-(2, 3, 5, 112823.17),
-(2, 1, 9, 24012.86),
-(3, 20, 5, 276403.83),
-(3, 4, 8, 118275.66);
+select * from 

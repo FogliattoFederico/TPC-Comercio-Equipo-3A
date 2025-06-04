@@ -2,5 +2,5 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Pagina default</h1>
+    <img src="/Image/Logo3.png" alt="Logo" style="width:100%; align-content:center; text-align:center" > 
 </asp:Content>

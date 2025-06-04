@@ -72,7 +72,9 @@
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedor.aspx" />
     <Content Include="Clientes.aspx" />
+    <Content Include="Compras.aspx" />
     <Content Include="Css\normalize.css" />
+    <Content Include="Css\StyleCompras.css" />
     <Content Include="Css\StyleLogin.css" />
     <Content Include="DB\Comercio_DB.sql" />
     <Content Include="DB\Inserts.sql" />
@@ -84,6 +86,7 @@
     <Content Include="AltaProductos.aspx" />
     <Content Include="Proveedores.aspx" />
     <Content Include="Registro.aspx" />
+    <Content Include="Scripts\Funciones.js" />
     <Content Include="Vendedores.aspx" />
     <Content Include="Ventas.aspx" />
     <Content Include="Web.config" />
@@ -130,6 +133,13 @@
     </Compile>
     <Compile Include="Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras.aspx.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras.aspx.designer.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -225,7 +235,10 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Icon\" />
+    <Folder Include="Image\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
