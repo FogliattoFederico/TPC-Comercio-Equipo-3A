@@ -31,5 +31,10 @@ namespace WebForms
         {
             Response.Redirect("AltaProducto.aspx", false);
         }
+
+        protected void btnagregaroProducto_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

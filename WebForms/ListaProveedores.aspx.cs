@@ -24,5 +24,11 @@ namespace WebForms
         {
             Response.Redirect("AltaProveedor.aspx", false);
         }
+
+        protected void GVProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVProveedores.PageIndex = e.NewPageIndex;
+            GVProveedores.DataBind();
+        }
     }
 }

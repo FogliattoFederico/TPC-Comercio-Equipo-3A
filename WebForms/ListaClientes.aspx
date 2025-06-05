@@ -27,13 +27,11 @@
                     <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
                 </Columns>
-
-                <HeaderStyle CssClass="bg-primary text-white" />
+                <HeaderStyle CssClass="bg-primary text-white text-center" />
                 <AlternatingRowStyle CssClass="bg-light" />
                 <PagerStyle HorizontalAlign="Center" CssClass="pagination" />
-
             </asp:GridView>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <asp:Button Text="Agregar Cliente" runat="server" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary" />
+    <asp:Button Text="Agregar Cliente" runat="server" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary mt-3 px-4 py-2 rounded-pill fw-bold" />
 </asp:Content>

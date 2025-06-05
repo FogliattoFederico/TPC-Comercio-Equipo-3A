@@ -15,6 +15,15 @@ namespace WebForms
     {
 
         /// <summary>
+        /// Control btnagregaroProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnagregaroProducto;
+
+        /// <summary>
         /// Control GVProductos.
         /// </summary>
         /// <remarks>
@@ -22,14 +31,5 @@ namespace WebForms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GVProductos;
-
-        /// <summary>
-        /// Control btnAgregarProducto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarProducto;
     }
 }

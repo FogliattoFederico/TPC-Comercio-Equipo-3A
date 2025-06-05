@@ -86,7 +86,7 @@
     <Content Include="ListaProductos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="AltaProducto.aspx" />
-    <Content Include="Proveedores.aspx" />
+    <Content Include="ListaProveedores.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\Funciones.js" />
     <Content Include="Vendedores.aspx" />
@@ -186,12 +186,12 @@
       <DependentUpon>AltaProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proveedores.aspx.cs">
-      <DependentUpon>Proveedores.aspx</DependentUpon>
+    <Compile Include="ListaProveedores.aspx.cs">
+      <DependentUpon>ListaProveedores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Proveedores.aspx.designer.cs">
-      <DependentUpon>Proveedores.aspx</DependentUpon>
+    <Compile Include="ListaProveedores.aspx.designer.cs">
+      <DependentUpon>ListaProveedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
