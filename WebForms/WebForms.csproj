@@ -72,7 +72,7 @@
     <Content Include="AltaCatTipoMarca.aspx" />
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedor.aspx" />
-    <Content Include="Clientes.aspx" />
+    <Content Include="ListaClientes.aspx" />
     <Content Include="Compras.aspx" />
     <Content Include="Css\normalize.css" />
     <Content Include="Css\StyleCompras.css" />
@@ -135,12 +135,12 @@
     <Compile Include="AltaProveedor.aspx.designer.cs">
       <DependentUpon>AltaProveedor.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.aspx.cs">
-      <DependentUpon>Clientes.aspx</DependentUpon>
+    <Compile Include="ListaClientes.aspx.cs">
+      <DependentUpon>ListaClientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Clientes.aspx.designer.cs">
-      <DependentUpon>Clientes.aspx</DependentUpon>
+    <Compile Include="ListaClientes.aspx.designer.cs">
+      <DependentUpon>ListaClientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Compras.aspx.cs">
       <DependentUpon>Compras.aspx</DependentUpon>

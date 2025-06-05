@@ -7,45 +7,68 @@
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:Panel ID="pnlAltaCliente" runat="server" DefaultButton="btnAceptar">
-                <div style="max-width: 400px; margin: 60px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h2 style="text-align: center; margin-bottom: 20px;">Cliente</h2>
-                    <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblId" runat="server" Text="Id:"></asp:Label><br />
-                        <asp:TextBox ID="txtId" runat="server" CssClass="form-control" Width="100%" disabled="true" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblNombre" runat="server" Text="Nombre:"></asp:Label><br />
-                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblApellido" runat="server" Text="Apellido:"></asp:Label><br />
-                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblDni" runat="server" Text="DNI:"></asp:Label><br />
-                        <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblDireccion" runat="server" Text="Direccion:"></asp:Label><br />
-                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:"></asp:Label><br />
-                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label><br />
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div class="d-flex">
-                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click"
-                            CssClass="btn btn-primary flex-grow-1" />
-                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
-                            CssClass="btn btn-danger flex-grow-1 ms-2" OnClick="btnCancelar_Click" />
-                    </div>
-                </div>
-            </asp:Panel>
+    <div style="max-width: 500px; margin: 40px auto; padding: 40px; background: linear-gradient(145deg, #ffffff, #f5f7fa); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); font-family: 'Segoe UI', Arial, sans-serif;">
+        <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600; font-size: 28px;">Registro de Cliente</h2>
+        
+        <asp:Label ID="lblMensaje" runat="server" ForeColor="#e74c3c" style="display: block; margin-bottom: 20px; text-align: center;"></asp:Label>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <asp:Label ID="lblId" runat="server" Text="ID Cliente" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+                <asp:TextBox ID="txtId" runat="server" CssClass="form-control" Width="100%" disabled="true" 
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; color: #95a5a6;"/>
+            </div>
+            <div>
+                <asp:Label ID="lblDni" runat="server" Text="DNI" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+                <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" Width="100%" 
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <asp:Label ID="lblNombre" runat="server" Text="Nombre/Razón Social" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Width="100%" 
+                style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <asp:Label ID="lblApellido" runat="server" Text="CUIT" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+            <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" Width="100%" 
+                style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <asp:Label ID="lblDireccion" runat="server" Text="Dirección" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Width="100%" 
+                style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+            <div>
+                <asp:Label ID="lblTelefono" runat="server" Text="Teléfono" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Width="100%" 
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+            </div>
+            <div>
+                <asp:Label ID="lblEmail" runat="server" Text="Email" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Width="100%" 
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"/>
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <asp:Button ID="btnAceptar" runat="server" Text="Guardar Cliente" OnClick="btnAceptar_Click"
+                style="flex: 1; padding: 12px; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                onmouseover="this.style.background='linear-gradient(135deg, #2980b9, #3498db)'; this.style.transform='translateY(-1px)';"
+                onmouseout="this.style.background='linear-gradient(135deg, #3498db, #2980b9)'; this.style.transform='translateY(0)';"/>
+                
+            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click"
+                style="flex: 1; padding: 12px; background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                onmouseover="this.style.background='linear-gradient(135deg, #c0392b, #e74c3c)'; this.style.transform='translateY(-1px)';"
+                onmouseout="this.style.background='linear-gradient(135deg, #e74c3c, #c0392b)'; this.style.transform='translateY(0)';"/>
+        </div>
+    </div>
+</asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

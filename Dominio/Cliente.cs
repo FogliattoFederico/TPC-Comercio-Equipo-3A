@@ -8,12 +8,13 @@ namespace Dominio
 {
     public class Cliente
     {
-        public int IdCliente;
-        public string Nombre;
-        public string Apellido;
-        public string Dni;
-        public string Telefono;
-        public string Email;
-        public string Direccion;
+        public int IdCliente { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Dni { get; set; }
+        public string Telefono { get; set; }
+        public string Email { get; set; }
+        public string Direccion { get; set; }
+        
     }
 }

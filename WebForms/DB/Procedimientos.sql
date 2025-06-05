@@ -25,3 +25,11 @@ BEGIN
     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
 	ORDER BY C.Nombre ASC, P.Nombre ASC;
 END;
+
+go
+
+create procedure SP_ListarClientes
+as
+begin
+select IdCliente, Nombre, Apellido, Dni, Telefono, Email, Direccion from Clientes
+end
