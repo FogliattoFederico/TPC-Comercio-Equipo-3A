@@ -24,8 +24,8 @@
                     <asp:Image ID="imgProducto" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' CssClass="imagen-producto" />
                 </ItemTemplate>
             </asp:TemplateField>
-
-
         </Columns>
     </asp:GridView>
+    <asp:Button Text="Agregar Producto" runat="server" ID="btnAgregarProducto" OnClick="btnAgregarProducto_Click" CssClass="btn btn-primary" />
+
 </asp:Content>

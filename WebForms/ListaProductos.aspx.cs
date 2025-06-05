@@ -26,5 +26,10 @@ namespace WebForms
             GVProductos.DataBind();
 
         }
+
+        protected void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaProducto.aspx", false);
+        }
     }
 }

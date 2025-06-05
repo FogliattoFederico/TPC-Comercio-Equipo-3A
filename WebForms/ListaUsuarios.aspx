@@ -18,9 +18,7 @@
                     <%# Eval("Rol").ToString() == "1" ? "Administrador" : "Vendedor" %>
                 </ItemTemplate>
             </asp:TemplateField>
-
-
-
         </Columns>
     </asp:GridView>
+    <asp:Button Text="Agregar Usuario" runat="server" ID="btnAgregarUsuario" OnClick="btnAgregarUsuario_Click" CssClass="btn btn-primary" />
 </asp:Content>

@@ -19,5 +19,10 @@ namespace WebForms
             GVUsuarios.DataSource = lista;
             GVUsuarios.DataBind();
         }
+
+        protected void btnAgregarUsuario_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaUsuario.aspx", false);
+        }
     }
 }

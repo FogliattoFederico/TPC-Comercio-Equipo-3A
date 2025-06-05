@@ -9,18 +9,29 @@
         <ContentTemplate>
             <!--Aca van los clientes-->
             <asp:GridView ID="dgvClientes" runat="server" AutoGenerateColumns="False"
-                CssClass="table table-striped table-bordered table-hover text-center gridview">
-                <Columns>
-                
-                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                    <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-                    <asp:BoundField DataField="Dni" HeaderText="DNI" />
-                    <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
-                    <asp:BoundField DataField="Email" HeaderText="Email" />
-                    <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+                CssClass="table table-striped table-bordered table-hover text-center gridview"
+                HeaderStyle-CssClass="thead-dark"
+                RowStyle-CssClass="align-middle"
+                EmptyDataText="No se encontraron clientes"
+                AllowPaging="True" PageSize="10"
+                PagerStyle-CssClass="pagination"
+                PagerSettings-Mode="NumericFirstLast"
+                GridLines="None"
+                CellPadding="4">
 
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="15%" />
+                    <asp:BoundField DataField="Apellido" HeaderText="Apellido" ItemStyle-Width="15%" />
+                    <asp:BoundField DataField="Dni" HeaderText="DNI" ItemStyle-Width="12%" />
+                    <asp:BoundField DataField="Telefono" HeaderText="Teléfono" ItemStyle-Width="12%" />
+                    <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
+                    <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
                 </Columns>
-                
+
+                <HeaderStyle CssClass="bg-primary text-white" />
+                <AlternatingRowStyle CssClass="bg-light" />
+                <PagerStyle HorizontalAlign="Center" CssClass="pagination" />
+
             </asp:GridView>
         </ContentTemplate>
     </asp:UpdatePanel>
