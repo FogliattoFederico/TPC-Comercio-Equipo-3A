@@ -90,6 +90,7 @@ CREATE TABLE Compras (
     IdCompra INT PRIMARY KEY IDENTITY(1,1),
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
     IdProveedor INT NOT NULL,
+    IdUsuario INT NOT NULL,
     Total DECIMAL(18,2) NOT NULL,
     FOREIGN KEY (IdProveedor) REFERENCES Proveedores(IdProveedor)
 );

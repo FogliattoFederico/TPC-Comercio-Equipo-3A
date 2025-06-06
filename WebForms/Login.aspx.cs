@@ -74,6 +74,7 @@ namespace WebForms
             catch (Exception ex)
             {
                 Response.Redirect("Default.aspx", false);
+                throw ex;
             }
         }
 

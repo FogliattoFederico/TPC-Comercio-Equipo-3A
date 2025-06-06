@@ -11,25 +11,25 @@ namespace WebForms
 {
 
 
-    public partial class Ventas1
+    public partial class CompraDetalles
     {
 
         /// <summary>
-        /// Control GVVentas.
+        /// Control GVCompraDetalle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVVentas;
+        protected global::System.Web.UI.WebControls.GridView GVCompraDetalle;
 
         /// <summary>
-        /// Control btnAgregarVenta.
+        /// Control btnVolver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarVenta;
+        protected global::System.Web.UI.WebControls.Button btnVolver;
     }
 }

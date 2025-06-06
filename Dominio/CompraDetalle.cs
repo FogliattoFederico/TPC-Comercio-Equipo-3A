@@ -9,13 +9,9 @@ namespace Dominio
     public class CompraDetalle
     {
         public int IdCompraDetalle { get; set; }
+        public int IdCompra { get; set; }
         public Producto Producto { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
-
-        //public int IdCompraDetalle;
-        //public Producto Producto;
-        //public int Cantidad;
-        //public decimal PrecioUnitario;
     }
 }

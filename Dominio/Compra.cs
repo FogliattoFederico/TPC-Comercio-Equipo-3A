@@ -11,7 +11,9 @@ namespace Dominio
         public int IdCompra { get; set; }
         public DateTime Fecha { get; set; }
         public Proveedor Proveedor { get; set; }
+        public Usuario Usuario { get; set; }
         public List<CompraDetalle> Detalles { get; set; }
-        
+        public decimal Total { get; set; }
+
     }
 }

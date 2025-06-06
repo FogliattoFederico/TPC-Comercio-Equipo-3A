@@ -13,8 +13,8 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ComprasNegocio negocio = new ComprasNegocio();
-            List<Proveedor> lista = negocio.ListarProveedores();
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            List<Proveedor> lista = negocio.Listar();
 
             ProductoNegocio negocioProd = new ProductoNegocio();
             List<Producto> listaProd = negocioProd.ListarConSp();

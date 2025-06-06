@@ -89,10 +89,10 @@ INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
 ('Proveedores Argentinos', '20-99988877-0', 'Av. Corrientes 900', '011-47881234', 'contacto@pa.com.ar');
 
 GO
-INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
-('2024-08-14 02:03:01', 1, 1326000.00),
-('2024-10-13 14:48:11', 2, 2245000.00),
-('2024-09-15 17:45:45', 3, 4153000.00);
+INSERT INTO Compras (Fecha, IdProveedor, IdUsuario, Total) VALUES
+('2024-08-14 02:03:01', 1, 1, 1326000.00),
+('2024-10-13 14:48:11', 2, 1, 2245000.00),
+('2024-09-15 17:45:45', 3, 1, 4153000.00);
 --('2024-12-07 11:33:28', 10, 438404.18),
 --('2025-01-23 03:25:33', 7, 903514.71),
 --('2024-11-09 07:16:24', 9, 1616769.95),
@@ -113,7 +113,6 @@ INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
 
 GO
 INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-<<<<<<< Updated upstream
 (1, 8, 8, 42000.00),
 (1, 20, 6, 165000.00),
 (2, 10, 7, 82000.00),
@@ -121,6 +120,27 @@ INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
 (2, 1, 9, 95000.00),
 (3, 20, 5, 165000.00),
 (3, 4, 8, 185000.00);
+--(4, 1, 5, 95000.00),  -- Microondas ME731K
+--(4, 2, 3, 215000.00), -- Lavarropas WLF800
+--(5, 3, 2, 275000.00), -- PlayStation 5 Standard
+--(5, 4, 4, 185000.00), -- Redmi Note 12
+--(6, 5, 1, 350000.00), -- Laptop 15-dw3000la
+--(6, 6, 2, 385000.00), -- Smart TV 55UQ7500
+--(7, 7, 6, 42000.00),  -- Parlante Bluetooth BT100
+--(7, 8, 3, 680000.00), -- ROG Ally Z1 Extreme
+--(8, 9, 5, 82000.00),  -- Microondas MS2042D
+--(8, 10, 2, 115000.00), -- Tablet Galaxy Tab A9 64GB
+--(9, 11, 4, 75000.00),  -- Monitor HP M24f
+--(9, 12, 1, 345000.00), -- Aire Acondicionado LG Inverter 3000W
+--(10, 13, 3, 35000.00),  -- Plancha a vapor Philips 4200
+--(10, 14, 2, 52000.00),  -- Auriculares Bluetooth Sony WH-CH520
+--(11, 15, 7, 285000.00), -- Smartphone Xiaomi 11T 256GB
+--(11, 16, 4, 89000.00),  -- Tablet Lenovo Tab M10 HD 64GB
+--(12, 17, 5, 140000.00), -- Monitor ASUS TUF 27" 165Hz
+--(12, 18, 2, 95000.00),  -- Microondas Whirlpool Grill 20L
+--(13, 19, 6, 165000.00), -- Smart TV Samsung 32” T4300
+--(13, 20, 1, 215000.00), -- Lavarropas WLF800
+--(14, 1, 3, 95000.00);   -- Microondas ME731K
 
 GO
 INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion) VALUES
@@ -146,35 +166,5 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit) VALUES
 -- Venta 3: Carlos compró 1 ROG Ally y 2 celulares Redmi Note 12
 (3, 9, 1, 816000.00), -- ROG Ally Z1 Extreme (680000 + 20%)
 (3, 4, 2, 240500.00); -- Redmi Note 12 (185000 + 30%)
-=======
-(1, 8, 8, 54769.73),
-(1, 20, 6, 16691.84),
-(2, 10, 7, 116063.26),
-(2, 3, 5, 112823.17),
-(2, 1, 9, 24012.86),
-(3, 20, 5, 276403.83),
-(3, 4, 8, 118275.66);
 
-INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-(4, 1, 5, 95000.00),  -- Microondas ME731K
-(4, 2, 3, 215000.00), -- Lavarropas WLF800
-(5, 3, 2, 275000.00), -- PlayStation 5 Standard
-(5, 4, 4, 185000.00), -- Redmi Note 12
-(6, 5, 1, 350000.00), -- Laptop 15-dw3000la
-(6, 6, 2, 385000.00), -- Smart TV 55UQ7500
-(7, 7, 6, 42000.00),  -- Parlante Bluetooth BT100
-(7, 8, 3, 680000.00), -- ROG Ally Z1 Extreme
-(8, 9, 5, 82000.00),  -- Microondas MS2042D
-(8, 10, 2, 115000.00), -- Tablet Galaxy Tab A9 64GB
-(9, 11, 4, 75000.00),  -- Monitor HP M24f
-(9, 12, 1, 345000.00), -- Aire Acondicionado LG Inverter 3000W
-(10, 13, 3, 35000.00),  -- Plancha a vapor Philips 4200
-(10, 14, 2, 52000.00),  -- Auriculares Bluetooth Sony WH-CH520
-(11, 15, 7, 285000.00), -- Smartphone Xiaomi 11T 256GB
-(11, 16, 4, 89000.00),  -- Tablet Lenovo Tab M10 HD 64GB
-(12, 17, 5, 140000.00), -- Monitor ASUS TUF 27" 165Hz
-(12, 18, 2, 95000.00),  -- Microondas Whirlpool Grill 20L
-(13, 19, 6, 165000.00), -- Smart TV Samsung 32” T4300
-(13, 20, 1, 215000.00), -- Lavarropas WLF800
-(14, 1, 3, 95000.00);   -- Microondas ME731K
->>>>>>> Stashed changes
+
