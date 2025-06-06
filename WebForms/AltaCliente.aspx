@@ -27,13 +27,13 @@
 
                     <div style="margin-bottom: 20px;">
                         <asp:Label ID="lblNombre" runat="server" Text="Nombre/Razón Social" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
-                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Width="100%"
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Width="100%"
                             Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <asp:Label ID="lblApellido" runat="server" Text="CUIT" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
-                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" Width="100%"
+                        <asp:Label ID="lblApellido" runat="server" Text="Apellido" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
+                        <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Width="100%"
                             Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
                     </div>
 

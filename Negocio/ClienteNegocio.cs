@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,5 +41,36 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void AgregarCliente(Cliente nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+          
+            try
+            {
+                datos.setearProcedimiento("SP_AgregarCliente");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Apellido", nuevo.Apellido);
+                datos.setearParametro("@Dni", nuevo.Dni);
+                datos.setearParametro("@Telefono", nuevo.Telefono);
+                datos.setearParametro("@Email", nuevo.Email);
+                datos.setearParametro("@Direccion", nuevo.Direccion);
+               
+                datos.setearParametro("@Activo", 1);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
+
+    
+
 }
