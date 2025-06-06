@@ -31,6 +31,8 @@ namespace WebForms
                 cliente.Telefono = txtTelefono.Text;
 
                 negocio.AgregarCliente(cliente);
+
+                Response.Redirect("ListaCLientes.aspx", false);
             }
             catch (Exception ex)
             {
