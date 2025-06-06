@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="VentaDetalles.aspx.cs" Inherits="WebForms.VentaDetalles" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Vendedores.Master" AutoEventWireup="true" CodeBehind="VentaDetalles.aspx.cs" Inherits="WebForms.VentaDetalles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -15,5 +15,6 @@
             <asp:BoundField DataField="PrecioVenta" HeaderText="Precio Venta Unit." DataFormatString="{0:C}" HtmlEncode="false" />
         </Columns>
     </asp:GridView>
-    <asp:Button runat="server" Text="Volver a Lista de Compras" ID="btnVolver" OnClick="btnAgregar_Click" CssClass="btn btn-primary" />
+  <asp:Button runat="server" Text="Volver" ID="btnVolver" OnClick="btnVolver_Click"
+    CssClass="btn btn-primary btn-lg shadow-sm" />
 </asp:Content>

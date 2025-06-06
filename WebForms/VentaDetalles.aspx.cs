@@ -33,9 +33,11 @@ namespace WebForms
             GVVentaDetalle.DataBind();
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        protected void btnVolver_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ListaVentas.aspx", false);
         }
+
+       
     }
 }

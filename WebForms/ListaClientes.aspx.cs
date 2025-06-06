@@ -32,5 +32,10 @@ namespace WebForms
             /*Logica para redirigir al panel que corresponda egun su perfil*/
             Response.Redirect("Default.aspx", false);
         }
+
+        protected void btnVolver_Click1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

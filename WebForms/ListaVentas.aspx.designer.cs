@@ -15,13 +15,13 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control GVVentas.
+        /// Control btnVolver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVVentas;
+        protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
         /// Control btnAgregarVenta.
@@ -31,5 +31,14 @@ namespace WebForms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAgregarVenta;
+
+        /// <summary>
+        /// Control GVVentas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVVentas;
     }
 }
