@@ -36,6 +36,7 @@ li a:hover {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-align:center;
 }
 
 .footer_integrantes {
@@ -66,6 +67,7 @@ li a:hover {
     font-size: 0.8rem;
     color: #adb5bd;
     margin-top: 1rem;
+    text-align:center;
 }
 
 /* Responsive */
