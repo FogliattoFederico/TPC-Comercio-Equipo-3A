@@ -1,16 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="ListaUsuarios.aspx.cs" Inherits="WebForms.ListaUsuarios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administradores.Master" AutoEventWireup="true" CodeBehind="ListaUsuarios.aspx.cs" Inherits="WebForms.ListaUsuarios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid mt-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h1 class="display-4 text-center mb-4">Listado de Usuarios</h1>
-                <div class="d-flex justify-content-end ">
-                    <asp:Button runat="server" Text="Agregar Usuario" ID="btnAgregarUsuario" OnClick="btnAgregarUsuario_Click"
-                        CssClass="btn btn-primary btn-lg shadow-sm" />
-                </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 text-center mb-4">Listado de Productos</h1>
+            <div class="d-flex justify-content-between mb-3">
+                <asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
+                    CssClass="btn btn-outline-secondary btn-lg shadow-sm" />
+                <asp:Button runat="server" Text="Agregar Usuario" ID="btnAgregarUsuario" OnClick="btnAgregarUsuario_Click"
+                    CssClass="btn btn-primary btn-lg shadow-sm" />
             </div>
         </div>
     </div>

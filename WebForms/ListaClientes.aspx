@@ -3,17 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid mt-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h1 class="display-4 text-center mb-4">Listado de Clientes</h1>
-                <div class="d-flex justify-content-end mb-3">
-                    <asp:Button runat="server" Text="Agregar Cliente" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click1"
-                        CssClass="btn btn-primary btn-lg shadow-sm" />
-                </div>
-            </div>
-        </div>
-    </div>
+     <div class="row mb-4">
+     <div class="col-12">
+         <h1 class="display-4 text-center mb-4">Listado de Productos</h1>
+         <div class="d-flex justify-content-between mb-3">
+             <asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
+                 CssClass="btn btn-outline-secondary btn-lg shadow-sm" />
+             <asp:Button runat="server" Text="Agregar Cliente" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click"
+                 CssClass="btn btn-primary btn-lg shadow-sm" />
+         </div>
+     </div>
+ </div>
 
     <div class="row">
         <div class="col-12">

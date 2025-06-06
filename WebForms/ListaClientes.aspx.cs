@@ -22,9 +22,15 @@ namespace WebForms
 
         
 
-        protected void btnAgregarCliente_Click1(object sender, EventArgs e)
+        protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaCliente.aspx", false);
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            /*Logica para redirigir al panel que corresponda egun su perfil*/
+            Response.Redirect("Default.aspx", false);
         }
     }
 }

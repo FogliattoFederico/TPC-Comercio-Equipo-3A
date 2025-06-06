@@ -30,5 +30,15 @@ namespace WebForms
             GVProveedores.PageIndex = e.NewPageIndex;
             GVProveedores.DataBind();
         }
+
+        protected void btnAgregarProveedor_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaProveedor.aspx", false);
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdmin.aspx", false);
+        }
     }
 }

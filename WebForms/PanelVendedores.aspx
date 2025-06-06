@@ -9,7 +9,7 @@
 
             <div class="container mt-5">
                 <div class="row row-cols-1 row-cols-md-3 g-4  justify-content-center">
-                    <div class="col text-center ">
+                    <div class="col text-center" style="width:200px">
                         <asp:Button ID="btnProductos" runat="server" Text="📦 Productos" CssClass="btn btn-primary btn-lg w-100 px-1" PostBackUrl="~/ListaProductos.aspx" />
                     </div>
 

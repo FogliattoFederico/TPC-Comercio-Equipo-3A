@@ -24,5 +24,12 @@ namespace WebForms
         {
             Response.Redirect("AltaUsuario.aspx", false);
         }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdmin.aspx", false);
+        }
+
+        
     }
 }

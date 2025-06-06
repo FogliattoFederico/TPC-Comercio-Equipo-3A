@@ -33,5 +33,11 @@ namespace WebForms
         {
             Response.Redirect("AltaProducto.aspx", false);
         }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            /*Logica para redirigir al panel que corresponda egun su perfil*/
+            Response.Redirect("Default.aspx", false);
+        }
     }
 }
