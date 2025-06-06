@@ -21,7 +21,7 @@
                 </a>
             </div>
             <!--Aca hay que codificar que muestre boton de cerrar sesion y foto-->
-            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesion" CssClass="btn btn-warning me-2 p-2 fs-5" />
+            <asp:Button ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion" CssClass="btn btn-warning me-2 p-2 fs-5" />
         </nav>
         <div class="container">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
