@@ -91,6 +91,8 @@
     <Content Include="Scripts\Funciones.js" />
     <Content Include="Vendedores.aspx" />
     <Content Include="ListaVentas.aspx" />
+    <Content Include="VentaDetalles.aspx" />
+    <Content Include="Ventas.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +229,20 @@
     </Compile>
     <Compile Include="ListaVentas.aspx.designer.cs">
       <DependentUpon>ListaVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VentaDetalles.aspx.cs">
+      <DependentUpon>VentaDetalles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VentaDetalles.aspx.designer.cs">
+      <DependentUpon>VentaDetalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas.aspx.cs">
+      <DependentUpon>Ventas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas.aspx.designer.cs">
+      <DependentUpon>Ventas.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

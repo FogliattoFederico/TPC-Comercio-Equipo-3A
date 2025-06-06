@@ -4,6 +4,7 @@
 
 USE Comercio_DB
 
+GO
 INSERT INTO Categorias (Nombre) VALUES
 ('Electrodomésticos'),
 ('Audio'),
@@ -12,6 +13,7 @@ INSERT INTO Categorias (Nombre) VALUES
 ('Cocina'),
 ('Telefonia');
 
+GO
 INSERT INTO TiposProducto (Nombre, IdCategoria) VALUES
 ('Microondas', 1),
 ('Consolas', 4),
@@ -19,7 +21,7 @@ INSERT INTO TiposProducto (Nombre, IdCategoria) VALUES
 ('Notebooks', 3),
 ('Parlantes', 2);
 
-
+GO
 INSERT INTO Marcas (Nombre) VALUES
 ('Samsung'),
 ('LG'),
@@ -32,10 +34,12 @@ INSERT INTO Marcas (Nombre) VALUES
 ('Electrolux'),
 ('Asus');
 
+GO
 INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAlta, Rol) VALUES
 ('Ale', 'Alejandro', 'Olguera', 'ale@gmail.com', 'admin', '2025-05-30', 1),
-('Fede', 'Federico', 'Fogliatto', 'fede@gmail.com', 'Vendedor', '2025-05-29', 0);
+('Fede', 'Federico', 'Fogliatto', 'fede@gmail.com', 'vendedor', '2025-05-29', 0);
 
+GO
 INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, PorcentajeGanancia, StockActual, StockMinimo, ImagenUrl, IdMarca, IdTipoProducto) VALUES
 ('SAMS-MWO23L', 'Microondas ME731K', 'Capacidad 23L, 800W, 6 niveles de potencia', 95000.00, 35.00, 10, 3, 'https://http2.mlstatic.com/D_NQ_NP_832347-MLA84549796072_052025-O.webp', 1, 1),
 ('WHIRL-LAV8K', 'Lavarropas WLF800', 'Automático, 8kg, carga frontal, 1200 rpm', 215000.00, 40.00, 7, 2, 'https://http2.mlstatic.com/D_NQ_NP_779808-MLU79129490555_092024-O.webp', 8, 1),
@@ -48,6 +52,7 @@ INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, Porcen
 ('ASUS-ROGALLY', 'ROG Ally Z1 Extreme', 'Consola portátil, Ryzen Z1, 512GB SSD', 680000.00, 20.00, 3, 1, 'https://celularesindustriales.com.ar/wp-content/uploads/ally_ryzen_z101_l.jpg', 10, 2),
 ('LG-MIC20L', 'Microondas MS2042D', 'Capacidad 20L, 700W, manual', 82000.00, 35.00, 9, 2, 'https://www.lg.com/content/dam/channel/wcms/cl/images/microondas/ms2042d/gallery/MS2042DS%20door%20open.jpg', 2, 1);
 
+GO
 INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, PorcentajeGanancia, StockActual, StockMinimo, ImagenUrl, IdMarca, IdTipoProducto) VALUES
 ('SAMS-GALTAB-A9', 'Tablet Galaxy Tab A9 64GB', 'Pantalla 8.7", Octa-Core, RAM 4GB, Android 13', 115000, 30.00, 8, 3, 'https://http2.mlstatic.com/D_NQ_NP_892038-MLU74328290469_012024-O.webp', 1, 3),
 ('HP-M24FHD', 'Monitor HP M24f', '23.8", FHD, IPS, HDMI/VGA, sin bordes', 75000, 35.00, 6, 2, 'https://www.hp.com/fr-fr/shop/Html/Merch/Images/c07056663_1750x1285.jpg', 6, 5),
@@ -60,6 +65,7 @@ INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, Porcen
 ('WHIRL-MICGRILL20L', 'Microondas Whirlpool Grill 20L', '700W + grill, 6 niveles de potencia, blanco', 95000, 30.00, 5, 2, 'https://whirlpoolarg.vtexassets.com/arquivos/ids/165738/frente_cerrado.jpg', 8, 1),
 ('SAMS-TV32T4300', 'Smart TV Samsung 32” T4300', 'HD, HDR, Tizen OS, HDMI/USB, Wi-Fi', 165000, 32.00, 6, 2, 'https://d2pr1pn9ywx3vo.cloudfront.net/spree/products/20500/large/sam32t4300_primera_con_logo.jpg', 1, 5);
 
+GO
 INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
 ('Tech Global S.A.', '20-34218594-7', 'Av. Rivadavia 4530', '011-4555-1234', 'contacto@techglobal.com'),
 ('ElectroHouse', '30-28574910-3', 'Ruta 8 Km 45', '02320-478911', 'ventas@electrohouse.com'),
@@ -82,35 +88,60 @@ INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
 ('Digitronix', '23-29384756-8', 'San Juan 6700', '011-43009000', 'info@digitronix.com'),
 ('Proveedores Argentinos', '20-99988877-0', 'Av. Corrientes 900', '011-47881234', 'contacto@pa.com.ar');
 
-
+GO
 INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
-('2024-12-07 11:33:28', 10, 438404.18),
-('2025-01-23 03:25:33', 7, 903514.71),
-('2024-11-09 07:16:24', 9, 1616769.95),
-('2024-08-07 14:34:41', 6, 1673307.59),
-('2024-08-14 02:03:01', 1, 1324949.16),
-('2024-09-15 17:45:45', 3, 1271732.65),
-('2024-10-17 18:00:44', 11, 244355.71),
-('2024-06-14 20:37:52', 13, 1022092.87),
-('2024-11-25 10:15:47', 12, 1433852.58),
-('2025-05-12 15:51:50', 20, 994707.84),
-('2024-12-14 04:43:24', 17, 1950941.98),
-('2024-07-01 02:41:36', 15, 1417598.52),
-('2024-07-19 06:55:14', 4, 1011162.43),
-('2024-06-30 21:11:48', 14, 1012055.47),
-('2024-09-18 12:22:34', 19, 621874.16),
-('2024-10-13 14:48:11', 2, 631556.25),
-('2025-01-09 23:18:39', 18, 1273981.03),
-('2024-08-21 00:02:17', 8, 522503.88),
-('2024-11-16 17:21:22', 5, 725237.27),
-('2024-10-04 22:38:36', 16, 1564219.34);
+('2024-08-14 02:03:01', 1, 1326000.00),
+('2024-10-13 14:48:11', 2, 2245000.00),
+('2024-09-15 17:45:45', 3, 4153000.00);
+--('2024-12-07 11:33:28', 10, 438404.18),
+--('2025-01-23 03:25:33', 7, 903514.71),
+--('2024-11-09 07:16:24', 9, 1616769.95),
+--('2024-08-07 14:34:41', 6, 1673307.59),
+--('2024-10-17 18:00:44', 11, 244355.71),
+--('2024-06-14 20:37:52', 13, 1022092.87),
+--('2024-11-25 10:15:47', 12, 1433852.58),
+--('2025-05-12 15:51:50', 20, 994707.84),
+--('2024-12-14 04:43:24', 17, 1950941.98),
+--('2024-07-01 02:41:36', 15, 1417598.52),
+--('2024-07-19 06:55:14', 4, 1011162.43),
+--('2024-06-30 21:11:48', 14, 1012055.47),
+--('2024-09-18 12:22:34', 19, 621874.16),
+--('2025-01-09 23:18:39', 18, 1273981.03),
+--('2024-08-21 00:02:17', 8, 522503.88),
+--('2024-11-16 17:21:22', 5, 725237.27),
+--('2024-10-04 22:38:36', 16, 1564219.34);
 
-
+GO
 INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-(1, 8, 8, 54769.73),
-(1, 20, 6, 16691.84),
-(2, 10, 7, 116063.26),
-(2, 3, 5, 112823.17),
-(2, 1, 9, 24012.86),
-(3, 20, 5, 276403.83),
-(3, 4, 8, 118275.66);
+(1, 8, 8, 42000.00),
+(1, 20, 6, 165000.00),
+(2, 10, 7, 82000.00),
+(2, 3, 5, 550000.00),
+(2, 1, 9, 95000.00),
+(3, 20, 5, 165000.00),
+(3, 4, 8, 185000.00);
+
+GO
+INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion) VALUES
+('Juan', 'Pérez', '30111222', '1122334455', 'juan.perez@mail.com', 'Av. Siempre Viva 123'),
+('María', 'Gómez', '29333444', '1133445566', 'maria.gomez@mail.com', 'Calle Falsa 456'),
+('Carlos', 'Lopez', '28444555', '1144556677', 'carlos.lopez@mail.com', 'Ruta 9 Km 23');
+
+GO
+INSERT INTO Ventas (Fecha, IdCliente, IdUsuario, Total) VALUES
+(GETDATE(), 1, 1, 268650.00),  -- Juan
+(GETDATE(), 2, 1, 1006550.00),  -- María
+(GETDATE(), 3, 2, 1297000.00);  -- Carlos
+
+GO
+-- Venta 1: Juan compró 1 microondas y 2 auriculares
+INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit) VALUES
+(1, 1, 1, 128250.00),  -- Microondas ME731K (95000 + 35%)
+(1, 15, 2, 70200.00),  -- Auriculares WH-CH520 (52000 + 35%)
+-- Venta 2: María compró 1 PS5, 1 TV Samsung 32” y 1 monitor HP
+(2, 3, 1, 687500.00), -- PS5 Standard (550000 + 25%)
+(2, 20, 1, 217800.00), -- Samsung TV 32” (165000 + 32%)
+(2, 13, 1, 101250.00), -- Monitor HP M24f (75000 + 35%)
+-- Venta 3: Carlos compró 1 ROG Ally y 2 celulares Redmi Note 12
+(3, 9, 1, 816000.00), -- ROG Ally Z1 Extreme (680000 + 20%)
+(3, 4, 2, 240500.00); -- Redmi Note 12 (185000 + 30%)

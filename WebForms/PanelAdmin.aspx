@@ -18,7 +18,7 @@
             </div>
 
             <div class="col text-center">
-                <asp:Button ID="btnVentas" runat="server" Text="🧾 Ventas" CssClass="btn btn-primary btn-lg w-100" PostBackUrl="~/ListaVentas.aspx" />
+                <asp:Button ID="btnVentas" runat="server" Text="🧾 Ventas" CssClass="btn btn-primary btn-lg w-100" PostBackUrl="~/Ventas.aspx" />
             </div>
 
             <div class="col text-center">

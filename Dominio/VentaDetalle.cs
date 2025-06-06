@@ -8,9 +8,11 @@ namespace Dominio
 {
     public class VentaDetalle
     {
-        public int IdVentaDetalle;
-        public Producto Producto;
-        public int Cantidad;
-        public decimal PrecioUnitario;
+        public int IdVentaDetalle { get; set; }
+        public int IdVenta { get; set; }
+        public Producto Producto { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PrecioCompra { get; set; }
+        public decimal PrecioVenta { get; set; }
     }
 }

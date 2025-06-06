@@ -1,3 +1,9 @@
+-- Eliminar base de datos (Descomentar las siguientes 3 lineas, seleccionarlas y ejecutar. Luego comentarlas y ejecutar el resto)
+--USE master
+--ALTER DATABASE Comercio_DB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+--DROP DATABASE Comercio_DB;
+
+
 -- Crear base de datos
 CREATE DATABASE Comercio_DB;
 GO
@@ -12,18 +18,21 @@ CREATE TABLE Usuario (
     Email VARCHAR(150) NOT NULL UNIQUE,
     Contrasena VARCHAR(200) NOT NULL, -- Guardar encriptada
     FechaAlta DATE NOT NULL DEFAULT GETDATE(),
-    Rol VARCHAR(50) NOT NULL -- Ej: 'Vendedor', 'Admin'
+    Rol VARCHAR(50) NOT NULL, -- Ej: 'Vendedor', 'Admin'
+	Activo BIT NOT NULL DEFAULT 1 -- Empleado inactivo por cambio de Sector/Planta, despido, etc
 );
 -- Tabla: Categorias (ELECTRODOMESTICOS-AUDIO-INFORMATICA-GAMING-TELEFONIA)
 CREATE TABLE Categorias (
     IdCategoria INT PRIMARY KEY IDENTITY(1,1),
-    Nombre VARCHAR(100) NOT NULL
+    Nombre VARCHAR(100) NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1 -- Categoria inactiva por no contar con productos en esa categoria
 );
 
 -- Tabla: Marcas
 CREATE TABLE Marcas (
     IdMarca INT PRIMARY KEY IDENTITY(1,1),
-    Nombre VARCHAR(100) NOT NULL
+    Nombre VARCHAR(100) NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1 -- Marca inactiva por no contar con productos de la marca
 );
 
 -- Tabla: TiposProducto (MICROONDAS, LAVARROPAS, CONSOLAS, CELULARES, NOTEBOOKS, AURICULARES, TV, PARLANTES)
@@ -31,6 +40,7 @@ CREATE TABLE TiposProducto (
     IdTipoProducto INT PRIMARY KEY IDENTITY(1,1),
     Nombre VARCHAR(100) NOT NULL,
     IdCategoria INT NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1, -- TipoProducto inactivo por no contar con productos de ese tipo
     FOREIGN KEY (IdCategoria) REFERENCES Categorias(IdCategoria)
 );
 
@@ -48,6 +58,7 @@ CREATE TABLE Productos (
     ImagenUrl VARCHAR(500),
     IdMarca INT NOT NULL,
     IdTipoProducto INT NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1, -- Producto inactivo por falta de stock o estar discontinuado
     FOREIGN KEY (IdMarca) REFERENCES Marcas(IdMarca),
     FOREIGN KEY (IdTipoProducto) REFERENCES TiposProducto(IdTipoProducto)
 );
@@ -61,7 +72,8 @@ CREATE TABLE Proveedores (
 	CUIT VARCHAR(20) NOT NULL,
 	Direccion VARCHAR(50),
     Telefono VARCHAR(20),
-    Email VARCHAR(100)
+    Email VARCHAR(100),
+	Activo BIT NOT NULL DEFAULT 1 -- Proveedor inactivo que por X motivo se corta la relacion comercial
 );
 
 -- Tabla: ProductoProveedor (relación N a N)
@@ -84,11 +96,11 @@ CREATE TABLE Compras (
 
 -- Tabla: CompraDetalle
 CREATE TABLE CompraDetalle (
+    IdCompraDetalle INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     IdCompra INT NOT NULL,
     IdProducto INT NOT NULL,
     Cantidad INT NOT NULL,
     PrecioUnit DECIMAL(18,2) NOT NULL,
-    PRIMARY KEY (IdCompra, IdProducto),
     FOREIGN KEY (IdCompra) REFERENCES Compras(IdCompra),
     FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
@@ -101,7 +113,8 @@ CREATE TABLE Clientes (
 	Dni VARCHAR(10) NOT NULL,
     Telefono VARCHAR(20),
     Email VARCHAR(100),
-    Direccion VARCHAR(150)
+    Direccion VARCHAR(150),
+	Activo BIT NOT NULL DEFAULT 1 -- Cliente inactivo por X motivo ya no se le vende.
 );
 
 -- Tabla: Ventas
@@ -109,17 +122,19 @@ CREATE TABLE Ventas (
     IdVenta INT PRIMARY KEY IDENTITY(1,1),
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
     IdCliente INT NOT NULL,
+	IdUsuario INT NOT NULL,
     Total DECIMAL(18,2) NOT NULL,
-    FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente)
+    FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
+	FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 );
 
 -- Tabla: VentaDetalle
 CREATE TABLE VentaDetalle (
+    IdVentaDetalle INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     IdVenta INT NOT NULL,
     IdProducto INT NOT NULL,
     Cantidad INT NOT NULL,
     PrecioUnit DECIMAL(18,2) NOT NULL,
-    PRIMARY KEY (IdVenta, IdProducto),
     FOREIGN KEY (IdVenta) REFERENCES Ventas(IdVenta),
     FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
