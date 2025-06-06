@@ -29,7 +29,7 @@
                             <a class="nav-link fs-4 " aria-current="page" href="PanelAdmin.aspx">Administradores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-4" href="Vendedores.aspx">Vendedores</a>
+                            <a class="nav-link fs-4" href="PanelVendedores.aspx">Vendedores</a>
                         </li>
                     </ul>
                 </div>

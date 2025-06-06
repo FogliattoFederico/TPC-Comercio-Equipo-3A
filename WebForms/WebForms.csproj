@@ -89,7 +89,7 @@
     <Content Include="ListaProveedores.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\Funciones.js" />
-    <Content Include="Vendedores.aspx" />
+    <Content Include="PanelVendedores.aspx" />
     <Content Include="ListaVentas.aspx" />
     <Content Include="VentaDetalles.aspx" />
     <Content Include="Ventas.aspx" />
@@ -209,12 +209,12 @@
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
-    <Compile Include="Vendedores.aspx.cs">
-      <DependentUpon>Vendedores.aspx</DependentUpon>
+    <Compile Include="PanelVendedores.aspx.cs">
+      <DependentUpon>PanelVendedores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vendedores.aspx.designer.cs">
-      <DependentUpon>Vendedores.aspx</DependentUpon>
+    <Compile Include="PanelVendedores.aspx.designer.cs">
+      <DependentUpon>PanelVendedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vendedores.Master.cs">
       <DependentUpon>Vendedores.Master</DependentUpon>
