@@ -16,14 +16,26 @@ namespace WebForms
             ComprasNegocio negocio = new ComprasNegocio();
             List<Proveedor> lista = negocio.ListarProveedores();
 
+            ProductoNegocio negocioProd = new ProductoNegocio();
+            List<Producto> listaProd = negocioProd.ListarConSp();
+
             GridProveedores.DataSource = lista;
             GridProveedores.DataBind();
+
+            GridProductos.DataSource = listaProd;
+            GridProductos.DataBind();
         }
 
         protected void GridProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridProveedores.PageIndex = e.NewPageIndex;
             GridProveedores.DataBind();
+        }
+
+        protected void GridProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridProductos.PageIndex= e.NewPageIndex;
+            GridProductos.DataBind();
         }
     }
 }

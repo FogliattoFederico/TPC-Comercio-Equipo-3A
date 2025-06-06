@@ -8,35 +8,223 @@
 
     <link rel="stylesheet" href="Style_compras.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <ul class="nav flex-column">
+    <ul class="nav flex-column ">
         <li><img src="./WebForms/Icon/CamionB.png"><span>Ordenes de compra</span>
             <ul>
                 <li>
-                    <a href="#">OC Pendientes</a>
+                    <a href="#" onclick="mostrarSeccion('OCPendientes')">OC Pendientes</a>
                 </li>
                 <li>
-                    <a href="#">OC Nueva</a>
+                    <a href="#" onclick="mostrarSeccion('NuevaOC')">OC Nueva</a>
                 </li>
             </ul>
         </li>
-        <li >
-            <img src="./WebForms/Icon/GraficoB.png"><a href="#">Historial de precios</a>
+        <li>
+            <img src="./WebForms/Icon/GraficoB.png"><a href="#" onclick="mostrarSeccion('HistorialPrecios')">Historial
+                de precios</a>
         </li>
-        <li >
-            <img src="./WebForms/Icon/PortafolioB.png"><a href="#">Proveedores</a>
+        <li>
+            <img src="./WebForms/Icon/PortafolioB.png"><a href="#"
+                onclick="mostrarSeccion('Proveedores')">Proveedores</a>
         </li>
-        <li >
-            <img src="./WebForms/Icon/TiendaB.png"><a href="#">Productos</a>
+        <li>
+            <img src="./WebForms/Icon/TiendaB.png"><a href="#" onclick="mostrarSeccion('Productos')">Productos</a>
         </li>
     </ul>
+    <div id="contenedor-secciones">
 
-    <h1 class="titulo">Ordenes de compra pendientes</h1>
+        <div id="OCPendientes" style="display: none;">
+            <h1 class="titulo">Ordenes de compra pendientes</h1>
+        </div>
+        <div id="NuevaOC" style="display: none;">
+            <h1 class="titulo">Ordene de compra</h1>
+            <div class="NewOC">
+                <div class="row">
+                    <div class="NOC col">
+                        <label>Orden de compra: </label>
+                        <label>111111</label>
+                    </div>
+                    <div class="FOC col">
+                        <label>Fecha</label>
+                        <input type="date" class="input" style="width: 200px;" placeholder="dd/mm/yyyy">
+                    </div>
+                </div>
+                <div>
+                    <label>Proveedor</label>
+                    <select class="form-select" style="width: 300px;" aria-label="Default select example">
+                        <option selected>-</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <label>Producto</label>
+                        <select class="form-select" style="width: 600px;" aria-label="Default select example">
+                            <option selected>-</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <label>Cantidad</label>
+                        <div class="qty" style="width: 100px;">
+                            <button>
+                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                        stroke="#47484b" d="M20 12L4 12"></path>
+                                </svg>
+                            </button>
+                            <label>0</label>
+                            <button>
+                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                        stroke="#47484b" d="M12 4V20M20 12H4"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label>Precio unitario</label>
+                            <input type="text" class="input" style="width: 300px;" placeholder="$">
+                        </div>
+                        <div class="col-3">
+                            <button class="btnimg"><img src="./WebForms/Icon/plus3.png"></button>
+                        </div>
+                    </div>
+                    
+                
+
+                <div class="tbl">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Tele</td>
+                                <td>3</td>
+                                <td>$50000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Heladera</td>
+                                <td>5</td>
+                                <td>$84000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Lavarropas</td>
+                                <td>2</td>
+                                <td>$97000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>Horno eléctrico</td>
+                                <td>5</td>
+                                <td>$27000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <label>Total: $</label>
+                    <label>1.000.000,00</label>
+                </div>
+                <button class="btnaceptar">Agregar</button>
+            </div>
+            
+        </div>
+
+        <div id="HistorialPrecios" style="display: none;">
+            <h1 class="titulo">Historial de precios</h1>
+            <div class="busqueda">
+                <label>Producto</label>
+                <input type="text">
+                <button class="btnimg"><img src="./WebForms/Icon/Lupa.png"></button>
+            </div>
+        </div>
+        <div id="Productos" style="display: none;">
+            <h1 class="titulo">Productos</h1>
+        </div>
+        <div id="Proveedores" style="display: none;">
+            <h1 class="titulo">Proveedores</h1>
+            <!--<asp:GridView ID="GridProveedores" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10"
+                CssClass="table table-striped table-bordered table-hover text-center gridview"
+                HeaderStyle-CssClass="thead-dark"
+                GridLines="None" OnPageIndexChanging="GridProveedores_PageIndexChanging">
+                <Columns>
+                    <asp:BoundField DataField="RazonSocial" HeaderText="Razón Social" />
+                    <asp:BoundField DataField="CUIT" HeaderText="CUIT" />
+                    <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+                    <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
+                    <asp:BoundField DataField="Email" HeaderText="E-mail" />
+                </Columns>
+            </asp:GridView>-->
+        </div>
+
+
+    </div>
+
 </body>
+<script>
+    function mostrarSeccion(idMostrar) {
+        const secciones = document.getElementById('contenedor-secciones').children;
+        for (let i = 0; i < secciones.length; i++) {
+            secciones[i].style.display = 'none';
+        }
+
+        const visible = document.getElementById(idMostrar);
+        if (visible) visible.style.display = 'block';
+    }
+
+    window.onload = function () {
+        mostrarSeccion('OCPendientes'); //Mostrar por defecto
+        configurarQty(); 
+    };
+
+    function configurarQty() {
+        const qtyContainers = document.querySelectorAll('.qty');
+        qtyContainers.forEach(container => {
+            const label = container.querySelector('label');
+            const minus = container.querySelectorAll('button')[0];
+            const plus = container.querySelectorAll('button')[1];
+
+            minus.addEventListener('click', () => {
+                let cantidad = parseInt(label.textContent);
+                if (cantidad > 0) cantidad--;
+                label.textContent = cantidad;
+            });
+
+            plus.addEventListener('click', () => {
+                let cantidad = parseInt(label.textContent);
+                cantidad++;
+                label.textContent = cantidad;
+            });
+        });
+    };
+</script>
 
 </html>
