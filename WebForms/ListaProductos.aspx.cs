@@ -27,14 +27,11 @@ namespace WebForms
 
         }
 
-        protected void btnAgregarProducto_Click(object sender, EventArgs e)
+     
+
+        protected void btnagregarProducto_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaProducto.aspx", false);
-        }
-
-        protected void btnagregaroProducto_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

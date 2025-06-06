@@ -20,7 +20,9 @@ namespace WebForms
             dgvClientes.DataBind();
         }
 
-        protected void btnAgregarCliente_Click(object sender, EventArgs e)
+        
+
+        protected void btnAgregarCliente_Click1(object sender, EventArgs e)
         {
             Response.Redirect("AltaCliente.aspx", false);
         }

@@ -7,38 +7,56 @@
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:Panel ID="pnlAltaProveedor" runat="server" DefaultButton="btnRegistrar">
-                <div style="max-width: 400px; margin: 60px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <h2 style="text-align: center; margin-bottom: 20px;">Proveedor</h2>
-                    <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblId" runat="server" Text="Id:"></asp:Label><br />
-                        <asp:TextBox ID="txtId" runat="server" CssClass="form-control" Width="100%" disabled="true" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblRazonSocial" runat="server" Text="Razon Social:"></asp:Label><br />
-                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label><br />
-                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblDireccion" runat="server" Text="Direccion:"></asp:Label><br />
-                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:"></asp:Label><br />
-                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label><br />
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Width="100%" />
-                    </div>
-                    <div class="d-flex">
-                        <asp:Button ID="btnRegistrar" runat="server" Text="Aceptar" OnClick="btnRegistrar_Click"
-                            CssClass="btn btn-primary flex-grow-1" />
-                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
-                            CssClass="btn btn-danger flex-grow-1 ms-2" OnClick="btnCancelar_Click" />
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6">
+                            <div class="card shadow-sm mt-5">
+                                <div class="card-header bg-primary text-white">
+                                    <h2 class="card-title text-center mb-0">Registro de Proveedor</h2>
+                                </div>
+                                <div class="card-body">
+                                    <asp:Label ID="lblMensaje" runat="server" CssClass="alert alert-danger d-block" Visible="false"></asp:Label>
+
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblId" runat="server" Text="ID" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtId" runat="server" CssClass="form-control" disabled="true"></asp:TextBox>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblRazonSocial" runat="server" Text="Razón Social" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <div class="invalid-feedback">Por favor ingrese la razón social</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblCuit" runat="server" Text="CUIT" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblDireccion" runat="server" Text="Dirección" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblTelefono" runat="server" Text="Teléfono" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="form-label fw-bold"></asp:Label>
+                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                                    </div>
+
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
+                                            CssClass="btn btn-outline-secondary me-md-2" OnClick="btnCancelar_Click" />
+                                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
+                                            CssClass="btn btn-primary" OnClick="btnRegistrar_Click" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </asp:Panel>

@@ -76,5 +76,10 @@ namespace WebForms
                 Response.Redirect("Default.aspx", false);
             }
         }
+
+        protected void btnIngresar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

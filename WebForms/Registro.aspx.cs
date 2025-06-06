@@ -18,5 +18,10 @@ namespace WebForms
         {
 
         }
+
+        protected void btnRegistrar_Click1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -7,9 +7,9 @@
 
         <div class="row mb-4">
             <div class="col-12">
-                <h1 class="display-4 text-center mb-4">Listado de Proveedores</h1>
+                <h1 class="display-4 text-center mb-4">Listado de Productos</h1>
                 <div class="d-flex justify-content-end mb-3">
-                    <asp:Button runat="server" Text="Agregar Producto" ID="btnagregaroProducto" OnClick="btnagregaroProducto_Click"
+                    <asp:Button runat="server" Text="Agregar Producto" ID="btnagregarProducto" OnClick="btnagregarProducto_Click"
                         CssClass="btn btn-primary btn-lg shadow-sm" />
                 </div>
             </div>

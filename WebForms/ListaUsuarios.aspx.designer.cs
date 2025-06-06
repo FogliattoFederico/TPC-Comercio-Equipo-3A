@@ -15,15 +15,6 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control GVUsuarios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVUsuarios;
-
-        /// <summary>
         /// Control btnAgregarUsuario.
         /// </summary>
         /// <remarks>
@@ -31,5 +22,14 @@ namespace WebForms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAgregarUsuario;
+
+        /// <summary>
+        /// Control GVUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVUsuarios;
     }
 }
