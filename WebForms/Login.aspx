@@ -49,7 +49,7 @@
 
                 <div>
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
-                    <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" Width="100%"
+                    <asp:TextBox TextMode="Password" ID="txtContrasena" runat="server" CssClass="form-control" Width="100%"
                         Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; color: #95a5a6;" />
                 </div>
             </div>
