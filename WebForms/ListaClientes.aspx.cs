@@ -43,17 +43,29 @@ namespace WebForms
             Response.Redirect("Default.aspx", false);
         }
 
-        protected void btnVolver_Click1(object sender, EventArgs e)
-        {
-
-        }
-
         protected void dgvClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dgvClientes.SelectedDataKey.Value.ToString();
             Response.Redirect("AltaCliente.aspx?id=" + id);
         }
 
-        
+        protected void dgvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvClientes.PageIndex = e.NewPageIndex;
+            dgvClientes.DataBind();
+        }
+
+        protected void dgvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                int idCliente = Convert.ToInt32(dgvClientes.DataKeys[e.RowIndex].Value);
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex);
+            }
+        }
     }
 }

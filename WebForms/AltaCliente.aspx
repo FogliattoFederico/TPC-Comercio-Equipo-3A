@@ -67,6 +67,8 @@
                             onmouseover="this.style.background='linear-gradient(135deg, #c0392b, #e74c3c)'; this.style.transform='translateY(-1px)';"
                             onmouseout="this.style.background='linear-gradient(135deg, #e74c3c, #c0392b)'; this.style.transform='translateY(0)';" />
                     </div>
+                    <asp:Label ID="lblAviso" runat="server" Text=""
+                        Style="color: red; font-size: 17px; font-weight: 500; margin-top: 10px; display: inline-block;" />
                 </div>
             </asp:Panel>
         </ContentTemplate>

@@ -125,3 +125,24 @@ BEGIN
     VALUES (@Nombre, @Apellido, @Dni, @Telefono, @Email, @Direccion, @Activo);
 END
 
+go
+
+create procedure SP_ModificarCliente
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Dni varchar(10),
+@Telefono varchar(150),
+@Email varchar(100),
+@Direccion varchar(150),
+@IdCliente int
+as
+BEGIN
+update clientes 
+	set Nombre = @Nombre, 
+	Apellido = @Apellido, 
+	Direccion =@Direccion, 
+	Email = @Email, 
+	Dni = @Dni, 
+	Telefono = @Telefono 
+where IdCliente = @IdCliente
+END

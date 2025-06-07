@@ -11,19 +11,18 @@ namespace WebForms
 {
     public partial class AltaCliente : System.Web.UI.Page
     {
+        private List<Cliente> lista = new List<Cliente>();
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 if (!IsPostBack)
                 {
-
-
                     if (Request.QueryString["id"] != null)
                     {
                         ClienteNegocio negocio = new ClienteNegocio();
-                        List<Cliente> lista = new List<Cliente>();
-
                         lista = negocio.ListarConSp();
                         int id = int.Parse((Request.QueryString["id"]));
 
@@ -67,14 +66,29 @@ namespace WebForms
 
                     cliente.IdCliente = int.Parse(Request.QueryString["id"]);
                     negocio.ModificarCliente(cliente);
+
                 }
                 else
                 {
-                    negocio.AgregarCliente(cliente);
+                    lista = negocio.ListarConSp();
+                    bool encontrado = lista.Any(x => x.Dni == cliente.Dni);
+
+                    if (!encontrado)
+                    {
+                        negocio.AgregarCliente(cliente);
+                        Response.Redirect("ListaClientes.aspx", false);
+
+                    }
+                    else
+                    {
+                        lblAviso.Text = "El cliente ya se encuentra registrado";
+                        lblAviso.Visible = true;
+                        return;
+                    }
+
 
                 }
 
-                Response.Redirect("ListaClientes.aspx", false);
             }
             catch (Exception ex)
             {
@@ -86,7 +100,7 @@ namespace WebForms
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx", false);
+            Response.Redirect("ListaClientes.aspx", false);
         }
     }
 }

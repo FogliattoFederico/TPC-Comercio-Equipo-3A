@@ -27,14 +27,15 @@
                             HeaderStyle-CssClass="bg-primary text-white text-center"
                             RowStyle-CssClass="align-middle"
                             EmptyDataText="No se encontraron clientes"
-                            AllowPaging="True" PageSize="10"
+                            AllowPaging="True" PageSize="5"
                             PagerStyle-CssClass="pagination"
                             PagerSettings-Mode="NumericFirstLast"
                             GridLines="None"
                             CellPadding="4"
                             DataKeyNames="IdCliente"
                             OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged"
-                            >
+                            OnPageIndexChanging="dgvClientes_PageIndexChanging"
+                            OnRowDeleting="dgvClientes_RowDeleting">
 
                             <Columns>
                                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="15%" />
@@ -43,7 +44,13 @@
                                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" ItemStyle-Width="12%" />
                                 <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
                                 <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
-                                <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText=" Modificar" />
+                                <asp:CommandField HeaderText="Acciones"
+                                    ShowSelectButton="true"
+                                    SelectText="<i class='fas fa-edit'></i> Modificar"
+                                    ShowDeleteButton="true"
+                                    DeleteText="<i class='fas fa-trash-alt'></i> Eliminar"
+                                    ButtonType="Link"
+                                    ControlStyle-CssClass="btn btn-sm" />
                             </Columns>
                             <HeaderStyle CssClass="bg-primary text-white text-center" />
                             <AlternatingRowStyle CssClass="bg-light" />
