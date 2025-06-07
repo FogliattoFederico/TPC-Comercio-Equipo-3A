@@ -13,7 +13,38 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                if (!IsPostBack)
+                {
 
+
+                    if (Request.QueryString["id"] != null)
+                    {
+                        ClienteNegocio negocio = new ClienteNegocio();
+                        List<Cliente> lista = new List<Cliente>();
+
+                        lista = negocio.ListarConSp();
+                        int id = int.Parse((Request.QueryString["id"]));
+
+                        Cliente seleccionado = lista.Find(x => x.IdCliente == id);
+
+                        txtApellido.Text = seleccionado.Apellido;
+                        txtDireccion.Text = seleccionado.Direccion;
+                        txtNombre.Text = seleccionado.Nombre;
+                        txtDni.Text = seleccionado.Dni;
+                        txtEmail.Text = seleccionado.Email;
+                        txtTelefono.Text = seleccionado.Telefono;
+                        txtId.Text = seleccionado.IdCliente.ToString();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -23,6 +54,7 @@ namespace WebForms
 
             try
             {
+
                 cliente.Dni = txtDni.Text;
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Nombre = txtNombre.Text;
@@ -30,9 +62,19 @@ namespace WebForms
                 cliente.Apellido = txtApellido.Text;
                 cliente.Telefono = txtTelefono.Text;
 
-                negocio.AgregarCliente(cliente);
+                if (Request.QueryString["id"] != null)
+                {
 
-                Response.Redirect("ListaCLientes.aspx", false);
+                    cliente.IdCliente = int.Parse(Request.QueryString["id"]);
+                    negocio.ModificarCliente(cliente);
+                }
+                else
+                {
+                    negocio.AgregarCliente(cliente);
+
+                }
+
+                Response.Redirect("ListaClientes.aspx", false);
             }
             catch (Exception ex)
             {

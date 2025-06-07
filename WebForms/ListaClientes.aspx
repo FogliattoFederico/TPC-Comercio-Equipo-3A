@@ -31,7 +31,10 @@
                             PagerStyle-CssClass="pagination"
                             PagerSettings-Mode="NumericFirstLast"
                             GridLines="None"
-                            CellPadding="4">
+                            CellPadding="4"
+                            DataKeyNames="IdCliente"
+                            OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged"
+                            >
 
                             <Columns>
                                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="15%" />
@@ -40,6 +43,7 @@
                                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" ItemStyle-Width="12%" />
                                 <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
                                 <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
+                                <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText=" Modificar" />
                             </Columns>
                             <HeaderStyle CssClass="bg-primary text-white text-center" />
                             <AlternatingRowStyle CssClass="bg-light" />

@@ -16,8 +16,18 @@ namespace WebForms
             ClienteNegocio negocio = new ClienteNegocio();
             List<Cliente> lista = negocio.ListarConSp();
 
-            dgvClientes.DataSource = lista;
-            dgvClientes.DataBind();
+            try
+            {
+                    dgvClientes.DataSource = lista;
+                    dgvClientes.DataBind();
+                
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
+            
         }
 
         
@@ -37,5 +47,13 @@ namespace WebForms
         {
 
         }
+
+        protected void dgvClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = dgvClientes.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaCliente.aspx?id=" + id);
+        }
+
+        
     }
 }

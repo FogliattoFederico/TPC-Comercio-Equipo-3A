@@ -41,7 +41,7 @@ BEGIN
         Email, 
         Direccion
     FROM Clientes
-    --WHERE Activo = 1;
+    WHERE Activo = 1;
 END;
 GO
 
@@ -110,3 +110,18 @@ BEGIN
     WHERE VD.IdVenta = @idVenta;
 END;
 GO
+
+CREATE PROCEDURE SP_AgregarCliente
+    @Nombre varchar(100),
+    @Apellido varchar(100),
+    @Dni varchar(10),
+    @Telefono varchar(20),
+    @Email varchar(100),
+    @Direccion varchar(150),
+    @Activo bit = 1 
+AS
+BEGIN
+    INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion, Activo)
+    VALUES (@Nombre, @Apellido, @Dni, @Telefono, @Email, @Direccion, @Activo);
+END
+

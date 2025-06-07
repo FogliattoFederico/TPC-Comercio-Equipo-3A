@@ -57,7 +57,7 @@
                     </div>
 
                     <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <asp:Button ID="btnAceptar" runat="server" Text="Guardar Cliente" OnClick="btnAceptar_Click"
+                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click"
                             Style="flex: 1; padding: 12px; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
                             onmouseover="this.style.background='linear-gradient(135deg, #2980b9, #3498db)'; this.style.transform='translateY(-1px)';"
                             onmouseout="this.style.background='linear-gradient(135deg, #3498db, #2980b9)'; this.style.transform='translateY(0)';" />

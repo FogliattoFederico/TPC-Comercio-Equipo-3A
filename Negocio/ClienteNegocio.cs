@@ -45,7 +45,7 @@ namespace Negocio
         public void AgregarCliente(Cliente nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
-          
+
             try
             {
                 datos.setearProcedimiento("SP_AgregarCliente");
@@ -55,7 +55,7 @@ namespace Negocio
                 datos.setearParametro("@Telefono", nuevo.Telefono);
                 datos.setearParametro("@Email", nuevo.Email);
                 datos.setearParametro("@Direccion", nuevo.Direccion);
-               
+
                 datos.setearParametro("@Activo", 1);
                 datos.ejecutarAccion();
             }
@@ -69,8 +69,32 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void ModificarCliente(Cliente cliente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ModificarCliente");
+                datos.setearParametro("@IdCliente", cliente.IdCliente);
+                datos.setearParametro("@Nombre", cliente.Nombre);
+                datos.setearParametro("@Apellido", cliente.Apellido);
+                datos.setearParametro("@Dni", cliente.Dni);
+                datos.setearParametro("@Telefono", cliente.Telefono);
+                datos.setearParametro("@Email", cliente.Email);
+                datos.setearParametro("@Direccion", cliente.Direccion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
     }
-
-    
-
 }
