@@ -18,19 +18,21 @@ namespace WebForms
 
             try
             {
-                    dgvClientes.DataSource = lista;
-                    dgvClientes.DataBind();
-                
+                Session.Add("listaClientes", negocio.ListarConSp());
+
+                dgvClientes.DataSource = lista;
+                dgvClientes.DataBind();
+
             }
             catch (Exception ex)
             {
 
                 Session.Add("Error", ex.ToString());
             }
-            
+
         }
 
-        
+
 
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
@@ -73,6 +75,15 @@ namespace WebForms
 
                 Session.Add("error", ex);
             }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Cliente> lista = (List<Cliente>)Session["listaClientes"];
+            List<Cliente> filtrada = lista.Where(c => c.Dni.Contains(txtBuscarDni.Text)).ToList();
+
+            dgvClientes.DataSource = filtrada;
+            dgvClientes.DataBind();
         }
     }
 }

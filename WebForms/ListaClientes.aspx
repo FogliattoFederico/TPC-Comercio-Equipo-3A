@@ -22,9 +22,9 @@
                         <asp:TextBox ID="txtBuscarDni" runat="server"
                             CssClass="form-control form-control-lg me-3"
                             placeholder="Ingrese DNI del cliente"
-                            MaxLength="8"></asp:TextBox>
+                            MaxLength="8" ></asp:TextBox>
                         <div class="input-group-append">
-                            <asp:Button ID="btnBuscar" runat="server" Text="Buscar"
+                            <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
                                 CssClass="btn btn-primary btn-lg" />
                         </div>
                     </div>
