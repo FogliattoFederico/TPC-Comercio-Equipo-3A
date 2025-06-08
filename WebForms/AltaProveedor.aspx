@@ -6,7 +6,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
-            <asp:Panel ID="pnlAltaProveedor" runat="server" DefaultButton="btnRegistrar">
+            <asp:Panel ID="pnlAltaProveedor" runat="server" DefaultButton="btnAceptar">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-8 col-lg-6">
@@ -51,8 +51,8 @@
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
                                             CssClass="btn btn-outline-secondary me-md-2" OnClick="btnCancelar_Click" />
-                                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar"
-                                            CssClass="btn btn-primary" OnClick="btnRegistrar_Click" />
+                                        <asp:Button ID="btnAceptar" runat="server" Text="Registrar"
+                                            CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
                                     </div>
                                 </div>
                             </div>

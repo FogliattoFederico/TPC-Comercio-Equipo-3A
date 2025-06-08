@@ -16,11 +16,12 @@ namespace Negocio
 
             try
             {
-                string consulta = @"SELECT *
-                                    FROM Proveedores
-                                    ORDER BY RazonSocial;";
+                //string consulta = @"SELECT *
+                //                    FROM Proveedores
+                //                    ORDER BY RazonSocial;";
 
-                datos.setearConsulta(consulta);
+                //datos.setearConsulta(consulta);
+                datos.setearProcedimiento("SP_ListarProveedores");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -50,6 +51,33 @@ namespace Negocio
             }
 
             return listaProveedores;
+        }
+
+        public void AltaPorveedor(Proveedor nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_AgregarProveedor");
+                datos.setearParametro("@RazonSocial", nuevo.RazonSocial);
+                datos.setearParametro("@Cuit", nuevo.CUIT);
+                datos.setearParametro("@Direccion", nuevo.Direccion);
+                datos.setearParametro("@Telefono", nuevo.Telefono);
+                datos.setearParametro("@Email", nuevo.Email);
+                datos.ejecutarAccion();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

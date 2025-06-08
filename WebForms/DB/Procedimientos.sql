@@ -154,3 +154,11 @@ update clientes
 	Telefono = @Telefono 
 where IdCliente = @IdCliente
 END
+
+go
+/*PROVEEDORES*/
+create or Alter procedure SP_listarProveedores
+as
+Begin
+select IdProveedor, RazonSocial, CUIT, Direccion,Telefono, Email, Activo from Proveedores
+end
