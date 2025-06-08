@@ -33,7 +33,7 @@ namespace Negocio
 	                                    U.Apellido AS ApellidoUsuario,
 	                                    U.Email AS EmailUsuario,
 	                                    U.FechaAlta,
-	                                    U.Rol,	
+	                                    U.Admin,	
                                         COUNT(VD.IdVentaDetalle) AS CantidadProductos
                                     FROM Ventas V
                                     INNER JOIN Clientes C ON C.IdCliente = V.IdCliente
@@ -42,7 +42,7 @@ namespace Negocio
                                     GROUP BY 
                                         V.IdVenta, V.Fecha,
 	                                    C.IdCliente, C.Nombre, C.Apellido, C.Dni, C.Telefono, C.Email, C.Direccion,
-                                        U.IdUsuario, U.Nombre, U.Apellido, U.Email, U.FechaAlta, U.Rol";
+                                        U.IdUsuario, U.Nombre, U.Apellido, U.Email, U.FechaAlta, U.Admin";
 
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
@@ -69,7 +69,7 @@ namespace Negocio
                     venta.Usuario.Email = datos.Lector["EmailUsuario"].ToString();
                     //venta.Usuario.Contrasena = datos.Lector["Contrasena"].ToString();
                     venta.Usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    venta.Usuario.Rol = datos.Lector["Rol"].ToString();
+                    venta.Usuario.Admin= datos.Lector["Admin"].ToString();
                     venta.Detalles = new List<VentaDetalle>();
                     venta.Detalles = negocio.ObtenerDetallesPorVenta(venta.IdVenta);
 

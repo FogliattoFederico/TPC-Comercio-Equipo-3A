@@ -69,6 +69,10 @@
   <ItemGroup>
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
+    <Content Include="Css\StyleListClientes.css" />
+    <Content Include="Css\StyleListVentas.css" />
+    <Content Include="Css\StyleListProductos.css" />
+    <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
     <Content Include="Css\Style_default.css" />
     <Content Include="ListaCompras.aspx" />
