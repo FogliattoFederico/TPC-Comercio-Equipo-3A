@@ -1,6 +1,7 @@
-/*CREATE DATABASE Comercio_DB;
-GO*/
-
+/*
+CREATE DATABASE Comercio_DB;
+GO
+*/
 USE Comercio_DB;
 GO
 /*
@@ -12,7 +13,7 @@ CREATE TABLE Usuario (
     Email VARCHAR(150) NOT NULL UNIQUE,
     Contrasena VARCHAR(200) NOT NULL, -- Guardar encriptada
     FechaAlta DATE NOT NULL DEFAULT GETDATE(),
-    Rol VARCHAR(50) NOT NULL, -- Ej: 'Vendedor', 'Admin'
+    Admin bit NOT NULL, -- Ej: 'Vendedor = 0', 'Admin = 1'
 	Activo BIT NOT NULL DEFAULT 1 -- Empleado inactivo por cambio de Sector/Planta, despido, etc
 );
 -- Tabla: Categorias (ELECTRODOMESTICOS-AUDIO-INFORMATICA-GAMING-TELEFONIA)
@@ -84,6 +85,7 @@ CREATE TABLE Compras (
     IdCompra INT PRIMARY KEY IDENTITY(1,1),
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
     IdProveedor INT NOT NULL,
+    IdUsuario INT NOT NULL,
     Total DECIMAL(18,2) NOT NULL,
     FOREIGN KEY (IdProveedor) REFERENCES Proveedores(IdProveedor)
 );
@@ -131,7 +133,8 @@ CREATE TABLE VentaDetalle (
     PrecioUnit DECIMAL(18,2) NOT NULL,
     FOREIGN KEY (IdVenta) REFERENCES Ventas(IdVenta),
     FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
-);*/
+);
+*/
 /*
 INSERT INTO Categorias (Nombre) VALUES
 ('Electrodomésticos'),
@@ -163,7 +166,7 @@ INSERT INTO Marcas (Nombre) VALUES
 ('Asus');
 
 GO
-INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAlta, Rol) VALUES
+INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAlta, Admin) VALUES
 ('Ale', 'Alejandro', 'Olguera', 'ale@gmail.com', 'admin', '2025-05-30', 1),
 ('Fede', 'Federico', 'Fogliatto', 'fede@gmail.com', 'vendedor', '2025-05-29', 0);
 
@@ -217,10 +220,10 @@ INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
 ('Proveedores Argentinos', '20-99988877-0', 'Av. Corrientes 900', '011-47881234', 'contacto@pa.com.ar');
 
 GO
-INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
-('2024-08-14 02:03:01', 1, 1326000.00),
-('2024-10-13 14:48:11', 2, 2245000.00),
-('2024-09-15 17:45:45', 3, 4153000.00);
+INSERT INTO Compras (Fecha, IdProveedor, IdUsuario, Total) VALUES
+('2024-08-14 02:03:01', 1, 1, 1326000.00),
+('2024-10-13 14:48:11', 2, 1, 2245000.00),
+('2024-09-15 17:45:45', 3, 1, 4153000.00);
 --('2024-12-07 11:33:28', 10, 438404.18),
 --('2025-01-23 03:25:33', 7, 903514.71),
 --('2024-11-09 07:16:24', 9, 1616769.95),
@@ -241,7 +244,6 @@ INSERT INTO Compras (Fecha, IdProveedor, Total) VALUES
 
 GO
 INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-
 (1, 8, 8, 42000.00),
 (1, 20, 6, 165000.00),
 (2, 10, 7, 82000.00),
@@ -249,6 +251,27 @@ INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
 (2, 1, 9, 95000.00),
 (3, 20, 5, 165000.00),
 (3, 4, 8, 185000.00);
+--(4, 1, 5, 95000.00),  -- Microondas ME731K
+--(4, 2, 3, 215000.00), -- Lavarropas WLF800
+--(5, 3, 2, 275000.00), -- PlayStation 5 Standard
+--(5, 4, 4, 185000.00), -- Redmi Note 12
+--(6, 5, 1, 350000.00), -- Laptop 15-dw3000la
+--(6, 6, 2, 385000.00), -- Smart TV 55UQ7500
+--(7, 7, 6, 42000.00),  -- Parlante Bluetooth BT100
+--(7, 8, 3, 680000.00), -- ROG Ally Z1 Extreme
+--(8, 9, 5, 82000.00),  -- Microondas MS2042D
+--(8, 10, 2, 115000.00), -- Tablet Galaxy Tab A9 64GB
+--(9, 11, 4, 75000.00),  -- Monitor HP M24f
+--(9, 12, 1, 345000.00), -- Aire Acondicionado LG Inverter 3000W
+--(10, 13, 3, 35000.00),  -- Plancha a vapor Philips 4200
+--(10, 14, 2, 52000.00),  -- Auriculares Bluetooth Sony WH-CH520
+--(11, 15, 7, 285000.00), -- Smartphone Xiaomi 11T 256GB
+--(11, 16, 4, 89000.00),  -- Tablet Lenovo Tab M10 HD 64GB
+--(12, 17, 5, 140000.00), -- Monitor ASUS TUF 27" 165Hz
+--(12, 18, 2, 95000.00),  -- Microondas Whirlpool Grill 20L
+--(13, 19, 6, 165000.00), -- Smart TV Samsung 32” T4300
+--(13, 20, 1, 215000.00), -- Lavarropas WLF800
+--(14, 1, 3, 95000.00);   -- Microondas ME731K
 
 GO
 INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion) VALUES
@@ -273,72 +296,159 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit) VALUES
 (2, 13, 1, 101250.00), -- Monitor HP M24f (75000 + 35%)
 -- Venta 3: Carlos compró 1 ROG Ally y 2 celulares Redmi Note 12
 (3, 9, 1, 816000.00), -- ROG Ally Z1 Extreme (680000 + 20%)
-(3, 4, 2, 240500.00), -- Redmi Note 12 (185000 + 30%)
-
-(1, 8, 8, 54769.73),
-(1, 20, 6, 16691.84),
-(2, 10, 7, 116063.26),
-(2, 3, 5, 112823.17),
-(2, 1, 9, 24012.86),
-(3, 20, 5, 276403.83),
-(3, 4, 8, 118275.66);
-
-INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) VALUES
-(4, 1, 5, 95000.00),  -- Microondas ME731K
-(4, 2, 3, 215000.00), -- Lavarropas WLF800
-(5, 3, 2, 275000.00), -- PlayStation 5 Standard
-(5, 4, 4, 185000.00), -- Redmi Note 12
-(6, 5, 1, 350000.00), -- Laptop 15-dw3000la
-(6, 6, 2, 385000.00), -- Smart TV 55UQ7500
-(7, 7, 6, 42000.00),  -- Parlante Bluetooth BT100
-(7, 8, 3, 680000.00), -- ROG Ally Z1 Extreme
-(8, 9, 5, 82000.00),  -- Microondas MS2042D
-(8, 10, 2, 115000.00), -- Tablet Galaxy Tab A9 64GB
-(9, 11, 4, 75000.00),  -- Monitor HP M24f
-(9, 12, 1, 345000.00), -- Aire Acondicionado LG Inverter 3000W
-(10, 13, 3, 35000.00),  -- Plancha a vapor Philips 4200
-(10, 14, 2, 52000.00),  -- Auriculares Bluetooth Sony WH-CH520
-(11, 15, 7, 285000.00), -- Smartphone Xiaomi 11T 256GB
-(11, 16, 4, 89000.00),  -- Tablet Lenovo Tab M10 HD 64GB
-(12, 17, 5, 140000.00), -- Monitor ASUS TUF 27" 165Hz
-(12, 18, 2, 95000.00),  -- Microondas Whirlpool Grill 20L
-(13, 19, 6, 165000.00), -- Smart TV Samsung 32” T4300
-(13, 20, 1, 215000.00), -- Lavarropas WLF800
-(14, 1, 3, 95000.00);   -- Microondas ME731K
-
+(3, 4, 2, 240500.00); -- Redmi Note 12 (185000 + 30%)
 */
 /*
-CREATE PROCEDURE SP_ListarProductos
+CREATE OR ALTER PROCEDURE SP_ListarProductos
 AS
 BEGIN
     SELECT 
-		P.CodigoArticulo, 
-		P.Nombre, 
-		P.Descripcion, 
-		P.PrecioCompra, 
-		CAST(P.PrecioCompra * (P.PorcentajeGanancia / 100 + 1) AS DECIMAL(10,2)) AS PrecioVenta,
-		P.PorcentajeGanancia, 
-		P.StockActual, 
-		P.StockMinimo, 
-		P.ImagenUrl, 
-		P.IdMarca,
-		M.Nombre AS Marca, 
-		TP.IdTipoProducto,
-		TP.Nombre AS NombreTP,
-		C.IdCategoria,
-		C.Nombre AS Categoria
+        P.CodigoArticulo, 
+        P.Nombre, 
+        P.Descripcion, 
+        P.PrecioCompra, 
+        CAST(P.PrecioCompra * (P.PorcentajeGanancia / 100 + 1) AS DECIMAL(10,2)) AS PrecioVenta,
+        P.PorcentajeGanancia, 
+        P.StockActual, 
+        P.StockMinimo, 
+        P.ImagenUrl, 
+        P.IdMarca,
+        M.Nombre AS Marca, 
+        TP.IdTipoProducto,
+        TP.Nombre AS NombreTP,
+        C.IdCategoria,
+        C.Nombre AS Categoria
     FROM Productos P
     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-	ORDER BY C.Nombre ASC, P.Nombre ASC;
+    --WHERE P.Activo = 1
+    ORDER BY C.Nombre ASC, P.Nombre ASC;
 END;
+GO
+
+
+/*VENTAS*/
+
+CREATE OR ALTER PROCEDURE SP_ListarVentas
+AS
+BEGIN
+    SELECT 
+        V.IdVenta, 
+        V.Fecha,
+	    SUM(VD.Cantidad * VD.PrecioUnit) AS Total,
+        C.IdCliente,
+        C.Nombre,
+        C.Apellido,
+        C.Dni,
+        C.Telefono,
+        C.Email,
+        C.Direccion,
+        U.IdUsuario,
+        U.Nombre AS NombreUsuario,
+	    U.Apellido AS ApellidoUsuario,
+	    U.Email AS EmailUsuario,
+	    U.FechaAlta,
+	    U.Admin,	
+        COUNT(VD.IdVentaDetalle) AS CantidadProductos
+    FROM Ventas V
+    INNER JOIN Clientes C ON C.IdCliente = V.IdCliente
+    INNER JOIN Usuario U ON V.IdUsuario = U.IdUsuario
+    INNER JOIN VentaDetalle VD ON V.IdVenta = VD.IdVenta
+    GROUP BY 
+        V.IdVenta, V.Fecha,
+	    C.IdCliente, C.Nombre, C.Apellido, C.Dni, C.Telefono, C.Email, C.Direccion,
+        U.IdUsuario, U.Nombre, U.Apellido, U.Email, U.FechaAlta, U.Admin
+    --WHERE Activo = 1;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE SP_ListarDetalleVenta
+    @idVenta INT
+AS
+BEGIN
+    SELECT 
+        VD.IdVentaDetalle,
+        VD.IdVenta,
+        VD.Cantidad,
+        VD.PrecioUnit,
+        VD.IdProducto,
+        P.CodigoArticulo,
+        P.Nombre AS NombreProducto,
+        P.Descripcion, 
+        P.PrecioCompra,
+        P.PorcentajeGanancia, 
+        P.StockActual, 
+        P.StockMinimo, 
+        P.ImagenUrl, 
+        P.IdMarca,
+        M.Nombre AS Marca, 
+        TP.IdTipoProducto,
+        TP.Nombre AS NombreTP,
+        C.IdCategoria,
+        C.Nombre AS Categoria
+    FROM VentaDetalle VD
+    INNER JOIN Productos P ON VD.IdProducto = P.IdProducto
+    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+    WHERE VD.IdVenta = @idVenta;
+END;
+GO
+
+/*CLIENTES*/
+
+CREATE OR ALTER PROCEDURE SP_ListarClientes
+AS
+BEGIN
+    SELECT 
+        IdCliente, 
+        Nombre, 
+        Apellido, 
+        Dni, 
+        Telefono, 
+        Email, 
+        Direccion
+    FROM Clientes
+    WHERE Activo = 1
+	order by Apellido, nombre Asc
+END;
+GO
+
+CREATE OR ALTER PROCEDURE SP_AgregarCliente
+    @Nombre varchar(100),
+    @Apellido varchar(100),
+    @Dni varchar(10),
+    @Telefono varchar(20),
+    @Email varchar(100),
+    @Direccion varchar(150),
+    @Activo bit = 1 
+AS
+BEGIN
+    INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion, Activo)
+    VALUES (@Nombre, @Apellido, @Dni, @Telefono, @Email, @Direccion, @Activo);
+END
 
 go
 
-create procedure SP_ListarClientes
+create or alter procedure SP_ModificarCliente
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Dni varchar(10),
+@Telefono varchar(150),
+@Email varchar(100),
+@Direccion varchar(150),
+@IdCliente int
 as
-begin
-select IdCliente, Nombre, Apellido, Dni, Telefono, Email, Direccion from Clientes
-end
+BEGIN
+update clientes 
+	set Nombre = @Nombre, 
+	Apellido = @Apellido, 
+	Direccion =@Direccion, 
+	Email = @Email, 
+	Dni = @Dni, 
+	Telefono = @Telefono 
+where IdCliente = @IdCliente
+END
+
 */

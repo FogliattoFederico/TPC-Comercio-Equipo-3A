@@ -6,7 +6,7 @@
 
         const visible = document.getElementById(idMostrar);
         if (visible) visible.style.display = 'block';
-    }
+};
 
     window.onload = function () {
         mostrarSeccion('OCPendientes'); //Mostrar por defecto
@@ -33,3 +33,22 @@ function configurarQty() {
         });
     });
 };
+/*
+function mostrarLogin() {
+    const overlay = document.getElementById('registro-form');
+    overlay.classList.add('active');
+};
+
+function cerrarLogin() {
+    document.getElementById('registro-form').classList.remove('active');
+};
+
+function mostrarRegistrar() {
+    const overlay = document.getElementById('registro-form');
+    overlay.classList.add('active');
+};
+
+function cerrarRegistrar() {
+    document.getElementById('registro-form').classList.remove('active');
+};
+*/

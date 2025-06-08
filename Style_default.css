@@ -1,0 +1,72 @@
+.Lgd {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tecno, .hogar {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    
+}
+
+.logo {
+    z-index: 1;
+    width: 20%;
+}
+
+.tecno {
+    z-index: 2;
+    left: 180px;
+    width: 30%;
+}
+
+.hogar {
+    z-index: 2;
+    right: 200px;
+    width: 30%;
+}
+
+
+/*******************/
+
+.back{
+    width: 70px;
+    border: 0;
+    background-color: white;
+}
+
+.imgback{
+    width: 50px;
+    text-align: center;
+    
+    filter: drop-shadow(0 4px 6px rgb(27, 56, 28) ) grayscale(50%);
+    transition: all 0.5s;
+}
+
+.imgback:hover{
+    width: 53px;
+    text-align: center;
+    filter: drop-shadow(0 8px 12px rgb(27, 56, 28));
+   
+}
+
+/************/
+/*
+body{
+    background-image: url("./WebForms/Image/LogoSinMarca.png");
+    background-size: 100%;
+    background-position:right;
+    
+}*/
