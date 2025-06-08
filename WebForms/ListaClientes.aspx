@@ -14,6 +14,24 @@
             </div>
         </div>
     </div>
+    <div class="card mb-4 shadow-0 border-0">
+        <div class="card-body">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="input-group">
+                        <asp:TextBox ID="txtBuscarDni" runat="server"
+                            CssClass="form-control form-control-lg me-3"
+                            placeholder="Ingrese DNI del cliente"
+                            MaxLength="8"></asp:TextBox>
+                        <div class="input-group-append">
+                            <asp:Button ID="btnBuscar" runat="server" Text="Buscar"
+                                CssClass="btn btn-primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12">
@@ -44,6 +62,7 @@
                                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" ItemStyle-Width="12%" />
                                 <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
                                 <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
+
                                 <asp:CommandField HeaderText="Acciones"
                                     ShowSelectButton="true"
                                     SelectText="<i class='fas fa-edit'></i> Modificar"
@@ -61,4 +80,5 @@
             </div>
         </div>
     </div>
+
 </asp:Content>

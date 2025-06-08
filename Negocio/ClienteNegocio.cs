@@ -95,6 +95,27 @@ namespace Negocio
             }
         }
 
+        public void EliminarCliente(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearProcedimiento("SP_EliminarCliente");
+                datos.setearParametro("IdCliente", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            
+
+        }
     }
 }

@@ -1,6 +1,8 @@
 USE Comercio_DB;
 GO
 
+/*PRODUCTOS*/
+
 CREATE OR ALTER PROCEDURE SP_ListarProductos
 AS
 BEGIN
@@ -29,21 +31,8 @@ BEGIN
 END;
 GO
 
-CREATE OR ALTER PROCEDURE SP_ListarClientes
-AS
-BEGIN
-    SELECT 
-        IdCliente, 
-        Nombre, 
-        Apellido, 
-        Dni, 
-        Telefono, 
-        Email, 
-        Direccion
-    FROM Clientes
-    WHERE Activo = 1;
-END;
-GO
+
+/*VENTAS*/
 
 CREATE OR ALTER PROCEDURE SP_ListarVentas
 AS
@@ -111,7 +100,26 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE SP_AgregarCliente
+/*CLIENTES*/
+
+CREATE OR ALTER PROCEDURE SP_ListarClientes
+AS
+BEGIN
+    SELECT 
+        IdCliente, 
+        Nombre, 
+        Apellido, 
+        Dni, 
+        Telefono, 
+        Email, 
+        Direccion
+    FROM Clientes
+    WHERE Activo = 1
+	order by Apellido, nombre Asc
+END;
+GO
+
+CREATE OR ALTER PROCEDURE SP_AgregarCliente
     @Nombre varchar(100),
     @Apellido varchar(100),
     @Dni varchar(10),
@@ -127,7 +135,7 @@ END
 
 go
 
-create procedure SP_ModificarCliente
+create or alter procedure SP_ModificarCliente
 @Nombre varchar(100),
 @Apellido varchar(100),
 @Dni varchar(10),

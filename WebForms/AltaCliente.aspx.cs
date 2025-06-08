@@ -18,8 +18,10 @@ namespace WebForms
         {
             try
             {
+                
                 if (!IsPostBack)
                 {
+                    
                     if (Request.QueryString["id"] != null)
                     {
                         ClienteNegocio negocio = new ClienteNegocio();
@@ -36,7 +38,9 @@ namespace WebForms
                         txtTelefono.Text = seleccionado.Telefono;
                         txtId.Text = seleccionado.IdCliente.ToString();
 
+                       
                     }
+                   
                 }
             }
             catch (Exception ex)
@@ -66,7 +70,7 @@ namespace WebForms
 
                     cliente.IdCliente = int.Parse(Request.QueryString["id"]);
                     negocio.ModificarCliente(cliente);
-
+                    Response.Redirect("ListaClientes.aspx", false);
                 }
                 else
                 {
@@ -102,5 +106,7 @@ namespace WebForms
         {
             Response.Redirect("ListaClientes.aspx", false);
         }
+
+      
     }
 }

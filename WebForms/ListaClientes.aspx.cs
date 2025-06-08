@@ -60,6 +60,13 @@ namespace WebForms
             try
             {
                 int idCliente = Convert.ToInt32(dgvClientes.DataKeys[e.RowIndex].Value);
+
+                ClienteNegocio negocio = new ClienteNegocio();
+                negocio.EliminarCliente(idCliente);
+
+                dgvClientes.DataSource = negocio.ListarConSp();
+                dgvClientes.DataBind();
+
             }
             catch (Exception ex)
             {
