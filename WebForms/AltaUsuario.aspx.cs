@@ -11,7 +11,10 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

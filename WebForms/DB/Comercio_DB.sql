@@ -18,7 +18,7 @@ CREATE TABLE Usuario (
     Email VARCHAR(150) NOT NULL UNIQUE,
     Contrasena VARCHAR(200) NOT NULL, -- Guardar encriptada
     FechaAlta DATE NOT NULL DEFAULT GETDATE(),
-    Rol VARCHAR(50) NOT NULL, -- Ej: 'Vendedor', 'Admin'
+    Admin bit(50) NOT NULL, -- Ej: 'Vendedor = 0', 'Admin = 1'
 	Activo BIT NOT NULL DEFAULT 1 -- Empleado inactivo por cambio de Sector/Planta, despido, etc
 );
 -- Tabla: Categorias (ELECTRODOMESTICOS-AUDIO-INFORMATICA-GAMING-TELEFONIA)

@@ -51,7 +51,7 @@ namespace Negocio
                     usuario.Email = datos.Lector["Email"].ToString();
                     usuario.Contrasena = datos.Lector["Contrasena"].ToString();
                     usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    usuario.Rol = datos.Lector["Rol"].ToString();
+                    usuario.Rol = datos.Lector["Admin"].ToString();
 
                     listaUsuarios.Add(usuario);
                 }
