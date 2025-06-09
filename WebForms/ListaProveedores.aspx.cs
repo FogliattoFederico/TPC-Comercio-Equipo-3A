@@ -49,7 +49,18 @@ namespace WebForms
 
         protected void GVProveedores_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            ProveedorNegocio negocio = new ProveedorNegocio();
 
+            try
+            {
+                int id = Convert.ToInt32(GVProveedores.DataKeys[e.RowIndex].Value);
+                negocio.EliminarProveedor(id);
+                negocio.Listar();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Management;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -11,12 +12,14 @@ namespace WebForms
 {
     public partial class AltaProveedor : System.Web.UI.Page
     {
+        private List<Proveedor> lista;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["Id"] != null)
             {
                 ProveedorNegocio negocio = new ProveedorNegocio();
-                List<Proveedor> lista = negocio.Listar();
+                lista = negocio.Listar();
+
                 if (!IsPostBack)
                 {
                     int id = int.Parse(Request.QueryString["Id"]);
@@ -35,9 +38,7 @@ namespace WebForms
 
             }
         }
-
-
-
+        
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Response.Redirect("ListaProveedores.aspx", false);
@@ -64,6 +65,16 @@ namespace WebForms
                 }
                 else
                 {
+                    lista = negocio.Listar();
+                    bool encontrado = lista.Any(x => x.CUIT == nuevo.CUIT);
+
+                    if (encontrado)
+                    {
+                        lblAviso.Text = "El proveedor ya se encuentra registrado";
+                        return;
+                    }
+                    
+
                     negocio.AltaPorveedor(nuevo);
                     Response.Redirect("ListaProveedores.aspx", false);
 

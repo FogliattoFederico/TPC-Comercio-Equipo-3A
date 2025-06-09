@@ -54,6 +54,7 @@
                                         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar"
                                             CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
                                     </div>
+                                    <asp:Label Text="" runat="server" ID="lblAviso" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block;" />
                                 </div>
                             </div>
                         </div>
