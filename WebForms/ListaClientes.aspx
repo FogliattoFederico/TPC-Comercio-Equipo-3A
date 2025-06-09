@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mb-4">
         <div class="col-12">
-            <h1 class="display-4 text-center mb-4 mt-4">Listado de Clientes</h1>
+            <h1 class="display-4 text-center mb-4 mt-5">Listado de Clientes</h1>
             <div class="d-flex justify-content-between mb-3">
                 <!--<asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->

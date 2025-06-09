@@ -62,5 +62,16 @@ namespace WebForms
                 Session.Add("Error", ex.ToString());
             }
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+
+            List<Proveedor> lista = negocio.Listar();
+            List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Contains(txtBuscarCuit.Text)).ToList();
+
+            GVProveedores.DataSource = listaFiltrada;
+            GVProveedores.DataBind();
+        }
     }
 }
