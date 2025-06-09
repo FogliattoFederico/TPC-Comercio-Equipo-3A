@@ -156,11 +156,12 @@ where IdCliente = @IdCliente
 END
 
 go
+
 /*PROVEEDORES*/
 create or Alter procedure SP_listarProveedores
 as
 Begin
-select IdProveedor, RazonSocial, CUIT, Direccion,Telefono, Email, Activo from Proveedores
+select IdProveedor, RazonSocial, CUIT, Direccion,Telefono, Email, Activo from Proveedores where activo = 1 order by RazonSocial asc
 end
 
 go
@@ -176,3 +177,29 @@ as
 begin
 insert into Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email, Activo) values (@RazonSocial, @Cuit, @Direccion, @Telefono, @Email, 1)
 end
+
+go
+
+create or alter procedure SP_ModificarProveedor
+@RazonSocial varchar(150),
+@Cuit varchar(20),
+@Direccion varchar(50),
+@Telefono varchar(20),
+@Email varchar(100),
+@IdProveedor int
+as
+begin
+update Proveedores set RazonSocial = @RazonSocial, CUIT = @Cuit, Direccion = @Direccion, Telefono = @Telefono, Email = @Email where IdProveedor = @IdProveedor
+end
+
+go
+
+create procedure SP_EliminarProveedor
+@IdProveedor int
+as
+begin
+update Proveedores set Activo = 0 where IdProveedor = @IdProveedor
+end
+
+
+

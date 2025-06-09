@@ -75,6 +75,7 @@
     <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
     <Content Include="Css\Style_default.css" />
+    <Content Include="Error.aspx" />
     <Content Include="ListaCompras.aspx" />
     <Content Include="ListaUsuarios.aspx" />
     <Content Include="PanelAdmin.aspx" />
@@ -116,6 +117,13 @@
     </Compile>
     <Compile Include="CompraDetalles.aspx.designer.cs">
       <DependentUpon>CompraDetalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListaCompras.aspx.cs">
       <DependentUpon>ListaCompras.aspx</DependentUpon>
