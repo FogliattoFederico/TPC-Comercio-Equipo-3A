@@ -55,7 +55,7 @@ namespace WebForms
             {
                 int id = Convert.ToInt32(GVProveedores.DataKeys[e.RowIndex].Value);
                 negocio.EliminarProveedor(id);
-                negocio.Listar();
+                
             }
             catch (Exception ex)
             {
