@@ -57,12 +57,12 @@
                             OnRowDeleting="dgvClientes_RowDeleting">
 
                             <Columns>
-                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="15%" />
-                                <asp:BoundField DataField="Apellido" HeaderText="Apellido" ItemStyle-Width="15%" />
+                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="10%" />
+                                <asp:BoundField DataField="Apellido" HeaderText="Apellido" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="Dni" HeaderText="DNI" ItemStyle-Width="12%" />
                                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" ItemStyle-Width="12%" />
                                 <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
-                                <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="28%" />
+                                <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="20%" />
 
                                 <asp:CommandField HeaderText="Acciones"
                                     ShowSelectButton="true"

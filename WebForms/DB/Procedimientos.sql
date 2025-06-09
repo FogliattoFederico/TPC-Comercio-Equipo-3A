@@ -162,3 +162,17 @@ as
 Begin
 select IdProveedor, RazonSocial, CUIT, Direccion,Telefono, Email, Activo from Proveedores
 end
+
+go
+
+create or alter procedure SP_AgregarProveedor
+@RazonSocial varchar(150),
+@Cuit varchar(20),
+@Direccion varchar(50),
+@Telefono varchar(20),
+@Email varchar(100),
+@Activo bit = 1
+as
+begin
+insert into Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email, Activo) values (@RazonSocial, @Cuit, @Direccion, @Telefono, @Email, 1)
+end

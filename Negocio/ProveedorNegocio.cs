@@ -79,5 +79,33 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void ModificarProveedor(Proveedor nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_ModificarProveedor");
+                datos.setearParametro("@IdProveedor", nuevo.IdProveedor);
+                datos.setearParametro("@RazonSocial", nuevo.RazonSocial);
+                datos.setearParametro("@Cuit", nuevo.CUIT);
+                datos.setearParametro("@Direccion", nuevo.Direccion);
+                datos.setearParametro("@Telefono", nuevo.Telefono);
+                datos.setearParametro("@Email", nuevo.Email);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            
+        }
     }
 }

@@ -51,7 +51,7 @@
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
                                             CssClass="btn btn-outline-secondary me-md-2" OnClick="btnCancelar_Click" />
-                                        <asp:Button ID="btnAceptar" runat="server" Text="Registrar"
+                                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar"
                                             CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
                                     </div>
                                 </div>

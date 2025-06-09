@@ -40,5 +40,16 @@ namespace WebForms
         {
             Response.Redirect("PanelAdmin.aspx", false);
         }
+
+        protected void GVProveedores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = GVProveedores.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaProveedor.aspx?Id=" + id);
+        }
+
+        protected void GVProveedores_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+        }
     }
 }
