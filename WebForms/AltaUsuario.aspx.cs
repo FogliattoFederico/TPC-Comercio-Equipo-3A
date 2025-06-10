@@ -75,6 +75,13 @@ namespace WebForms
                 }
                 else
                 {
+                    bool encontrado = negocio.Listar().Exists(x => x.Email == nuevo.Email);
+
+                    if (encontrado) { 
+                        
+                        lblAviso.Text = "El email ingresado ya se encuentra registrado.";
+                        return;
+                    }
                     negocio.AgregarUsuario(nuevo);
 
                 }

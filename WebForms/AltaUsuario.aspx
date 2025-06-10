@@ -78,6 +78,7 @@
                     Style="padding: 8px 25px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'" />
             </div>
+            <asp:Label Text="El usuario ya se encuentra regisrado" ID="lblAviso" runat="server" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block; margin-top: 10px " />
         </div>
     </asp:Panel>
 </asp:Content>
