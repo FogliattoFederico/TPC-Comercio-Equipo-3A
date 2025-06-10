@@ -62,8 +62,8 @@
                     <asp:Label ID="lblRol" runat="server" Text="Rol:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
                     <asp:DropDownList ID="ddlRol" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px; background-color: white;">
                         <asp:ListItem Text="Seleccione Rol" Value="" />
-                        <asp:ListItem Text="Admin" Value="Admin" />
-                        <asp:ListItem Text="Vendedor" Value="Vendedor" />
+                        <asp:ListItem Text="Admin" Value="True" />
+                        <asp:ListItem Text="Vendedor" Value="False" />
                     </asp:DropDownList>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     Style="padding: 8px 20px; background-color: #f5f5f5; color: #555; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#e9e9e9'" onmouseout="this.style.backgroundColor='#f5f5f5'" />
 
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar"
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click"
                     Style="padding: 8px 25px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'" />
             </div>

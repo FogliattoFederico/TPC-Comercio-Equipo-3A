@@ -35,7 +35,7 @@ INSERT INTO Marcas (Nombre) VALUES
 ('Asus');
 
 GO
-INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAlta, Rol) VALUES
+INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAlta, Admin) VALUES
 ('Ale', 'Alejandro', 'Olguera', 'ale@gmail.com', 'admin', '2025-05-30', 1),
 ('Fede', 'Federico', 'Fogliatto', 'fede@gmail.com', 'vendedor', '2025-05-29', 0);
 

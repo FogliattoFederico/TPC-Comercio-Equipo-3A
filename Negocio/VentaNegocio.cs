@@ -69,7 +69,7 @@ namespace Negocio
                     venta.Usuario.Email = datos.Lector["EmailUsuario"].ToString();
                     //venta.Usuario.Contrasena = datos.Lector["Contrasena"].ToString();
                     venta.Usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    venta.Usuario.Admin= datos.Lector["Admin"].ToString();
+                    venta.Usuario.Admin= (bool)datos.Lector["Admin"];
                     venta.Detalles = new List<VentaDetalle>();
                     venta.Detalles = negocio.ObtenerDetallesPorVenta(venta.IdVenta);
 

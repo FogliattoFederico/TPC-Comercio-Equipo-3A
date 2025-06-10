@@ -51,7 +51,7 @@ namespace Negocio
                     usuario.Email = datos.Lector["Email"].ToString();
                     usuario.Contrasena = datos.Lector["Contrasena"].ToString();
                     usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    usuario.Admin = datos.Lector["Admin"].ToString();
+                    usuario.Admin = (bool)datos.Lector["Admin"];
 
                     listaUsuarios.Add(usuario);
                 }
@@ -70,5 +70,37 @@ namespace Negocio
 
             return listaUsuarios;
         }
+
+        public void AgregarUsuario(Usuario nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_AgregarUsuario");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@NombreUsuario", nuevo.NombreUsuario);
+                datos.setearParametro("@Email", nuevo.Email);
+                datos.setearParametro("@Apellido", nuevo.Apellido);
+                datos.setearParametro("@Contraseña", nuevo.Contrasena);
+                datos.setearParametro("@FechaAlta", nuevo.FechaAlta);
+                datos.setearParametro("@Admin", nuevo.Admin);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }
+    
+
+
+    

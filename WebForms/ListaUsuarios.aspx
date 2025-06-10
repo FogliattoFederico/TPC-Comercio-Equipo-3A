@@ -10,8 +10,9 @@
             <div class="d-flex justify-content-between mb-3">
                 <!--<asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->
-                <a href="PanelAdmin.aspx" class="back"><img class="imgback" src="/Icon/FlechaI.png"></a>
-                
+                <a href="PanelAdmin.aspx" class="back">
+                    <img class="imgback" src="/Icon/FlechaI.png"></a>
+
                 <asp:Button runat="server" Text="Agregar Usuario" ID="btnAgregarUsuario" OnClick="btnAgregarUsuario_Click"
                     CssClass="btn btn-primary btn-lg shadow-sm" />
             </div>
@@ -34,9 +35,10 @@
                         <asp:BoundField DataField="FechaAlta" HeaderText="Fecha Alta" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false" />
                         <asp:TemplateField HeaderText="Rol">
                             <ItemTemplate>
-                                <span class='badge <%# Eval("Admin").ToString() == "1" ? "bg-danger" : "bg-success" %> rounded-pill'>
-                                    <%# Eval("Admin").ToString() == "1" ? "Administrador" : "Vendedor" %>
+                                <span class='badge <%# Eval("Admin") != null && (bool)Eval("Admin") ? "bg-danger" : "bg-success" %> rounded-pill'>
+                                    <%# Eval("Admin") != null && (bool)Eval("Admin") ? "Administrador" : "Vendedor" %>
                                 </span>
+
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

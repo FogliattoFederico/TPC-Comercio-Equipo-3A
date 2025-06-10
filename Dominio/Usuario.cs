@@ -15,7 +15,7 @@ namespace Dominio
         public string Email { get; set; }
         public string Contrasena { get; set; }
         public DateTime FechaAlta { get; set; }
-        public string Admin { get; set; } // Admin - Vendedor
+        public bool Admin { get; set; } // Admin - Vendedor
     }
 
 }
