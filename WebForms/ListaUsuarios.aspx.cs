@@ -61,7 +61,7 @@ namespace WebForms
                 UsuarioNegocio negocio = new UsuarioNegocio();
 
                 List<Usuario> lista = negocio.Listar();
-                List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.ToLower().Contains(txtBuscarUsuario.Text.ToLower())).ToList();
+                List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.ToLower().Contains(txtBuscarUsuario.Text.ToLower()) || c.Apellido.ToLower().Contains(txtBuscarUsuario.Text.ToLower()) || c.Nombre.ToLower().Contains(txtBuscarUsuario.Text.ToLower())).ToList();
                 GVUsuarios.DataSource = filtrada ;
                 GVUsuarios.DataBind();
             }
