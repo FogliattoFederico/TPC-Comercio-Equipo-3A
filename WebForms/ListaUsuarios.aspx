@@ -18,6 +18,24 @@
             </div>
         </div>
     </div>
+     <div class="card mb-4 shadow-0 border-0">
+     <div class="card-body">
+         <div class="row align-items-center justify-content-center">
+             <div class="col-md-6 mb-3 mb-md-0">
+                 <div class="input-group">
+                     <asp:TextBox ID="txtBuscarUsuario" runat="server"
+                         CssClass="form-control form-control-lg me-3"
+                         placeholder="Ingrese nombre de usuario"
+                         MaxLength="8" ></asp:TextBox>
+                     <div class="input-group-append">
+                         <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
+                             CssClass="btn btn-primary btn-lg" />
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
     <div class="row">
         <div class="col-12">
             <div class="table-responsive shadow-sm rounded">

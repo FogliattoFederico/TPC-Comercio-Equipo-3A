@@ -53,5 +53,23 @@ namespace WebForms
             
             
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                List<Usuario> lista = negocio.Listar();
+                List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.ToLower().Contains(txtBuscarUsuario.Text.ToLower())).ToList();
+                GVUsuarios.DataSource = filtrada ;
+                GVUsuarios.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
+        }
     }
 }
