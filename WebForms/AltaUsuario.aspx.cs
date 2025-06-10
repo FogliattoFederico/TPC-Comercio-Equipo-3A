@@ -12,11 +12,40 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                
+                if (!IsPostBack)
+                {
+                    txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+                    if (Request.QueryString["Id"] != null)
+                    {
+                        Usuario usuario = new Usuario();
+                        UsuarioNegocio negocio = new UsuarioNegocio();
+
+                        List<Usuario> lista = negocio.Listar();
+
+                        usuario = lista.Find(x => x.IdUsuario == int.Parse((Request.QueryString["Id"])));
+
+                        txtIdUsuario.Text = usuario.IdUsuario.ToString();
+                        txtApellido.Text = usuario.Apellido;
+                        txtNombre.Text = usuario.Nombre;
+                        txtNombreUsuario.Text = usuario.NombreUsuario;
+                        txtEmail.Text = usuario.Email;
+                        txtContrasena.Text = usuario.Contrasena;
+                        txtFechaAlta.Text = usuario.FechaAlta.ToString();
+                        ddlRol.SelectedValue = usuario.Admin.ToString();
+
+
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error" , ex.ToString());
+            }
+           
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -38,8 +67,19 @@ namespace WebForms
                 nuevo.FechaAlta = DateTime.Parse(txtFechaAlta.Text);
                 nuevo.Admin = Convert.ToBoolean(ddlRol.SelectedValue);
 
-                negocio.AgregarUsuario(nuevo);
-                Response.Redirect("ListaUsuarios.aspsx", false);
+                if (Request.QueryString["Id"] != null)
+                {
+                    nuevo.IdUsuario = int.Parse(Request.QueryString["Id"]);
+                    negocio.ModificarUsuario(nuevo);
+
+                }
+                else
+                {
+                    negocio.AgregarUsuario(nuevo);
+
+                }
+
+                Response.Redirect("ListaUsuarios.aspx", false);
             }
             catch (Exception ex)
             {

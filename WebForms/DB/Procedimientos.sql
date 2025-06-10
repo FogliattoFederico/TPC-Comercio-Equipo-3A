@@ -158,6 +158,7 @@ END
 go
 
 /*PROVEEDORES*/
+
 create or Alter procedure SP_listarProveedores
 as
 Begin
@@ -201,5 +202,35 @@ begin
 update Proveedores set Activo = 0 where IdProveedor = @IdProveedor
 end
 
+/*USUARIOS*/
+go
+create procedure SP_AgregarUsuario
+@NombreUsuario varchar(100),
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Email varchar(150),
+@Contraseña varchar(50),
+@FechaAlta date,
+@Activo bit = 1,
+@Admin bit
+as
+begin
+insert into Usuario values(@NombreUsuario,@Nombre,@Apellido,@Email,@Contraseña, @FechaAlta, @Activo, @Admin)
+end
 
+GO
+
+create procedure SP_ModificarUsuario
+@IdUsuario int,
+@NombreUsuario varchar(100),
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Email varchar(150),
+@Contraseña varchar(200),
+@FechaAlta date,
+@Admin bit
+as
+begin
+update Usuario set NombreUsuario = @NombreUsuario, Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Contrasena = @Contraseña, FechaAlta = @FechaAlta, Admin = @Admin where IdUsuario = @IdUsuario
+end
 

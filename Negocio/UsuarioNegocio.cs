@@ -98,9 +98,38 @@ namespace Negocio
             }
 
         }
+
+        public void ModificarUsuario(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_ModificarUsuario");
+                datos.setearParametro("@IdUsuario", usuario.IdUsuario);
+                datos.setearParametro("NombreUsuario", usuario.NombreUsuario);
+                datos.setearParametro("@Nombre", usuario.Nombre);
+                datos.setearParametro("@Apellido", usuario.Apellido);
+                datos.setearParametro("@Email", usuario.Email);
+                datos.setearParametro("@Contraseña", usuario.Contrasena);
+                datos.setearParametro("@FechaAlta", usuario.FechaAlta);
+                datos.setearParametro("@Admin", usuario.Admin);
+
+                datos.ejecutarAccion(); 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
-    
 
 
-    
+
+

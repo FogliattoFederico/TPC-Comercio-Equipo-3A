@@ -30,6 +30,16 @@ namespace WebForms
             Response.Redirect("PanelAdmin.aspx", false);
         }
 
-        
+        protected void GVUsuarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = GVUsuarios.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaUsuario.aspx?Id=" + id);
+        }
+
+        protected void GVUsuarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int id = Convert.ToInt32(GVUsuarios.DataKeys[e.RowIndex].Value);
+            
+        }
     }
 }
