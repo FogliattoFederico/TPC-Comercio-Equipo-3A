@@ -234,3 +234,12 @@ begin
 update Usuario set NombreUsuario = @NombreUsuario, Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Contrasena = @Contraseña, FechaAlta = @FechaAlta, Admin = @Admin where IdUsuario = @IdUsuario
 end
 
+go
+
+create procedure SP_EliminarUsuario
+@IdUsuario int
+as
+begin
+update Usuario set Activo = 0 where IdUsuario = @IdUsuario
+end
+
