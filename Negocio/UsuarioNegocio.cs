@@ -33,9 +33,7 @@ namespace Negocio
 
             try
             {
-                string consulta = @"SELECT *
-                                    FROM Usuario
-                                    ORDER BY NombreUsuario;";
+                string consulta = @"SELECT * FROM Usuario where activo = 1 ORDER BY NombreUsuario, apellido, nombre asc;";
 
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
@@ -115,7 +113,28 @@ namespace Negocio
                 datos.setearParametro("@FechaAlta", usuario.FechaAlta);
                 datos.setearParametro("@Admin", usuario.Admin);
 
-                datos.ejecutarAccion(); 
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarUsuario(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_EliminarUsuario");
+                datos.setearParametro("@IdUsuario", id);
+                datos.ejecutarAccion();
+
             }
             catch (Exception ex)
             {

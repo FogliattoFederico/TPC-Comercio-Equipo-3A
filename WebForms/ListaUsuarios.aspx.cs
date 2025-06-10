@@ -38,7 +38,19 @@ namespace WebForms
 
         protected void GVUsuarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int id = Convert.ToInt32(GVUsuarios.DataKeys[e.RowIndex].Value);
+            try
+            {
+                int id = Convert.ToInt32(GVUsuarios.DataKeys[e.RowIndex].Value);
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                negocio.EliminarUsuario(id);
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
+            
             
         }
     }
