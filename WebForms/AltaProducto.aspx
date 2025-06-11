@@ -11,12 +11,12 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
             <div>
-                <asp:Label ID="Id" runat="server" Text="ID:" style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
-                <asp:TextBox ID="txtId" disabled runat="server" CssClass="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
-            </div>
-            <div>
                 <asp:Label ID="lblNombre" runat="server" Text="Nombre:" style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
                 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
+            </div>
+            <div>
+                <asp:Label ID="lblCodProducto" runat="server" Text="Codigo Producto:" style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
+                <asp:TextBox ID="txtCodProducto" runat="server" CssClass="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
             </div>
         </div>
 

@@ -136,5 +136,147 @@ namespace Negocio
 
             return listaProductos;
         }
+
+        public void AgregarProducto(Producto producto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"INSERT INTO Productos 
+                                        (CodigoArticulo,
+                                        Nombre,
+                                        Descripcion,
+                                        PrecioCompra,
+                                        PorcentajeGanancia,
+                                        StockActual,
+                                        StockMinimo,
+                                        ImagenUrl,
+                                        IdMarca,
+                                        IdTipoProducto)
+                                    VALUES
+                                        (@codigoArticulo,
+                                        @nombre,
+                                        @descripcion,
+                                        @precioCompra,
+                                        @porcentajeGanancia,
+                                        @stockActual,
+                                        @stockMinimo,
+                                        @imagenUrl,
+                                        @idMarca,
+                                        @idTipoProducto);";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@codigoArticulo", producto.CodigoArticulo);
+                datos.setearParametro("@nombre", producto.Nombre);
+                datos.setearParametro("@descripcion", producto.Descripcion);
+                datos.setearParametro("@precioCompra", producto.PrecioCompra);
+                datos.setearParametro("@porcentajeGanancia", producto.PorcentajeGanancia);
+                datos.setearParametro("@stockActual", producto.StockActual);
+                datos.setearParametro("@stockMinimo", producto.StockMinimo);
+                datos.setearParametro("@imagenUrl", producto.ImagenUrl);
+                datos.setearParametro("@idMarca", producto.Marca.IdMarca);
+                datos.setearParametro("@idTipoProducto", producto.TipoProducto.IdTipoProducto);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void ModificarProducto(Producto producto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"UPDATE Productos SET 
+                                        CodigoArticulo = @codigoArticulo,
+                                        Nombre = @nombre,
+                                        Descripcion = @descripcion,
+                                        PrecioCompra = @precioCompra,
+                                        PorcentajeGanancia = @porcentajeGanancia,
+                                        StockActual = @stockActual,
+                                        StockMinimo = @stockMinimo,
+                                        ImagenUrl = @imagenUrl,
+                                        IdMarca = @idMarca,
+                                        IdTipoProducto = @idTipoProducto
+                                    WHERE IdProducto = @idProducto;";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@codigoArticulo", producto.CodigoArticulo);
+                datos.setearParametro("@nombre", producto.Nombre);
+                datos.setearParametro("@descripcion", producto.Descripcion);
+                datos.setearParametro("@precioCompra", producto.PrecioCompra);
+                datos.setearParametro("@porcentajeGanancia", producto.PorcentajeGanancia);
+                datos.setearParametro("@stockActual", producto.StockActual);
+                datos.setearParametro("@stockMinimo", producto.StockMinimo);
+                datos.setearParametro("@imagenUrl", producto.ImagenUrl);
+                datos.setearParametro("@idMarca", producto.Marca.IdMarca);
+                datos.setearParametro("@idTipoProducto", producto.TipoProducto.IdTipoProducto);
+
+
+                datos.setearParametro("@idProducto", producto.IdProducto);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarProducto(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"DELETE FROM Productos 
+                                    WHERE IdProducto = @idProducto;";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarProductoLogico(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"UPDATE Productos 
+                                    SET Activo = 0 
+                                    WHERE IdProducto = @idProducto;";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
