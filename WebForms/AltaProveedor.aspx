@@ -24,28 +24,28 @@
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblRazonSocial" runat="server" Text="Razón Social" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtRazonSocial_TextChanged"></asp:TextBox>
                                         <div class="invalid-feedback">Por favor ingrese la razón social</div>
                                     </div>
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblCuit" runat="server" Text="CUIT" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtCuit_TextChanged"></asp:TextBox>
                                     </div>
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblDireccion" runat="server" Text="Dirección" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtDireccion_TextChanged"></asp:TextBox>
                                     </div>
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblTelefono" runat="server" Text="Teléfono" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtTelefono_TextChanged"></asp:TextBox>
                                     </div>
 
                                     <div class="mb-4">
                                         <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" AutoPostBack="true" TextMode="Email" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
                                     </div>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -15,10 +15,13 @@ namespace WebForms
         private List<Proveedor> lista;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             if (Request.QueryString["Id"] != null)
             {
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 lista = negocio.Listar();
+
 
                 if (!IsPostBack)
                 {
@@ -32,13 +35,19 @@ namespace WebForms
                     txtRazonSocial.Text = seleccionado.RazonSocial;
                     txtTelefono.Text = seleccionado.Telefono;
 
+                    btnAceptar.Enabled = true;
+
                 }
 
-
-
             }
+
+
+
+            controlAceptar();
+
+
         }
-        
+
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Response.Redirect("ListaProveedores.aspx", false);
@@ -51,6 +60,7 @@ namespace WebForms
 
             try
             {
+
                 nuevo.Direccion = txtDireccion.Text;
                 nuevo.RazonSocial = txtRazonSocial.Text;
                 nuevo.Email = txtEmail.Text;
@@ -73,7 +83,7 @@ namespace WebForms
                         lblAviso.Text = "El proveedor ya se encuentra registrado";
                         return;
                     }
-                    
+
 
                     negocio.AltaPorveedor(nuevo);
                     Response.Redirect("ListaProveedores.aspx", false);
@@ -85,6 +95,48 @@ namespace WebForms
 
                 Session.Add("Error", ex.ToString());
             }
+        }
+
+        private void controlAceptar()
+        {
+            btnAceptar.Enabled = TodosCamposCompletos();
+        }
+
+        private bool TodosCamposCompletos()
+        {
+            return !string.IsNullOrWhiteSpace(txtTelefono.Text) &&
+                   !string.IsNullOrWhiteSpace(txtCuit.Text) &&
+                   !string.IsNullOrWhiteSpace(txtEmail.Text) &&
+                   !string.IsNullOrWhiteSpace(txtDireccion.Text) &&
+                   !string.IsNullOrWhiteSpace(txtRazonSocial.Text);
+        }
+        protected void txtRazonSocial_TextChanged(object sender, EventArgs e)
+        {
+            controlAceptar();
+        }
+
+        protected void txtCuit_TextChanged(object sender, EventArgs e)
+        {
+            controlAceptar();
+
+        }
+
+        protected void txtDireccion_TextChanged(object sender, EventArgs e)
+        {
+            controlAceptar();
+
+        }
+
+        protected void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+            controlAceptar();
+
+        }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            controlAceptar();
+
         }
     }
 }
