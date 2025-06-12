@@ -71,5 +71,11 @@ namespace WebForms
                 Session.Add("Error", ex.ToString());
             }
         }
+
+        protected void GVUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVUsuarios.PageIndex = e.NewPageIndex;
+            GVUsuarios.DataBind();
+        }
     }
 }

@@ -48,7 +48,9 @@
                     EmptyDataText="No se encontraron usuarios"
                     DataKeyNames="IdUsuario"
                     OnSelectedIndexChanged="GVUsuarios_SelectedIndexChanged"
-                    OnRowDeleting="GVUsuarios_RowDeleting">
+                    OnRowDeleting="GVUsuarios_RowDeleting"
+                    OnPageIndexChanging="GVUsuarios_PageIndexChanging"
+                    AllowPaging="True" PageSize="5">
                     <Columns>
                         <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="py-3"/>
