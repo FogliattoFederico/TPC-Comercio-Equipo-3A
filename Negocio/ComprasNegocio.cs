@@ -72,5 +72,40 @@ namespace Negocio
 
             return listaCompras;
         }
+
+        public List<CompraHistorial> HistorialPreciosPorProducto(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<CompraHistorial> lista = new List<CompraHistorial>();
+
+            try
+            {
+                datos.setearProcedimiento("SP_HistorialPreciosProducto");
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    CompraHistorial ch = new CompraHistorial();
+                    ch.RazonSocial = datos.Lector["RazonSocial"].ToString();
+                    ch.FechaCompra = Convert.ToDateTime(datos.Lector["FechaCompra"]);
+                    ch.PrecioUnitario = Convert.ToDecimal(datos.Lector["PrecioUnitario"]);
+                    lista.Add(ch);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
+
+   
+
 }

@@ -21,5 +21,7 @@ namespace Dominio
 
         public Marca Marca { get; set; }
         public TipoProducto TipoProducto { get; set; }
+
+       
     }
 }

@@ -134,8 +134,8 @@ CREATE TABLE VentaDetalle (
     FOREIGN KEY (IdVenta) REFERENCES Ventas(IdVenta),
     FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
-*/
-/*
+
+
 INSERT INTO Categorias (Nombre) VALUES
 ('Electrodomésticos'),
 ('Audio'),
@@ -297,8 +297,8 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit) VALUES
 -- Venta 3: Carlos compró 1 ROG Ally y 2 celulares Redmi Note 12
 (3, 9, 1, 816000.00), -- ROG Ally Z1 Extreme (680000 + 20%)
 (3, 4, 2, 240500.00); -- Redmi Note 12 (185000 + 30%)
-*/
-/*
+
+
 CREATE OR ALTER PROCEDURE SP_ListarProductos
 AS
 BEGIN
@@ -327,128 +327,58 @@ BEGIN
 END;
 GO
 
+*/
 
-/*VENTAS*/
+/*
+SELECT 
+    P.RazonSocial AS 'Razón social',
+    C.Fecha AS 'Fecha de compra',
+    CD.PrecioUnit AS Precio
+FROM CompraDetalle CD
+INNER JOIN Compras C ON CD.IdCompra = C.IdCompra
+INNER JOIN Proveedores P ON C.IdProveedor = P.IdProveedor
+WHERE CD.IdProducto = 1
+ORDER BY C.Fecha ASC;
+*/
 
-CREATE OR ALTER PROCEDURE SP_ListarVentas
-AS
-BEGIN
-    SELECT 
-        V.IdVenta, 
-        V.Fecha,
-	    SUM(VD.Cantidad * VD.PrecioUnit) AS Total,
-        C.IdCliente,
-        C.Nombre,
-        C.Apellido,
-        C.Dni,
-        C.Telefono,
-        C.Email,
-        C.Direccion,
-        U.IdUsuario,
-        U.Nombre AS NombreUsuario,
-	    U.Apellido AS ApellidoUsuario,
-	    U.Email AS EmailUsuario,
-	    U.FechaAlta,
-	    U.Admin,	
-        COUNT(VD.IdVentaDetalle) AS CantidadProductos
-    FROM Ventas V
-    INNER JOIN Clientes C ON C.IdCliente = V.IdCliente
-    INNER JOIN Usuario U ON V.IdUsuario = U.IdUsuario
-    INNER JOIN VentaDetalle VD ON V.IdVenta = VD.IdVenta
-    GROUP BY 
-        V.IdVenta, V.Fecha,
-	    C.IdCliente, C.Nombre, C.Apellido, C.Dni, C.Telefono, C.Email, C.Direccion,
-        U.IdUsuario, U.Nombre, U.Apellido, U.Email, U.FechaAlta, U.Admin
-    --WHERE Activo = 1;
-END;
+go
+create procedure SP_AgregarUsuario
+@NombreUsuario varchar(100),
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Email varchar(150),
+@Contraseña varchar(50),
+@FechaAlta date,
+@Activo bit = 1,
+@Admin bit
+as
+begin
+insert into Usuario values(@NombreUsuario,@Nombre,@Apellido,@Email,@Contraseña, @FechaAlta, @Activo, @Admin)
+end
+
 GO
 
-CREATE OR ALTER PROCEDURE SP_ListarDetalleVenta
-    @idVenta INT
-AS
-BEGIN
-    SELECT 
-        VD.IdVentaDetalle,
-        VD.IdVenta,
-        VD.Cantidad,
-        VD.PrecioUnit,
-        VD.IdProducto,
-        P.CodigoArticulo,
-        P.Nombre AS NombreProducto,
-        P.Descripcion, 
-        P.PrecioCompra,
-        P.PorcentajeGanancia, 
-        P.StockActual, 
-        P.StockMinimo, 
-        P.ImagenUrl, 
-        P.IdMarca,
-        M.Nombre AS Marca, 
-        TP.IdTipoProducto,
-        TP.Nombre AS NombreTP,
-        C.IdCategoria,
-        C.Nombre AS Categoria
-    FROM VentaDetalle VD
-    INNER JOIN Productos P ON VD.IdProducto = P.IdProducto
-    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
-    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
-    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-    WHERE VD.IdVenta = @idVenta;
-END;
-GO
-
-/*CLIENTES*/
-
-CREATE OR ALTER PROCEDURE SP_ListarClientes
-AS
-BEGIN
-    SELECT 
-        IdCliente, 
-        Nombre, 
-        Apellido, 
-        Dni, 
-        Telefono, 
-        Email, 
-        Direccion
-    FROM Clientes
-    WHERE Activo = 1
-	order by Apellido, nombre Asc
-END;
-GO
-
-CREATE OR ALTER PROCEDURE SP_AgregarCliente
-    @Nombre varchar(100),
-    @Apellido varchar(100),
-    @Dni varchar(10),
-    @Telefono varchar(20),
-    @Email varchar(100),
-    @Direccion varchar(150),
-    @Activo bit = 1 
-AS
-BEGIN
-    INSERT INTO Clientes (Nombre, Apellido, Dni, Telefono, Email, Direccion, Activo)
-    VALUES (@Nombre, @Apellido, @Dni, @Telefono, @Email, @Direccion, @Activo);
-END
+create procedure SP_ModificarUsuario
+@IdUsuario int,
+@NombreUsuario varchar(100),
+@Nombre varchar(100),
+@Apellido varchar(100),
+@Email varchar(150),
+@Contraseña varchar(200),
+@FechaAlta date,
+@Admin bit
+as
+begin
+update Usuario set NombreUsuario = @NombreUsuario, Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Contrasena = @Contraseña, FechaAlta = @FechaAlta, Admin = @Admin where IdUsuario = @IdUsuario
+end
 
 go
 
-create or alter procedure SP_ModificarCliente
-@Nombre varchar(100),
-@Apellido varchar(100),
-@Dni varchar(10),
-@Telefono varchar(150),
-@Email varchar(100),
-@Direccion varchar(150),
-@IdCliente int
+create procedure SP_EliminarUsuario
+@IdUsuario int
 as
-BEGIN
-update clientes 
-	set Nombre = @Nombre, 
-	Apellido = @Apellido, 
-	Direccion =@Direccion, 
-	Email = @Email, 
-	Dni = @Dni, 
-	Telefono = @Telefono 
-where IdCliente = @IdCliente
-END
+begin
+update Usuario set Activo = 0 where IdUsuario = @IdUsuario
+end
 
-*/
+GO

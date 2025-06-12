@@ -202,6 +202,7 @@ begin
 update Proveedores set Activo = 0 where IdProveedor = @IdProveedor
 end
 
+
 /*USUARIOS*/
 go
 create procedure SP_AgregarUsuario
@@ -243,3 +244,21 @@ begin
 update Usuario set Activo = 0 where IdUsuario = @IdUsuario
 end
 
+GO
+
+/*Compras*/
+
+create or alter procedure SP_HistorialPreciosProducto
+    @IdProducto INT
+AS
+BEGIN
+    SELECT 
+        P.RazonSocial AS RazonSocial,
+        C.Fecha AS FechaCompra,
+        CD.PrecioUnit AS PrecioUnitario
+    FROM CompraDetalle CD
+    INNER JOIN Compras C ON CD.IdCompra = C.IdCompra
+    INNER JOIN Proveedores P ON C.IdProveedor = P.IdProveedor
+    WHERE CD.IdProducto = @IdProducto
+    ORDER BY C.Fecha DESC;
+END;

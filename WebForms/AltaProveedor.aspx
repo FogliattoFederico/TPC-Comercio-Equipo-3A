@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+   
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:Panel ID="pnlAltaProveedor" runat="server" DefaultButton="btnAceptar">
