@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <asp:Label ID="lblDni" runat="server" Text="DNI" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 14px; font-weight: 500;"></asp:Label>
-                            <asp:TextBox ID="txtDni" TextMode="Number" OnTextChanged="txtDni_TextChanged" AutoPostBack="true" runat="server" CssClass="form-control" Width="100%"
+                            <asp:TextBox ID="txtDni"  OnTextChanged="txtDni_TextChanged" AutoPostBack="true" runat="server" CssClass="form-control" Width="100%"
                                 Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;" />
                         </div>
                     </div>

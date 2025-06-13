@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -15,7 +16,7 @@ namespace WebForms
     {
         private List<Cliente> lista = new List<Cliente>();
         private TextBox[] CajasDeTexto = new TextBox[6];
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -70,7 +71,7 @@ namespace WebForms
 
             try
             {
-
+                
                 cliente.Dni = txtDni.Text;
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Nombre = txtNombre.Text;
@@ -136,7 +137,16 @@ namespace WebForms
 
         protected void txtDni_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            if (!int.TryParse(txtDni.Text, out _))
+            {
+                lblAviso.Text = "¡Solo se permiten números!";
+                return;
+            }
+            else
+            {
+
+                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            }
 
         }
 
@@ -160,7 +170,10 @@ namespace WebForms
 
         protected void txtTelefono_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            
+
+                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            
 
         }
 
