@@ -339,46 +339,95 @@ INNER JOIN Compras C ON CD.IdCompra = C.IdCompra
 INNER JOIN Proveedores P ON C.IdProveedor = P.IdProveedor
 WHERE CD.IdProducto = 1
 ORDER BY C.Fecha ASC;
+
 */
 
-go
-create procedure SP_AgregarUsuario
-@NombreUsuario varchar(100),
-@Nombre varchar(100),
-@Apellido varchar(100),
-@Email varchar(150),
-@Contraseña varchar(50),
-@FechaAlta date,
-@Activo bit = 1,
-@Admin bit
-as
-begin
-insert into Usuario values(@NombreUsuario,@Nombre,@Apellido,@Email,@Contraseña, @FechaAlta, @Activo, @Admin)
-end
+
+CREATE PROCEDURE SP_ListarMarca
+AS
+BEGIN
+    SELECT IdMarca, Nombre, Activo
+    FROM Marcas
+    WHERE Activo = 1
+    ORDER BY Nombre;
+END;
 
 GO
 
-create procedure SP_ModificarUsuario
-@IdUsuario int,
-@NombreUsuario varchar(100),
-@Nombre varchar(100),
-@Apellido varchar(100),
-@Email varchar(150),
-@Contraseña varchar(200),
-@FechaAlta date,
-@Admin bit
-as
-begin
-update Usuario set NombreUsuario = @NombreUsuario, Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Contrasena = @Contraseña, FechaAlta = @FechaAlta, Admin = @Admin where IdUsuario = @IdUsuario
-end
+CREATE PROCEDURE SP_AgregarMarca
+    @Nombre VARCHAR(100)
+AS
+BEGIN
+    INSERT INTO Marcas (Nombre)
+    VALUES (@Nombre);
+END;
 
-go
-
-create procedure SP_EliminarUsuario
-@IdUsuario int
-as
-begin
-update Usuario set Activo = 0 where IdUsuario = @IdUsuario
-end
 
 GO
+
+CREATE PROCEDURE SP_ModificarMarca
+    @IdMarca INT,
+    @Nombre VARCHAR(100)
+AS
+BEGIN
+    UPDATE Marcas
+    SET Nombre = @Nombre
+    WHERE IdMarca = @IdMarca;
+END;
+
+GO
+
+CREATE PROCEDURE SP_EliminarMarca
+    @IdMarca INT
+AS
+BEGIN
+    UPDATE Marcas
+    SET Activo = 0
+    WHERE IdMarca = @IdMarca;
+END;
+
+GO
+
+
+CREATE PROCEDURE SP_ListarCategoria
+AS
+BEGIN
+    SELECT IdCategoria, Nombre, Activo
+    FROM Categorias
+    WHERE Activo = 1
+    ORDER BY Nombre;
+END;
+
+GO
+
+CREATE PROCEDURE SP_AgregarCategoria
+    @Nombre VARCHAR(100)
+AS
+BEGIN
+    INSERT INTO Categorias (Nombre)
+    VALUES (@Nombre);
+END;
+
+GO
+
+CREATE PROCEDURE SP_ModificarCategoria
+    @IdCategoria INT,
+    @Nombre VARCHAR(100)
+AS
+BEGIN
+    UPDATE Categorias
+    SET Nombre = @Nombre
+    WHERE IdCategoria = @IdCategoria;
+END;
+
+GO
+
+CREATE PROCEDURE SP_EliminarCategoria
+    @IdCategoria INT
+AS
+BEGIN
+    UPDATE Categorias
+    SET Activo = 0
+    WHERE IdCategoria = @IdCategoria;
+END;
+

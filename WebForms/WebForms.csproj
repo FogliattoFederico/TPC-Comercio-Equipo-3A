@@ -67,16 +67,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AltaMarca.aspx" />
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
     <Content Include="Css\StyleListClientes.css" />
+    <Content Include="Css\StyleListMarcas.css" />
+    <Content Include="Css\StyleListCategorias.css" />
     <Content Include="Css\StyleListVentas.css" />
     <Content Include="Css\StyleListProductos.css" />
     <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
     <Content Include="Css\Style_default.css" />
     <Content Include="Error.aspx" />
+    <Content Include="ListaCategorias.aspx" />
     <Content Include="ListaCompras.aspx" />
+    <Content Include="ListaMarcas.aspx" />
     <Content Include="ListaUsuarios.aspx" />
     <Content Include="PanelAdmin.aspx" />
     <Content Include="AltaCatTipoMarca.aspx" />
@@ -104,6 +109,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltaMarca.aspx.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaMarca.aspx.designer.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AltaUsuario.aspx.cs">
       <DependentUpon>AltaUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,12 +137,26 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ListaCategorias.aspx.cs">
+      <DependentUpon>ListaCategorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaCategorias.aspx.designer.cs">
+      <DependentUpon>ListaCategorias.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ListaCompras.aspx.cs">
       <DependentUpon>ListaCompras.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ListaCompras.aspx.designer.cs">
       <DependentUpon>ListaCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListaMarcas.aspx.cs">
+      <DependentUpon>ListaMarcas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaMarcas.aspx.designer.cs">
+      <DependentUpon>ListaMarcas.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListaUsuarios.aspx.cs">
       <DependentUpon>ListaUsuarios.aspx</DependentUpon>
