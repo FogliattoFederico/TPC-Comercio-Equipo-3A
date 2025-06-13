@@ -157,6 +157,15 @@ END
 
 go
 
+create procedure SP_EliminarCliente
+@IdCliente int
+AS
+BEGIN
+update Clientes set Activo = 0 where IdCliente = @IdCliente
+END
+
+go
+
 /*PROVEEDORES*/
 
 create or Alter procedure SP_listarProveedores

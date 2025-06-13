@@ -245,6 +245,7 @@
     <Compile Include="PanelVendedores.aspx.designer.cs">
       <DependentUpon>PanelVendedores.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ValidacionCampo.cs" />
     <Compile Include="Vendedores.Master.cs">
       <DependentUpon>Vendedores.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

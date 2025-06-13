@@ -6,14 +6,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using WebForms.Utils;
+
 namespace WebForms
 {
     public partial class AltaVendedor : System.Web.UI.Page
     {
+        private WebControl[] Controles = new WebControl[6]; 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                Controles[0] = txtApellido;
+                Controles[1] = txtEmail;
+                Controles[2] = txtNombre;
+                Controles[3] = txtNombreUsuario;
+                Controles[4] = txtContrasena;
+                Controles[5] = ddlRol;
+
                 if (!IsPostBack)
                 {
                     txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -39,6 +50,8 @@ namespace WebForms
 
                     }
                 }
+                ValidacionCampo.TodosCamposCompletos(Controles);
+                
             }
             catch (Exception ex)
             {
@@ -95,6 +108,48 @@ namespace WebForms
             }
             
 
+        }
+
+        protected void txtIdUsuario_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+        }
+
+        protected void txtNombreUsuario_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+
+        }
+
+        protected void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+
+        }
+
+        protected void txtApellido_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+
+        }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+
+        }
+
+        protected void txtContrasena_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+
+        }
+
+     
+
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
         }
     }
 }

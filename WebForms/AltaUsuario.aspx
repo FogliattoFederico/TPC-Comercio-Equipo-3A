@@ -15,11 +15,11 @@
             <div style="display: grid; grid-template-columns: 80px 1fr; gap: 15px; margin-bottom: 15px;">
                 <div>
                     <asp:Label ID="lblIdUsuario" runat="server" Text="ID:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                    <asp:TextBox ID="txtIdUsuario" runat="server" ReadOnly="true" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px; background-color: #f9f9f9;"></asp:TextBox>
+                    <asp:TextBox ID="txtIdUsuario" runat="server" ReadOnly="true" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px; background-color: #f9f9f9;" OnTextChanged="txtIdUsuario_TextChanged" AutoPostBack="true"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblNombreUsuario" runat="server" Text="Nombre Usuario:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                    <asp:TextBox ID="txtNombreUsuario" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                    <asp:TextBox ID="txtNombreUsuario" AutoPostBack="true" OnTextChanged="txtNombreUsuario_TextChanged" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
                 </div>
             </div>
 
@@ -27,23 +27,23 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
                 <div>
                     <asp:Label ID="lblNombre" runat="server" Text="Nombre:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                    <asp:TextBox ID="txtNombre" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                    <asp:TextBox ID="txtNombre" OnTextChanged="txtNombre_TextChanged" AutoPostBack="true" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblApellido" runat="server" Text="Apellido:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                    <asp:TextBox ID="txtApellido" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                    <asp:TextBox ID="txtApellido" AutoPostBack="true" OnTextChanged="txtApellido_TextChanged" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
                 </div>
             </div>
 
 
             <div style="margin-bottom: 15px;">
                 <asp:Label ID="lblEmail" runat="server" Text="Email:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" OnTextChanged="txtEmail_TextChanged" AutoPostBack="true" TextMode="Email" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
             </div>
 
             <div style="margin-bottom: 15px;">
                 <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                <asp:TextBox ID="txtContrasena" AutoPostBack="true" OnTextChanged="txtContrasena_TextChanged" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
             </div>
 
 
@@ -60,14 +60,15 @@
                 </div>
                 <div>
                     <asp:Label ID="lblRol" runat="server" Text="Rol:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                    <asp:DropDownList ID="ddlRol" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px; background-color: white;">
-                        <asp:ListItem Text="Seleccione Rol" Value="" />
+                    <asp:DropDownList ID="ddlRol" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px; background-color: white;">
+                        <asp:ListItem Text="Seleccione Rol" Value="" Selected="true" />
                         <asp:ListItem Text="Admin" Value="True" />
                         <asp:ListItem Text="Vendedor" Value="False" />
                     </asp:DropDownList>
                 </div>
             </div>
 
+           
 
             <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click"
@@ -78,7 +79,7 @@
                     Style="padding: 8px 25px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'" />
             </div>
-            <asp:Label Text="" ID="lblAviso" runat="server" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block; margin-top: 10px " />
+            <asp:Label Text="" ID="lblAviso" runat="server" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block; margin-top: 10px" />
         </div>
     </asp:Panel>
 </asp:Content>

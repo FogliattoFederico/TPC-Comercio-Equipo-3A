@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.Management;
@@ -7,44 +8,58 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using WebForms.Utils; // Assuming this is the namespace where ValidacionCampo is defined
+
 
 namespace WebForms
 {
     public partial class AltaProveedor : System.Web.UI.Page
     {
         private List<Proveedor> lista;
+        private TextBox[] CajasDeTexto = new TextBox[5];
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-            if (Request.QueryString["Id"] != null)
+            try
             {
-                ProveedorNegocio negocio = new ProveedorNegocio();
-                lista = negocio.Listar();
+                CajasDeTexto[0] = txtRazonSocial;
+                CajasDeTexto[1] = txtCuit;
+                CajasDeTexto[2] = txtDireccion;
+                CajasDeTexto[3] = txtTelefono;
+                CajasDeTexto[4] = txtEmail;
 
-
-                if (!IsPostBack)
+                if (Request.QueryString["Id"] != null)
                 {
-                    int id = int.Parse(Request.QueryString["Id"]);
-                    Proveedor seleccionado = lista.Find(x => x.IdProveedor == id);
+                    ProveedorNegocio negocio = new ProveedorNegocio();
+                    lista = negocio.Listar();
 
-                    txtCuit.Text = seleccionado.CUIT;
-                    txtDireccion.Text = seleccionado.Direccion;
-                    txtEmail.Text = seleccionado.Email;
-                    txtId.Text = seleccionado.IdProveedor.ToString();
-                    txtRazonSocial.Text = seleccionado.RazonSocial;
-                    txtTelefono.Text = seleccionado.Telefono;
 
-                    btnAceptar.Enabled = true;
+                    if (!IsPostBack)
+                    {
+                        int id = int.Parse(Request.QueryString["Id"]);
+                        Proveedor seleccionado = lista.Find(x => x.IdProveedor == id);
+
+                        txtCuit.Text = seleccionado.CUIT;
+                        txtDireccion.Text = seleccionado.Direccion;
+                        txtEmail.Text = seleccionado.Email;
+                        txtId.Text = seleccionado.IdProveedor.ToString();
+                        txtRazonSocial.Text = seleccionado.RazonSocial;
+                        txtTelefono.Text = seleccionado.Telefono;
+
+                        btnAceptar.Enabled = true;
+
+                    }
 
                 }
 
+                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+                //controlAceptar(btnAceptar);
+
             }
+            catch (Exception ex)
+            {
 
-
-
-            controlAceptar();
-
+                Session.Add("Error", ex.ToString());
+            }
 
         }
 
@@ -97,45 +112,54 @@ namespace WebForms
             }
         }
 
-        private void controlAceptar()
-        {
-            btnAceptar.Enabled = TodosCamposCompletos();
-        }
+        //private void controlAceptar(Button boton)
+        //{
+        //    boton.Enabled = TodosCamposCompletos(CajasDeTexto);
+        //}
 
-        private bool TodosCamposCompletos()
-        {
-            return !string.IsNullOrWhiteSpace(txtTelefono.Text) &&
-                   !string.IsNullOrWhiteSpace(txtCuit.Text) &&
-                   !string.IsNullOrWhiteSpace(txtEmail.Text) &&
-                   !string.IsNullOrWhiteSpace(txtDireccion.Text) &&
-                   !string.IsNullOrWhiteSpace(txtRazonSocial.Text);
-        }
+        //private bool TodosCamposCompletos(TextBox[] CajasDeTexto)
+        //{
+        //    foreach (var caja in CajasDeTexto)
+        //    {
+        //        if (string.IsNullOrWhiteSpace(caja.Text))
+        //        {
+        //            return false;
+        //        }
+
+        //    }
+        //    return true;
+        //    //return !string.IsNullOrWhiteSpace(txtTelefono.Text) &&
+        //    //       !string.IsNullOrWhiteSpace(txtCuit.Text) &&
+        //    //       !string.IsNullOrWhiteSpace(txtEmail.Text) &&
+        //    //       !string.IsNullOrWhiteSpace(txtDireccion.Text) &&
+        //    //       !string.IsNullOrWhiteSpace(txtRazonSocial.Text);
+        //}
         protected void txtRazonSocial_TextChanged(object sender, EventArgs e)
         {
-            controlAceptar();
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
         }
 
         protected void txtCuit_TextChanged(object sender, EventArgs e)
         {
-            controlAceptar();
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
         }
 
         protected void txtDireccion_TextChanged(object sender, EventArgs e)
         {
-            controlAceptar();
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
         }
 
         protected void txtTelefono_TextChanged(object sender, EventArgs e)
         {
-            controlAceptar();
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
         }
 
         protected void txtEmail_TextChanged(object sender, EventArgs e)
         {
-            controlAceptar();
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
         }
     }

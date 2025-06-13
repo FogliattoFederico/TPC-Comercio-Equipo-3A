@@ -6,18 +6,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using WebForms.Utils;
 
 namespace WebForms
 {
     public partial class AltaCliente : System.Web.UI.Page
     {
         private List<Cliente> lista = new List<Cliente>();
-        
+        private TextBox[] CajasDeTexto = new TextBox[6];
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                CajasDeTexto[0] = txtApellido;
+                CajasDeTexto[1] = txtDireccion;
+                CajasDeTexto[2] = txtDni;
+                CajasDeTexto[3] = txtEmail;
+                CajasDeTexto[4] = txtDni;
+                CajasDeTexto[5] = txtNombre;
                 
                 if (!IsPostBack)
                 {
@@ -42,6 +49,9 @@ namespace WebForms
                     }
                    
                 }
+
+                btnAceptar.Enabled = false;
+                ValidacionCampo.TodosCamposCompletos(CajasDeTexto);
             }
             catch (Exception ex)
             {
@@ -107,6 +117,45 @@ namespace WebForms
             Response.Redirect("ListaClientes.aspx", false);
         }
 
-      
+        protected void txtId_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+        }
+
+        protected void txtDni_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
+
+        protected void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
+
+        protected void txtApellido_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
+
+        protected void txtDireccion_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
+
+        protected void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+
+        }
     }
 }
