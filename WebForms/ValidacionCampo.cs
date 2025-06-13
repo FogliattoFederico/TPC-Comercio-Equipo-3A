@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -9,23 +10,12 @@ namespace WebForms.Utils
     public static class ValidacionCampo
     {
 
-        //    public static void ControlAceptar(Button boton, TextBox[] cajasDeTexto)
-        //    {
-        //        if (boton == null)
-        //            throw new ArgumentNullException(nameof(boton));
-
-        //        boton.Enabled = TodosCamposCompletos(cajasDeTexto);
-        //    }
-
-        //    public static bool TodosCamposCompletos(TextBox[] cajasDeTexto)
-        //    {
-        //        if (cajasDeTexto == null)
-        //            throw new ArgumentNullException(nameof(cajasDeTexto));
-
-        //        return cajasDeTexto.All(caja =>
-        //            caja != null && !string.IsNullOrWhiteSpace(caja.Text));
-        //    }
-        //}
+        public static bool ValidarCorreo(string correo)
+        {
+            
+            string patron = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            return Regex.IsMatch(correo, patron);
+        }
 
         public static void ControlAceptar(Button boton, WebControl[] controles)
         {
@@ -35,13 +25,7 @@ namespace WebForms.Utils
             boton.Enabled = TodosCamposCompletos(controles);
         }
 
-        // Sobrecarga para mantener compatibilidad con código existente
-        //public static void ControlAceptar(Button boton, TextBox[] cajasDeTexto)
-        //{
-        //    ControlAceptar(boton, cajasDeTexto.Cast<WebControl>().ToArray());
-        //}
-
-        // Método principal de validación
+      
         public static bool TodosCamposCompletos(WebControl[] controles)
         {
             if (controles == null)
@@ -65,11 +49,7 @@ namespace WebForms.Utils
             });
         }
 
-        // Sobrecarga para mantener compatibilidad con código existente
-        //public static bool TodosCamposCompletos(TextBox[] cajasDeTexto)
-        //{
-        //    return TodosCamposCompletos(cajasDeTexto.Cast<WebControl>().ToArray());
-        //}
+       
     }
 
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
 using WebForms.Utils;
 
 namespace WebForms
@@ -17,6 +18,8 @@ namespace WebForms
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            lblAviso.Text = "";
             try
             {
                 CajasDeTexto[0] = txtApellido;
@@ -25,10 +28,10 @@ namespace WebForms
                 CajasDeTexto[3] = txtEmail;
                 CajasDeTexto[4] = txtDni;
                 CajasDeTexto[5] = txtNombre;
-                
+
                 if (!IsPostBack)
                 {
-                    
+
                     if (Request.QueryString["id"] != null)
                     {
                         ClienteNegocio negocio = new ClienteNegocio();
@@ -45,9 +48,9 @@ namespace WebForms
                         txtTelefono.Text = seleccionado.Telefono;
                         txtId.Text = seleccionado.IdCliente.ToString();
 
-                       
+
                     }
-                   
+
                 }
 
                 btnAceptar.Enabled = false;
@@ -71,7 +74,16 @@ namespace WebForms
                 cliente.Dni = txtDni.Text;
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Nombre = txtNombre.Text;
-                cliente.Email = txtEmail.Text;
+                if (ValidacionCampo.ValidarCorreo(txtEmail.Text))
+                {
+                    cliente.Email = txtEmail.Text;
+
+                }
+                else
+                {
+                    lblAviso.Text = "El correo es invalido";
+                    return;
+                }
                 cliente.Apellido = txtApellido.Text;
                 cliente.Telefono = txtTelefono.Text;
 
@@ -157,5 +169,8 @@ namespace WebForms
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
         }
+
+
+        
     }
 }
