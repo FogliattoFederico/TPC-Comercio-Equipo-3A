@@ -80,7 +80,7 @@ namespace WebForms
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Cliente> lista = (List<Cliente>)Session["listaClientes"];
-            List<Cliente> filtrada = lista.Where(c => c.Dni.Contains(txtBuscarDni.Text)).ToList();
+            List<Cliente> filtrada = lista.Where(c => c.Dni.Trim().Contains(txtBuscarDni.Text.Trim())).ToList();
 
             dgvClientes.DataSource = filtrada;
             dgvClientes.DataBind();

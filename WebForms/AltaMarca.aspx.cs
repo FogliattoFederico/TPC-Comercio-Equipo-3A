@@ -13,14 +13,14 @@ namespace WebForms
     public partial class AltaMarca : System.Web.UI.Page
     {
         private List<Marca> lista;
-        private TextBox[] CajasDeTexto = new TextBox[2];
+        private TextBox[] CajasDeTexto = new TextBox[1];
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                CajasDeTexto[0] = txtID;
-                CajasDeTexto[1] = txtNombre;
-               
+                
+                CajasDeTexto[0] = txtNombre;
+              
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -37,13 +37,13 @@ namespace WebForms
                         txtNombre.Text = seleccionado.Nombre;
 
 
-                        btnAgregar.Enabled = true;
+                        btnAceptar.Enabled = true;
 
                     }
 
                 }
 
-                ValidacionCampo.ControlAceptar(btnAgregar, CajasDeTexto);
+                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
 
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace WebForms
             Response.Redirect("ListaMarcas.aspx", false);
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        protected void btnAceptar_Click(object sender, EventArgs e)
         {
             Marca MRK = new Marca();
             MarcaNegocio negocio = new MarcaNegocio();
@@ -79,7 +79,7 @@ namespace WebForms
                 else
                 {
                     lista = negocio.ListarMarcaConSp();
-                    bool encontrado = lista.Any(x => x.Nombre == MRK.Nombre);
+                    bool encontrado = lista.Any(x => x.Nombre.Trim().ToLower() == MRK.Nombre.Trim().ToLower());
 
                     if (!encontrado)
                     {
@@ -103,6 +103,11 @@ namespace WebForms
 
                 Session.Add("error", ex);
             }
+        }
+
+        protected void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
         }
     }
 }

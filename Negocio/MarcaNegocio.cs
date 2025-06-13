@@ -78,7 +78,7 @@ namespace Negocio
                 datos.setearProcedimiento("SP_AgregarMarca");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 
-                datos.setearParametro("@Activo", 1);
+                /*datos.setearParametro("@Activo", 1)*/;
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

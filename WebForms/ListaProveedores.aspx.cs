@@ -68,7 +68,7 @@ namespace WebForms
             ProveedorNegocio negocio = new ProveedorNegocio();
 
             List<Proveedor> lista = negocio.Listar();
-            List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Contains(txtBuscarCuit.Text)).ToList();
+            List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Trim().Contains(txtBuscarCuit.Text.Trim())).ToList();
 
             GVProveedores.DataSource = listaFiltrada;
             GVProveedores.DataBind();

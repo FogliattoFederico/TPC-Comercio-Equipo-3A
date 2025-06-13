@@ -38,7 +38,7 @@ namespace WebForms
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Marca> lista = (List<Marca>)Session["listaMarca"];
-            List<Marca> filtrada = lista.Where(M => M.Nombre.Contains(txtBuscarMarca.Text)).ToList();
+            List<Marca> filtrada = lista.Where(M => M.Nombre.Trim().ToLower().Contains(txtBuscarMarca.Text.Trim().ToLower())).ToList();
 
             GVMarcas.DataSource = filtrada;
             GVMarcas.DataBind();

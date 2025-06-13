@@ -290,8 +290,8 @@ CREATE PROCEDURE SP_AgregarMarca
     @Nombre VARCHAR(100)
 AS
 BEGIN
-    INSERT INTO Marcas (Nombre)
-    VALUES (@Nombre);
+    INSERT INTO Marcas (Nombre, Activo)
+    VALUES (@Nombre, 1);
 END;
 
 

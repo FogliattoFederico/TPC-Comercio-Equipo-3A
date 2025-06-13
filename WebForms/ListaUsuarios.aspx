@@ -26,7 +26,7 @@
                      <asp:TextBox ID="txtBuscarUsuario" runat="server"
                          CssClass="form-control form-control-lg me-3"
                          placeholder="Ingrese nombre de usuario"
-                         MaxLength="8" ></asp:TextBox>
+                         ></asp:TextBox>
                      <div class="input-group-append">
                          <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
                              CssClass="btn btn-primary btn-lg" />
