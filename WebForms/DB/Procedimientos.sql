@@ -225,7 +225,7 @@ create procedure SP_AgregarUsuario
 @Admin bit
 as
 begin
-insert into Usuario values(@NombreUsuario,@Nombre,@Apellido,@Email,@Contraseña, @FechaAlta, @Activo, @Admin)
+insert into Usuario values(@NombreUsuario,@Nombre,@Apellido,@Email,@Contraseña, @FechaAlta, @Admin, @Activo)
 end
 
 GO
