@@ -16,6 +16,7 @@ namespace WebForms
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnAceptar.Enabled = false;
             try
             {
                 Controles[0] = txtApellido;
@@ -66,7 +67,7 @@ namespace WebForms
             Response.Redirect("ListaUsuarios.aspx", false);
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnAceptar_Click(object sender, EventArgs e)
         {
             Usuario nuevo = new Usuario();
             UsuarioNegocio negocio = new UsuarioNegocio();
@@ -112,36 +113,36 @@ namespace WebForms
 
         protected void txtIdUsuario_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
         }
 
         protected void txtNombreUsuario_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
 
         }
 
         protected void txtNombre_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
 
         }
 
         protected void txtApellido_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
 
         }
 
         protected void txtEmail_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
 
         }
 
         protected void txtContrasena_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
 
         }
 
@@ -149,7 +150,7 @@ namespace WebForms
 
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnGuardar, Controles);
+            ValidacionCampo.ControlAceptar(btnAceptar, Controles);
         }
     }
 }

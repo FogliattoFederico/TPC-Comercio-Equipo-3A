@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Panel ID="pnlUsuario" runat="server" DefaultButton="btnGuardar">
+    <asp:Panel ID="pnlUsuario" runat="server" DefaultButton="btnAceptar">
         <div style="max-width: 500px; margin: 40px auto; margin-bottom: 60px; padding: 30px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-family: 'Segoe UI', Arial, sans-serif;">
             <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px;">
                 <i class="fas fa-user-cog" style="margin-right: 10px;"></i>Gestión de Usuario
@@ -68,9 +68,14 @@
                 </div>
             </div>
 
-           
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <asp:Button ID="Button1" runat="server" Text="Cancelar"
+                    CssClass="btn btn-outline-secondary me-md-2" OnClick="btnCancelar_Click" />
+                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar"
+                    CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
+            </div>
 
-            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <%--<div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click"
                     Style="padding: 8px 20px; background-color: #f5f5f5; color: #555; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#e9e9e9'" onmouseout="this.style.backgroundColor='#f5f5f5'" />
@@ -78,7 +83,7 @@
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click"
                     Style="padding: 8px 25px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'" />
-            </div>
+            </div>--%>
             <asp:Label Text="" ID="lblAviso" runat="server" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block; margin-top: 10px" />
         </div>
     </asp:Panel>
