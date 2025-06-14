@@ -52,7 +52,7 @@ namespace WebForms
                 }
 
                 ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-                //controlAceptar(btnAceptar);
+
 
             }
             catch (Exception ex)
@@ -76,11 +76,20 @@ namespace WebForms
             try
             {
 
-                nuevo.Direccion = txtDireccion.Text;
-                nuevo.RazonSocial = txtRazonSocial.Text;
-                nuevo.Email = txtEmail.Text;
-                nuevo.Telefono = txtTelefono.Text;
-                nuevo.CUIT = txtCuit.Text;
+                nuevo.Direccion = txtDireccion.Text.Trim();
+                nuevo.RazonSocial = txtRazonSocial.Text.Trim();
+                if (ValidacionCampo.ValidarCorreo(txtEmail.Text.Trim()))
+                {
+                    nuevo.Email = txtEmail.Text.Trim();
+                }
+                else
+                {
+
+                    lblEmailMensaje.Text = "Formato invalido";
+                }
+
+                nuevo.Telefono = txtTelefono.Text.Trim();
+                nuevo.CUIT = txtCuit.Text.Trim();
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -154,13 +163,13 @@ namespace WebForms
         protected void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-
+            lblTelefonoMensaje.Text = "";
         }
 
         protected void txtEmail_TextChanged(object sender, EventArgs e)
         {
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-
+            lblEmailMensaje.Text = "";
         }
     }
 }

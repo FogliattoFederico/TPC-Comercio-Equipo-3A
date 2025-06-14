@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
+
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:Panel ID="pnlAltaProveedor" runat="server" DefaultButton="btnAceptar">
@@ -30,7 +30,7 @@
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblCuit" runat="server" Text="CUIT" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtCuit_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="txtCuit" runat="server" MaxLength="13" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtCuit_TextChanged"></asp:TextBox>
                                     </div>
 
                                     <div class="mb-3">
@@ -40,12 +40,16 @@
 
                                     <div class="mb-3">
                                         <asp:Label ID="lblTelefono" runat="server" Text="Teléfono" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtTelefono_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="txtTelefono" runat="server" textmode="Number" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtTelefono_TextChanged"></asp:TextBox>
+                                        <asp:Label ID="lblTelefonoMensaje" runat="server" CssClass="alert alert-danger d-block" Visible="false"></asp:Label>
+
                                     </div>
 
                                     <div class="mb-4">
                                         <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="form-label fw-bold"></asp:Label>
-                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" AutoPostBack="true" TextMode="Email" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
+                                        <asp:Label ID="lblEmailMensaje" runat="server" Text=""
+                                            Style="color: red; font-size: 17px; font-weight: 500; margin-top: 10px; display: inline-block;" />
                                     </div>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

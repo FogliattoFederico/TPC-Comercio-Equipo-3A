@@ -108,6 +108,7 @@ namespace WebForms
         protected void txtNombre_TextChanged(object sender, EventArgs e)
         {
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            lblMensaje.Text = "";
         }
     }
 }

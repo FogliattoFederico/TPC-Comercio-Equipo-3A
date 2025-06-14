@@ -24,7 +24,7 @@
                 <div class="input-group">
                     <asp:TextBox ID="txtBuscarCuit" runat="server"
                         CssClass="form-control form-control-lg me-3"
-                        placeholder="Ingrese CUIT "
+                        placeholder="Ingrese CUIT o Razon Social "
                         MaxLength="13" ></asp:TextBox>
                     <div class="input-group-append">
                         <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
