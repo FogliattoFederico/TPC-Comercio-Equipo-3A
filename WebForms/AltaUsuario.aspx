@@ -36,14 +36,16 @@
             </div>
 
 
-            <div style="margin-bottom: 15px;">
-                <asp:Label ID="lblEmail" runat="server" Text="Email:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
-                <asp:TextBox ID="txtEmail" runat="server" OnTextChanged="txtEmail_TextChanged" AutoPostBack="true" TextMode="Email" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
-            </div>
 
             <div style="margin-bottom: 15px;">
                 <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
                 <asp:TextBox ID="txtContrasena" AutoPostBack="true" OnTextChanged="txtContrasena_TextChanged" runat="server" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <asp:Label ID="lblEmail" runat="server" Text="Email:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #5d6d7e; font-size: 14px;"></asp:Label>
+                <asp:TextBox ID="txtEmail" runat="server" OnTextChanged="txtEmail_TextChanged" AutoPostBack="true" TextMode="Email" Style="width: 100%; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 5px;"></asp:TextBox>
+                <asp:Label Text="" ID="lblEmailMensaje" runat="server" Style="color: red; font-size: 17px; font-weight: 500; display: inline-block; margin-top: 10px" />
+
             </div>
 
 
