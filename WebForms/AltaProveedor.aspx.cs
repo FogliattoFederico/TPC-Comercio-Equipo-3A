@@ -163,7 +163,6 @@ namespace WebForms
         protected void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-            lblTelefonoMensaje.Text = "";
         }
 
         protected void txtEmail_TextChanged(object sender, EventArgs e)

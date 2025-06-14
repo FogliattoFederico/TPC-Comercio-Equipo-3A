@@ -41,7 +41,6 @@
                                     <div class="mb-3">
                                         <asp:Label ID="lblTelefono" runat="server" Text="Teléfono" CssClass="form-label fw-bold"></asp:Label>
                                         <asp:TextBox ID="txtTelefono" runat="server" textmode="Number" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtTelefono_TextChanged"></asp:TextBox>
-                                        <asp:Label ID="lblTelefonoMensaje" runat="server" CssClass="alert alert-danger d-block" Visible="false"></asp:Label>
 
                                     </div>
 

@@ -16,19 +16,20 @@ namespace WebForms
     {
         private List<Cliente> lista = new List<Cliente>();
         private TextBox[] CajasDeTexto = new TextBox[6];
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            lblAviso.Text = "";
+
             try
             {
                 CajasDeTexto[0] = txtApellido;
                 CajasDeTexto[1] = txtDireccion;
                 CajasDeTexto[2] = txtDni;
                 CajasDeTexto[3] = txtEmail;
-                CajasDeTexto[4] = txtDni;
+                CajasDeTexto[4] = txtTelefono;
                 CajasDeTexto[5] = txtNombre;
+
 
                 if (!IsPostBack)
                 {
@@ -71,20 +72,11 @@ namespace WebForms
 
             try
             {
-                
+
                 cliente.Dni = txtDni.Text;
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Nombre = txtNombre.Text;
-                if (ValidacionCampo.ValidarCorreo(txtEmail.Text))
-                {
-                    cliente.Email = txtEmail.Text;
-
-                }
-                else
-                {
-                    lblAviso.Text = "El correo es invalido";
-                    return;
-                }
+                cliente.Email = txtEmail.Text;
                 cliente.Apellido = txtApellido.Text;
                 cliente.Telefono = txtTelefono.Text;
 
@@ -110,7 +102,7 @@ namespace WebForms
                     {
                         lblAviso.Text = "El cliente ya se encuentra registrado";
                         lblAviso.Visible = true;
-                        return;
+
                     }
 
 
@@ -137,16 +129,20 @@ namespace WebForms
 
         protected void txtDni_TextChanged(object sender, EventArgs e)
         {
-            if (!int.TryParse(txtDni.Text, out _))
-            {
-                lblAviso.Text = "¡Solo se permiten números!";
-                return;
-            }
-            else
-            {
+            //if (!long.TryParse(txtDni.Text, out _))
+            //{
+            //    lblDniMensaje.Text = "Solo se permiten números";
+            //    ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+                
+            //}
+            //else
+            //{
+            //    ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            //    lblDniMensaje.Text = "";
+            //    lblAviso.Text = "";
 
-                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-            }
+            //}
+
 
         }
 
@@ -170,20 +166,39 @@ namespace WebForms
 
         protected void txtTelefono_TextChanged(object sender, EventArgs e)
         {
-            
+
+
+            if (!long.TryParse(txtTelefono.Text, out _))
+            {
+                lblTelefonoMensaje.Text = "Solo se permiten números";
+
+            }
+            else
+            {
 
                 ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
-            
+                lblTelefonoMensaje.Text = "";
+
+            }
 
         }
 
         protected void txtEmail_TextChanged(object sender, EventArgs e)
         {
-            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+            if (ValidacionCampo.ValidarCorreo(txtEmail.Text))
+            {
+                ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+                lblEmailMensaje.Text = "";
+
+            }
+            else
+            {
+                lblEmailMensaje.Text = "Formato Invalido";
+            }
 
         }
 
 
-        
+
     }
 }
