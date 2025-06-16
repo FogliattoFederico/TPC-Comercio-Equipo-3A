@@ -342,92 +342,9 @@ ORDER BY C.Fecha ASC;
 
 */
 
+/*
+update Usuario set Activo=1 where IdUsuario=4;
+go*/
+--select * from Usuario
 
-CREATE PROCEDURE SP_ListarMarca
-AS
-BEGIN
-    SELECT IdMarca, Nombre, Activo
-    FROM Marcas
-    WHERE Activo = 1
-    ORDER BY Nombre;
-END;
-
-GO
-
-CREATE PROCEDURE SP_AgregarMarca
-    @Nombre VARCHAR(100)
-AS
-BEGIN
-    INSERT INTO Marcas (Nombre)
-    VALUES (@Nombre);
-END;
-
-
-GO
-
-CREATE PROCEDURE SP_ModificarMarca
-    @IdMarca INT,
-    @Nombre VARCHAR(100)
-AS
-BEGIN
-    UPDATE Marcas
-    SET Nombre = @Nombre
-    WHERE IdMarca = @IdMarca;
-END;
-
-GO
-
-CREATE PROCEDURE SP_EliminarMarca
-    @IdMarca INT
-AS
-BEGIN
-    UPDATE Marcas
-    SET Activo = 0
-    WHERE IdMarca = @IdMarca;
-END;
-
-GO
-
-
-CREATE PROCEDURE SP_ListarCategoria
-AS
-BEGIN
-    SELECT IdCategoria, Nombre, Activo
-    FROM Categorias
-    WHERE Activo = 1
-    ORDER BY Nombre;
-END;
-
-GO
-
-CREATE PROCEDURE SP_AgregarCategoria
-    @Nombre VARCHAR(100)
-AS
-BEGIN
-    INSERT INTO Categorias (Nombre)
-    VALUES (@Nombre);
-END;
-
-GO
-
-CREATE PROCEDURE SP_ModificarCategoria
-    @IdCategoria INT,
-    @Nombre VARCHAR(100)
-AS
-BEGIN
-    UPDATE Categorias
-    SET Nombre = @Nombre
-    WHERE IdCategoria = @IdCategoria;
-END;
-
-GO
-
-CREATE PROCEDURE SP_EliminarCategoria
-    @IdCategoria INT
-AS
-BEGIN
-    UPDATE Categorias
-    SET Activo = 0
-    WHERE IdCategoria = @IdCategoria;
-END;
 

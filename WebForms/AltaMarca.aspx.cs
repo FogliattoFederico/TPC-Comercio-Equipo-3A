@@ -13,6 +13,7 @@ namespace WebForms
     public partial class AltaMarca : System.Web.UI.Page
     {
         private List<Marca> lista;
+        private List<Marca> listaE;
         private TextBox[] CajasDeTexto = new TextBox[1];
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -79,21 +80,28 @@ namespace WebForms
                 else
                 {
                     lista = negocio.ListarMarcaConSp();
+                    listaE = negocio.ListarMarcaEliminadas();
                     bool encontrado = lista.Any(x => x.Nombre.Trim().ToLower() == MRK.Nombre.Trim().ToLower());
+                    bool encontradoElimninados = listaE.Any(y=> y.Nombre.Trim().ToLower()==MRK.Nombre.Trim().ToLower());
 
-                    if (!encontrado)
+                    if (!encontrado && !encontradoElimninados)
                     {
                         negocio.AgregarMarca(MRK);
                         Response.Redirect("ListaMarcas.aspx", false);
 
                     }
-                    else
+                    else if(encontrado)
                     {
-                        lblMensaje.Text = "La marca que intenta ingresar ya se encuentra registrada";
+                        lblMensaje.Text = "La marca que intenta ingresar ya se encuentra registrada y activa";
                         lblMensaje.Visible = true;
                         return;
                     }
-
+                    else if (encontradoElimninados)
+                    {
+                        lblMensaje.Text = "La marca que intenta ingresar ya se encuentra registrada e inactiva. Vuelva a darla de alta";
+                        lblMensaje.Visible = true;
+                        return;
+                    }
 
                 }
 

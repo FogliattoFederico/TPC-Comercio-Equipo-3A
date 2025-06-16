@@ -13,7 +13,7 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            MarcaNegocio negocio = new MarcaNegocio();
+            /*MarcaNegocio negocio = new MarcaNegocio();
             List<Marca> lista = negocio.ListarMarcaConSp();
 
             try
@@ -27,7 +27,33 @@ namespace WebForms
             {
 
                 Session.Add("Error", ex.ToString());
+            }*/
+
+            if (!IsPostBack)
+            {
+                CargarMarcas();
             }
+        }
+
+        private void CargarMarcas()
+        {
+            MarcaNegocio negocio = new MarcaNegocio();
+            bool mostrarEliminados = CheckEliminados.Checked;
+
+            List<Marca> lista = mostrarEliminados ?
+                negocio.ListarMarcaEliminadas():
+                negocio.ListarMarcaConSp();
+            try
+            {
+                Session["listaMarca"] = lista;
+                GVMarcas.DataSource = lista;
+                GVMarcas.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+            }
+            
         }
 
         protected void btnAgregarMarca_Click(object sender, EventArgs e)
@@ -47,7 +73,7 @@ namespace WebForms
         protected void GVMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVMarcas.PageIndex = e.NewPageIndex;
-            GVMarcas.DataBind();
+            CargarMarcas();
         }
 
         protected void GVMarcas_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,24 +82,34 @@ namespace WebForms
             Response.Redirect("AltaMarca.aspx?id=" + id);
         }
 
+        protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarMarcas();
+        }
+
+        protected void GVMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GVMarcas.Rows[rowIndex];
+            int idMarca = Convert.ToInt32(GVMarcas.DataKeys[row.RowIndex].Values["IdMarca"]);
+
+            MarcaNegocio negocio = new MarcaNegocio();
+
+            if (e.CommandName == "Delete")
+            {
+                negocio.EliminarMarca(idMarca);
+            }
+            else if (e.CommandName == "Reactivar")
+            {
+                negocio.ReactivarMarca(idMarca);
+            }
+
+            CargarMarcas();
+        }
+
         protected void GVMarcas_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            try
-            {
-                int idMarca = Convert.ToInt32(GVMarcas.DataKeys[e.RowIndex].Value);
-
-                MarcaNegocio negocio = new MarcaNegocio();
-                negocio.EliminarMarca(idMarca);
-
-                GVMarcas.DataSource = negocio.listarMarcas();
-                GVMarcas.DataBind();
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error", ex);
-            }
+            e.Cancel = true;
         }
     }
 }

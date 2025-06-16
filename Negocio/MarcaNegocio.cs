@@ -54,7 +54,8 @@ namespace Negocio
                     Marca MRK= new Marca();
                     MRK.IdMarca = (int)datos.Lector["IdMarca"];
                     MRK.Nombre = datos.Lector["Nombre"].ToString();
-                    
+                    MRK.Activo = (bool)datos.Lector["Activo"];
+
                     listaMarcas.Add(MRK);
                 }
                 return listaMarcas;
@@ -132,8 +133,56 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
 
+        public List<Marca> ListarMarcaEliminadas()
+        {
+            List<Marca> listaMarcas = new List<Marca>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ListarMarcaEliminadas");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Marca MRK = new Marca();
+                    MRK.IdMarca = (int)datos.Lector["IdMarca"];
+                    MRK.Nombre = datos.Lector["Nombre"].ToString();
+                    MRK.Activo = (bool)datos.Lector["Activo"];
 
+                    listaMarcas.Add(MRK);
+                }
+                return listaMarcas;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ReactivarMarca(int idMarca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_AltaMarca");
+                datos.setearParametro("IdMarca", idMarca);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

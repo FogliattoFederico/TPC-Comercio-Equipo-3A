@@ -1,4 +1,4 @@
-USE Comercio_DB;
+    USE Comercio_DB;
 GO
 
 /*PRODUCTOS*/
@@ -286,6 +286,17 @@ END;
 
 GO
 
+CREATE PROCEDURE SP_ListarMarcaEliminadas
+AS
+BEGIN
+    SELECT IdMarca, Nombre, Activo
+    FROM Marcas
+    WHERE Activo = 0
+    ORDER BY Nombre;
+END;
+
+GO
+
 CREATE PROCEDURE SP_AgregarMarca
     @Nombre VARCHAR(100)
 AS
@@ -315,6 +326,17 @@ AS
 BEGIN
     UPDATE Marcas
     SET Activo = 0
+    WHERE IdMarca = @IdMarca;
+END;
+
+GO
+
+CREATE PROCEDURE SP_AltaMarca
+    @IdMarca INT
+AS
+BEGIN
+    UPDATE Marcas
+    SET Activo = 1
     WHERE IdMarca = @IdMarca;
 END;
 
