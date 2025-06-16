@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AltaCategoria.aspx" />
     <Content Include="AltaMarca.aspx" />
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
@@ -109,6 +110,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltaCategoria.aspx.cs">
+      <DependentUpon>AltaCategoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaCategoria.aspx.designer.cs">
+      <DependentUpon>AltaCategoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AltaMarca.aspx.cs">
       <DependentUpon>AltaMarca.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

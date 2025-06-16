@@ -385,3 +385,25 @@ BEGIN
     SET Activo = 0
     WHERE IdCategoria = @IdCategoria;
 END;
+
+GO
+
+CREATE PROCEDURE SP_ListarCategoriaEliminada
+AS
+BEGIN
+    SELECT IdCategoria, Nombre, Activo
+    FROM Categorias
+    WHERE Activo = 0
+    ORDER BY Nombre;
+END;
+
+GO
+
+CREATE PROCEDURE SP_AltaCategoria
+    @IdCategoria INT
+AS
+BEGIN
+    UPDATE Categorias
+    SET Activo = 1
+    WHERE IdCategoria = @IdCategoria;
+END;

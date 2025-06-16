@@ -13,22 +13,6 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*MarcaNegocio negocio = new MarcaNegocio();
-            List<Marca> lista = negocio.ListarMarcaConSp();
-
-            try
-            {
-                Session.Add("listaMarca", negocio.ListarMarcaConSp());
-                GVMarcas.DataSource=lista;
-                GVMarcas.DataBind();
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("Error", ex.ToString());
-            }*/
-
             if (!IsPostBack)
             {
                 CargarMarcas();
