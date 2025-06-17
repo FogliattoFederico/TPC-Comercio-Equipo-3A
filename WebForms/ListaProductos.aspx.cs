@@ -13,9 +13,16 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoNegocio negocio = new ProductoNegocio();
-            List<Producto> lista = negocio.ListarConSp();
+            if (!IsPostBack)
+            {
+                CargarGrid();
+            }
+        }
 
+        private void CargarGrid()
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> lista = negocio.Listar(); // Usar el que muestra sólo los activos
             GVProductos.DataSource = lista;
             GVProductos.DataBind();
         }
@@ -23,11 +30,9 @@ namespace WebForms
         protected void GVProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVProductos.PageIndex = e.NewPageIndex;
-            GVProductos.DataBind();
+            CargarGrid();
 
-        }
-
-     
+        }     
 
         protected void btnagregarProducto_Click(object sender, EventArgs e)
         {
@@ -38,6 +43,31 @@ namespace WebForms
         {
             /*Logica para redirigir al panel que corresponda egun su perfil*/
             Response.Redirect("Default.aspx", false);
+        }
+
+        protected void GVProductos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Modificar")
+            {
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("AltaProducto.aspx?Id=" + id, false);
+            }
+
+            if (e.CommandName == "Eliminar")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                ProductoNegocio negocio = new ProductoNegocio();
+
+                try
+                {
+                    negocio.EliminarProductoLogico(id);
+                    CargarGrid();
+                }
+                catch (Exception ex)
+                {
+                    Session["Error"] = ex.ToString();
+                }
+            }
         }
     }
 }

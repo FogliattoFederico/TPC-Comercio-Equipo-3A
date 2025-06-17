@@ -18,6 +18,34 @@ namespace WebForms
             if (!IsPostBack)
             {
                 cargarDropdowns();
+
+
+                if (Request.QueryString["Id"] != null)
+                {
+                    btnAgregar.Visible = false;
+                    btnModificar.Visible = true;
+
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    int id = int.Parse(Request.QueryString["Id"]);
+                    Producto producto = negocio.buscarProducto(id);
+
+                    txtNombre.Text = producto.Nombre;
+                    txtCodProducto.Text = producto.CodigoArticulo;
+                    txtDescripcion.Text = producto.Descripcion;
+                    TxtPrecio.Text = producto.PrecioCompra.ToString();
+                    txtPorcentaje.Text = producto.PorcentajeGanancia.ToString();
+                    txtImagenUrl.Text = producto.ImagenUrl;
+                    txtStockActual.Text = producto.StockActual.ToString();
+                    txtStockMinimo.Text = producto.StockMinimo.ToString();
+                    ddlMarca.SelectedValue = producto.Marca.IdMarca.ToString();
+                    ddlTipoProducto.SelectedValue = producto.TipoProducto.IdTipoProducto.ToString();
+                }
+                else
+                {
+                    btnAgregar.Visible = true;
+                    btnModificar.Visible = false;
+                }
+
             }
         }
 
@@ -61,6 +89,40 @@ namespace WebForms
                 string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
                 ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
 
+            }
+        }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (ValidarCampos())
+            {
+                Producto producto = new Producto();
+
+                producto.IdProducto = int.Parse(Request.QueryString["Id"]);
+                producto.CodigoArticulo = txtCodProducto.Text;
+                producto.Nombre = txtNombre.Text;
+                producto.Descripcion = txtDescripcion.Text;
+                producto.PrecioCompra = Convert.ToDecimal(TxtPrecio.Text);
+                producto.PorcentajeGanancia = Convert.ToDecimal(txtPorcentaje.Text);
+                producto.StockActual = Convert.ToInt32(txtStockActual.Text);
+                producto.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
+                producto.ImagenUrl = txtImagenUrl.Text;
+                producto.Marca = new Marca();
+                producto.Marca.IdMarca = int.Parse(ddlMarca.SelectedValue);
+                producto.TipoProducto = new TipoProducto();
+                producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
+
+                ProductoNegocio negocio = new ProductoNegocio();
+                negocio.ModificarProducto(producto); // Asegurate de tener este método en la capa negocio
+
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                lblMensaje.Text = "Producto modificado exitosamente.";
+
+                btnAgregar.Visible = false;
+                btnModificar.Visible = false;
+
+                string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
+                ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
             }
         }
 
