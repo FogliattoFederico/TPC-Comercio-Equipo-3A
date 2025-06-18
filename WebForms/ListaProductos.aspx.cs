@@ -15,59 +15,101 @@ namespace WebForms
         {
             if (!IsPostBack)
             {
-                CargarGrid();
+                CargarProductos();
             }
         }
 
-        private void CargarGrid()
+        private void CargarProductos()
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            List<Producto> lista = negocio.Listar(); // Usar el que muestra sólo los activos
-            GVProductos.DataSource = lista;
-            GVProductos.DataBind();
+            bool mostrarEliminados = CheckEliminados.Checked;
+
+            try
+            {
+                List<Producto> lista = mostrarEliminados ?
+                negocio.ListarEliminados() :
+                negocio.Listar();
+                Session["listaProducto"] = lista;
+                GVProductos.DataSource = lista;
+                GVProductos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+            }
+
+        }
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaProducto.aspx", false);
         }
 
         protected void GVProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVProductos.PageIndex = e.NewPageIndex;
-            CargarGrid();
+            GVProductos.DataBind();
+        }
 
-        }     
-
-        protected void btnagregarProducto_Click(object sender, EventArgs e)
+        protected void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaProducto.aspx", false);
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            /*Logica para redirigir al panel que corresponda egun su perfil*/
-            Response.Redirect("Default.aspx", false);
+            Response.Redirect("PanelAdmin.aspx", false);
+        }
+
+        protected void GVProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = GVProductos.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaProducto.aspx?Id=" + id);
+        }
+
+        protected void GVProductos_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            e.Cancel = true;
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+
+            List<Producto> lista = negocio.Listar();
+            string filtro = txtBuscarCuit.Text.Trim().ToLower();
+
+            List<Producto> listaFiltrada = lista.Where(c =>
+                c.Nombre.Trim().ToLower().Contains(filtro) ||
+                c.Descripcion.Trim().ToLower().Contains(filtro)
+            ).ToList();
+
+            GVProductos.DataSource = listaFiltrada;
+            GVProductos.DataBind();
+        }
+
+        protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarProductos();
         }
 
         protected void GVProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Modificar")
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GVProductos.Rows[rowIndex];
+            int idProducto = Convert.ToInt32(GVProductos.DataKeys[row.RowIndex].Values["IdProducto"]);
+
+            ProductoNegocio negocio = new ProductoNegocio();
+
+            if (e.CommandName == "Delete")
             {
-                string id = e.CommandArgument.ToString();
-                Response.Redirect("AltaProducto.aspx?Id=" + id, false);
+                negocio.EliminarProductoLogico(idProducto);
+            }
+            else if (e.CommandName == "Reactivar")
+            {
+                negocio.ReactivarProducto(idProducto);
             }
 
-            if (e.CommandName == "Eliminar")
-            {
-                int id = Convert.ToInt32(e.CommandArgument);
-                ProductoNegocio negocio = new ProductoNegocio();
-
-                try
-                {
-                    negocio.EliminarProductoLogico(id);
-                    CargarGrid();
-                }
-                catch (Exception ex)
-                {
-                    Session["Error"] = ex.ToString();
-                }
-            }
+            CargarProductos();
         }
     }
 }

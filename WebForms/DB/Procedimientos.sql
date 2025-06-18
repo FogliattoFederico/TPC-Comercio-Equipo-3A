@@ -125,7 +125,7 @@ GO
 
 /*CLIENTES*/
 
-CREATE  PROCEDURE SP_ListarClientes
+CREATE OR ALTER PROCEDURE SP_ListarClientes
 AS
 BEGIN
     SELECT 
@@ -143,7 +143,7 @@ BEGIN
 END;
 GO
 
-CREATE  PROCEDURE SP_ListarClientesEliminados
+CREATE OR ALTER PROCEDURE SP_ListarClientesEliminados
 AS
 BEGIN
     SELECT 
@@ -199,7 +199,7 @@ END
 
 go
 
-create procedure SP_EliminarCliente
+create or alter procedure SP_EliminarCliente
 @IdCliente int
 AS
 BEGIN
@@ -255,7 +255,7 @@ end
 
 go
 
-create procedure SP_EliminarProveedor
+create or alter procedure SP_EliminarProveedor
 @IdProveedor int
 as
 begin
@@ -281,13 +281,13 @@ END
 
 go
 
-CREATE PROCEDURE SP_ListarUsuariosEliminados
+CREATE OR ALTER PROCEDURE SP_ListarUsuariosEliminados
 AS
 BEGIN
 Select * from Usuario where Activo = 0 ORDER BY NombreUsuario, apellido, nombre asc
 END
 go
-CREATE PROCEDURE SP_ReactivarUsuario
+CREATE OR ALTER PROCEDURE SP_ReactivarUsuario
 @IdUsuario int
 AS
 BEGIN
@@ -296,7 +296,7 @@ END
 
 /*USUARIOS*/
 go
-create procedure SP_AgregarUsuario
+create or alter procedure SP_AgregarUsuario
 @NombreUsuario varchar(100),
 @Nombre varchar(100),
 @Apellido varchar(100),
@@ -312,7 +312,7 @@ end
 
 GO
 
-create procedure SP_ModificarUsuario
+create or alter procedure SP_ModificarUsuario
 @IdUsuario int,
 @NombreUsuario varchar(100),
 @Nombre varchar(100),
@@ -328,7 +328,7 @@ end
 
 go
 
-create procedure SP_EliminarUsuario
+create or alter procedure SP_EliminarUsuario
 @IdUsuario int
 as
 begin
@@ -357,7 +357,7 @@ END;
 GO
 /*Marcas*/
 
-CREATE PROCEDURE SP_ListarMarca
+CREATE OR ALTER PROCEDURE SP_ListarMarca
 AS
 BEGIN
     SELECT IdMarca, Nombre, Activo
@@ -368,7 +368,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_ListarMarcaEliminadas
+CREATE OR ALTER PROCEDURE SP_ListarMarcaEliminadas
 AS
 BEGIN
     SELECT IdMarca, Nombre, Activo
@@ -379,7 +379,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_AgregarMarca
+CREATE OR ALTER PROCEDURE SP_AgregarMarca
     @Nombre VARCHAR(100)
 AS
 BEGIN
@@ -390,7 +390,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_ModificarMarca
+CREATE OR ALTER PROCEDURE SP_ModificarMarca
     @IdMarca INT,
     @Nombre VARCHAR(100)
 AS
@@ -402,7 +402,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_EliminarMarca
+CREATE OR ALTER PROCEDURE SP_EliminarMarca
     @IdMarca INT
 AS
 BEGIN
@@ -413,7 +413,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_AltaMarca
+CREATE OR ALTER PROCEDURE SP_AltaMarca
     @IdMarca INT
 AS
 BEGIN
@@ -426,7 +426,7 @@ GO
 
 /*Categoria*/
 
-CREATE PROCEDURE SP_ListarCategoria
+CREATE OR ALTER PROCEDURE SP_ListarCategoria
 AS
 BEGIN
     SELECT IdCategoria, Nombre, Activo
@@ -437,7 +437,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_AgregarCategoria
+CREATE OR ALTER PROCEDURE SP_AgregarCategoria
     @Nombre VARCHAR(100)
 AS
 BEGIN
@@ -447,7 +447,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_ModificarCategoria
+CREATE OR ALTER PROCEDURE SP_ModificarCategoria
     @IdCategoria INT,
     @Nombre VARCHAR(100)
 AS
@@ -459,7 +459,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_EliminarCategoria
+CREATE OR ALTER PROCEDURE SP_EliminarCategoria
     @IdCategoria INT
 AS
 BEGIN
@@ -470,7 +470,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_ListarCategoriaEliminada
+CREATE OR ALTER PROCEDURE SP_ListarCategoriaEliminada
 AS
 BEGIN
     SELECT IdCategoria, Nombre, Activo
@@ -481,7 +481,7 @@ END;
 
 GO
 
-CREATE PROCEDURE SP_AltaCategoria
+CREATE OR ALTER PROCEDURE SP_AltaCategoria
     @IdCategoria INT
 AS
 BEGIN
