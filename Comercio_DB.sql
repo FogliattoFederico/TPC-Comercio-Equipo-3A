@@ -348,3 +348,69 @@ go*/
 --select * from Usuario
 
 
+/*
+CREATE PROCEDURE SP_ListarCategoriaEliminada
+AS
+BEGIN
+    SELECT IdCategoria, Nombre, Activo
+    FROM Categorias
+    WHERE Activo = 0
+    ORDER BY Nombre;
+END;
+
+GO
+
+CREATE PROCEDURE SP_AltaCategoria
+    @IdCategoria INT
+AS
+BEGIN
+    UPDATE Categorias
+    SET Activo = 1
+    WHERE IdCategoria = @IdCategoria;
+END;*/
+
+
+--select * from Productos
+
+
+/*
+
+GO -- Separador de lote importante
+
+IF OBJECT_ID('ListarProductosStockBajo', 'P') IS NOT NULL
+    DROP PROCEDURE ListarProductosStockBajo;
+GO
+
+CREATE PROCEDURE SP_ListarProductosStockBajo
+AS
+BEGIN
+    SELECT 
+        p.IdProducto,
+        p.CodigoArticulo,
+        p.Nombre AS Producto,
+        p.Descripcion,
+        p.StockActual,
+        p.StockMinimo,
+        m.Nombre AS Marca,
+        tp.Nombre AS TipoProducto,
+        c.Nombre AS Categoria
+    FROM Productos p
+    INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
+    INNER JOIN TiposProducto tp ON p.IdTipoProducto = tp.IdTipoProducto
+    INNER JOIN Categorias c ON tp.IdCategoria = c.IdCategoria
+    WHERE 
+        p.StockActual < p.StockMinimo
+        AND p.Activo = 1
+    ORDER BY p.Nombre ASC;
+END
+GO
+
+*/
+
+--update Productos set StockActual=2 where IdProducto=1
+
+--exec SP_ListarProductosStockBajo
+
+
+--select * from Clientes
+

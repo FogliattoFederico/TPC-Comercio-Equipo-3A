@@ -358,5 +358,45 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Producto> ListarStockCritico()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Producto> productosCriticos = new List<Producto>();
+            try
+            {
+                datos.setearProcedimiento("SP_ListarProductosStockBajo");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Producto PC = new Producto();
+
+                    PC.CodigoArticulo = datos.Lector["CodigoArticulo"].ToString();
+                    PC.Nombre = datos.Lector["Producto"].ToString();
+                    PC.Descripcion = datos.Lector["Descripcion"].ToString();
+                    PC.StockActual = (int)datos.Lector["StockActual"];
+                    PC.StockMinimo = (int)datos.Lector["StockMinimo"];
+
+                    PC.Marca = new Marca();
+                    PC.Marca.Nombre = datos.Lector["Marca"].ToString();
+                        
+                    PC.TipoProducto = new TipoProducto();
+                    PC.TipoProducto.Nombre = datos.Lector["TipoProducto"].ToString();
+                   
+
+                    productosCriticos.Add(PC);
+                }
+                return productosCriticos;
+            }
+            catch(Exception ex) 
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

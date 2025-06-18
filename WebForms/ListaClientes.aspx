@@ -119,7 +119,7 @@
                             <PagerStyle HorizontalAlign="Center" CssClass="pagination" />--%>
                             <EmptyDataTemplate>
                                 <div class="alert alert-info text-center py-4">
-                                    No hay marcas registradas.
+                                    No hay clientes registrados.
                                 </div>
                             </EmptyDataTemplate>
                         </asp:GridView>

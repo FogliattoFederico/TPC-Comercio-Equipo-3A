@@ -111,7 +111,7 @@
                     </Columns>
                     <EmptyDataTemplate>
                         <div class="alert alert-info text-center py-4">
-                            No hay marcas registradas.
+                            No hay proveedores registrados.
                         </div>
                     </EmptyDataTemplate>
                 </asp:GridView>

@@ -45,11 +45,11 @@ namespace Negocio
 
         public List<Cliente> ListarEliminados()
         {
+            AccesoDatos datos = new AccesoDatos();
+            List<Cliente> lista = new List<Cliente>();
+
             try
             {
-                AccesoDatos datos = new AccesoDatos();
-                List<Cliente> lista = new List<Cliente>();
-
                 datos.setearProcedimiento("SP_ListarClientesEliminados");
                 datos.ejecutarLectura();
 
@@ -72,6 +72,10 @@ namespace Negocio
             {
 
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
 
         }

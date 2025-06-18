@@ -14,25 +14,6 @@
 		   document.getElementById('<%= hfSeccionActiva.ClientID %>').value = id;
        }
 
-
-	   function actualizarEstadoBotones() {
-		   var haySeleccionado = false;
-		   var checks = document.querySelectorAll('input[id*="chkSeleccion"]');
-
-		   checks.forEach(function (chk) {
-			   if (chk.checked) {
-				   haySeleccionado = true;
-			   }
-		   });
-
-		   document.getElementById("BtnModificar").disabled = !haySeleccionado;
-		   document.getElementById("BtnEliminar").disabled = !haySeleccionado;
-	   }
-	   window.onload = function () {
-		   actualizarEstadoBotones();
-	   };
-	  
-	   
    </script>
 
 </asp:Content>
@@ -45,7 +26,7 @@
             <ul>
                 <li>
                     <asp:LinkButton ID="lnkOCPendientes" runat="server" OnClick="MostrarSeccion" CommandArgument="OCPendientes">
-                    OC Pendientes
+                    OC Realizadas
                 </asp:LinkButton>
                 </li>
                 <li>
@@ -73,6 +54,16 @@
             Productos
         </asp:LinkButton>
         </li>
+		<li>
+			<div class="icon-wrapper">
+				<img src="/Icon/CampanaB.png"></div>
+                <asp:Panel ID="pnlNotificacion" runat="server" CssClass="CantNoti" Visible="false">
+				<asp:Label ID="LblNotif" runat="server" Text=""></asp:Label>
+			</asp:Panel>
+			<asp:LinkButton ID="lnkNotificaciones" CssClass="btnMenu" runat="server" OnClick="MostrarSeccion" CommandArgument="StockCritico">
+                Stock crítico
+			</asp:LinkButton>
+		</li>
     </ul>
 	</div>
 <!--Pantallas-->    
@@ -130,27 +121,17 @@
                     </div>
                     <div class="FOC col">
                         <label>Fecha</label>
-                        <input type="date" class="input" style="width: 200px;" placeholder="dd/mm/yyyy">
+                        <asp:TextBox ID="TxtFecha" CssClass="input" style="width: 200px;" TextMode="Date" runat="server"></asp:TextBox>
                     </div>
                 </div>
                 <div>
                     <label>Proveedor</label>
-                    <select class="form-select" style="width: 300px;" aria-label="Default select example">
-                        <option selected>-</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+                    <asp:DropDownList ID="DDLProveedor" CssClass="form-select" style="width: 300px;" runat="server"></asp:DropDownList>
                 </div>
                 <div class="row">
                     <div class="col-10">
                         <label>Producto</label>
-                        <select class="form-select" style="width: 600px;" aria-label="Default select example">
-                            <option selected>-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                         <asp:DropDownList ID="DDLProducto" CssClass="form-select" style="width: 600px;" OnSelectedIndexChanged="DDLProducto_SelectedIndexChanged" runat="server" AutoPostBack="True"></asp:DropDownList>
                     </div>
                     <div class="col-2">
                         <label>Cantidad</label>
@@ -176,10 +157,15 @@
                     <div class="row">
                         <div class="col-9">
                             <label>Precio unitario</label>
-                            <input type="text" class="input" style="width: 300px;" placeholder="$">
+                            <asp:TextBox ID="TxtBPrecio" 
+                                CssClass="input" 
+                                style="width: 300px;" 
+                                runat="server" 
+                                Text="$"
+                                AutoPostBack="False"></asp:TextBox>
                         </div>
-                        <div class="col-3">
-                            <button class="btnimg"><img src="./Icon/plus3.png"></button>
+                        <div class="col-3 mt-2">
+                            <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" />
                         </div>
                     </div>
 
@@ -376,6 +362,33 @@
 				</div>
 			</div>
 		</div>
+        <!--Pantalla Stock crítico--> 
+		<div id="StockCritico" runat="server" style="display: none;">
+			<h1 class="titulo">Productos con stock crítico</h1>
+            <asp:Panel ID="pnlSinStockCritico" runat="server" CssClass="alert alert-info mt-5" Visible="false">
+        No hay productos con stock crítico en este momento.
+    </asp:Panel>
+			<div class="tblProd">
+				<div class="table-responsive shadow-sm rounded">
+					<asp:GridView ID="GVStockCritico" runat="server" AutoGenerateColumns="False" AllowPaging="true"
+						CssClass="table table-striped table-bordered table-hover text-center gridview"
+						HeaderStyle-CssClass="thead-dark"
+						GridLines="None" OnPageIndexChanging="GVStockCritico_PageIndexChanging">
+						<Columns>
+							<asp:BoundField DataField="CodigoArticulo" HeaderText="Código" />
+							<asp:BoundField DataField="Nombre" HeaderText="Producto" />
+							<asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+							<asp:BoundField DataField="StockActual" HeaderText="Stock Actual" />
+							<asp:BoundField DataField="StockMinimo" HeaderText="Stock Mínimo" />
+                            <asp:BoundField DataField="Marca" HeaderText="Marca" />
+                            <asp:BoundField DataField="TipoProducto" HeaderText="Tipo de producto" />
+                           
+						</Columns>
+					</asp:GridView>
+				</div>
+			</div>
+		</div>
+
 				
 	</div>
 

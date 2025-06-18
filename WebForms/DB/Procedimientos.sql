@@ -31,6 +31,29 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE ListarProductosStockBajo
+AS
+BEGIN
+    SELECT 
+        p.IdProducto,
+        p.CodigoArticulo,
+        p.Nombre AS Producto,
+        p.Descripcion,
+        p.StockActual,
+        p.StockMinimo,
+        m.Nombre AS Marca,
+        tp.Nombre AS TipoProducto
+    FROM Productos p
+    INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
+    INNER JOIN TiposProducto tp ON p.IdTipoProducto = tp.IdTipoProducto
+    INNER JOIN Categorias c ON tp.IdCategoria = c.IdCategoria
+    WHERE 
+        p.StockActual < p.StockMinimo
+        AND p.Activo = 1
+    ORDER BY p.Nombre ASC;
+END;
+
+go
 
 /*VENTAS*/
 
@@ -116,6 +139,24 @@ BEGIN
         Activo
     FROM Clientes
     WHERE Activo = 1
+	order by Apellido, nombre Asc
+END;
+GO
+
+CREATE  PROCEDURE SP_ListarClientesEliminados
+AS
+BEGIN
+    SELECT 
+        IdCliente, 
+        Nombre, 
+        Apellido, 
+        Dni, 
+        Telefono, 
+        Email, 
+        Direccion,
+        Activo
+    FROM Clientes
+    WHERE Activo = 0
 	order by Apellido, nombre Asc
 END;
 GO

@@ -1,6 +1,10 @@
 ﻿  window.onload = function () {
         configurarQty()
 };
+/*
+window.addEventListener('load', function () {
+    configurarQty();
+});*/
 
 function configurarQty() {
     const qtyContainers = document.querySelectorAll('.qty');
@@ -22,7 +26,6 @@ function configurarQty() {
         });
     });
 };
-
 
 
 /*

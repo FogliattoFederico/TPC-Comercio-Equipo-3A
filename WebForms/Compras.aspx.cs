@@ -190,13 +190,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Siempre cargar para que DDL tenga datos, incluso en postbacks
-
             CargarProductosHistorial();
             if (!IsPostBack)
             {
                 hfSeccionActiva.Value = "OCPendientes";
-                
+                cargarDropdowns();
+                ActualizarNotificacionStock();
             }
 
             MostrarSeccionActiva();
@@ -206,12 +205,6 @@ namespace WebForms
         {
             LinkButton btn = (LinkButton)sender;
             hfSeccionActiva.Value = btn.CommandArgument;
-
-            // Si cambia de sección, podría ser útil forzar recarga
-            /*if (btn.CommandArgument == "Productos")
-            {
-                Session.Remove("ProductosHistorial"); // Limpiar cache si se espera actualización
-            }*/
 
             MostrarSeccionActiva();
         }
@@ -244,11 +237,57 @@ namespace WebForms
                     Proveedores.Style["display"] = "block";
                     CargarProveedores();
                     break;
+                case "StockCritico":
+                    StockCritico.Style["display"] = "block";
+                    CargarProductosCriticos(); 
+                    break;
             }
 
             upSecciones.Update();
         }
 
+        /****NuevaOC****/
+
+        private void cargarDropdowns()
+        {
+            ProveedorNegocio PNegocio = new ProveedorNegocio();
+            DDLProveedor.DataSource = PNegocio.Listar();
+            DDLProveedor.DataTextField = "RazonSocial";
+            DDLProveedor.DataBind();
+
+            DDLProveedor.Items.Insert(0, new ListItem("- Seleccionar proveedor -"));
+
+            ProductoNegocio Negocio = new ProductoNegocio();
+            DDLProducto.DataSource = Negocio.ListarConSp();
+            DDLProducto.DataTextField = "Nombre";
+            DDLProducto.DataValueField = "PrecioCompra";
+            DDLProducto.DataBind();
+
+            DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -"));
+        }
+
+        protected void DDLProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DDLProducto.SelectedIndex == 0)
+            {
+                TxtBPrecio.Text = "$";
+            }
+            else
+            {
+                string precioSeleccionado = DDLProducto.SelectedValue;
+
+                if (decimal.TryParse(precioSeleccionado, out decimal precio))
+                {
+                    TxtBPrecio.Text = precio.ToString("C"); 
+                }
+                else
+                {
+                    TxtBPrecio.Text = "$";
+                }
+            }
+        }
+
+        /*******Productos*******/
         private void CargarProductos()
         {
             ProductoNegocio negocioProd = new ProductoNegocio();
@@ -256,12 +295,27 @@ namespace WebForms
             GridProductos.DataBind();
         }
 
+        protected void GridProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridProductos.PageIndex = e.NewPageIndex;
+            CargarProductos();
+        }
+
+        /*******Proveedores*******/
         private void CargarProveedores()
         {
             ProveedorNegocio negocioProv = new ProveedorNegocio();
             GridProveedores.DataSource = negocioProv.Listar();
             GridProveedores.DataBind();
         }
+
+        protected void GridProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridProveedores.PageIndex = e.NewPageIndex;
+            CargarProveedores();
+        }
+
+        /******OC Pendientes**********/
 
         private void CargarOC()
         {
@@ -272,17 +326,14 @@ namespace WebForms
             rptCompras.DataBind();
         }
 
-        protected void GridProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void btnDetalle_Click(object sender, ImageClickEventArgs e)
         {
-            GridProductos.PageIndex = e.NewPageIndex;
-            CargarProductos();
+            ImageButton btn = (ImageButton)sender;
+            string idCompra = btn.CommandArgument;
+            Response.Redirect("CompraDetalles.aspx?ID=" + idCompra);
         }
 
-        protected void GridProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridProveedores.PageIndex = e.NewPageIndex;
-            CargarProveedores();
-        }
+        /********Historial de previos*******/
 
         private void CargarProductosHistorial()
         {
@@ -361,11 +412,49 @@ namespace WebForms
             }
         }
 
-        protected void btnDetalle_Click(object sender, ImageClickEventArgs e)
+        /********Stock crítico*********/
+
+        private void ActualizarNotificacionStock()
         {
-            ImageButton btn = (ImageButton)sender;
-            string idCompra = btn.CommandArgument;
-            Response.Redirect("CompraDetalles.aspx?ID=" + idCompra);
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> productosCriticos = negocio.ListarStockCritico();
+
+            int cantidad = productosCriticos.Count;
+            LblNotif.Text = cantidad.ToString();
+            LblNotif.Visible = cantidad > 0;
+            pnlNotificacion.Visible = cantidad > 0;
+        }
+
+        private void CargarProductosCriticos()
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> productosCriticos = negocio.ListarStockCritico();
+            int cantidad = productosCriticos.Count;
+            pnlNotificacion.Visible = cantidad > 0;
+
+            if (cantidad > 0)
+            {
+                GVStockCritico.DataSource = productosCriticos;
+                GVStockCritico.DataBind();
+                GVStockCritico.Visible = true;
+                pnlSinStockCritico.Visible = false;
+            }
+            else
+            {
+                GVStockCritico.Visible = false;
+                pnlSinStockCritico.Visible = true;
+            }
+        }
+        protected void GVStockCritico_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridProductos.PageIndex = e.NewPageIndex;
+            CargarProductosCriticos();
+        }
+
+        protected void lnkNotificaciones_Click(object sender, EventArgs e)
+        {
+            hfSeccionActiva.Value = "StockCritico";
+            MostrarSeccionActiva();
         }
     }
 }

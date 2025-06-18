@@ -146,19 +146,14 @@
 
 .btnimg {
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #a9c5d9;
-    width:3%;
+    background-color: transparent;
+    width:20%;
 }
-/*
-    .btnimg img {
-        width: 40px;
-        height: 40px;
-    }
+
 
 /****Form nueva OC*****/
 .NewOC {
@@ -278,6 +273,24 @@
         margin: 0;
     }
 
+.btnimgPlus {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 20%;
+    filter: drop-shadow(0 4px 6px rgb(27, 56, 28) ) grayscale(50%);
+    transition: all 0.5s;
+}
+
+    .btnimgPlus:hover {
+        width: 22%;
+        text-align: center;
+        filter: drop-shadow(0 8px 12px rgb(27, 56, 28));
+    }
+
 .tbl {
     max-height: 200px;
     overflow-y: auto;
@@ -301,6 +314,7 @@
     color: #fff;
     font-weight: bold;
     cursor: pointer;
+    z-index: 100;
 }
 
 /************/
@@ -338,3 +352,23 @@
         text-align: center;
         filter: drop-shadow(0 8px 12px rgb(27, 56, 28));
     }
+
+    /***Notificaciones*****/
+
+.nav li .CantNoti {
+    background-color: red;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 4px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    font-size: 12px;
+    z-index: 1000;
+    color: white;
+    text-decoration: none;
+     
+}
