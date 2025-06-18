@@ -167,6 +167,13 @@ END
 
 go
 
+create or alter Procedure SP_ReactivarCliente
+@Id int
+as
+Begin
+update Clientes set Activo = 1 where IdCliente = @Id
+END
+
 /*PROVEEDORES*/
 
 create or Alter procedure SP_listarProveedores
