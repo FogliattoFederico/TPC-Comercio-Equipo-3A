@@ -50,6 +50,51 @@ namespace Negocio
                     usuario.Contrasena = datos.Lector["Contrasena"].ToString();
                     usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
                     usuario.Admin = (bool)datos.Lector["Admin"];
+                    usuario.Activo = (bool)datos.Lector["Activo"];
+
+                    listaUsuarios.Add(usuario);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return listaUsuarios;
+        }
+
+        public List<Usuario> ListarEliminados()
+        {
+            List<Usuario> listaUsuarios = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                
+
+                datos.setearProcedimiento("SP_ListarUsuariosEliminados");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
+                    usuario.Apellido = datos.Lector["Apellido"].ToString();
+                    usuario.Email = datos.Lector["Email"].ToString();
+                    usuario.Contrasena = datos.Lector["Contrasena"].ToString();
+                    usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
+                    usuario.Admin = (bool)datos.Lector["Admin"];
+                    usuario.Activo = (bool)datos.Lector["Activo"];
 
                     listaUsuarios.Add(usuario);
                 }
@@ -132,6 +177,27 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("SP_EliminarUsuario");
+                datos.setearParametro("@IdUsuario", id);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ReactivarUsuario(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ReactivarUsuario");
                 datos.setearParametro("@IdUsuario", id);
                 datos.ejecutarAccion();
 

@@ -28,7 +28,6 @@ namespace WebForms
 
                 if (!IsPostBack)
                 {
-                    txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
                     if (Request.QueryString["Id"] != null)
                     {
@@ -45,10 +44,15 @@ namespace WebForms
                         txtNombreUsuario.Text = usuario.NombreUsuario;
                         txtEmail.Text = usuario.Email;
                         txtContrasena.Text = usuario.Contrasena;
-                        txtFechaAlta.Text = usuario.FechaAlta.ToString();
+                        txtFechaAlta.Text = usuario.FechaAlta.ToString("yyyy-MM-dd");
                         ddlRol.SelectedValue = usuario.Admin.ToString();
 
 
+                    }
+                    else
+                    {
+
+                        txtFechaAlta.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     }
                 }
                 ValidacionCampo.TodosCamposCompletos(Controles);

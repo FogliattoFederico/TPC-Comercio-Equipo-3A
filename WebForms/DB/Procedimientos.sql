@@ -238,6 +238,20 @@ BEGIN
 update Proveedores set activo = 1 where IdProveedor = @IdProveedor
 END
 
+go
+
+CREATE PROCEDURE SP_ListarUsuariosEliminados
+AS
+BEGIN
+Select * from Usuario where Activo = 0 ORDER BY NombreUsuario, apellido, nombre asc
+END
+go
+CREATE PROCEDURE SP_ReactivarUsuario
+@IdUsuario int
+AS
+BEGIN
+update Usuario set Activo = 1 where IdUsuario = @IdUsuario
+END
 
 /*USUARIOS*/
 go

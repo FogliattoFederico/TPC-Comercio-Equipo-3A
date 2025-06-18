@@ -16,6 +16,7 @@ namespace Dominio
         public string Contrasena { get; set; }
         public DateTime FechaAlta { get; set; }
         public bool Admin { get; set; } // Admin - Vendedor
+        public bool Activo { get; set; }
     }
 
 }

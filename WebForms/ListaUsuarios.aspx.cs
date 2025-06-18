@@ -13,11 +13,37 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            List<Usuario> lista = negocio.Listar();
+            //UsuarioNegocio negocio = new UsuarioNegocio();
+            //List<Usuario> lista = negocio.Listar();
 
-            GVUsuarios.DataSource = lista;
-            GVUsuarios.DataBind();
+            //GVUsuarios.DataSource = lista;
+            //GVUsuarios.DataBind();
+
+            if (!IsPostBack)
+            {
+                CargarUsuarios();
+            }
+        }
+
+        private void CargarUsuarios()
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            bool mostrarEliminados = CheckEliminados.Checked;
+
+            List<Usuario> lista = mostrarEliminados ?
+                negocio.ListarEliminados() :
+                negocio.Listar();
+            try
+            {
+                Session["listaUsuario"] = lista;
+                GVUsuarios.DataSource = lista;
+                GVUsuarios.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+            }
+
         }
 
         protected void btnAgregarUsuario_Click(object sender, EventArgs e)
@@ -38,18 +64,7 @@ namespace WebForms
 
         protected void GVUsuarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            try
-            {
-                int id = Convert.ToInt32(GVUsuarios.DataKeys[e.RowIndex].Value);
-                UsuarioNegocio negocio = new UsuarioNegocio();
-
-                negocio.EliminarUsuario(id);
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("Error", ex.ToString());
-            }
+            e.Cancel = true;
             
             
         }
@@ -76,6 +91,31 @@ namespace WebForms
         {
             GVUsuarios.PageIndex = e.NewPageIndex;
             GVUsuarios.DataBind();
+        }
+
+        protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarUsuarios();
+        }
+
+        protected void GVUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GVUsuarios.Rows[rowIndex];
+            int id = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (e.CommandName == "Delete")
+            {
+                negocio.EliminarUsuario(id);
+            }
+            else if (e.CommandName == "Reactivar")
+            {
+                negocio.ReactivarUsuario(id);
+            }
+
+            CargarUsuarios();
         }
     }
 }

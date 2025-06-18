@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Css/StyleListUsuarios.css">
+    <link rel="stylesheet" href="Css/StyleListMarcas.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mb-4">
@@ -18,24 +19,33 @@
             </div>
         </div>
     </div>
-     <div class="card mb-4 shadow-0 border-0">
-     <div class="card-body">
-         <div class="row align-items-center justify-content-center">
-             <div class="col-md-6 mb-3 mb-md-0">
-                 <div class="input-group">
-                     <asp:TextBox ID="txtBuscarUsuario" runat="server"
-                         CssClass="form-control form-control-lg me-3"
-                         placeholder="Ingrese nombre de usuario"
-                         ></asp:TextBox>
-                     <div class="input-group-append">
-                         <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
-                             CssClass="btn btn-primary btn-lg" />
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+    <div class="card mb-4 shadow-0 border-0">
+        <div class="card-body">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="input-group">
+                        <asp:TextBox ID="txtBuscarUsuario" runat="server"
+                            CssClass="form-control form-control-lg me-3"
+                            placeholder="Ingrese nombre de usuario"></asp:TextBox>
+                        <div class="input-group-append">
+                            <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
+                                CssClass="btn btn-primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="checkbox-wrapper-39">
+                        <label>
+                            <asp:CheckBox ID="CheckEliminados" OnCheckedChanged="CheckEliminados_CheckedChanged"
+                                AutoPostBack="true" runat="server" />
+                            <span class="checkbox"></span>
+                        </label>
+                        <span class="lblME">Mostrar eliminados </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="table-responsive shadow-sm rounded">
@@ -50,10 +60,11 @@
                     OnSelectedIndexChanged="GVUsuarios_SelectedIndexChanged"
                     OnRowDeleting="GVUsuarios_RowDeleting"
                     OnPageIndexChanging="GVUsuarios_PageIndexChanging"
+                    OnRowCommand="GVUsuarios_RowCommand"
                     AllowPaging="True" PageSize="5">
                     <Columns>
                         <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" HeaderStyle-CssClass="py-3" />
-                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="py-3"/>
+                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="Apellido" HeaderText="Apellido" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="Email" HeaderText="Email" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="FechaAlta" HeaderText="Fecha Alta" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false" HeaderStyle-CssClass="py-3" />
@@ -61,18 +72,54 @@
                             <ItemTemplate>
                                 <span class='badge <%# Eval("Admin") != null && (bool)Eval("Admin") ? "bg-danger" : "bg-success" %> rounded-pill '>
                                     <%# Eval("Admin") != null && (bool)Eval("Admin") ? "Administrador" : "Vendedor" %>
-                                </span H>
+                                </span>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField HeaderText="Acciones"
-                            HeaderStyle-CssClass="py-3"
-                            ShowSelectButton="true"
-                            SelectText="<i class='fas fa-edit'></i> Modificar"
-                            ShowDeleteButton="true"
-                            DeleteText="<i class='fas fa-trash-alt'></i> Eliminar"
-                            ButtonType="Link"
-                            ControlStyle-CssClass="btn btn-sm" />
+                        <asp:TemplateField HeaderText="Acciones" ItemStyle-Width="5%">
+                            <ItemTemplate>
+                                <div class="btn-container">
+
+                                    <asp:LinkButton ID="lnkEdit" runat="server"
+                                        CommandName="Select"
+                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CssClass="btnEdit_Delete"
+                                        ToolTip="Editar"
+                                        Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'>
+<img src='<%= ResolveUrl("~/Icon/IconModificarG.png") %>' alt="Editar" />
+                                    </asp:LinkButton>
+
+                                    <asp:LinkButton ID="lnkDelete" runat="server"
+                                        CommandName="Delete"
+                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CssClass="btnEdit_Delete"
+                                        ToolTip="Eliminar"
+                                        Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'
+                                        OnClientClick="return confirm('¿Está seguro que desea eliminar esta marca?');">
+<img src='<%= ResolveUrl("~/Icon/IconBasuraG.png") %>' alt="Eliminar" />
+                                    </asp:LinkButton>
+
+                                    <asp:LinkButton ID="lnkReactivar" runat="server"
+                                        CommandName="Reactivar"
+                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CssClass="btnEdit_Delete"
+                                        ToolTip="Reactivar"
+                                        Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'
+                                        OnClientClick="return confirm('¿Está seguro que desea reactivar esta marca?');">
+<img src='<%= ResolveUrl("~/Icon/iconAñadir.png") %>' alt="Reactivar" />
+                                    </asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+
+
                     </Columns>
+                    <EmptyDataTemplate>
+                        <div class="alert alert-info text-center py-4">
+                            No hay marcas registradas.
+                        </div>
+                    </EmptyDataTemplate>
+
                 </asp:GridView>
             </div>
         </div>

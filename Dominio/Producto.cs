@@ -19,7 +19,6 @@ namespace Dominio
         public int StockMinimo { get; set; }
         public string ImagenUrl { get; set; }
         public bool Activo {  get; set; }
-
         public Marca Marca { get; set; }
         public TipoProducto TipoProducto { get; set; }
 
