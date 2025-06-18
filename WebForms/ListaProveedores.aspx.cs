@@ -13,13 +13,37 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
-            List<Proveedor> lista = negocio.Listar();
+            //ProveedorNegocio negocio = new ProveedorNegocio();
+            //List<Proveedor> lista = negocio.Listar();
 
-            GVProveedores.DataSource = lista;
-            GVProveedores.DataBind();
+            //GVProveedores.DataSource = lista;
+            //GVProveedores.DataBind();
+            if (!IsPostBack)
+            {
+                CargarProveedor();
+            }
         }
 
+        private void CargarProveedor()
+        {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            bool mostrarEliminados = CheckEliminados.Checked;
+
+            try
+            {
+                List<Proveedor> lista = mostrarEliminados ?
+                negocio.ListarEliminados() :
+                negocio.Listar();
+                Session["listaProveedor"] = lista;
+                GVProveedores.DataSource = lista;
+                GVProveedores.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+            }
+
+        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaProveedor.aspx", false);
@@ -49,18 +73,7 @@ namespace WebForms
 
         protected void GVProveedores_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
-
-            try
-            {
-                int id = Convert.ToInt32(GVProveedores.DataKeys[e.RowIndex].Value);
-                negocio.EliminarProveedor(id);
-                
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-            }
+            e.Cancel = true;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -72,6 +85,31 @@ namespace WebForms
 
             GVProveedores.DataSource = listaFiltrada;
             GVProveedores.DataBind();
+        }
+
+        protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarProveedor();
+        }
+
+        protected void GVProveedores_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GVProveedores.Rows[rowIndex];
+            int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
+
+            ProveedorNegocio negocio = new ProveedorNegocio();
+
+            if (e.CommandName == "Delete")
+            {
+                negocio.EliminarProveedor(idProveedor);
+            }
+            else if (e.CommandName == "Reactivar")
+            {
+                negocio.ReactivarProveedor(idProveedor);
+            }
+
+            CargarProveedor();
         }
     }
 }

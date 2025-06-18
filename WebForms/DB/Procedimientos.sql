@@ -174,6 +174,8 @@ Begin
 update Clientes set Activo = 1 where IdCliente = @Id
 END
 
+go
+
 /*PROVEEDORES*/
 
 create or Alter procedure SP_listarProveedores
@@ -218,6 +220,23 @@ as
 begin
 update Proveedores set Activo = 0 where IdProveedor = @IdProveedor
 end
+
+go
+
+CREATE OR ALTER PROCEDURE SP_ListarProveedoresEliminados
+as
+begin
+select * from proveedores where Activo = 0
+end
+
+go
+
+create or alter procedure SP_ReactivarProveedor
+@IdProveedor int
+AS
+BEGIN
+update Proveedores set activo = 1 where IdProveedor = @IdProveedor
+END
 
 
 /*USUARIOS*/

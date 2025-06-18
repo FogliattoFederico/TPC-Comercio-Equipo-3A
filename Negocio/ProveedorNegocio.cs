@@ -16,11 +16,6 @@ namespace Negocio
 
             try
             {
-                //string consulta = @"SELECT *
-                //                    FROM Proveedores
-                //                    ORDER BY RazonSocial;";
-
-                //datos.setearConsulta(consulta);
                 datos.setearProcedimiento("SP_ListarProveedores");
                 datos.ejecutarLectura();
 
@@ -34,6 +29,47 @@ namespace Negocio
                     proveedor.Direccion = datos.Lector["Direccion"].ToString();
                     proveedor.Telefono = datos.Lector["Telefono"].ToString();
                     proveedor.Email = datos.Lector["Email"].ToString();
+                    proveedor.Activo = (bool)datos.Lector["Activo"];
+
+                    listaProveedores.Add(proveedor);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return listaProveedores;
+        }
+
+        public List<Proveedor> ListarEliminados()
+        {
+            List<Proveedor> listaProveedores = new List<Proveedor>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_ListarProveedoresEliminados");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Proveedor proveedor = new Proveedor();
+
+                    proveedor.IdProveedor = (int)datos.Lector["IdProveedor"];
+                    proveedor.RazonSocial = datos.Lector["RazonSocial"].ToString();
+                    proveedor.CUIT = datos.Lector["CUIT"].ToString();
+                    proveedor.Direccion = datos.Lector["Direccion"].ToString();
+                    proveedor.Telefono = datos.Lector["Telefono"].ToString();
+                    proveedor.Email = datos.Lector["Email"].ToString();
+                    proveedor.Activo = (bool)datos.Lector["Activo"];
 
                     listaProveedores.Add(proveedor);
                 }
@@ -114,6 +150,27 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("SP_EliminarProveedor");
+                datos.setearParametro("@IdProveedor", id);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ReactivarProveedor(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ReactivarProveedor");
                 datos.setearParametro("@IdProveedor", id);
                 datos.ejecutarAccion();
 
