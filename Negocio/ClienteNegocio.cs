@@ -28,6 +28,7 @@ namespace Negocio
                     cli.Direccion = datos.Lector["Direccion"].ToString();
                     cli.Telefono = datos.Lector["Telefono"].ToString();
                     cli.Email = datos.Lector["Email"].ToString();
+                    cli.Activo = (bool)datos.Lector["Activo"];
                     listaClientes.Add(cli);
                 }
                 return listaClientes;
@@ -42,6 +43,38 @@ namespace Negocio
             }
         }
 
+        public List<Cliente> ListarEliminados()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                List<Cliente> lista = new List<Cliente>();
+
+                datos.setearProcedimiento("SP_ListarClientesEliminados");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Cliente cli = new Cliente();
+                    cli.IdCliente = (int)datos.Lector["IdCliente"];
+                    cli.Nombre = datos.Lector["Nombre"].ToString();
+                    cli.Apellido = datos.Lector["Apellido"].ToString();
+                    cli.Dni = datos.Lector["Dni"].ToString();
+                    cli.Direccion = datos.Lector["Direccion"].ToString();
+                    cli.Telefono = datos.Lector["Telefono"].ToString();
+                    cli.Email = datos.Lector["Email"].ToString();
+                    cli.Activo = (bool)datos.Lector["Activo"];
+                    lista.Add(cli);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
         public void AgregarCliente(Cliente nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -115,6 +148,29 @@ namespace Negocio
                 datos.cerrarConexion();
             }
             
+
+        }
+
+        public void ReactivarCliente(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_ReactivarCliente");
+                datos.setearParametro("Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
 
         }
     }

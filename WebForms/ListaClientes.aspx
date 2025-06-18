@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Css/StyleListClientes.css">
+    <link rel="stylesheet" href="Css/StyleListMarcas.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mb-4">
@@ -10,7 +11,8 @@
             <div class="d-flex justify-content-between mb-3">
                 <!--<asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->
-                 <a href="Default.aspx" class="back"><img class="imgback" src="/Icon/FlechaI.png"></a>
+                <a href="Default.aspx" class="back">
+                    <img class="imgback" src="/Icon/FlechaI.png"></a>
                 <asp:Button runat="server" Text="Agregar Cliente" ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click"
                     CssClass="btn btn-primary btn-lg shadow-sm" />
             </div>
@@ -24,11 +26,21 @@
                         <asp:TextBox ID="txtBuscarDni" runat="server"
                             CssClass="form-control form-control-lg me-3"
                             placeholder="Ingrese DNI del cliente"
-                            MaxLength="8" ></asp:TextBox>
+                            MaxLength="8"></asp:TextBox>
                         <div class="input-group-append">
                             <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
                                 CssClass="btn btn-primary btn-lg" />
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="checkbox-wrapper-39">
+                        <label>
+                            <asp:CheckBox ID="CheckEliminados" OnCheckedChanged="CheckEliminados_CheckedChanged"
+                                AutoPostBack="true" runat="server" />
+                            <span class="checkbox"></span>
+                        </label>
+                        <span class="lblME">Mostrar eliminados </span>
                     </div>
                 </div>
             </div>
@@ -53,6 +65,7 @@
                             CellPadding="4"
                             DataKeyNames="IdCliente"
                             OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged"
+                            OnRowCommand="dgvClientes_RowCommand"
                             OnPageIndexChanging="dgvClientes_PageIndexChanging"
                             OnRowDeleting="dgvClientes_RowDeleting">
 
@@ -64,17 +77,51 @@
                                 <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="18%" />
                                 <asp:BoundField DataField="Direccion" HeaderText="Dirección" ItemStyle-Width="20%" />
 
-                                <asp:CommandField HeaderText="Acciones"
-                                    ShowSelectButton="true"
-                                    SelectText="<i class='fas fa-edit'></i> Modificar"
-                                    ShowDeleteButton="true"
-                                    DeleteText="<i class='fas fa-trash-alt'></i> Eliminar"
-                                    ButtonType="Link"
-                                    ControlStyle-CssClass="btn btn-sm" />
+                                <asp:TemplateField HeaderText="Acciones" ItemStyle-Width="5%">
+                                    <ItemTemplate>
+                                        <div class="btn-container">
+
+                                            <asp:LinkButton ID="lnkEdit" runat="server"
+                                                CommandName="Select"
+                                                CommandArgument='<%# Container.DataItemIndex %>'
+                                                CssClass="btnEdit_Delete"
+                                                ToolTip="Editar"
+                                                Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'>
+                                            <img src='<%= ResolveUrl("~/Icon/IconModificarG.png") %>' alt="Editar" />
+                                            </asp:LinkButton>
+
+                                            <asp:LinkButton ID="lnkDelete" runat="server"
+                                                CommandName="Delete"
+                                                CommandArgument='<%# Container.DataItemIndex %>'
+                                                CssClass="btnEdit_Delete"
+                                                ToolTip="Eliminar"
+                                                Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'
+                                                OnClientClick="return confirm('¿Está seguro que desea eliminar esta marca?');">
+                                            <img src='<%= ResolveUrl("~/Icon/IconBasuraG.png") %>' alt="Eliminar" />
+                                            </asp:LinkButton>
+
+                                            <asp:LinkButton ID="lnkReactivar" runat="server"
+                                                CommandName="Reactivar"
+                                                CommandArgument='<%# Container.DataItemIndex %>'
+                                                CssClass="btnEdit_Delete"
+                                                ToolTip="Reactivar"
+                                                Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'
+                                                OnClientClick="return confirm('¿Está seguro que desea reactivar esta marca?');">
+<img src='<%= ResolveUrl("~/Icon/iconAñadir.png") %>' alt="Reactivar" />
+                                            </asp:LinkButton>
+                                        </div>
+                                    </ItemTemplate>
+
+                                </asp:TemplateField>
                             </Columns>
-                            <HeaderStyle CssClass="bg-primary text-white text-center" />
+                            <%--<HeaderStyle CssClass="bg-primary text-white text-center" />
                             <AlternatingRowStyle CssClass="bg-light" />
-                            <PagerStyle HorizontalAlign="Center" CssClass="pagination" />
+                            <PagerStyle HorizontalAlign="Center" CssClass="pagination" />--%>
+                            <EmptyDataTemplate>
+                                <div class="alert alert-info text-center py-4">
+                                    No hay marcas registradas.
+                                </div>
+                            </EmptyDataTemplate>
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>

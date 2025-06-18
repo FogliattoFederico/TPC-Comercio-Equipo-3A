@@ -112,7 +112,8 @@ BEGIN
         Dni, 
         Telefono, 
         Email, 
-        Direccion
+        Direccion,
+        Activo
     FROM Clientes
     WHERE Activo = 1
 	order by Apellido, nombre Asc

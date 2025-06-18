@@ -13,26 +13,49 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ClienteNegocio negocio = new ClienteNegocio();
-            List<Cliente> lista = negocio.ListarConSp();
+            //ClienteNegocio negocio = new ClienteNegocio();
+            //List<Cliente> lista = negocio.ListarConSp();
 
+            //try
+            //{
+            //    Session.Add("listaClientes", negocio.ListarConSp());
+
+            //    dgvClientes.DataSource = lista;
+            //    dgvClientes.DataBind();
+
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    Session.Add("Error", ex.ToString());
+            //}
+            if (!IsPostBack)
+            {
+
+                CargarClientes();
+            }
+        }
+
+        private void CargarClientes()
+        {
+            ClienteNegocio negocio = new ClienteNegocio();
+            bool mostrarEliminados = CheckEliminados.Checked;
+
+            List<Cliente> lista = mostrarEliminados ?
+                negocio.ListarEliminados() :
+                negocio.ListarConSp();
             try
             {
-                Session.Add("listaClientes", negocio.ListarConSp());
-
+                Session["listaCliente"] = lista;
                 dgvClientes.DataSource = lista;
                 dgvClientes.DataBind();
-
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
             }
 
         }
-
-
 
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
@@ -59,22 +82,7 @@ namespace WebForms
 
         protected void dgvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            try
-            {
-                int idCliente = Convert.ToInt32(dgvClientes.DataKeys[e.RowIndex].Value);
-
-                ClienteNegocio negocio = new ClienteNegocio();
-                negocio.EliminarCliente(idCliente);
-
-                dgvClientes.DataSource = negocio.ListarConSp();
-                dgvClientes.DataBind();
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error", ex);
-            }
+            e.Cancel = true;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -84,6 +92,31 @@ namespace WebForms
 
             dgvClientes.DataSource = filtrada;
             dgvClientes.DataBind();
+        }
+
+        protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarClientes();
+        }
+
+        protected void dgvClientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = dgvClientes.Rows[rowIndex];
+            int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
+
+            ClienteNegocio negocio = new ClienteNegocio();
+
+            if (e.CommandName == "Delete")
+            {
+                negocio.EliminarCliente(idCliente);
+            }
+            else if (e.CommandName == "Reactivar")
+            {
+                negocio.ReactivarCliente(idCliente);
+            }
+
+            CargarClientes();
         }
     }
 }
