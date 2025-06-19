@@ -38,6 +38,10 @@ namespace WebForms
                     txtStockActual.Text = producto.StockActual.ToString();
                     txtStockMinimo.Text = producto.StockMinimo.ToString();
                     ddlMarca.SelectedValue = producto.Marca.IdMarca.ToString();
+                    ddlCategoria.SelectedValue = producto.TipoProducto.categoria.IdCategoria.ToString();
+
+                    // CARGO DDL DE TipoProducto SEGUN CATEGORIA SELECCIONADA
+                    cargarTiposPorCategoria(producto.TipoProducto.categoria.IdCategoria);
                     ddlTipoProducto.SelectedValue = producto.TipoProducto.IdTipoProducto.ToString();
                 }
                 else
@@ -67,7 +71,9 @@ namespace WebForms
                 producto.Marca.IdMarca = ddlMarca.SelectedIndex;
 
                 producto.TipoProducto = new TipoProducto();
-                producto.TipoProducto.IdTipoProducto = ddlTipoProducto.SelectedIndex;
+                //producto.TipoProducto.IdTipoProducto = ddlTipoProducto.SelectedIndex;
+                producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
+
 
                 ProductoNegocio negocio = new ProductoNegocio();
                 negocio.AgregarProducto(producto);
@@ -134,21 +140,26 @@ namespace WebForms
         private void cargarDropdowns()
         {
 
+            // DDL MARCA
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             ddlMarca.DataSource = marcaNegocio.listarMarcas();
             ddlMarca.DataTextField = "Nombre";
             ddlMarca.DataValueField = "IdMarca";
             ddlMarca.DataBind();
-
-            TipoProductoNegocio tipoNegocio = new TipoProductoNegocio();
-            ddlTipoProducto.DataSource = tipoNegocio.ListarTipoProductos();
-            ddlTipoProducto.DataTextField = "Nombre";
-            ddlTipoProducto.DataValueField = "IdTipoProducto";
-            ddlTipoProducto.DataBind();
-
-            // OPCIONES POR DEFECTO
             ddlMarca.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
-            ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+
+            // DDL CATEGORIA
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            ddlCategoria.DataSource = categoriaNegocio.ListarCategorias();
+            ddlCategoria.DataTextField = "Nombre";
+            ddlCategoria.DataValueField = "IdCategoria";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("-- Seleccionar Categoría --", "0"));
+
+            // DDL TIPOPRODUCTO (VACIO PARCIALMENTE HASTA QUE UNA CATEGORIA SEA SELECCIONADA)
+            ddlTipoProducto.Items.Clear();
+            ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccione una Categoría primero --", "0"));
+            ddlTipoProducto.Enabled = false;
         }
 
         private bool ValidarCampos()
@@ -249,6 +260,42 @@ namespace WebForms
             return true; // SE VALIDO TODO
         }
 
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idCategoriaSeleccionada;
+            if (int.TryParse(ddlCategoria.SelectedValue, out idCategoriaSeleccionada) && idCategoriaSeleccionada > 0)
+            {
+                TipoProductoNegocio tipoNegocio = new TipoProductoNegocio();
+                List<TipoProducto> listaTipos = tipoNegocio.ListarPorCategoria(idCategoriaSeleccionada); // Usá el método que ya tenés
 
+                ddlTipoProducto.DataSource = listaTipos;
+                ddlTipoProducto.DataTextField = "Nombre";
+                ddlTipoProducto.DataValueField = "IdTipoProducto";
+                ddlTipoProducto.DataBind();
+
+                ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+                ddlTipoProducto.Enabled = true;
+            }
+            else
+            {
+                ddlTipoProducto.Items.Clear();
+                ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccione una Categoría primero --", "0"));
+                ddlTipoProducto.Enabled = false;
+            }
+        }
+
+        private void cargarTiposPorCategoria(int idCategoria)
+        {
+            TipoProductoNegocio tipoNegocio = new TipoProductoNegocio();
+            List<TipoProducto> listaTipos = tipoNegocio.ListarPorCategoria(idCategoria);
+
+            ddlTipoProducto.DataSource = listaTipos;
+            ddlTipoProducto.DataTextField = "Nombre";
+            ddlTipoProducto.DataValueField = "IdTipoProducto";
+            ddlTipoProducto.DataBind();
+
+            ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+            ddlTipoProducto.Enabled = true;
+        }
     }
 }

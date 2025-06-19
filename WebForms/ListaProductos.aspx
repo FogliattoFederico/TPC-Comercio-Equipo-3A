@@ -90,7 +90,7 @@
 
                                     <asp:LinkButton ID="lnkEdit" runat="server"
                                         CommandName="Select"
-                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CommandArgument='<%# Eval("IdProducto") %>'
                                         CssClass="btnEdit_Delete"
                                         ToolTip="Editar"
                                         Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'>
@@ -99,7 +99,7 @@
 
                                     <asp:LinkButton ID="lnkDelete" runat="server"
                                         CommandName="Delete"
-                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CommandArgument='<%# Eval("IdProducto") %>'
                                         CssClass="btnEdit_Delete"
                                         ToolTip="Eliminar"
                                         Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'
@@ -109,7 +109,7 @@
 
                                     <asp:LinkButton ID="lnkReactivar" runat="server"
                                         CommandName="Reactivar"
-                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CommandArgument='<%# Eval("IdProducto") %>'
                                         CssClass="btnEdit_Delete"
                                         ToolTip="Reactivar"
                                         Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'
@@ -123,6 +123,7 @@
                     <EmptyDataTemplate>
                         <div class="alert alert-info text-center py-4">
                             No hay productos registrados.
+                       
                        
                         </div>
                     </EmptyDataTemplate>

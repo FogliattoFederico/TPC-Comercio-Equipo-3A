@@ -44,5 +44,40 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<TipoProducto> ListarPorCategoria(int idCategoria)
+        {
+            List<TipoProducto> lista = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdTipoProducto, Nombre, Activo FROM TiposProducto WHERE IdCategoria = @id");
+                datos.setearParametro("@id", idCategoria);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto tp = new TipoProducto
+                    {
+                        IdTipoProducto = (int)datos.Lector["IdTipoProducto"],
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Activo = (bool)datos.Lector["Activo"]
+                    };
+
+                    lista.Add(tp);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

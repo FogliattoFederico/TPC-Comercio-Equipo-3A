@@ -62,7 +62,7 @@ namespace WebForms
 
         protected void GVProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = GVProductos.SelectedDataKey.Value.ToString();
+            string id = GVProductos.SelectedValue.ToString();
             Response.Redirect("AltaProducto.aspx?Id=" + id);
         }
 
@@ -94,9 +94,7 @@ namespace WebForms
 
         protected void GVProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = GVProductos.Rows[rowIndex];
-            int idProducto = Convert.ToInt32(GVProductos.DataKeys[row.RowIndex].Values["IdProducto"]);
+            int idProducto = Convert.ToInt32(e.CommandArgument);
 
             ProductoNegocio negocio = new ProductoNegocio();
 

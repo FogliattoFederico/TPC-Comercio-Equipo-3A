@@ -51,15 +51,24 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 25px;">
                 <div>
                     <asp:Label ID="lblMarca" runat="server" Text="Marca:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
                     <asp:DropDownList ID="ddlMarca" runat="server" Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: white; transition: border 0.3s;"></asp:DropDownList>
                 </div>
+
+                <div>
+                    <asp:Label ID="lblCategoria" runat="server" Text="Categoría:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
+                    <asp:DropDownList ID="ddlCategoria" runat="server"
+                        AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"
+                        Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: white; transition: border 0.3s;"></asp:DropDownList>
+                </div>
+
                 <div>
                     <asp:Label ID="lblTipoProducto" runat="server" Text="Tipo Producto:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
                     <asp:DropDownList ID="ddlTipoProducto" runat="server" Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: white; transition: border 0.3s;"></asp:DropDownList>
                 </div>
+
             </div>
 
             <div style="display: flex; justify-content: space-between; gap: 15px;">
