@@ -62,7 +62,8 @@ namespace WebForms
 
         protected void GVMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = GVMarcas.SelectedDataKey.Value.ToString();
+            //string id = GVMarcas.SelectedDataKey.Value.ToString();
+            string id = GVMarcas.SelectedValue.ToString();
             Response.Redirect("AltaMarca.aspx?id=" + id);
         }
 
@@ -73,9 +74,10 @@ namespace WebForms
 
         protected void GVMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = GVMarcas.Rows[rowIndex];
-            int idMarca = Convert.ToInt32(GVMarcas.DataKeys[row.RowIndex].Values["IdMarca"]);
+            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+            //GridViewRow row = GVMarcas.Rows[rowIndex];
+            //int idMarca = Convert.ToInt32(GVMarcas.DataKeys[row.RowIndex].Values["IdMarca"]);
+            int idMarca = Convert.ToInt32(e.CommandArgument);
 
             MarcaNegocio negocio = new MarcaNegocio();
 

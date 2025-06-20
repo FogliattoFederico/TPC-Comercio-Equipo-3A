@@ -90,5 +90,113 @@ namespace Negocio
 
             return listaVentas;
         }
+
+        public void GuardarVenta(Venta venta)
+        {
+            VentaDetalleNegocio negocio = new VentaDetalleNegocio();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"INSERT INTO Ventas (Fecha, IdCliente, IdUsuario, Total) 
+                                    VALUES (@fecha, @idCliente, @idUsuario, @total);
+                                    SELECT SCOPE_IDENTITY();";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@fecha", venta.Fecha);
+                datos.setearParametro("@idCliente", venta.Cliente.IdCliente);
+                datos.setearParametro("@idUsuario", venta.Usuario.IdUsuario);
+
+                decimal total = negocio.ObtenerMontoTotal(venta.Detalles);
+                datos.setearParametro("@total", total);
+
+                // ejecuta y obtiene el ID generado
+                int idVenta = Convert.ToInt32(datos.ejecutarScalar());
+
+                // se lo asignamos a cada detalle
+                foreach (var detalle in venta.Detalles)
+                {
+                    detalle.IdVenta = idVenta;
+                }
+
+                // guarda detalles (usa otra conexión internamente)
+                negocio.GuardarDetalleVenta(venta.Detalles);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Venta BuscarVenta(int idVenta)
+        {
+            Venta venta = new Venta();
+            AccesoDatos datos = new AccesoDatos();
+            VentaDetalleNegocio negocio = new VentaDetalleNegocio();
+
+            string consulta = @"SELECT 
+                                    V.IdVenta, 
+                                    V.Fecha,
+                                    SUM(VD.Cantidad * VD.PrecioUnit) AS Total,
+                                    C.IdCliente,
+                                    C.Nombre,
+                                    C.Apellido,
+                                    C.Dni,
+                                    C.Telefono,
+                                    C.Email,
+                                    C.Direccion,
+                                    U.IdUsuario,
+                                    U.Nombre AS NombreUsuario,
+                                    U.Apellido AS ApellidoUsuario,
+                                    U.Email AS EmailUsuario,
+                                    U.FechaAlta,
+                                    U.Admin,	
+                                    COUNT(VD.IdVentaDetalle) AS CantidadProductos
+                                FROM Ventas V
+                                INNER JOIN Clientes C ON C.IdCliente = V.IdCliente
+                                INNER JOIN Usuario U ON V.IdUsuario = U.IdUsuario
+                                INNER JOIN VentaDetalle VD ON V.IdVenta = VD.IdVenta
+                                WHERE V.IdVenta = @idVenta
+                                GROUP BY 
+                                    V.IdVenta, V.Fecha,
+                                    C.IdCliente, C.Nombre, C.Apellido, C.Dni, C.Telefono, C.Email, C.Direccion,
+                                    U.IdUsuario, U.Nombre, U.Apellido, U.Email, U.FechaAlta, U.Admin;";
+
+            datos.setearConsulta(consulta);
+            datos.setearParametro("@idVenta", idVenta);
+            datos.ejecutarLectura();
+
+            while (datos.Lector.Read())
+            {
+                //Venta venta = new Venta();
+
+                venta.IdVenta = (int)datos.Lector["IdVenta"];
+                venta.Fecha = (DateTime)datos.Lector["Fecha"];
+                venta.Total = (decimal)datos.Lector["Total"];
+                venta.Cliente = new Cliente();
+                venta.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                venta.Cliente.Nombre = datos.Lector["Nombre"].ToString();
+                venta.Cliente.Apellido = datos.Lector["Apellido"].ToString();
+                venta.Cliente.Dni = datos.Lector["DNI"].ToString();
+                venta.Cliente.Telefono = datos.Lector["Telefono"].ToString();
+                venta.Cliente.Email = datos.Lector["Email"].ToString();
+                venta.Cliente.Direccion = datos.Lector["Direccion"].ToString();
+                venta.Usuario = new Usuario();
+                venta.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                venta.Usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                venta.Usuario.Apellido = datos.Lector["ApellidoUsuario"].ToString();
+                venta.Usuario.Email = datos.Lector["EmailUsuario"].ToString();
+                //venta.Usuario.Contrasena = datos.Lector["Contrasena"].ToString();
+                venta.Usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
+                venta.Usuario.Admin = (bool)datos.Lector["Admin"];
+                venta.Detalles = new List<VentaDetalle>();
+                venta.Detalles = negocio.ObtenerDetallesPorVenta(venta.IdVenta);
+
+
+
+
+            }
+            return venta;
+        }
     }
 }

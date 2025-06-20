@@ -58,7 +58,8 @@ namespace WebForms
 
         protected void GVUsuarios_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = GVUsuarios.SelectedDataKey.Value.ToString();
+            //string id = GVUsuarios.SelectedDataKey.Value.ToString();
+            string id = GVUsuarios.SelectedValue.ToString();
             Response.Redirect("AltaUsuario.aspx?Id=" + id);
         }
 
@@ -100,9 +101,10 @@ namespace WebForms
 
         protected void GVUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = GVUsuarios.Rows[rowIndex];
-            int id = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
+            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+            //GridViewRow row = GVUsuarios.Rows[rowIndex];
+            //int id = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
+            int id = Convert.ToInt32(e.CommandArgument);
 
             UsuarioNegocio negocio = new UsuarioNegocio();
 

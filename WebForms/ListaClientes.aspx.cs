@@ -70,7 +70,8 @@ namespace WebForms
 
         protected void dgvClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = dgvClientes.SelectedDataKey.Value.ToString();
+            //string id = dgvClientes.SelectedDataKey.Value.ToString();
+            string id = dgvClientes.SelectedValue.ToString();
             Response.Redirect("AltaCliente.aspx?id=" + id);
         }
 
@@ -101,9 +102,10 @@ namespace WebForms
 
         protected void dgvClientes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = dgvClientes.Rows[rowIndex];
-            int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
+            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+            //GridViewRow row = dgvClientes.Rows[rowIndex];
+            //int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
+            int idCliente = Convert.ToInt32(e.CommandArgument);
 
             ClienteNegocio negocio = new ClienteNegocio();
 

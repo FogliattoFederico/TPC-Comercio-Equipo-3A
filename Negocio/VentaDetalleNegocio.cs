@@ -92,5 +92,45 @@ namespace Negocio
 
             return detalles;
         }
+
+        public void GuardarDetalleVenta(List<VentaDetalle> ventaDetalle)
+        {
+            try
+            {
+                foreach (var detalle in ventaDetalle)
+                {
+                    AccesoDatos datos = new AccesoDatos(); // 🔁 NUEVO EN CADA ITERACIÓN
+
+                    string consulta = @"INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit) 
+                                VALUES (@idVenta, @idProducto, @cantidad, @precioUnit);";
+
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@idVenta", detalle.IdVenta);
+                    datos.setearParametro("@idProducto", detalle.Producto.IdProducto);
+                    datos.setearParametro("@cantidad", detalle.Cantidad);
+                    datos.setearParametro("@precioUnit", detalle.PrecioVenta);
+
+                    datos.ejecutarAccion();  // conexión cerrada automáticamente si usás finally ahí
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+        public decimal ObtenerMontoTotal(List<VentaDetalle> detalle)
+        {
+            decimal total = 0;
+            foreach (VentaDetalle aux in detalle)
+            {
+                total += aux.Cantidad * aux.PrecioVenta;
+            }
+
+
+            return total;
+        }
     }
 }

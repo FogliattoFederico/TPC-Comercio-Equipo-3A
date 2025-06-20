@@ -67,7 +67,8 @@ namespace WebForms
 
         protected void GVProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id = GVProveedores.SelectedDataKey.Value.ToString();
+            //string id = GVProveedores.SelectedDataKey.Value.ToString();
+            string id = GVProveedores.SelectedValue.ToString();
             Response.Redirect("AltaProveedor.aspx?Id=" + id);
         }
 
@@ -94,9 +95,10 @@ namespace WebForms
 
         protected void GVProveedores_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = GVProveedores.Rows[rowIndex];
-            int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
+            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+            //GridViewRow row = GVProveedores.Rows[rowIndex];
+            //int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
+            int idProveedor = Convert.ToInt32(e.CommandArgument);
 
             ProveedorNegocio negocio = new ProveedorNegocio();
 
