@@ -47,7 +47,8 @@ namespace WebForms
         protected void GVProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVProductos.PageIndex = e.NewPageIndex;
-            GVProductos.DataBind();
+            //GVProductos.DataBind();
+            CargarProductos();
         }
 
         protected void btnAgregarProducto_Click(object sender, EventArgs e)
@@ -75,16 +76,26 @@ namespace WebForms
         {
             ProductoNegocio negocio = new ProductoNegocio();
 
-            List<Producto> lista = (List<Producto>)Session["listaProducto"];
-            string filtro = txtBuscarCuit.Text.Trim().ToLower();
+            try
+            {
+                List<Producto> lista = (List<Producto>)Session["listaProducto"];
+                string filtro = txtBuscarCuit.Text.Trim().ToLower();
 
-            List<Producto> listaFiltrada = lista.Where(c =>
-                c.Nombre.Trim().ToLower().Contains(filtro) ||
-                c.Descripcion.Trim().ToLower().Contains(filtro)
-            ).ToList();
+                List<Producto> listaFiltrada = lista.Where(c =>
+                    c.Nombre.Trim().ToLower().Contains(filtro) ||
+                    c.Descripcion.Trim().ToLower().Contains(filtro)
+                ).ToList();
 
-            GVProductos.DataSource = listaFiltrada;
-            GVProductos.DataBind();
+                GVProductos.DataSource = listaFiltrada;
+                GVProductos.DataBind();
+                txtBuscarCuit.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
         }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
@@ -94,20 +105,24 @@ namespace WebForms
 
         protected void GVProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int idProducto = Convert.ToInt32(e.CommandArgument);
-
-            ProductoNegocio negocio = new ProductoNegocio();
-
-            if (e.CommandName == "Delete")
+            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
             {
-                negocio.EliminarProductoLogico(idProducto);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarProducto(idProducto);
-            }
+                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int idProducto = Convert.ToInt32(e.CommandArgument);
 
-            CargarProductos();
+                ProductoNegocio negocio = new ProductoNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarProductoLogico(idProducto);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarProducto(idProducto);
+                }
+
+                CargarProductos();
+            }
         }
     }
 }
