@@ -13,7 +13,7 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-   
+
             if (!IsPostBack)
             {
 
@@ -26,11 +26,11 @@ namespace WebForms
             ClienteNegocio negocio = new ClienteNegocio();
             bool mostrarEliminados = CheckEliminados.Checked;
 
-            List<Cliente> lista = mostrarEliminados ?
-                negocio.ListarEliminados() :
-                negocio.ListarConSp();
             try
             {
+                List<Cliente> lista = mostrarEliminados ?
+                    negocio.ListarEliminados() :
+                    negocio.ListarConSp();
                 Session["listaCliente"] = lista;
                 dgvClientes.DataSource = lista;
                 dgvClientes.DataBind();
@@ -63,7 +63,7 @@ namespace WebForms
         protected void dgvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvClientes.PageIndex = e.NewPageIndex;
-            CargarClientes();        
+            CargarClientes();
         }
 
         protected void dgvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)

@@ -30,7 +30,9 @@ namespace WebForms
                 List<Proveedor> lista = mostrarEliminados ?
                 negocio.ListarEliminados() :
                 negocio.Listar();
+
                 Session["listaProveedor"] = lista;
+
                 GVProveedores.DataSource = lista;
                 GVProveedores.DataBind();
             }

@@ -12,7 +12,7 @@ namespace WebForms
     public partial class ListaUsuarios : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
 
             if (!IsPostBack)
             {
@@ -25,12 +25,14 @@ namespace WebForms
             UsuarioNegocio negocio = new UsuarioNegocio();
             bool mostrarEliminados = CheckEliminados.Checked;
 
-            List<Usuario> lista = mostrarEliminados ?
-                negocio.ListarEliminados() :
-                negocio.Listar();
             try
             {
+                List<Usuario> lista = mostrarEliminados ?
+                    negocio.ListarEliminados() :
+                    negocio.Listar();
+
                 Session["listaUsuario"] = lista;
+
                 GVUsuarios.DataSource = lista;
                 GVUsuarios.DataBind();
             }
@@ -61,8 +63,8 @@ namespace WebForms
         protected void GVUsuarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             e.Cancel = true;
-            
-            
+
+
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -73,7 +75,7 @@ namespace WebForms
 
                 List<Usuario> lista = (List<Usuario>)Session["listaUsuario"];
                 List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Apellido.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Nombre.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower())).ToList();
-                GVUsuarios.DataSource = filtrada ;
+                GVUsuarios.DataSource = filtrada;
                 GVUsuarios.DataBind();
                 txtBuscarUsuario.Text = "";
             }
@@ -87,7 +89,8 @@ namespace WebForms
         protected void GVUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVUsuarios.PageIndex = e.NewPageIndex;
-            CargarUsuarios();        }
+            CargarUsuarios();
+        }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
