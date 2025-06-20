@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between mb-3">
                 <!--<asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->
-                <a href="PanelAdmin.aspx" class="back">
+                <a href="Default.aspx" class="back">
                     <img class="imgback" src="/Icon/FlechaI.png"></a>
                 <asp:Button runat="server" Text="Agregar Producto" ID="btnAgregarProducto" OnClick="btnAgregarProducto_Click"
                     CssClass="btn btn-primary btn-lg shadow-sm" />
