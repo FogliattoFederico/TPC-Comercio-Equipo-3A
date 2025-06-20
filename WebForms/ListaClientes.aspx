@@ -62,7 +62,7 @@
                             PagerStyle-CssClass="pagination"
                             PagerSettings-Mode="NumericFirstLast"
                             GridLines="None"
-                            CellPadding="4"
+                            CellPadding="10"
                             DataKeyNames="IdCliente"
                             OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged"
                             OnRowCommand="dgvClientes_RowCommand"
@@ -107,7 +107,7 @@
                                                 ToolTip="Reactivar"
                                                 Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'
                                                 OnClientClick="return confirm('¿Está seguro que desea reactivar esta marca?');">
-<img src='<%= ResolveUrl("~/Icon/iconAñadir.png") %>' alt="Reactivar" />
+                                                <img src='<%= ResolveUrl("~/Icon/iconAñadir.png") %>' alt="Reactivar" />
                                             </asp:LinkButton>
                                         </div>
                                     </ItemTemplate>

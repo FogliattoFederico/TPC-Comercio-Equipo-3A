@@ -13,22 +13,7 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //ClienteNegocio negocio = new ClienteNegocio();
-            //List<Cliente> lista = negocio.ListarConSp();
-
-            //try
-            //{
-            //    Session.Add("listaClientes", negocio.ListarConSp());
-
-            //    dgvClientes.DataSource = lista;
-            //    dgvClientes.DataBind();
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Session.Add("Error", ex.ToString());
-            //}
+   
             if (!IsPostBack)
             {
 
@@ -78,8 +63,7 @@ namespace WebForms
         protected void dgvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvClientes.PageIndex = e.NewPageIndex;
-            dgvClientes.DataBind();
-        }
+            CargarClientes();        }
 
         protected void dgvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -88,7 +72,7 @@ namespace WebForms
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            List<Cliente> lista = (List<Cliente>)Session["listaClientes"];
+            List<Cliente> lista = (List<Cliente>)Session["listaCliente"];
             List<Cliente> filtrada = lista.Where(c => c.Dni.Trim().Contains(txtBuscarDni.Text.Trim())).ToList();
 
             dgvClientes.DataSource = filtrada;

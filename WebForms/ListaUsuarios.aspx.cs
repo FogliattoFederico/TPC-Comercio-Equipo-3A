@@ -12,12 +12,7 @@ namespace WebForms
     public partial class ListaUsuarios : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-            //UsuarioNegocio negocio = new UsuarioNegocio();
-            //List<Usuario> lista = negocio.Listar();
-
-            //GVUsuarios.DataSource = lista;
-            //GVUsuarios.DataBind();
+        { 
 
             if (!IsPostBack)
             {
@@ -76,7 +71,7 @@ namespace WebForms
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();
 
-                List<Usuario> lista = negocio.Listar();
+                List<Usuario> lista = (List<Usuario>)Session["listaUsuario"];
                 List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Apellido.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Nombre.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower())).ToList();
                 GVUsuarios.DataSource = filtrada ;
                 GVUsuarios.DataBind();

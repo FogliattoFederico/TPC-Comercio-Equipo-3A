@@ -61,7 +61,7 @@
                     OnRowDeleting="GVUsuarios_RowDeleting"
                     OnPageIndexChanging="GVUsuarios_PageIndexChanging"
                     OnRowCommand="GVUsuarios_RowCommand"
-                    AllowPaging="True" PageSize="5">
+                    AllowPaging="True" PageSize="10">
                     <Columns>
                         <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="py-3" />
