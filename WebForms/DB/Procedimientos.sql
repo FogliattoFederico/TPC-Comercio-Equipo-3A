@@ -31,7 +31,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE ListarProductosStockBajo
+CREATE OR ALTER PROCEDURE SP_ListarProductosStockBajo
 AS
 BEGIN
     SELECT 
