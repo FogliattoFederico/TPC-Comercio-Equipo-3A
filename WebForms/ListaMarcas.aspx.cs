@@ -24,11 +24,12 @@ namespace WebForms
             MarcaNegocio negocio = new MarcaNegocio();
             bool mostrarEliminados = CheckEliminados.Checked;
 
-            List<Marca> lista = mostrarEliminados ?
-                negocio.ListarMarcaEliminadas():
-                negocio.ListarMarcaConSp();
             try
             {
+                List<Marca> lista = mostrarEliminados ?
+                    negocio.ListarMarcaEliminadas() :
+                    negocio.ListarMarcaConSp();
+
                 Session["listaMarca"] = lista;
                 GVMarcas.DataSource = lista;
                 GVMarcas.DataBind();
@@ -37,7 +38,7 @@ namespace WebForms
             {
                 Session.Add("Error", ex.ToString());
             }
-            
+
         }
 
         protected void btnAgregarMarca_Click(object sender, EventArgs e)

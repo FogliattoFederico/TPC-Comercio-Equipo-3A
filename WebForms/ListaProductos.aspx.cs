@@ -75,7 +75,7 @@ namespace WebForms
         {
             ProductoNegocio negocio = new ProductoNegocio();
 
-            List<Producto> lista = negocio.Listar();
+            List<Producto> lista = (List<Producto>)Session["listaProducto"];
             string filtro = txtBuscarCuit.Text.Trim().ToLower();
 
             List<Producto> listaFiltrada = lista.Where(c =>
