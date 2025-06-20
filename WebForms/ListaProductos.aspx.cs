@@ -108,17 +108,17 @@ namespace WebForms
             if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
             {
                 GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int idProducto = Convert.ToInt32(e.CommandArgument);
+                int id = Convert.ToInt32(GVProductos.DataKeys[row.RowIndex].Values["IdProducto"]);
 
                 ProductoNegocio negocio = new ProductoNegocio();
 
                 if (e.CommandName == "Delete")
                 {
-                    negocio.EliminarProductoLogico(idProducto);
+                    negocio.EliminarProductoLogico(id);
                 }
                 else if (e.CommandName == "Reactivar")
                 {
-                    negocio.ReactivarProducto(idProducto);
+                    negocio.ReactivarProducto(id);
                 }
 
                 CargarProductos();
