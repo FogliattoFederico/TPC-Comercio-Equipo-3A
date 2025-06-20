@@ -75,6 +75,7 @@ namespace WebForms
                 List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Apellido.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Nombre.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower())).ToList();
                 GVUsuarios.DataSource = filtrada ;
                 GVUsuarios.DataBind();
+                txtBuscarUsuario.Text = "";
             }
             catch (Exception ex)
             {
@@ -86,8 +87,7 @@ namespace WebForms
         protected void GVUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVUsuarios.PageIndex = e.NewPageIndex;
-            GVUsuarios.DataBind();
-        }
+            CargarUsuarios();        }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
@@ -96,23 +96,24 @@ namespace WebForms
 
         protected void GVUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            //GridViewRow row = GVUsuarios.Rows[rowIndex];
-            //int id = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
-            int id = Convert.ToInt32(e.CommandArgument);
-
-            UsuarioNegocio negocio = new UsuarioNegocio();
-
-            if (e.CommandName == "Delete")
+            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
             {
-                negocio.EliminarUsuario(id);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarUsuario(id);
-            }
+                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int idUsuario = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
 
-            CargarUsuarios();
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarUsuario(idUsuario);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarUsuario(idUsuario);
+                }
+
+                CargarUsuarios();
+            }
         }
     }
 }

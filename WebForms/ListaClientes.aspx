@@ -58,7 +58,7 @@
                             HeaderStyle-CssClass="bg-primary text-white text-center"
                             RowStyle-CssClass="align-middle"
                             EmptyDataText="No se encontraron clientes"
-                            AllowPaging="True" PageSize="5"
+                            AllowPaging="True" PageSize="10"
                             PagerStyle-CssClass="pagination"
                             PagerSettings-Mode="NumericFirstLast"
                             GridLines="None"
@@ -83,7 +83,7 @@
 
                                             <asp:LinkButton ID="lnkEdit" runat="server"
                                                 CommandName="Select"
-                                                CommandArgument='<%# Eval("IdCliente") %>'
+                                                CommandArgument='<%# ((GridViewRow)Container).RowIndex %>'
                                                 CssClass="btnEdit_Delete"
                                                 ToolTip="Editar"
                                                 Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'>
@@ -92,7 +92,7 @@
 
                                             <asp:LinkButton ID="lnkDelete" runat="server"
                                                 CommandName="Delete"
-                                                CommandArgument='<%# Eval("IdCliente") %>'
+                                                CommandArgument='<%# ((GridViewRow)Container).RowIndex %>'
                                                 CssClass="btnEdit_Delete"
                                                 ToolTip="Eliminar"
                                                 Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'
@@ -102,7 +102,7 @@
 
                                             <asp:LinkButton ID="lnkReactivar" runat="server"
                                                 CommandName="Reactivar"
-                                                CommandArgument='<%# Eval("IdCliente") %>'
+                                                CommandArgument='<%# ((GridViewRow)Container).RowIndex %>'
                                                 CssClass="btnEdit_Delete"
                                                 ToolTip="Reactivar"
                                                 Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'

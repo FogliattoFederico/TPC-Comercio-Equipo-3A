@@ -13,7 +13,7 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             if (!IsPostBack)
             {
                 CargarProveedor();
@@ -48,7 +48,7 @@ namespace WebForms
         protected void GVProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVProveedores.PageIndex = e.NewPageIndex;
-            GVProveedores.DataBind();
+            CargarProveedor();
         }
 
         protected void btnAgregarProveedor_Click(object sender, EventArgs e)
@@ -77,11 +77,21 @@ namespace WebForms
         {
             ProveedorNegocio negocio = new ProveedorNegocio();
 
-            List<Proveedor> lista = (List<Proveedor>)Session["listaProveedor"] ;
-            List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Trim().Contains(txtBuscarCuit.Text.Trim()) || c.RazonSocial.Trim().ToLower().Contains(txtBuscarCuit.Text.Trim().ToLower())).ToList();
+            try
+            {
+                List<Proveedor> lista = (List<Proveedor>)Session["listaProveedor"];
+                List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Trim().Contains(txtBuscarCuit.Text.Trim()) || c.RazonSocial.Trim().ToLower().Contains(txtBuscarCuit.Text.Trim().ToLower())).ToList();
 
-            GVProveedores.DataSource = listaFiltrada;
-            GVProveedores.DataBind();
+                GVProveedores.DataSource = listaFiltrada;
+                GVProveedores.DataBind();
+                txtBuscarCuit.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+            }
         }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
@@ -91,23 +101,25 @@ namespace WebForms
 
         protected void GVProveedores_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            //GridViewRow row = GVProveedores.Rows[rowIndex];
-            //int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
-            int idProveedor = Convert.ToInt32(e.CommandArgument);
 
-            ProveedorNegocio negocio = new ProveedorNegocio();
-
-            if (e.CommandName == "Delete")
+            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
             {
-                negocio.EliminarProveedor(idProveedor);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarProveedor(idProveedor);
-            }
+                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
 
-            CargarProveedor();
+                ProveedorNegocio negocio = new ProveedorNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarProveedor(idProveedor);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarProveedor(idProveedor);
+                }
+
+                CargarProveedor();
+            }
         }
     }
 }

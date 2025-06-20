@@ -63,7 +63,8 @@ namespace WebForms
         protected void dgvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvClientes.PageIndex = e.NewPageIndex;
-            CargarClientes();        }
+            CargarClientes();        
+        }
 
         protected void dgvClientes_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -77,6 +78,8 @@ namespace WebForms
 
             dgvClientes.DataSource = filtrada;
             dgvClientes.DataBind();
+
+            txtBuscarDni.Text = "";
         }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
@@ -86,23 +89,24 @@ namespace WebForms
 
         protected void dgvClientes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            //GridViewRow row = dgvClientes.Rows[rowIndex];
-            //int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
-            int idCliente = Convert.ToInt32(e.CommandArgument);
-
-            ClienteNegocio negocio = new ClienteNegocio();
-
-            if (e.CommandName == "Delete")
+            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
             {
-                negocio.EliminarCliente(idCliente);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarCliente(idCliente);
-            }
+                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
 
-            CargarClientes();
+                ClienteNegocio negocio = new ClienteNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarCliente(idCliente);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarCliente(idCliente);
+                }
+
+                CargarClientes();
+            }
         }
     }
 }
