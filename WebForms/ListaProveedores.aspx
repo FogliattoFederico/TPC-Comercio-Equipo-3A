@@ -92,7 +92,7 @@
                                         CssClass="btnEdit_Delete"
                                         ToolTip="Eliminar"
                                         Visible='<%# Convert.ToBoolean(Eval("Activo")) %>'
-                                        OnClientClick="return confirm('¿Está seguro que desea eliminar esta marca?');">
+                                        OnClientClick="return confirm('¿Está seguro que desea eliminar este proveedor?');">
                                         <img src='<%= ResolveUrl("~/Icon/IconBasuraG.png") %>' alt="Eliminar" />
                                     </asp:LinkButton>
 
@@ -102,7 +102,7 @@
                                         CssClass="btnEdit_Delete"
                                         ToolTip="Reactivar"
                                         Visible='<%# !Convert.ToBoolean(Eval("Activo")) %>'
-                                        OnClientClick="return confirm('¿Está seguro que desea reactivar esta marca?');">
+                                        OnClientClick="return confirm('¿Está seguro que desea reactivar este proveedor?');">
                                         <img src='<%= ResolveUrl("~/Icon/iconAñadir.png") %>' alt="Reactivar" />
                                     </asp:LinkButton>
                                 </div>
