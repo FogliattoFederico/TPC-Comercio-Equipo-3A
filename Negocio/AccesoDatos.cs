@@ -69,6 +69,10 @@ namespace Negocio
 
                 throw ex;
             }
+            finally
+            {
+                conexion.Close();
+            }
 
         }
 
