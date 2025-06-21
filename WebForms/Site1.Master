@@ -36,9 +36,9 @@
             <div>
                 <asp:Button Text="Login" ID="btnLogin" OnClick="btnLogin_Click" runat="server" CssClass="btn btn-primary me-2 p-2 fs-5" />
             </div>
-            <div>
+            <%--<div>
                 <asp:Button Text="Registrarse" ID="btnRegistrar" OnClick="btnRegistrar_Click" runat="server" CssClass="btn btn-danger p-2 me-2 fs-5" />
-            </div>
+            </div>--%>
             <%--<div>
                 <p style="color: white">aca va la foto</p>
             </div>--%>

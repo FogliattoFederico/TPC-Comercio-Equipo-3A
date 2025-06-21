@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
+    public enum TipoUsuario
+    {
+        Administrador = 1,
+
+        Vendedor = 2
+    }
     public class Usuario
     {
         public int IdUsuario { get; set; }
@@ -17,6 +23,10 @@ namespace Dominio
         public DateTime FechaAlta { get; set; }
         public bool Admin { get; set; } // Admin - Vendedor
         public bool Activo { get; set; }
+        public TipoUsuario TipoUsuario { get; set; }
+
+
+
     }
 
 }

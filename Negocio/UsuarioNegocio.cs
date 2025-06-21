@@ -9,20 +9,43 @@ namespace Negocio
 {
     public class UsuarioNegocio
     {
-        public bool ValidarUsuario(string nombreUsuario, string contrasena)
+        public bool Loguear(Usuario usuario)
         {
             AccesoDatos datos = new AccesoDatos();
 
-            datos.setearConsulta(@"SELECT 1 
-                                FROM Usuario 
-                                WHERE NombreUsuario = @usuario AND Contrasena = @contrasena");
-            datos.setearParametro("@usuario", nombreUsuario);
-            datos.setearParametro("@contrasena", contrasena);
-            datos.ejecutarLectura();
+            try
+            {
+                //datos.setearConsulta(@"SELECT 1 
+                //                    FROM Usuario 
+                //                    WHERE NombreUsuario = @usuario AND Contrasena = @contrasena");
+                datos.setearProcedimiento("SP_Loguear");
+                datos.setearParametro("@NombreUsuario", usuario.NombreUsuario);
+                datos.setearParametro("@Contrasena", usuario.Contrasena);
+                datos.ejecutarLectura();
 
-            if (datos.Lector.Read())
-                return true;
-            return false;
+                if (datos.Lector.Read())
+                {
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
+                    usuario.Apellido = datos.Lector["Apellido"].ToString();
+                    usuario.Email = datos.Lector["Email"].ToString();
+                    usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
+                    usuario.TipoUsuario = (bool)datos.Lector["Admin"] ? TipoUsuario.Administrador : TipoUsuario.Vendedor;
+                    
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            
 
         }
 

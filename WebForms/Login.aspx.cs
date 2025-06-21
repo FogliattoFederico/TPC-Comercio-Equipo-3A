@@ -6,14 +6,21 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebForms.Utils;
 
 namespace WebForms
 {
     public partial class Login : System.Web.UI.Page
     {
+        private TextBox[] cajasTexto = new TextBox[2];
         protected void Page_Load(object sender, EventArgs e)
         {
+            cajasTexto[0] = txtUsuario;
+            cajasTexto[1] = txtContrasena;
 
+            btnIngresar.Enabled = false;
+            lblMensaje.Text = "";
+            ValidacionCampo.TodosCamposCompletos(cajasTexto);
         }
 
         /*protected void btnLogin_Click(object sender, EventArgs e)
@@ -51,35 +58,72 @@ namespace WebForms
 
          }*/
 
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            Usuario usuario = new Usuario();
-            UsuarioNegocio negocio = new UsuarioNegocio();
+        //protected void btnLogin_Click(object sender, EventArgs e)
+        //{
+        //    Usuario usuario = new Usuario();
+        //    UsuarioNegocio negocio = new UsuarioNegocio();
 
-            try
-            {
-                if (negocio.ValidarUsuario(txtUsuario.Text, txtContrasena.Text))
-                {
-                    usuario.NombreUsuario = txtUsuario.Text;
-                    usuario.Contrasena = txtContrasena.Text;
+        //    try
+        //    {
+        //        if (negocio.ValidarUsuario(txtUsuario.Text, txtContrasena.Text))
+        //        {
+        //            usuario.NombreUsuario = txtUsuario.Text;
+        //            usuario.Contrasena = txtContrasena.Text;
 
-                    Session.Add("Usuario", usuario);
-                    Response.Redirect("ListaProductos.aspx", false);
-                }
-                else
-                {
-                    Response.Redirect("Default.aspx", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Redirect("Default.aspx", false);
-                throw ex;
-            }
-        }
+        //            Session.Add("Usuario", usuario);
+        //            Response.Redirect("ListaProductos.aspx", false);
+        //        }
+        //        else
+        //        {
+        //            Response.Redirect("Default.aspx", false);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Redirect("Default.aspx", false);
+        //        throw ex;
+        //    }
+        //}
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            Usuario usuario = new Usuario();
+
+            usuario.NombreUsuario = txtUsuario.Text;
+            usuario.Contrasena = Session["Contraseña"].ToString();
+
+            bool encontrado = negocio.Loguear(usuario);
+
+            if (!encontrado)
+            {
+                lblMensaje.Text = "Usuario y/o contraseña incorrectos";
+                return;
+            }
+
+            Session.Add("Usuario", usuario);
+
+            if(usuario.TipoUsuario == TipoUsuario.Administrador)
+            {
+                Response.Redirect("PanelAdmin.aspx");
+            }
+            else
+            {
+                Response.Redirect("PanelVendedores.aspx");
+
+            }
+
+        }
+
+        protected void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnIngresar, cajasTexto);
+        }
+
+        protected void txtContrasena_TextChanged(object sender, EventArgs e)
+        {
+            Session.Add("Contraseña", txtContrasena.Text);
+            ValidacionCampo.ControlAceptar(btnIngresar, cajasTexto);
 
         }
     }

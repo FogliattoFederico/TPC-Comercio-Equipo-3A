@@ -43,14 +43,14 @@
             <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <asp:Label ID="lblUsuario" runat="server" Text="Usuario" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
-                    <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Width="100%"
-                        Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; color: #95a5a6;" />
+                    <asp:TextBox ID="txtUsuario" runat="server" AutoPostBack="true" OnTextChanged="txtUsuario_TextChanged" CssClass="form-control" Width="100%"
+                        Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; ;" />
                 </div>
 
                 <div>
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
-                    <asp:TextBox TextMode="Password" ID="txtContrasena" runat="server" CssClass="form-control" Width="100%"
-                        Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; color: #95a5a6;" />
+                    <asp:TextBox TextMode="Password" ID="txtContrasena" runat="server" AutoPostBack="true" OnTextChanged="txtContrasena_TextChanged" CssClass="form-control" Width="100%"
+                        Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa;" />
                 </div>
             </div>
             <div style="display: flex; gap: 15px; margin-top: 30px;">
@@ -59,7 +59,6 @@
                     onmouseover="this.style.background='linear-gradient(135deg, #2980b9, #3498db)'; this.style.transform='translateY(-1px)';"
                     onmouseout="this.style.background='linear-gradient(135deg, #3498db, #2980b9)'; this.style.transform='translateY(0)';" />
             </div>
-            <p class="mt-3" style="color: #7f8c8d; font-size: 16px; font-weight: 500">No tienes una cuenta ?? <a href="registro.aspx">registrate</a></p>
         </div>
     </asp:Panel>
 </asp:Content>
