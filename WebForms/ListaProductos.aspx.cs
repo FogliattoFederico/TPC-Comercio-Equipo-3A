@@ -13,13 +13,14 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"] == null)
+            if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
             {
                 Session.Add("Error", "Debes estar logueado");
                 Response.Redirect("Error.aspx", false);
+                return;
             }
 
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).Admin == false)
+            if (Session["Usuario"] != null && !Seguridad.esAdmin((Usuario)Session["Usuario"]))
             {
                 btnAgregarProducto.Visible = false;
             }

@@ -19,10 +19,18 @@ namespace WebForms
         {
             try
             {
-                if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+                if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
+                {
+                    Session.Add("Error", "Debes estar logueado");
+                    Response.Redirect("Error.aspx", false);
+                    return;
+                }
+
+                if (!Seguridad.esAdmin((Usuario)Session["Usuario"]))
                 {
                     Session.Add("Error", "Debes tener permiso de administrador");
                     Response.Redirect("Error.aspx", false);
+                    return;
                 }
 
                 CajasDeTexto[0] = txtNombre;
