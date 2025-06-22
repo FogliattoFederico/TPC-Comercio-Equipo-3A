@@ -19,6 +19,11 @@ namespace WebForms
         {
             try
             {
+                if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+                {
+                    Session.Add("Error", "Debes tener permiso de administrador");
+                    Response.Redirect("Error.aspx", false);
+                }
 
                 CajasDeTexto[0] = txtNombre;
 
@@ -38,7 +43,7 @@ namespace WebForms
                         txtNombre.Text = seleccionado.Nombre;
 
                         btnAceptar.Enabled = true;
-                        
+
                     }
 
                 }
@@ -48,8 +53,8 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 

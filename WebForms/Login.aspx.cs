@@ -87,29 +87,48 @@ namespace WebForms
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            Usuario usuario = new Usuario();
-
-            usuario.NombreUsuario = txtUsuario.Text;
-            usuario.Contrasena = Session["Contraseña"].ToString();
-
-            bool encontrado = negocio.Loguear(usuario);
-
-            if (!encontrado)
+            try
             {
-                lblMensaje.Text = "Usuario y/o contraseña incorrectos";
-                return;
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario();
+
+                usuario.NombreUsuario = txtUsuario.Text;
+                usuario.Contrasena = Session["Contraseña"].ToString();
+
+                bool encontrado = negocio.Loguear(usuario);
+
+                if (!encontrado)
+                {
+                    lblMensaje.Text = "Usuario y/o contraseña incorrectos";
+                    return;
+                }
+
+                Session.Add("Usuario", usuario);
+
+                //if (usuario.TipoUsuario == TipoUsuario.Administrador)
+                //{
+                //    Response.Redirect("PanelAdmin.aspx", false);
+                //}
+                //else
+                //{
+                //    Response.Redirect("PanelVendedores.aspx", false);
+
+                //}
+                if (usuario.Admin == true)
+                {
+                    Response.Redirect("PanelAdmin.aspx", false);
+                }
+                else
+                {
+                    Response.Redirect("PanelVendedores.aspx", false);
+
+                }
             }
-
-            Session.Add("Usuario", usuario);
-
-            if(usuario.TipoUsuario == TipoUsuario.Administrador)
+            catch (Exception ex)
             {
-                Response.Redirect("PanelAdmin.aspx");
-            }
-            else
-            {
-                Response.Redirect("PanelVendedores.aspx");
+
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
 
             }
 

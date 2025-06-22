@@ -27,6 +27,12 @@ namespace WebForms
                 CajasDeTexto[3] = txtTelefono;
                 CajasDeTexto[4] = txtEmail;
 
+                if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+                {
+                    Session.Add("Error", "Debes tener permiso de administrador");
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 if (Request.QueryString["Id"] != null)
                 {
                     ProveedorNegocio negocio = new ProveedorNegocio();
@@ -57,8 +63,8 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
 
         }
@@ -116,33 +122,13 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
-        //private void controlAceptar(Button boton)
-        //{
-        //    boton.Enabled = TodosCamposCompletos(CajasDeTexto);
-        //}
-
-        //private bool TodosCamposCompletos(TextBox[] CajasDeTexto)
-        //{
-        //    foreach (var caja in CajasDeTexto)
-        //    {
-        //        if (string.IsNullOrWhiteSpace(caja.Text))
-        //        {
-        //            return false;
-        //        }
-
-        //    }
-        //    return true;
-        //    //return !string.IsNullOrWhiteSpace(txtTelefono.Text) &&
-        //    //       !string.IsNullOrWhiteSpace(txtCuit.Text) &&
-        //    //       !string.IsNullOrWhiteSpace(txtEmail.Text) &&
-        //    //       !string.IsNullOrWhiteSpace(txtDireccion.Text) &&
-        //    //       !string.IsNullOrWhiteSpace(txtRazonSocial.Text);
-        //}
+        
         protected void txtRazonSocial_TextChanged(object sender, EventArgs e)
         {
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);

@@ -13,6 +13,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+            {
+                Session.Add("Error", "Debes tener permiso de administrador");
+                Response.Redirect("Error.aspx", false);
+            } 
+
             if (!IsPostBack)
             {
                 CargarMarcas();
@@ -37,6 +43,8 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
 
         }
@@ -75,23 +83,32 @@ namespace WebForms
 
         protected void GVMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            //GridViewRow row = GVMarcas.Rows[rowIndex];
-            //int idMarca = Convert.ToInt32(GVMarcas.DataKeys[row.RowIndex].Values["IdMarca"]);
-            int idMarca = Convert.ToInt32(e.CommandArgument);
-
-            MarcaNegocio negocio = new MarcaNegocio();
-
-            if (e.CommandName == "Delete")
+            try
             {
-                negocio.EliminarMarca(idMarca);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarMarca(idMarca);
-            }
+                //int rowIndex = Convert.ToInt32(e.CommandArgument);
+                //GridViewRow row = GVMarcas.Rows[rowIndex];
+                //int idMarca = Convert.ToInt32(GVMarcas.DataKeys[row.RowIndex].Values["IdMarca"]);
+                int idMarca = Convert.ToInt32(e.CommandArgument);
 
-            CargarMarcas();
+                MarcaNegocio negocio = new MarcaNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarMarca(idMarca);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarMarca(idMarca);
+                }
+
+                CargarMarcas();
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void GVMarcas_RowDeleting(object sender, GridViewDeleteEventArgs e)

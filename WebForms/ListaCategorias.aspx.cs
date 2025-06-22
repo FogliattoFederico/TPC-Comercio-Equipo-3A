@@ -13,6 +13,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+            {
+                Session.Add("Error", "Debes tener permiso de administrador");
+                Response.Redirect("Error.aspx", false);
+            }
+
             if (!IsPostBack)
             {
                 CargarCategorias();
@@ -36,6 +42,8 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
 
         }
@@ -59,22 +67,33 @@ namespace WebForms
 
         protected void GVCategorias_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = GVCategorias.Rows[rowIndex];
-            int idCategoria = Convert.ToInt32(GVCategorias.DataKeys[row.RowIndex].Values["IdCategoria"]);
-
-            CategoriaNegocio negocio = new CategoriaNegocio();
-
-            if (e.CommandName == "Delete")
+            try
             {
-                negocio.EliminarCategoria(idCategoria);
-            }
-            else if (e.CommandName == "Reactivar")
-            {
-                negocio.ReactivarCategoria(idCategoria);
-            }
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = GVCategorias.Rows[rowIndex];
+                int idCategoria = Convert.ToInt32(GVCategorias.DataKeys[row.RowIndex].Values["IdCategoria"]);
 
-            CargarCategorias();
+                CategoriaNegocio negocio = new CategoriaNegocio();
+
+                if (e.CommandName == "Delete")
+                {
+                    negocio.EliminarCategoria(idCategoria);
+                }
+                else if (e.CommandName == "Reactivar")
+                {
+                    negocio.ReactivarCategoria(idCategoria);
+                }
+
+                CargarCategorias();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
+           
+
         }
 
         protected void GVCategorias_RowDeleting(object sender, GridViewDeleteEventArgs e)

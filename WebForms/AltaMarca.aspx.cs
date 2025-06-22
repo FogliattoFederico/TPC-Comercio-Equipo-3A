@@ -19,9 +19,14 @@ namespace WebForms
         {
             try
             {
-                
+                if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+                {
+                    Session.Add("Error", "Debes tener permiso de administrador");
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 CajasDeTexto[0] = txtNombre;
-              
+
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -49,8 +54,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
@@ -68,7 +74,7 @@ namespace WebForms
             {
 
                 MRK.Nombre = txtNombre.Text;
-                
+
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -82,7 +88,7 @@ namespace WebForms
                     lista = negocio.ListarMarcaConSp();
                     listaE = negocio.ListarMarcaEliminadas();
                     bool encontrado = lista.Any(x => x.Nombre.Trim().ToLower() == MRK.Nombre.Trim().ToLower());
-                    bool encontradoElimninados = listaE.Any(y=> y.Nombre.Trim().ToLower()==MRK.Nombre.Trim().ToLower());
+                    bool encontradoElimninados = listaE.Any(y => y.Nombre.Trim().ToLower() == MRK.Nombre.Trim().ToLower());
 
                     if (!encontrado && !encontradoElimninados)
                     {
@@ -90,7 +96,7 @@ namespace WebForms
                         Response.Redirect("ListaMarcas.aspx", false);
 
                     }
-                    else if(encontrado)
+                    else if (encontrado)
                     {
                         lblMensaje.Text = "La marca que intenta ingresar ya se encuentra registrada y activa";
                         lblMensaje.Visible = true;
@@ -108,8 +114,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
+                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx");
 
-                Session.Add("error", ex);
             }
         }
 

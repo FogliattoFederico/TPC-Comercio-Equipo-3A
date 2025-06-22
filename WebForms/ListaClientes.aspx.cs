@@ -13,6 +13,11 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Session.Add("Error", "Debes estar logueado");
+                Response.Redirect("Error.aspx", false);
+            }
 
             if (!IsPostBack)
             {
@@ -38,6 +43,7 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
 
         }
@@ -89,24 +95,35 @@ namespace WebForms
 
         protected void dgvClientes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
+            try
             {
-                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
-
-                ClienteNegocio negocio = new ClienteNegocio();
-
-                if (e.CommandName == "Delete")
+                if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
                 {
-                    negocio.EliminarCliente(idCliente);
-                }
-                else if (e.CommandName == "Reactivar")
-                {
-                    negocio.ReactivarCliente(idCliente);
-                }
+                    GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int idCliente = Convert.ToInt32(dgvClientes.DataKeys[row.RowIndex].Values["IdCliente"]);
 
-                CargarClientes();
+                    ClienteNegocio negocio = new ClienteNegocio();
+
+                    if (e.CommandName == "Delete")
+                    {
+                        negocio.EliminarCliente(idCliente);
+                    }
+                    else if (e.CommandName == "Reactivar")
+                    {
+                        negocio.ReactivarCliente(idCliente);
+                    }
+
+                    CargarClientes();
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
+
+
         }
     }
 }

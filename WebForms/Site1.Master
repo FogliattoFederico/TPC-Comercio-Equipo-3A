@@ -33,15 +33,24 @@
                     </ul>
                 </div>
             </div>
+            <%if (((Dominio.Usuario)Session["Usuario"]) != null)
+                {
+            %>
+            <div>
+
+                <asp:Button ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" runat="server" Text="Cerrar Sesion" CssClass="btn btn-warning me-2 p-2 fs-5" />
+                <%--<div>
+                <p style="color: white">aca va la foto</p>
+                </div>--%>
+            </div>
+            <%}
+                else
+
+                {  %>
             <div>
                 <asp:Button Text="Login" ID="btnLogin" OnClick="btnLogin_Click" runat="server" CssClass="btn btn-primary me-2 p-2 fs-5" />
             </div>
-            <%--<div>
-                <asp:Button Text="Registrarse" ID="btnRegistrar" OnClick="btnRegistrar_Click" runat="server" CssClass="btn btn-danger p-2 me-2 fs-5" />
-            </div>--%>
-            <%--<div>
-                <p style="color: white">aca va la foto</p>
-            </div>--%>
+            <%} %>
         </nav>
         <div class="container ">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

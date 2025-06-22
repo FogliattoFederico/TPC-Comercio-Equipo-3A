@@ -16,7 +16,9 @@ namespace WebForms
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
+            Session.Remove("Usuario");
             Response.Redirect("Default.aspx", false);
+
         }
     }
 }

@@ -13,6 +13,11 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+            {
+                Session.Add("Error", "Debes tener permiso de administrador");
+                Response.Redirect("Error.aspx", false);
+            }
 
             if (!IsPostBack)
             {
@@ -39,6 +44,7 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
 
         }
@@ -91,8 +97,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
@@ -103,25 +110,34 @@ namespace WebForms
 
         protected void GVProveedores_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
-            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
+            try
             {
-                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
-
-                ProveedorNegocio negocio = new ProveedorNegocio();
-
-                if (e.CommandName == "Delete")
+                if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
                 {
-                    negocio.EliminarProveedor(idProveedor);
-                }
-                else if (e.CommandName == "Reactivar")
-                {
-                    negocio.ReactivarProveedor(idProveedor);
-                }
+                    GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int idProveedor = Convert.ToInt32(GVProveedores.DataKeys[row.RowIndex].Values["IdProveedor"]);
 
-                CargarProveedor();
+                    ProveedorNegocio negocio = new ProveedorNegocio();
+
+                    if (e.CommandName == "Delete")
+                    {
+                        negocio.EliminarProveedor(idProveedor);
+                    }
+                    else if (e.CommandName == "Reactivar")
+                    {
+                        negocio.ReactivarProveedor(idProveedor);
+                    }
+
+                    CargarProveedor();
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());   
+                Response.Redirect("Error.aspx", false);
+            }
+
+            
         }
     }
 }

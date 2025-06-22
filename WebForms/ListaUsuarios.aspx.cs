@@ -13,6 +13,11 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+            {
+                Session.Add("Error", "Debes tener permiso de administrador");
+                Response.Redirect("Error.aspx", false);
+            }
 
             if (!IsPostBack)
             {
@@ -39,6 +44,8 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
 
         }
@@ -81,8 +88,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
@@ -99,24 +107,34 @@ namespace WebForms
 
         protected void GVUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
+            try
             {
-                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int idUsuario = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
-
-                UsuarioNegocio negocio = new UsuarioNegocio();
-
-                if (e.CommandName == "Delete")
+                if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
                 {
-                    negocio.EliminarUsuario(idUsuario);
-                }
-                else if (e.CommandName == "Reactivar")
-                {
-                    negocio.ReactivarUsuario(idUsuario);
-                }
+                    GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int idUsuario = Convert.ToInt32(GVUsuarios.DataKeys[row.RowIndex].Values["IdUsuario"]);
 
-                CargarUsuarios();
+                    UsuarioNegocio negocio = new UsuarioNegocio();
+
+                    if (e.CommandName == "Delete")
+                    {
+                        negocio.EliminarUsuario(idUsuario);
+                    }
+                    else if (e.CommandName == "Reactivar")
+                    {
+                        negocio.ReactivarUsuario(idUsuario);
+                    }
+
+                    CargarUsuarios();
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
+
         }
     }
 }

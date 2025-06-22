@@ -71,6 +71,7 @@
     <Content Include="AltaMarca.aspx" />
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
+    <Content Include="Css\StyleError.css" />
     <Content Include="Css\StyleListClientes.css" />
     <Content Include="Css\StyleListMarcas.css" />
     <Content Include="Css\StyleListCategorias.css" />

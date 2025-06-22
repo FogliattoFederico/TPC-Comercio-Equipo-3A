@@ -26,6 +26,12 @@ namespace WebForms
                 Controles[4] = txtContrasena;
                 Controles[5] = ddlRol;
 
+                if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+                {
+                    Session.Add("Error", "Debes tener permiso de administrador");
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 if (!IsPostBack)
                 {
 
@@ -60,10 +66,11 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error" , ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
-           
+
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -108,10 +115,11 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
-            
+
 
         }
 

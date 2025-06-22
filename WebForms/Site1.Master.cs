@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,7 +13,7 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            
         }
         
         
@@ -23,6 +25,12 @@ namespace WebForms
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx", false);
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Remove("Usuario");
+            Response.Redirect("Default.aspx", false);
         }
     }
 }

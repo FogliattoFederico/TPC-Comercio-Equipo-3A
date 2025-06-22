@@ -15,6 +15,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null || ((Usuario)Session["Usuario"]).Admin != true)
+            {
+                Session.Add("Error", "Debes tener permiso de administrador");
+                Response.Redirect("Error.aspx", false);
+            }
+
             if (!IsPostBack)
             {
                 cargarDropdowns();
@@ -55,80 +61,99 @@ namespace WebForms
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (ValidarCampos())
+
+            try
             {
-                Producto producto = new Producto();
+                if (ValidarCampos())
+                {
+                    Producto producto = new Producto();
 
-                producto.CodigoArticulo = txtCodProducto.Text;
-                producto.Nombre = txtNombre.Text;
-                producto.Descripcion = txtDescripcion.Text;
-                producto.PrecioCompra = Convert.ToDecimal(TxtPrecio.Text);
-                producto.PorcentajeGanancia = Convert.ToDecimal(txtPorcentaje.Text);
-                producto.StockActual = Convert.ToInt32(txtStockActual.Text);
-                producto.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
-                producto.ImagenUrl = txtImagenUrl.Text;
-                producto.Marca = new Marca();
-                producto.Marca.IdMarca = ddlMarca.SelectedIndex;
+                    producto.CodigoArticulo = txtCodProducto.Text;
+                    producto.Nombre = txtNombre.Text;
+                    producto.Descripcion = txtDescripcion.Text;
+                    producto.PrecioCompra = Convert.ToDecimal(TxtPrecio.Text);
+                    producto.PorcentajeGanancia = Convert.ToDecimal(txtPorcentaje.Text);
+                    producto.StockActual = Convert.ToInt32(txtStockActual.Text);
+                    producto.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
+                    producto.ImagenUrl = txtImagenUrl.Text;
+                    producto.Marca = new Marca();
+                    producto.Marca.IdMarca = ddlMarca.SelectedIndex;
 
-                producto.TipoProducto = new TipoProducto();
-                //producto.TipoProducto.IdTipoProducto = ddlTipoProducto.SelectedIndex;
-                producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
-
-
-                ProductoNegocio negocio = new ProductoNegocio();
-                negocio.AgregarProducto(producto);
-
-                lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Producto agregado exitosamente.";
-
-                /* BOTONES */
-                // Deshabilitarlos
-                btnAgregar.Enabled = false;
-                btnCancelar.Enabled = false;
-
-                // O Sacarlos de la vista
-                //btnAgregar.Visible = false;
-                //btnCancelar.Visible = false;
+                    producto.TipoProducto = new TipoProducto();
+                    //producto.TipoProducto.IdTipoProducto = ddlTipoProducto.SelectedIndex;
+                    producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
 
 
-                /* DELAY POST AGREGAR PRODUCTO Y POSTERIOR REDIRECCIONAMIENTO */
-                string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
-                ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    negocio.AgregarProducto(producto);
 
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.Text = "Producto agregado exitosamente.";
+
+                    /* BOTONES */
+                    // Deshabilitarlos
+                    btnAgregar.Enabled = false;
+                    btnCancelar.Enabled = false;
+
+                    // O Sacarlos de la vista
+                    //btnAgregar.Visible = false;
+                    //btnCancelar.Visible = false;
+
+
+                    /* DELAY POST AGREGAR PRODUCTO Y POSTERIOR REDIRECCIONAMIENTO */
+                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            if (ValidarCampos())
+            try
             {
-                Producto producto = new Producto();
+                if (ValidarCampos())
+                {
+                    Producto producto = new Producto();
 
-                producto.IdProducto = int.Parse(Request.QueryString["Id"]);
-                producto.CodigoArticulo = txtCodProducto.Text;
-                producto.Nombre = txtNombre.Text;
-                producto.Descripcion = txtDescripcion.Text;
-                producto.PrecioCompra = Convert.ToDecimal(TxtPrecio.Text);
-                producto.PorcentajeGanancia = Convert.ToDecimal(txtPorcentaje.Text);
-                producto.StockActual = Convert.ToInt32(txtStockActual.Text);
-                producto.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
-                producto.ImagenUrl = txtImagenUrl.Text;
-                producto.Marca = new Marca();
-                producto.Marca.IdMarca = int.Parse(ddlMarca.SelectedValue);
-                producto.TipoProducto = new TipoProducto();
-                producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
+                    producto.IdProducto = int.Parse(Request.QueryString["Id"]);
+                    producto.CodigoArticulo = txtCodProducto.Text;
+                    producto.Nombre = txtNombre.Text;
+                    producto.Descripcion = txtDescripcion.Text;
+                    producto.PrecioCompra = Convert.ToDecimal(TxtPrecio.Text);
+                    producto.PorcentajeGanancia = Convert.ToDecimal(txtPorcentaje.Text);
+                    producto.StockActual = Convert.ToInt32(txtStockActual.Text);
+                    producto.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
+                    producto.ImagenUrl = txtImagenUrl.Text;
+                    producto.Marca = new Marca();
+                    producto.Marca.IdMarca = int.Parse(ddlMarca.SelectedValue);
+                    producto.TipoProducto = new TipoProducto();
+                    producto.TipoProducto.IdTipoProducto = int.Parse(ddlTipoProducto.SelectedValue);
 
-                ProductoNegocio negocio = new ProductoNegocio();
-                negocio.ModificarProducto(producto); // Asegurate de tener este método en la capa negocio
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    negocio.ModificarProducto(producto); // Asegurate de tener este método en la capa negocio
 
-                lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Producto modificado exitosamente.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.Text = "Producto modificado exitosamente.";
 
-                btnAgregar.Visible = false;
-                btnModificar.Visible = false;
+                    btnAgregar.Visible = false;
+                    btnModificar.Visible = false;
 
-                string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
-                ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 

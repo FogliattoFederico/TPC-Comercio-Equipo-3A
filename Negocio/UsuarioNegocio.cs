@@ -30,8 +30,8 @@ namespace Negocio
                     usuario.Apellido = datos.Lector["Apellido"].ToString();
                     usuario.Email = datos.Lector["Email"].ToString();
                     usuario.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    usuario.TipoUsuario = (bool)datos.Lector["Admin"] ? TipoUsuario.Administrador : TipoUsuario.Vendedor;
-                    
+                    //usuario.TipoUsuario = (bool)datos.Lector["Admin"] ? TipoUsuario.Administrador : TipoUsuario.Vendedor;
+                    usuario.Admin = (bool)datos.Lector["Admin"];
                     return true;
                 }
                 return false;

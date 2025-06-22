@@ -13,6 +13,17 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Session.Add("Error", "Debes estar logueado");
+                Response.Redirect("Error.aspx", false);
+            }
+
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).Admin == false)
+            {
+                btnAgregarProducto.Visible = false;
+            }
+
             if (!IsPostBack)
             {
                 CargarProductos();
@@ -36,8 +47,9 @@ namespace WebForms
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-            }
+                Response.Redirect("Error.aspx", false);
 
+            }
         }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -93,8 +105,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
@@ -105,24 +118,34 @@ namespace WebForms
 
         protected void GVProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
+            try
             {
-                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int id = Convert.ToInt32(GVProductos.DataKeys[row.RowIndex].Values["IdProducto"]);
-
-                ProductoNegocio negocio = new ProductoNegocio();
-
-                if (e.CommandName == "Delete")
+                if (e.CommandName == "Delete" || e.CommandName == "Reactivar")
                 {
-                    negocio.EliminarProductoLogico(id);
-                }
-                else if (e.CommandName == "Reactivar")
-                {
-                    negocio.ReactivarProducto(id);
-                }
+                    GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int id = Convert.ToInt32(GVProductos.DataKeys[row.RowIndex].Values["IdProducto"]);
 
-                CargarProductos();
+                    ProductoNegocio negocio = new ProductoNegocio();
+
+                    if (e.CommandName == "Delete")
+                    {
+                        negocio.EliminarProductoLogico(id);
+                    }
+                    else if (e.CommandName == "Reactivar")
+                    {
+                        negocio.ReactivarProducto(id);
+                    }
+
+                    CargarProductos();
+                }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
+
         }
     }
 }

@@ -13,6 +13,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Session.Add("Error", "Debes estar logueado");
+                Response.Redirect("Error.aspx", false);
+            }
+
             VentaNegocio negocio = new VentaNegocio();
             List<Venta> lista = negocio.Listar();
 

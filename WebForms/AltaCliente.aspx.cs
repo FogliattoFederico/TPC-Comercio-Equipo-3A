@@ -30,6 +30,11 @@ namespace WebForms
                 CajasDeTexto[4] = txtTelefono;
                 CajasDeTexto[5] = txtNombre;
 
+                if (Session["Usuario"] == null)
+                {
+                    Session.Add("Error", "Debes estar logueado");
+                    Response.Redirect("Error.aspx", false);
+                }
 
                 if (!IsPostBack)
                 {
@@ -60,8 +65,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
-
                 Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
             }
         }
 
@@ -111,8 +117,9 @@ namespace WebForms
             }
             catch (Exception ex)
             {
+                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx", false);
 
-                Session.Add("error", ex);
             }
 
         }
