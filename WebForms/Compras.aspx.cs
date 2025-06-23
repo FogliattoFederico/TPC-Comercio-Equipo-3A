@@ -216,6 +216,7 @@ namespace WebForms
             HistorialPrecios.Style["display"] = "none";
             Productos.Style["display"] = "none";
             Proveedores.Style["display"] = "none";
+            StockCritico.Style["display"] = "none";
 
             switch (hfSeccionActiva.Value)
             {
@@ -285,6 +286,16 @@ namespace WebForms
                     TxtBPrecio.Text = "$";
                 }
             }
+        }
+
+       private void NOC() 
+        {
+            /*int OC= 0;
+
+            ComprasNegocio Negocio = new ComprasNegocio();
+            List<Compras> compras = Negocio.Listar();
+            compras.*/
+
         }
 
         /*******Productos*******/

@@ -69,9 +69,11 @@
   <ItemGroup>
     <Content Include="AltaCategoria.aspx" />
     <Content Include="AltaMarca.aspx" />
+    <Content Include="AltaTipoProducto.aspx" />
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
     <Content Include="Css\StyleError.css" />
+    <Content Include="Css\StyleListaTipoProducto.css" />
     <Content Include="Css\StyleListClientes.css" />
     <Content Include="Css\StyleListMarcas.css" />
     <Content Include="Css\StyleListCategorias.css" />
@@ -85,6 +87,7 @@
     <Content Include="ListaCategorias.aspx" />
     <Content Include="ListaCompras.aspx" />
     <Content Include="ListaMarcas.aspx" />
+    <Content Include="ListaTipoProducto.aspx" />
     <Content Include="ListaUsuarios.aspx" />
     <Content Include="PanelAdmin.aspx" />
     <Content Include="AltaCatTipoMarca.aspx" />
@@ -125,6 +128,13 @@
     </Compile>
     <Compile Include="AltaMarca.aspx.designer.cs">
       <DependentUpon>AltaMarca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AltaTipoProducto.aspx.cs">
+      <DependentUpon>AltaTipoProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaTipoProducto.aspx.designer.cs">
+      <DependentUpon>AltaTipoProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="AltaUsuario.aspx.cs">
       <DependentUpon>AltaUsuario.aspx</DependentUpon>
@@ -174,6 +184,13 @@
     </Compile>
     <Compile Include="ListaMarcas.aspx.designer.cs">
       <DependentUpon>ListaMarcas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListaTipoProducto.aspx.cs">
+      <DependentUpon>ListaTipoProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaTipoProducto.aspx.designer.cs">
+      <DependentUpon>ListaTipoProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListaUsuarios.aspx.cs">
       <DependentUpon>ListaUsuarios.aspx</DependentUpon>

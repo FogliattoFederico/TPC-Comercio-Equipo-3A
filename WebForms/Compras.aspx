@@ -223,7 +223,7 @@
                 <label>Producto</label>
                 <asp:DropDownList ID="DDLHistPrecios" CssClass="lbhp" runat="server" EnableViewState="true" ViewStateMode="Enabled"></asp:DropDownList>         
                 <asp:ImageButton ID="btnimg" 
-                    CssClass="btnimg" 
+                    CssClass="btnimg_lup" 
                     CausesValidation="false" 
                     UseSubmitBehavior="true"
                     OnClick="btnimg_Click" ImageUrl="~/Icon/Lupa.png" runat="server" />
@@ -325,7 +325,7 @@
 </div>
 		</div>
         <!--Pantalla Proveedores--> 
-		<div id="Proveedores" runat="server" style="display: none;">
+		<div id="Proveedores" runat="server" >
 			<h1 class="titulo">Proveedores</h1>
 			<div class="tblProd">
             <div class="table-responsive shadow-sm rounded">
@@ -362,12 +362,12 @@
 				</div>
 			</div>
 		</div>
-        <!--Pantalla Stock crítico--> 
-		<div id="StockCritico" runat="server" style="display: none;">
+        <!--Pantalla Stock crítico-->
+		<div id="StockCritico" runat="server">
 			<h1 class="titulo">Productos con stock crítico</h1>
-            <asp:Panel ID="pnlSinStockCritico" runat="server" CssClass="alert alert-info mt-5" Visible="false">
-        No hay productos con stock crítico en este momento.
-    </asp:Panel>
+			<asp:Panel ID="pnlSinStockCritico" runat="server" CssClass="alert alert-info mt-5" Visible="false">
+				No hay productos con stock crítico en este momento.
+			</asp:Panel>
 			<div class="tblProd">
 				<div class="table-responsive shadow-sm rounded">
 					<asp:GridView ID="GVStockCritico" runat="server" AutoGenerateColumns="False" AllowPaging="true"
@@ -380,20 +380,20 @@
 							<asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
 							<asp:BoundField DataField="StockActual" HeaderText="Stock Actual" />
 							<asp:BoundField DataField="StockMinimo" HeaderText="Stock Mínimo" />
-                            <asp:BoundField DataField="Marca" HeaderText="Marca" />
-                            <asp:BoundField DataField="TipoProducto" HeaderText="Tipo de producto" />
-                           
+							<asp:BoundField DataField="Marca" HeaderText="Marca" />
+							<asp:BoundField DataField="TipoProducto" HeaderText="Tipo de producto" />
+
 						</Columns>
 					</asp:GridView>
 				</div>
 			</div>
 		</div>
 
-				
+
 	</div>
 
-	 </ContentTemplate>
-</asp:UpdatePanel>
+	</ContentTemplate>
+	</asp:UpdatePanel>
 
 
 </asp:Content>

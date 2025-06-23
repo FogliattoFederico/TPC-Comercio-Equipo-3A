@@ -79,5 +79,162 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<TipoProducto> ListarTPConSp()
+        {
+            List<TipoProducto> listaTP = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ListarTiposProducto");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto TP = new TipoProducto();
+
+                    TP.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    TP.Nombre = datos.Lector["Nombre"].ToString();
+                    TP.Activo = (bool)datos.Lector["Activo"];
+                    TP.categoria = new Categoria();
+                    /*TP.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];*/
+                    TP.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+                        
+                    
+
+                    listaTP.Add(TP);
+                }
+
+                return listaTP;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void AgregarTP(TipoProducto nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_AgregarTipoProducto");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@IdCategoria", nuevo.categoria.IdCategoria);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ModificarTP(TipoProducto tp)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ModificarTipoProducto");
+                datos.setearParametro("@IdTipoProducto", tp.IdTipoProducto);
+                datos.setearParametro("@Nombre", tp.Nombre);
+                datos.setearParametro("@IdCategoria", tp.categoria.IdCategoria);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarTP(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_EliminarTipoProducto");
+                datos.setearParametro("IdTipoProducto", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<TipoProducto> ListarTPEliminados()
+        {
+            List<TipoProducto> listaTPe = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_ListarTiposProductoEliminados");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    TipoProducto TPe = new TipoProducto();
+
+                    TPe.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    TPe.Nombre = datos.Lector["Nombre"].ToString();
+                    TPe.Activo = (bool)datos.Lector["Activo"];
+                    TPe.categoria = new Categoria();
+                    /*TPe.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];*/
+                    TPe.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+
+                    listaTPe.Add(TPe);
+                }
+                return listaTPe;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ReactivarTP(int idTP)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_AltaTipoProducto");
+                datos.setearParametro("@IdTipoProducto", idTP);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

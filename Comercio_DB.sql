@@ -406,11 +406,89 @@ END
 GO
 
 */
+/*
+CREATE OR ALTER PROCEDURE SP_ListarTiposProducto
+AS
+BEGIN
+    SELECT 
+        TP.IdTipoProducto,
+        TP.Nombre,
+        TP.IdCategoria,
+        C.Nombre AS NombreCategoria,
+        TP.Activo
+    FROM TiposProducto TP
+    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+    WHERE TP.Activo = 1
+END
 
+GO
+
+CREATE OR ALTER PROCEDURE SP_AgregarTipoProducto
+    @Nombre VARCHAR(100),
+    @IdCategoria INT
+AS
+BEGIN
+    INSERT INTO TiposProducto (Nombre, IdCategoria)
+    VALUES (@Nombre, @IdCategoria)
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE SP_ModificarTipoProducto
+    @IdTipoProducto INT,
+    @Nombre VARCHAR(100),
+    @IdCategoria INT
+AS
+BEGIN
+    UPDATE TiposProducto
+    SET 
+        Nombre = @Nombre,
+        IdCategoria = @IdCategoria
+    WHERE IdTipoProducto = @IdTipoProducto
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE SP_EliminarTipoProducto
+    @IdTipoProducto INT
+AS
+BEGIN
+    UPDATE TiposProducto
+    SET Activo = 0
+    WHERE IdTipoProducto = @IdTipoProducto
+END
+
+GO
+
+CREATE OR ALTER PROCEDURE SP_AltaTipoProducto
+    @IdTipoProducto INT
+AS
+BEGIN
+    UPDATE TiposProducto
+    SET Activo = 1
+    WHERE IdTipoProducto = @IdTipoProducto
+END
+
+*/
+/*
+CREATE OR ALTER PROCEDURE SP_ListarTiposProductoEliminados
+AS
+BEGIN
+    SELECT 
+        TP.IdTipoProducto,
+        TP.Nombre,
+        TP.IdCategoria,
+        C.Nombre AS NombreCategoria,
+        TP.Activo
+    FROM TiposProducto TP
+    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+    WHERE TP.Activo = 0
+END
+*/
 --update Productos set StockActual=2 where IdProducto=1
 
 --exec SP_ListarProductosStockBajo
-
+--exec SP_ListarTiposProducto
 
 --select * from Clientes
 
