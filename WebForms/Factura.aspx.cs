@@ -36,10 +36,10 @@ namespace WebForms
                     lblNumeroFactura.Text = ventaActual.IdVenta.ToString("D8"); // Ej: 00000012
                     //lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
                     lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy");
-                    lblUsuario.Text = ventaActual.Usuario.Nombre;
+                    lblUsuario.Text = ventaActual.Usuario.NombreUsuario + " " + ventaActual.Usuario.Apellido;
 
                     // Cliente
-                    lblClienteNombre.Text = ventaActual.Cliente.Nombre;
+                    lblClienteNombre.Text = ventaActual.Cliente.Nombre + " " + ventaActual.Cliente.Apellido;
                     lblClienteDireccion.Text = ventaActual.Cliente.Direccion;
                     lblClienteDNI.Text = ventaActual.Cliente?.Dni ?? "-";
 

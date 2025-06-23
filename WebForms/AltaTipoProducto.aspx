@@ -20,7 +20,7 @@
 				</div>
 				<div>
 					<asp:Label ID="lblCategoria" runat="server" Text="Categoría:" Style="display: block; margin-bottom: 5px; font-weight: 500; color: #34495e;"></asp:Label>
-					<asp:DropDownList ID="DDLCategorias" runat="server" CssClass="form-control" Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"></asp:DropDownList>
+					<asp:DropDownList ID="DDLCategorias" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged" CssClass="form-control" Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; transition: border 0.3s;"></asp:DropDownList>
 					<p style="font-size:12px; font-style:oblique; margin-top:8px;">Si no encuentra la categoría que está buscando, haga click <asp:HyperLink runat="server" NavigateUrl="~/AltaCategoria.aspx">aqui</asp:HyperLink></p>
 				</div>
 			

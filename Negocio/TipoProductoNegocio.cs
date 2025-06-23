@@ -97,7 +97,7 @@ namespace Negocio
                     TP.Nombre = datos.Lector["Nombre"].ToString();
                     TP.Activo = (bool)datos.Lector["Activo"];
                     TP.categoria = new Categoria();
-                    /*TP.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];*/
+                    TP.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];//
                     TP.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
                         
                     

@@ -48,7 +48,8 @@ namespace WebForms
 
                         txtID.Text = seleccionado.IdTipoProducto.ToString();
                         txtNombre.Text = seleccionado.Nombre;
-                        DDLCategorias.SelectedValue = seleccionado.categoria.Nombre.ToString();
+                        //DDLCategorias.SelectedValue = seleccionado.categoria.Nombre.ToString();
+                        DDLCategorias.SelectedValue = seleccionado.categoria.IdCategoria.ToString();
 
                         btnAceptar.Enabled = true;
 
@@ -71,7 +72,7 @@ namespace WebForms
             CategoriaNegocio catNegocio = new CategoriaNegocio();
             DDLCategorias.DataSource = catNegocio.ListarCategorias();
             DDLCategorias.DataTextField = "Nombre";
-            //DDLCategorias.DataValueField = "IdCategoria";
+            DDLCategorias.DataValueField = "IdCategoria";
             DDLCategorias.DataBind();
             DDLCategorias.Items.Insert(0, new ListItem("- Seleccione -"));
         }
@@ -143,5 +144,11 @@ namespace WebForms
             ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
             lblMensaje.Text = "";
         }
-    }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidacionCampo.ControlAceptar(btnAceptar, CajasDeTexto);
+        }
+    }   
+
 }
