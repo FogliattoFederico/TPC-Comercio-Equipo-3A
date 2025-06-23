@@ -118,7 +118,7 @@ namespace WebForms
                 {
                     Response.Redirect("PanelAdmin.aspx", false);
                 }
-                else
+                else 
                 {
                     Response.Redirect("PanelVendedores.aspx", false);
 

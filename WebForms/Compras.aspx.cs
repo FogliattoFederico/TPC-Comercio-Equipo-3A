@@ -254,17 +254,19 @@ namespace WebForms
             ProveedorNegocio PNegocio = new ProveedorNegocio();
             DDLProveedor.DataSource = PNegocio.Listar();
             DDLProveedor.DataTextField = "RazonSocial";
+            DDLProveedor.DataValueField = "IdProveedor";
             DDLProveedor.DataBind();
 
-            DDLProveedor.Items.Insert(0, new ListItem("- Seleccionar proveedor -"));
+            DDLProveedor.Items.Insert(0, new ListItem("- Seleccionar proveedor -", "0"));
 
             ProductoNegocio Negocio = new ProductoNegocio();
             DDLProducto.DataSource = Negocio.ListarConSp();
             DDLProducto.DataTextField = "Nombre";
+            DDLProducto.DataValueField = "IdProducto";
             DDLProducto.DataValueField = "PrecioCompra";
             DDLProducto.DataBind();
 
-            DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -"));
+            DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -", "0"));
         }
 
         protected void DDLProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -288,7 +290,83 @@ namespace WebForms
             }
         }
 
-       private void NOC() 
+        [Serializable]
+        public class DetalleOC
+        {
+            public int IdProducto { get; set; }
+            public string Nombre { get; set; }
+            public int Cantidad { get; set; }
+            public decimal PrecioUnitario { get; set; }
+            public decimal Subtotal { get { return Cantidad * PrecioUnitario; } }
+        }
+
+        private List<DetalleOC> DetallesOC
+        {
+            get
+            {
+                if (ViewState["DetallesOC"] == null)
+                    ViewState["DetallesOC"] = new List<DetalleOC>();
+                return (List<DetalleOC>)ViewState["DetallesOC"];
+            }
+            set
+            {
+                ViewState["DetallesOC"] = value;
+            }
+        }
+
+        protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
+        {
+            if (DDLProducto.SelectedIndex <= 0)
+            {
+                // Mostrar mensaje de error
+                return;
+            }
+
+            int idProducto = Convert.ToInt32(DDLProducto.SelectedValue);
+            string nombreProducto = DDLProducto.SelectedItem.Text;
+            decimal precio = Convert.ToDecimal(DDLProducto.SelectedValue); // Precio de compra
+
+            DetalleOC nuevoDetalle = new DetalleOC
+            {
+                IdProducto = idProducto,
+                Nombre = nombreProducto,
+                Cantidad = 1, 
+                PrecioUnitario = precio
+            };
+
+            DetallesOC.Add(nuevoDetalle);
+
+            ActualizarGridDetalle();
+
+            DDLProducto.SelectedIndex = 0;
+            TxtBPrecio.Text = "$";
+
+            ActualizarTotal();
+        }
+
+        private void ActualizarGridDetalle()
+        {
+            gvDetalleOC.DataSource = DetallesOC;
+            gvDetalleOC.DataBind();
+        }
+
+        private void ActualizarTotal()
+        {
+            decimal total = DetallesOC.Sum(d => d.Subtotal);
+            lblTotal.Text = total.ToString("C");
+        }
+
+        protected void gvDetalleOC_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                DetallesOC.RemoveAt(index);
+                ActualizarGridDetalle();
+                ActualizarTotal();
+            }
+        }
+        private void NOC() 
         {
             /*int OC= 0;
 
@@ -467,6 +545,8 @@ namespace WebForms
             hfSeccionActiva.Value = "StockCritico";
             MostrarSeccionActiva();
         }
+
+       
     }
 }
 

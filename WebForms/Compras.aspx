@@ -165,52 +165,32 @@
                                 AutoPostBack="False"></asp:TextBox>
                         </div>
                         <div class="col-3 mt-2">
-                            <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" />
+                            <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" OnClick="BtnPlus_Click" ImageUrl="./Icon/plus3.png" runat="server" />
                         </div>
                     </div>
 
                 <div class="tbl">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Tele</td>
-                                <td>3</td>
-                                <td>$50000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Heladera</td>
-                                <td>5</td>
-                                <td>$84000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Lavarropas</td>
-                                <td>2</td>
-                                <td>$97000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Horno eléctrico</td>
-                                <td>5</td>
-                                <td>$27000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <asp:GridView ID="gvDetalleOC" runat="server" AutoGenerateColumns="False" 
+        CssClass="table" OnRowCommand="gvDetalleOC_RowCommand">
+        <Columns>
+            <asp:BoundField DataField="IdProducto" HeaderText="ID" Visible="False" />
+            <asp:BoundField DataField="Nombre" HeaderText="Producto" />
+            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+            <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
+            <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" DataFormatString="{0:C}" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="./Icon/delete.png" 
+                        CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+</div>
 
                 <div>
                     <label>Total: $</label>
-                    <label>1.000.000,00</label>
+                    <asp:Label ID="lblTotal" runat="server" Text="$0.00"></asp:Label>
                 </div>
                 <button class="btnaceptar">Agregar</button>
             </div>

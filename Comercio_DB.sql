@@ -485,6 +485,15 @@ BEGIN
     WHERE TP.Activo = 0
 END
 */
+
+CREATE or ALTER PROCEDURE SP_Loguear
+@NombreUsuario varchar(100),
+@Contrasena varchar(200)
+AS
+BEGIN
+	select * from Usuario where NombreUsuario = @NombreUsuario and Contrasena = @Contrasena and activo = 1
+END
+
 --update Productos set StockActual=2 where IdProducto=1
 
 --exec SP_ListarProductosStockBajo

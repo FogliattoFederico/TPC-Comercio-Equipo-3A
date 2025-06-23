@@ -19,6 +19,20 @@ namespace WebForms
         {
             try
             {
+                if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
+                {
+                    Session.Add("Error", "Debes estar logueado");
+                    Response.Redirect("Error.aspx", false);
+                    return;
+                }
+
+                if (!Seguridad.esAdmin((Usuario)Session["Usuario"]))
+                {
+                    Session.Add("Error", "Debes tener permiso de administrador");
+                    Response.Redirect("Error.aspx", false);
+                    return;
+                }
+
                 if (!IsPostBack)
                 {
                     cargarDropdowns();
@@ -69,11 +83,20 @@ namespace WebForms
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            TipoProducto TP = new TipoProducto();
-            TipoProductoNegocio negocio = new TipoProductoNegocio();
+            
 
             try
             {
+                if (DDLCategorias.SelectedValue == "0" || string.IsNullOrEmpty(DDLCategorias.SelectedValue))
+                {
+                    lblMensaje.Text = "Debe seleccionar una categoría válida";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                TipoProducto TP = new TipoProducto();
+                TipoProductoNegocio negocio = new TipoProductoNegocio();
+
                 TP.Nombre = txtNombre.Text;
                 TP.categoria = new Categoria();
                 TP.categoria.IdCategoria = int.Parse(DDLCategorias.SelectedValue);
