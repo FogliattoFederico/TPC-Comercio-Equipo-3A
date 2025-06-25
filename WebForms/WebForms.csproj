@@ -72,6 +72,7 @@
     <Content Include="AltaTipoProducto.aspx" />
     <Content Include="AltaUsuario.aspx" />
     <Content Include="CompraDetalles.aspx" />
+    <Content Include="Confirmacion.aspx" />
     <Content Include="Css\StyleError.css" />
     <Content Include="Css\StyleListaTipoProducto.css" />
     <Content Include="Css\StyleListClientes.css" />
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="CompraDetalles.aspx.designer.cs">
       <DependentUpon>CompraDetalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Confirmacion.aspx.cs">
+      <DependentUpon>Confirmacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Confirmacion.aspx.designer.cs">
+      <DependentUpon>Confirmacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
