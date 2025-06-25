@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
+    [Serializable]
     public class Producto
     {
         public int IdProducto { get; set; }

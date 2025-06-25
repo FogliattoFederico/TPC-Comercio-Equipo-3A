@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
+    [Serializable]
     public class CompraHistorial
     {
         public string RazonSocial { get; set; }

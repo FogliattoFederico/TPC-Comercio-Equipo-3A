@@ -177,6 +177,24 @@ namespace WebForms
         protected global::System.Web.UI.WebControls.ImageButton BtnPlus;
 
         /// <summary>
+        /// Control PanelAleta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAleta;
+
+        /// <summary>
+        /// Control lblAlerta2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlerta2;
+
+        /// <summary>
         /// Control gvDetalleOC.
         /// </summary>
         /// <remarks>

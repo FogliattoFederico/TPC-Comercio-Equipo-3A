@@ -1,181 +1,4 @@
-﻿/*using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
-
-namespace WebForms
-{
-    public partial class Compras : System.Web.UI.Page
-    {
-        
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                CargarProductosHistorial();
-                hfSeccionActiva.Value = "OCPendientes"; 
-            }
-
-            MostrarSeccionActiva();
-            
-
-        }
-
-        protected void MostrarSeccion(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            hfSeccionActiva.Value = btn.CommandArgument;
-            MostrarSeccionActiva();
-        }
-        
-        private void MostrarSeccionActiva()
-        {
-            OCPendientes.Style["display"] = "none";
-            NuevaOC.Style["display"] = "none";
-            HistorialPrecios.Style["display"] = "none";
-            Productos.Style["display"] = "none";
-            Proveedores.Style["display"] = "none";
-
-            switch (hfSeccionActiva.Value)
-            {
-                case "OCPendientes":
-                    OCPendientes.Style["display"] = "block";
-                    if (!IsPostBack) CargarOC();
-                    break;
-                case "NuevaOC":
-                    NuevaOC.Style["display"] = "block";
-                    break;
-                case "HistorialPrecios":
-                    HistorialPrecios.Style["display"] = "block";
-                    break;
-                case "Productos":
-                    Productos.Style["display"] = "block";
-                    CargarProductos();
-                    break;
-                case "Proveedores":
-                    Proveedores.Style["display"] = "block";
-                    CargarProveedores();
-                    break;
-            }
-
-            upSecciones.Update();
-        }
-       
-
-        private void CargarProductos()
-        {
-            ProductoNegocio negocioProd = new ProductoNegocio();
-            GridProductos.DataSource = negocioProd.ListarConSp();
-            GridProductos.DataBind();
-        }
-
-        private void CargarProveedores()
-        {
-            ProveedorNegocio negocioProv = new ProveedorNegocio();
-            GridProveedores.DataSource = negocioProv.Listar();
-            GridProveedores.DataBind();
-        }
-
-        private void CargarOC()
-        {
-           ComprasNegocio negocio = new ComprasNegocio();
-    List<Compra> lista = negocio.Listar();
-
-    rptCompras.DataSource = lista;
-    rptCompras.DataBind();
-        }
-
-        protected void GridProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridProductos.PageIndex = e.NewPageIndex;
-            CargarProductos();
-        }
-
-        protected void GridProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridProveedores.PageIndex = e.NewPageIndex;
-            CargarProveedores();
-        }
-
-        private void CargarProductosHistorial()
-        {
-            if (DDLHistPrecios.Items.Count == 0)
-             {
-
-                 ProductoNegocio negocioProd = new ProductoNegocio();
-                 DDLHistPrecios.DataSource = negocioProd.ListarConSp();
-                 DDLHistPrecios.DataTextField = "Nombre";
-                 DDLHistPrecios.DataValueField = "IdProducto";
-                 DDLHistPrecios.DataBind();
-
-                 DDLHistPrecios.Items.Insert(0, new ListItem("- Seleccione producto -", "0"));
-
-             }
-
-        }
-
-        protected void btnimg_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                pnlAlerta.Visible = false;
-                pnlHistorial.Visible = false;
-                rptHistorial.DataSource = null;
-                rptHistorial.DataBind();
-
-                if (DDLHistPrecios.SelectedIndex <= 0 )
-                {
-                    lblAlerta.Text = "Por favor, seleccione un producto para ver el historial de precios.";
-                    pnlAlerta.Visible = true;
-                    //return;
-                }
-                
-                int idProducto = Convert.ToInt32(DDLHistPrecios.SelectedValue);
-                ComprasNegocio negocio = new ComprasNegocio();
-                var historial = negocio.HistorialPreciosPorProducto(idProducto);
-
-                if (historial != null)
-                {
-                    LblItem.Text = DDLHistPrecios.SelectedItem.ToString();
-                    pnlHistorial.Visible = true;
-                    rptHistorial.DataSource = historial;
-                    rptHistorial.DataBind();
-                }
-                else
-                {
-                    lblAlerta.Text = "No se encontró historial de precios para el producto seleccionado.";
-                    pnlAlerta.Visible = true;
-                }
-                
-               
-                //upSecciones.Update();
-            }
-            catch (Exception ex)
-            {
-                lblAlerta.Text = "Ocurrió un error al obtener el historial de precios: " + ex.Message;
-                pnlAlerta.Visible = true;
-            }
-            finally
-            {
-                upSecciones.Update();
-            }
-        }
-
-            protected void btnDetalle_Click(object sender, ImageClickEventArgs e)
-        {
-            ImageButton btn = (ImageButton)sender;
-            string idCompra = btn.CommandArgument;
-            Response.Redirect("CompraDetalles.aspx?ID=" + idCompra);
-        }
-    }
-}
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -261,8 +84,9 @@ namespace WebForms
 
             ProductoNegocio Negocio = new ProductoNegocio();
             DDLProducto.DataSource = Negocio.ListarConSp();
+            
             DDLProducto.DataTextField = "Nombre";
-            DDLProducto.DataValueField = "IdProducto";
+            //DDLProducto.DataValueField = "IdProducto";
             DDLProducto.DataValueField = "PrecioCompra";
             DDLProducto.DataBind();
 
@@ -288,8 +112,9 @@ namespace WebForms
                     TxtBPrecio.Text = "$";
                 }
             }
-        }
 
+        }
+        
         [Serializable]
         public class DetalleOC
         {
@@ -299,7 +124,7 @@ namespace WebForms
             public decimal PrecioUnitario { get; set; }
             public decimal Subtotal { get { return Cantidad * PrecioUnitario; } }
         }
-
+        
         private List<DetalleOC> DetallesOC
         {
             get
@@ -313,35 +138,63 @@ namespace WebForms
                 ViewState["DetallesOC"] = value;
             }
         }
-
+        
         protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
         {
-            if (DDLProducto.SelectedIndex <= 0)
+            int idProducto;
+
+            if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue)||
+                DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue)||
+                int.TryParse(DDLProducto.SelectedValue, out idProducto))
             {
-                // Mostrar mensaje de error
+                lblAlerta2.Text = "Debe ingresar al menos un producto y un proveedor";
+                PanelAleta.Visible = true;
                 return;
             }
-
-            int idProducto = Convert.ToInt32(DDLProducto.SelectedValue);
-            string nombreProducto = DDLProducto.SelectedItem.Text;
-            decimal precio = Convert.ToDecimal(DDLProducto.SelectedValue); // Precio de compra
-
-            DetalleOC nuevoDetalle = new DetalleOC
+            else 
             {
-                IdProducto = idProducto,
-                Nombre = nombreProducto,
-                Cantidad = 1, 
-                PrecioUnitario = precio
-            };
+                ProductoNegocio negocioProd = new ProductoNegocio();
+                var producto = negocioProd.ListarConSp()
+                                         .FirstOrDefault(p => p.IdProducto == idProducto);
 
-            DetallesOC.Add(nuevoDetalle);
+                if (producto == null)
+                {
+                    lblAlerta2.Text = "El producto no existe en la base de datos.";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+                /*
+                // Evitar duplicados: si ya existe este producto en el detalle, mostrar alerta
+                if (DetallesOC.Any(d => d.IdProducto == idProducto))
+                {
+                    lblAlerta2.Text = "El producto ya fue agregado al detalle. Para cambiar la cantidad, modifique la fila existente.";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+                */
+                // Crear y agregar el nuevo detalle
+                DetalleOC nuevo = new DetalleOC
+                {
+                    IdProducto = producto.IdProducto,
+                    Nombre = producto.Nombre,
+                    Cantidad = 1,
+                    PrecioUnitario = producto.PrecioCompra
+                };
+                DetallesOC.Add(nuevo);
 
-            ActualizarGridDetalle();
+                // Refrescar la grilla y totales
+                ActualizarGridDetalle();
+                ActualizarTotal();
 
-            DDLProducto.SelectedIndex = 0;
-            TxtBPrecio.Text = "$";
+                // Resetear controles de entrada
+                DDLProducto.SelectedIndex = 0;
+                TxtBPrecio.Text = "$";
+                PanelAleta.Visible = false;
 
-            ActualizarTotal();
+            }
+
+            
+
         }
 
         private void ActualizarGridDetalle()
@@ -366,16 +219,7 @@ namespace WebForms
                 ActualizarTotal();
             }
         }
-        private void NOC() 
-        {
-            /*int OC= 0;
-
-            ComprasNegocio Negocio = new ComprasNegocio();
-            List<Compras> compras = Negocio.Listar();
-            compras.*/
-
-        }
-
+        
         /*******Productos*******/
         private void CargarProductos()
         {
