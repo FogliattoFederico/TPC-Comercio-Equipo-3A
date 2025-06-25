@@ -168,7 +168,9 @@
                             <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" OnClick="BtnPlus_Click" ImageUrl="./Icon/plus3.png" runat="server" />
                         </div>
                     </div>
-
+                            <asp:Panel ID="PanelAleta" runat="server" CssClass="alert alert-warning mt-3" Visible="false">
+    <asp:Label ID="lblAlerta2" runat="server" CssClass="mb-0" Text=""></asp:Label>
+</asp:Panel>
                 <div class="tbl">
     <asp:GridView ID="gvDetalleOC" runat="server" AutoGenerateColumns="False" 
         CssClass="table" OnRowCommand="gvDetalleOC_RowCommand">
@@ -180,7 +182,7 @@
             <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" DataFormatString="{0:C}" />
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="./Icon/delete.png" 
+                    <asp:ImageButton ID="btnEliminar" runat="server" CssClass="btnEdit_Delete" ImageUrl="./Icon/IconBasuraG.png" 
                         CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' />
                 </ItemTemplate>
             </asp:TemplateField>
