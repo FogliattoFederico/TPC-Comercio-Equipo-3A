@@ -27,21 +27,57 @@ namespace WebForms
 
                     List<Usuario> lista = negocio.Listar();
 
-                    Usuario encontrado = lista.FirstOrDefault(x => x.Email == txtEmail.Text);
+                    Usuario usuario = negocio.Listar()
+                    .FirstOrDefault(u => u.Email.Equals(txtEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase));
 
-                    if (encontrado == null)
+                    if (usuario == null)
                     {
-                        lblMensaje.Text = "Email no encontrado";
+                        lblMensaje.Text = "Email no registrado en el sistema";
                         return;
                     }
 
+                    Session.Add("Usuario", usuario);
+
                     lblMensaje.Text = "";
+                    
+                    string cuerpoEmail = $@"
+                    <h2 style='color: #2c3e50;'>Recuperación de acceso</h2>
+                    
+                    <p>Estimado/a <strong>{usuario.NombreUsuario}</strong>,</p>
+                    
+                    <p>Hemos recibido una solicitud de recuperación de credenciales para tu cuenta.</p>
+                    
+                    <div style='background-color: #f8f9fa; padding: 15px; border-left: 4px solid #3498db;'>
+                        <p><strong>Tus datos de acceso:</strong></p>
+                        <ul style='list-style-type: none; padding-left: 0;'>
+                            <li>👤 <strong>Usuario:</strong> {usuario.NombreUsuario}</li>
+                            <li>🔑 <strong>Contraseña temporal:</strong> {usuario.Contrasena}</li>
+                        </ul>
+                    </div>
+                    
+                    <p style='color: #e74c3c; font-weight: bold;'>Por seguridad, te recomendamos:</p>
+                    <ol>
+                        <li>Cambiar esta contraseña al ingresar al sistema</li>
+                        <li>No compartir tus credenciales con nadie</li>
+                        <li>Eliminar este email después de usarlo</li>
+                    </ol>
+                    
+                    <p>Si no solicitaste este acceso, por favor contacta a soporte.</p>
+                    
+                    <hr style='border: 1px solid #ecf0f1;'>
+                    
+                    <footer style='font-size: 12px; color: #7f8c8d;'>
+                        <p>Este es un mensaje automático - Por favor no respondas a este correo</p>
+                        <p>© {DateTime.Now.Year} Nombre de tu Sistema. Todos los derechos reservados.</p>
+                    </footer>";
+                   
+                    email.ArmarCorreo(
+                        destinatario: usuario.Email,
+                        asunto: "Recuperación de cuenta - No responder",
+                        cuerpo: cuerpoEmail
+                     );
 
-                    string asunto = "Recuperar datos de tu cuenta";
-                    string cuerpo = "Usuario : " + encontrado.NombreUsuario + " Contraesña : " + encontrado.Contrasena;
-
-                    email.ArmarCorreo(txtEmail.Text, asunto, cuerpo);
-                    email.enviarEmail();
+                    email.EnviarEmail();
 
                     Response.Redirect("Confirmacion.aspx", false);
                 }
@@ -51,14 +87,14 @@ namespace WebForms
 
                 Session.Add("Error.aspx", ex.ToString());
             }
-            
+
         }
 
         private bool ValidarCampos()
         {
             lblMensaje.ForeColor = System.Drawing.Color.Red;
 
-            
+
             string email = txtEmail.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(email))

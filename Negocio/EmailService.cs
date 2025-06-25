@@ -1,48 +1,67 @@
-﻿using Dominio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Negocio
+public class EmailService : IDisposable
 {
-    public class EmailService
+    private readonly SmtpClient _server;
+    private MailMessage _email;
+
+    public EmailService()
     {
+        // Configuración optimizada para Mailtrap
+        _server = new SmtpClient("sandbox.smtp.mailtrap.io")
+        {
+            Port = 2525,
+            Credentials = new NetworkCredential("c244cd59d10b5e", "60a07ac6126213"),
+            EnableSsl = true,
+            Timeout = 30000, // 30 segundos
+            DeliveryMethod = SmtpDeliveryMethod.Network
+        };
 
-        private MailMessage email;
-        private SmtpClient server;
+        // Fuerza TLS 1.2 (esencial para conexiones modernas)
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+    }
 
-        public EmailService()
+    public void ArmarCorreo(string destinatario, string asunto, string cuerpo)
+    {
+        
+        _email?.Dispose();
+
+        _email = new MailMessage
         {
-            server = new SmtpClient();
-            server.Credentials = new NetworkCredential("e22875990c6262", "****0167");
-            server.EnableSsl = true;
-            server.Port = 2525;
-            server.Host = "sandbox.smtp.mailtrap.io";
-        }
-        public void ArmarCorreo(string emailDestino, string asunto, string cuerpo)
+            From = new MailAddress("noresponder@tucurso.edu.ar"),
+            Subject = asunto,
+            Body = cuerpo,
+            IsBodyHtml = true,
+            BodyEncoding = Encoding.UTF8
+        };
+        _email.To.Add(destinatario.Trim());
+    }
+
+    public void EnviarEmail()
+    {
+        try
         {
-            email = new MailMessage();
-            email.From = new MailAddress("noresponder@TPC_Equipo3A.com");
-            email.To.Add(emailDestino);
-            email.Subject = asunto;
-            email.IsBodyHtml = true;
-            email.Body = cuerpo;
+            if (_email?.To.Count == 0)
+                throw new InvalidOperationException("No hay destinatarios configurados");
+
+            Console.WriteLine($"Intentando enviar a {_email.To[0].Address}...");
+            _server.Send(_email);
+            Console.WriteLine("✔ Correo enviado con éxito");
         }
-        public void enviarEmail()
+        catch (SmtpException ex)
         {
-            try
-            {
-                server.Send(email);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw ex;
+                
         }
+    }
+
+    public void Dispose()
+    {
+        _email?.Dispose();
+        _server?.Dispose();
     }
 }
 
