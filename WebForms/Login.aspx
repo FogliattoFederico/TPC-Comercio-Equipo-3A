@@ -43,13 +43,13 @@
             <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <asp:Label ID="lblUsuario" runat="server" Text="Usuario" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
-                    <asp:TextBox ID="txtUsuario" runat="server" AutoPostBack="true" OnTextChanged="txtUsuario_TextChanged" CssClass="form-control" Width="100%"
+                    <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Width="100%"
                         Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; ;" />
                 </div>
 
                 <div>
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
-                    <asp:TextBox TextMode="Password" ID="txtContrasena" runat="server" AutoPostBack="true" OnTextChanged="txtContrasena_TextChanged" CssClass="form-control" Width="100%"
+                    <asp:TextBox TextMode="Password" ID="txtContrasena" runat="server"  CssClass="form-control" Width="100%"
                         Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa;" />
                 </div>
             </div>
@@ -58,6 +58,9 @@
                     Style="flex: 1; padding: 12px; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
                     onmouseover="this.style.background='linear-gradient(135deg, #2980b9, #3498db)'; this.style.transform='translateY(-1px)';"
                     onmouseout="this.style.background='linear-gradient(135deg, #3498db, #2980b9)'; this.style.transform='translateY(0)';" />
+            </div>
+            <div class="mt-4"> 
+                <p>Olvidaste tu Usuario y/o contraseña? Haz click <a href="Recuperar.aspx">AQUI</a> </p>
             </div>
         </div>
     </asp:Panel>
