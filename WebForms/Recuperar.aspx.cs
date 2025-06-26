@@ -36,7 +36,11 @@ namespace WebForms
                         return;
                     }
 
-                    Session.Add("Usuario", usuario);
+                    Session.Add("EmailUsuario", usuario.Email);
+                    Session.Add("NombreUsuario", usuario.Nombre);
+                    Session.Add("UsuarioNombre", usuario.NombreUsuario);
+                    Session.Add("ContraseñaUsuario", usuario.Contrasena);
+                    
 
                     lblMensaje.Text = "";
                     

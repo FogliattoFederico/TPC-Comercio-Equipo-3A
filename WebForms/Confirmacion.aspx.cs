@@ -13,28 +13,42 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["EmailUsuario"] == null)
+            {
+                Session.Add("Error", "No se realizo la validacion correctamente");
+                Response.Redirect("Error.aspx", false);
+            }
+            
         }
 
         protected void btnReenviar_Click(object sender, EventArgs e)
         {
             try
             {
-                Usuario usuario = new Usuario();
-                EmailService email = new EmailService();
 
-                 string cuerpoEmail = $@"
+                EmailService email = new EmailService();
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                List<Usuario> lista = negocio.Listar();
+
+                Usuario usuario = negocio.Listar()
+                    .FirstOrDefault(u => u.Email.Equals(
+                    Session["EmailUsuario"]?.ToString()?.Trim(),
+                    StringComparison.OrdinalIgnoreCase
+                    ));
+
+                string cuerpoEmail = $@"
                     <h2 style='color: #2c3e50;'>Recuperación de acceso</h2>
                     
-                    <p>Estimado/a <strong>{((Dominio.Usuario)Session["Usuario"]).Nombre}</strong>,</p>
+                    <p>Estimado/a <strong>{(Session["NombreUsuario"])}</strong>,</p>
                     
                     <p>Hemos recibido una solicitud de recuperación de credenciales para tu cuenta.</p>
                     
                     <div style='background-color: #f8f9fa; padding: 15px; border-left: 4px solid #3498db;'>
                         <p><strong>Tus datos de acceso:</strong></p>
                         <ul style='list-style-type: none; padding-left: 0;'>
-                            <li>👤 <strong>Usuario:</strong> {((Dominio.Usuario)Session["Usuario"]).NombreUsuario}</li>
-                            <li>🔑 <strong>Contraseña temporal:</strong> {((Dominio.Usuario)Session["Usuario"]).Contrasena}</li>
+                            <li>👤 <strong>Usuario:</strong> {(Session["UsuarioNombre"])}</li>
+                            <li>🔑 <strong>Contraseña temporal:</strong> {(Session["ContraseñaUsuario"])}</li>
                         </ul>
                     </div>
                     
@@ -55,7 +69,7 @@ namespace WebForms
                     </footer>";
 
                 email.ArmarCorreo(
-                    destinatario: ((Usuario)Session["Usuario"]).Email,
+                    destinatario: Session["EmailUsuario"].ToString(),
                     asunto: "Recuperación de cuenta - No responder",
                     cuerpo: cuerpoEmail
                  );

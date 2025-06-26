@@ -12,7 +12,7 @@
         </div>
 
 
-        <h3 class="mb-3">¡Email enviado a <strong><%=((Dominio.Usuario)Session["Usuario"]).Email%></strong>!</h3>
+        <h3 class="mb-3">¡Email enviado a <strong><%=(Session["EmailUsuario"])%></strong>!</h3>
 
 
         <asp:Label ID="lblMensaje" runat="server"
