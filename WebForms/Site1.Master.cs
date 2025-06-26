@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +18,70 @@ namespace WebForms
         }
         
         
-        protected void btnRegistrar_Click(object sender, EventArgs e)
+        protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Registro.aspx", false);
+            try
+            {
+                if (ValidarCampos())
+                {
+
+                    UsuarioNegocio negocio = new UsuarioNegocio();
+                    Usuario usuario = new Usuario();
+
+                    usuario.NombreUsuario = txtUsuario.Text;
+
+                    usuario.Contrasena = txtContrasena.Text;
+
+                    bool encontrado = negocio.Loguear(usuario);
+
+                    if (!encontrado)
+                    {
+                        lblMensaje.Text = "Usuario y/o contraseña incorrectos";
+                        return;
+                    }
+
+                    Session.Add("Usuario", usuario);
+
+                    if (usuario.Admin == true)
+                    {
+                        Response.Redirect("PanelAdmin.aspx", false);
+                    }
+                    else
+                    {
+                        Response.Redirect("PanelVendedores.aspx", false);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
+
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        private bool ValidarCampos()
         {
-            Response.Redirect("Login.aspx", false);
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+
+            string usuario = txtUsuario.Text.Trim();
+            string contrasenia = txtContrasena.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(usuario) ||
+                string.IsNullOrWhiteSpace(contrasenia)
+                )
+            {
+                lblMensaje.Text = "Todos los campos deben estar completos.";
+                return false;
+            }
+
+            return true;
         }
 
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        protected void btnCerrarSesion_Click1(object sender, ImageClickEventArgs e)
         {
             Session.Remove("Usuario");
             Response.Redirect("Default.aspx", false);

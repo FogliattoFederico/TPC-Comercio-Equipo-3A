@@ -22,32 +22,20 @@
                 </a>
             </div>
             <!--Aca hay que codificar que muestre boton de cerrar sesion y foto-->
-            <asp:Button ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" Text="Cerrar Sesion" CssClass="btn btn-warning me-2 p-2 fs-5" />
+           
+           
+            <asp:LinkButton ID="lkbCerrarSesion" runat="server" CssClass="btn-logout" OnClick="lkbCerrarSesion_Click">
+    <img src="/Icon/Salir.png" style="width: 20px; height: 20px;" />
+    Cerrar Sesión
+</asp:LinkButton>
+
+            
         </nav>
         <div class="container">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-        <%--<footer class="footer">
-            <div class="footer-content">
-                <h5 class="footer-title">Trabajo Práctico - Programación III</h5>
-                <div class="footer_integrantes">
-                    <div class="integrante">
-                        <span class="integrante-icon">👨‍💻</span>
-                        <p class="integrante-name">Clingo Fernando</p>
-                    </div>
-                    <div class="integrante">
-                        <span class="integrante-icon">👨‍💻</span>
-                        <p class="integrante-name">Fogliatto Federico</p>
-                    </div>
-                    <div class="integrante">
-                        <span class="integrante-icon">👨‍💻</span>
-                        <p class="integrante-name">Olguera Alejandro</p>
-                    </div>
-                </div>
-                <div class="footer-year">© 2025 - Todos los derechos reservados</div>
-            </div>
-        </footer>--%>
+       
     </form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

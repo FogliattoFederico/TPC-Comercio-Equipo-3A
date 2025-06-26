@@ -42,13 +42,13 @@ namespace WebForms
         protected global::System.Web.UI.ScriptManager ScriptManagerMaster;
 
         /// <summary>
-        /// Control btnCerrarSesion.
+        /// Control lkbCerrarSesion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrarSesion;
+        protected global::System.Web.UI.WebControls.LinkButton lkbCerrarSesion;
 
         /// <summary>
         /// Control ContentPlaceHolder1.

@@ -28,16 +28,32 @@ function configurarQty() {
 };
 
 
-/*
+
 function mostrarLogin() {
-    const overlay = document.getElementById('registro-form');
+    const overlay = document.getElementById('registro-login');
     overlay.classList.add('active');
+
+    history.pushState({ modal: true }, '', '#login');
 };
+
+window.addEventListener('popstate', function (event) {
+    const overlay = document.getElementById('registro-login');
+
+    if (overlay.classList.contains('active')) {
+        cerrarLogin();
+
+        
+        if (location.hash === "#login") {
+            history.replaceState(null, '', location.pathname);
+        }
+    }
+});
+
 
 function cerrarLogin() {
-    document.getElementById('registro-form').classList.remove('active');
+    document.getElementById('registro-login').classList.remove('active');
 };
-
+/*
 function mostrarRegistrar() {
     const overlay = document.getElementById('registro-form');
     overlay.classList.add('active');
