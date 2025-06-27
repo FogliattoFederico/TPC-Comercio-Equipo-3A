@@ -1,0 +1,164 @@
+﻿/*Boton salir*/
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    --clr-font-main: hsla(0 0% 20% / 100);
+    --btn-bg-1: rgb(255, 97, 100);
+    --btn-bg-2: rgb(255, 31, 31);
+    --btn-bg-color: hsla(360 100% 100% / 1);
+    --radii: 0.5em;
+    cursor: pointer;
+    margin-right: 20px;
+    padding: 0.9em 1.4em;
+    min-width: 180px;
+    min-height: 44px;
+    font-size: var(--size, 1rem);
+    font-weight: 500;
+    transition: 0.8s;
+    background-size: 280% auto;
+    background-image: linear-gradient( 325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90% );
+    border: none;
+    border-radius: var(--radii);
+    color: var(--btn-bg-color);
+    box-shadow: 0px 0px 20px rgba(255, 71, 132, 0.5), 0px 5px 5px -1px rgba(233, 58, 140, 0.25), inset 4px 4px 8px rgba(255, 175, 223, 0.5), inset -4px -4px 8px rgba(216, 19, 154, 0.35);
+}
+
+    .btn-logout:hover {
+        background-position: right top;
+    }
+
+    .btn-logout:is(:focus, :focus-visible, :active) {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-logout {
+        transition: linear;
+    }
+}
+
+/*Menu vertical*/
+
+.nav {
+    list-style: none;
+    margin-left: 0px;
+    margin-top: 85px;
+    padding: 0;
+    width: 100%;
+    gap: 10px;
+    background-color: #707579 /*#2c3e50*/;
+    font-family: Arial, sans-serif;
+}
+
+    .nav > li {
+        position: relative;
+    }
+
+    .nav li {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+        .nav li img {
+            width: 30px;
+            height: auto;
+        }
+
+    .nav > li > a,
+    .nav > li > span {
+        display: block;
+        color: white;
+        padding: 15px 20px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav > li:hover {
+        background-color: #34495e;
+        color: #ffffff;
+    }
+
+    .nav li ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #34495e;
+        min-width: 180px;
+        display: none;
+        z-index: 1000;
+    }
+
+    .nav li:hover > ul {
+        display: inline-block;
+        left: 250px;
+        overflow: visible;
+    }
+
+
+    .nav li ul li a {
+        color: white;
+        padding: 12px 15px;
+        display: block;
+        text-decoration: none;
+    }
+
+        .nav li ul li a:hover {
+            background-color: #3e5871;
+        }
+
+.btnMenu {
+    border-left: 2px solid white;
+    margin-left: 20px;
+}
+
+.sidebar {
+    width: 45px;
+    transition: width 0.3s ease;
+    position: absolute;
+    top: 85px;
+    left: 0;
+    height: 92vh;
+    background-color: #707579 /*#2c3e50*/;
+    z-index: 100;
+}
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
+    .sidebar .btnMenu {
+        display: none;
+    }
+
+    .sidebar:hover .btnMenu {
+        display: inline;
+    }
+
+.icon-wrapper {
+    width: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav li {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 15px;
+}
+
+.tituloPrincipal {
+    color: #dfdfdf;
+    font-size: 35px;
+    display: inline-block;
+    text-align:start;
+  
+}

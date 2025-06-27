@@ -82,6 +82,8 @@
     <Content Include="Css\StyleListProductos.css" />
     <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
+    <Content Include="Css\StylePanelVendedores.css" />
+    <Content Include="Css\StyleVendedores.css" />
     <Content Include="Css\Style_default.css" />
     <Content Include="Error.aspx" />
     <Content Include="Factura.aspx" />
