@@ -11,16 +11,17 @@ namespace WebForms
 {
     public partial class Compras : System.Web.UI.Page
     {
+        List<CompraDetalle> listaCompraDetalle = new List<CompraDetalle>();//
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargarProductosHistorial();
+
             if (!IsPostBack)
             {
                 hfSeccionActiva.Value = "OCPendientes";
                 cargarDropdowns();
                 ActualizarNotificacionStock();
             }
-
+            CargarProductosHistorial();
             MostrarSeccionActiva();
         }
 
@@ -63,7 +64,7 @@ namespace WebForms
                     break;
                 case "StockCritico":
                     StockCritico.Style["display"] = "block";
-                    CargarProductosCriticos(); 
+                    CargarProductosCriticos();
                     break;
             }
 
@@ -84,10 +85,9 @@ namespace WebForms
 
             ProductoNegocio Negocio = new ProductoNegocio();
             DDLProducto.DataSource = Negocio.ListarConSp();
-            
+
             DDLProducto.DataTextField = "Nombre";
-            //DDLProducto.DataValueField = "IdProducto";
-            DDLProducto.DataValueField = "PrecioCompra";
+            DDLProducto.DataValueField = "CodigoArticulo"; //
             DDLProducto.DataBind();
 
             DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -", "0"));
@@ -95,117 +95,154 @@ namespace WebForms
 
         protected void DDLProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // SI NO SE SELECCIONO UN PRODUCTO
             if (DDLProducto.SelectedIndex == 0)
             {
+                // RESET Valores
                 TxtBPrecio.Text = "$";
+                SeccionCantidadActiva(false);
+                txtCantidad.Text = "0";
             }
             else
             {
-                string precioSeleccionado = DDLProducto.SelectedValue;
+                // BUSCO PRODUCTO EN LISTA PARA GUARDARME SUS VALORES
+                ProductoNegocio negocioProd = new ProductoNegocio();
+                string codigoSeleccionado = DDLProducto.SelectedValue;
+                Producto producto = negocioProd.ListarConSp()
+                                        .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
 
-                if (decimal.TryParse(precioSeleccionado, out decimal precio))
+                if (producto != null)
                 {
-                    TxtBPrecio.Text = precio.ToString("C"); 
-                }
-                else
-                {
-                    TxtBPrecio.Text = "$";
-                }
-            }
+                    TxtBPrecio.Text = producto.PrecioCompra.ToString("C");
 
-        }
-        
-        [Serializable]
-        public class DetalleOC
-        {
-            public int IdProducto { get; set; }
-            public string Nombre { get; set; }
-            public int Cantidad { get; set; }
-            public decimal PrecioUnitario { get; set; }
-            public decimal Subtotal { get { return Cantidad * PrecioUnitario; } }
-        }
-        
-        private List<DetalleOC> DetallesOC
-        {
-            get
-            {
-                if (ViewState["DetallesOC"] == null)
-                    ViewState["DetallesOC"] = new List<DetalleOC>();
-                return (List<DetalleOC>)ViewState["DetallesOC"];
-            }
-            set
-            {
-                ViewState["DetallesOC"] = value;
+                    // RECUPERO LISTA ACTUAL DE COMPRADETALLE
+                    if (Session["ListaCompraDetalle"] == null)
+                        Session["ListaCompraDetalle"] = new List<CompraDetalle>();
+
+                    List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                    // BUSCO SI EL PRODUCTO SELECCIONADO YA SE ENCUENTRA EN LA LISTA ACTUAL DE COMPRADETALLE
+                    CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
+
+                    if (detalleExistente != null)
+                    {
+                        // SI EL PRODUCTO YA ESTABA EN LA LISTA, PRECARGO LA CANTIDAD QUE LE ASIGNARON LA ANTERIOR VEZ
+                        txtCantidad.Text = detalleExistente.Cantidad.ToString();
+                    }
+
+                    // SECCION "CANTIDAD" SOLO HABILITADA SI PROVEEDOR Y PRODUCTO YA FUERON SELECCIONADOS
+                    if (DDLProveedor.SelectedIndex != 0)
+                        SeccionCantidadActiva(true);
+                    else
+                        SeccionCantidadActiva(false);
+                }
             }
         }
-        
+
         protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
         {
-            int idProducto;
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAleta.Visible = false;
+            PanelAlertaOK.Visible = false;
 
-            if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue)||
-                DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue)||
-                int.TryParse(DDLProducto.SelectedValue, out idProducto))
+            if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue) ||
+                DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue))
             {
                 lblAlerta2.Text = "Debe ingresar al menos un producto y un proveedor";
                 PanelAleta.Visible = true;
                 return;
             }
-            else 
+
+            // GUARDO PRODUCTO A AGREGAR PARA LUEGO CARGARLO EN SU CORRESPONDIENTE COMPRADETALLE
+            ProductoNegocio negocioProd = new ProductoNegocio();
+            string codigoSeleccionado = DDLProducto.SelectedValue;
+            Producto producto = negocioProd.ListarConSp()
+                                  .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
+
+            if (producto == null)
             {
-                ProductoNegocio negocioProd = new ProductoNegocio();
-                var producto = negocioProd.ListarConSp()
-                                         .FirstOrDefault(p => p.IdProducto == idProducto);
-
-                if (producto == null)
-                {
-                    lblAlerta2.Text = "El producto no existe en la base de datos.";
-                    PanelAleta.Visible = true;
-                    return;
-                }
-                /*
-                // Evitar duplicados: si ya existe este producto en el detalle, mostrar alerta
-                if (DetallesOC.Any(d => d.IdProducto == idProducto))
-                {
-                    lblAlerta2.Text = "El producto ya fue agregado al detalle. Para cambiar la cantidad, modifique la fila existente.";
-                    PanelAleta.Visible = true;
-                    return;
-                }
-                */
-                // Crear y agregar el nuevo detalle
-                DetalleOC nuevo = new DetalleOC
-                {
-                    IdProducto = producto.IdProducto,
-                    Nombre = producto.Nombre,
-                    Cantidad = 1,
-                    PrecioUnitario = producto.PrecioCompra
-                };
-                DetallesOC.Add(nuevo);
-
-                // Refrescar la grilla y totales
-                ActualizarGridDetalle();
-                ActualizarTotal();
-
-                // Resetear controles de entrada
-                DDLProducto.SelectedIndex = 0;
-                TxtBPrecio.Text = "$";
-                PanelAleta.Visible = false;
-
+                lblAlerta2.Text = "El producto no existe en la base de datos.";
+                PanelAleta.Visible = true;
+                return;
             }
 
-            
+            // RECUPERO LISTA ACTUAL DE COMPRADETALLE
+            if (Session["ListaCompraDetalle"] == null)
+                Session["ListaCompraDetalle"] = new List<CompraDetalle>();
 
+            List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+            // GUARDO LA CANTIDAD SETEADA
+            int cantidad = 0;
+            int.TryParse(txtCantidad.Text, out cantidad);
+            if (cantidad < 1)
+            {
+                lblAlerta2.Text = "La cantidad debe ser mayor a 0";
+                PanelAleta.Visible = true;
+                return;
+            }
+
+            // COMPRUEBO SI EL PRODUCTO A AGREGAR YA SE ENCUENTRA CARGADO EN EL GRID
+            CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
+
+
+            if (detalleExistente != null)
+            {
+                // SI YA ESTABA AGREGADO LE ACTUALIZO SU CANTIDAD CON LA CANTIDAD NUEVA INGRESADA
+                detalleExistente.Cantidad = cantidad;
+                LblAlertaOK.Text = "Cantidad actualizada correctamente.";
+                PanelAlertaOK.Visible = true;
+            }
+            else
+            {
+                //int IdProducto = producto.IdProducto;
+                //decimal precio = producto.PrecioCompra;
+                //string codigo = producto.CodigoArticulo;
+                // SI NO ESTABA AGREGADO LO AÑADO A LA LISTA
+                CompraDetalle nuevo = new CompraDetalle();
+                nuevo.Producto = new Producto();
+                nuevo.Producto = producto;
+                nuevo.Producto.IdProducto = negocioProd.GetIdproducto(producto.CodigoArticulo);
+                nuevo.Cantidad = cantidad;
+                nuevo.PrecioUnitario = producto.PrecioCompra;
+
+                // ORDEN DE LISTA EN GRID OPCIONAL
+                //listaCompraDetalle.Add(nuevo); // ULTIMO AGREGADO AL FINAL DE LISTA
+                listaCompraDetalle.Insert(0, nuevo); // EL ULTIMO AGREGADO AL INICIO DE LA LISTA
+                LblAlertaOK.Text = "Producto agregado correctamente.";
+                PanelAlertaOK.Visible = true;
+            }
+
+            // RESGUARDO LA LISTA EN SESSION PARA ACTUALIZARLE CON EL PROXIMO PRODUCTO A AGREGAR
+            Session["ListaCompraDetalle"] = listaCompraDetalle;
+
+            // RESET Valor y controles
+            txtCantidad.Text = "0";
+            txtCantidad.Enabled = false;
+            btnMas.Enabled = false;
+            btnMenos.Enabled = false;
+
+            DDLProducto.SelectedIndex = 0;
+            TxtBPrecio.Text = "$";
+
+            // ACTUALIZO
+            ActualizarGridDetalle();
+            ActualizarTotal();
         }
+
 
         private void ActualizarGridDetalle()
         {
-            gvDetalleOC.DataSource = DetallesOC;
+            if (Session["ListaCompraDetalle"] == null)  //
+                Session["ListaCompraDetalle"] = new List<CompraDetalle>(); //
+            listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"]; //
+            gvDetalleOC.DataSource = listaCompraDetalle; //
             gvDetalleOC.DataBind();
         }
 
         private void ActualizarTotal()
         {
-            decimal total = DetallesOC.Sum(d => d.Subtotal);
+            decimal total = listaCompraDetalle.Sum(d => d.Subtotal);
             lblTotal.Text = total.ToString("C");
         }
 
@@ -214,12 +251,120 @@ namespace WebForms
             if (e.CommandName == "Eliminar")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
-                DetallesOC.RemoveAt(index);
+
+                if (Session["ListaCompraDetalle"] != null)
+                {
+                    listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                    if (index >= 0 && index < listaCompraDetalle.Count)
+                    {
+                        listaCompraDetalle.RemoveAt(index);
+                        Session["ListaCompraDetalle"] = listaCompraDetalle;
+                    }
+                }
                 ActualizarGridDetalle();
                 ActualizarTotal();
             }
         }
-        
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            // COMPRUEBO SI LA LISTA DEL GRID ACTUAL ES NULL O ESTA VACIA
+            if (Session["ListaCompraDetalle"] == null || ((List<CompraDetalle>)Session["ListaCompraDetalle"]).Count == 0)
+            {
+                lblAlerta2.Text = "Debe agregar al menos un producto para generar la compra.";
+                PanelAleta.Visible = true;
+                return;
+            }
+
+            Compra CompraActual = new Compra();
+            CompraActual.Detalles = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+            CompraActual.Proveedor = new Proveedor();
+            CompraActual.Proveedor.IdProveedor = 5; // HARDCODEADO Y A DEFINIR
+
+            CompraActual.Usuario = (Usuario)Session["Usuario"];
+
+            ComprasNegocio negocio = new ComprasNegocio();
+
+            //negocio.GuardarCompra(CompraActual);
+            // GUARDA LA COMPRA EN DB MEDIANTE TRANSACCION ACTUALIZANDO TABLAS Compras, CompraDetalle y Productos(actualizando stock)
+            negocio.GuardarCompraConSP(CompraActual); 
+
+            LblAlertaOK.Text = "La compra se agrego correctamente.";
+            PanelAlertaOK.Visible = true;
+
+            // RESETO GENERAL
+            DDLProducto.SelectedIndex = 0;
+            DDLProveedor.SelectedIndex = 0;
+            TxtBPrecio.Text = "$";
+            txtCantidad.Text = "0";
+            txtCantidad.Enabled = false;
+            btnMas.Enabled = false;
+            btnMenos.Enabled = false;
+
+            // RESET SESSION de LISTA:
+            Session["ListaCompraDetalle"] = null;
+
+            // VACIAR Y REFRESCAR GRID:
+            ActualizarGridDetalle();
+            ActualizarTotal();
+            CargarOC();
+
+        }
+
+        protected void btnMas_Click(object sender, EventArgs e) //
+        {
+            int cantidad = 0;
+            int.TryParse(txtCantidad.Text, out cantidad);
+            cantidad++;
+            txtCantidad.Text = cantidad.ToString();
+        }
+
+        protected void btnMenos_Click(object sender, EventArgs e) //
+        {
+            int cantidad = 0;
+            int.TryParse(txtCantidad.Text, out cantidad);
+            if (cantidad > 0)
+                cantidad--;
+            txtCantidad.Text = cantidad.ToString();
+        }
+
+        protected void DDLProveedor_SelectedIndexChanged(object sender, EventArgs e) //
+        {
+            if (DDLProducto.SelectedIndex != 0)
+            {
+                // SECCION "CANTIDAD" HABILITADA
+                SeccionCantidadActiva(true);
+
+            }
+            else
+            {
+                SeccionCantidadActiva(false);
+            }
+        }
+
+        protected void SeccionCantidadActiva(bool activa) //
+        {
+            if (activa)
+            {
+                // SECCION "CANTIDAD" HABILITADA
+                txtCantidad.Enabled = true;
+                btnMas.Enabled = true;
+                btnMenos.Enabled = true;
+
+            }
+            else
+            {
+                // SECCION "CANTIDAD" DESHABILITADA
+                txtCantidad.Enabled = false;
+                btnMas.Enabled = false;
+                btnMenos.Enabled = false;
+            }
+        }
+
+
+
         /*******Productos*******/
         private void CargarProductos()
         {
@@ -321,7 +466,7 @@ namespace WebForms
                     rptHistorial.DataSource = historial;
                     rptHistorial.DataBind();
                 }
-                else if(DDLHistPrecios.SelectedIndex <= 0)
+                else if (DDLHistPrecios.SelectedIndex <= 0)
                 {
                     lblAlerta.Text = "Por favor, seleccione un producto para ver el historial de precios.";
                     pnlAlerta.Visible = true;
@@ -390,7 +535,8 @@ namespace WebForms
             MostrarSeccionActiva();
         }
 
-       
+
+    
     }
 }
 

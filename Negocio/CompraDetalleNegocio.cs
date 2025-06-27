@@ -49,7 +49,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     CompraDetalle detalle = new CompraDetalle();
-                    detalle.IdCompraDetalle = (int)datos.Lector["IdCompra"]; // Seria mejor IdCompraDetalle - Agregar a DB
+                    detalle.IdCompraDetalle = (int)datos.Lector["IdCompra"];
                     detalle.Cantidad = (int)datos.Lector["Cantidad"];
                     detalle.PrecioUnitario = (decimal)datos.Lector["PrecioUnit"];
                     detalle.Producto = new Producto();
@@ -88,5 +88,66 @@ namespace Negocio
 
             return detalles;
         }
+
+        public decimal ObtenerMontoTotal(List<CompraDetalle> detalle)
+        {
+            decimal total = 0;
+            foreach (CompraDetalle aux in detalle)
+            {
+                total += aux.Cantidad * aux.PrecioUnitario;
+            }
+
+
+            return total;
+        }
+
+        public void GuardarDetalleCompra(List<CompraDetalle> compraDetalle)
+        {
+            try
+            {
+                foreach (var detalle in compraDetalle)
+                {
+                    AccesoDatos datos = new AccesoDatos(); //NUEVO EN CADA ITERACIÓN
+
+                    string consulta = @"INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit) 
+                                        VALUES (@idCompra, @idProducto, @cantidad, @precioUnit);";
+
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@idCompra", detalle.IdCompra);
+                    datos.setearParametro("@idProducto", detalle.Producto.IdProducto);
+                    datos.setearParametro("@cantidad", detalle.Cantidad);
+                    datos.setearParametro("@precioUnit", detalle.PrecioUnitario);
+
+                    datos.ejecutarAccion(); // SE CIERRA EN EL Finally 
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void GuardarDetalleCompraConSP(List<CompraDetalle> compraDetalle)
+        {
+            try
+            {
+                foreach (var detalle in compraDetalle)
+                {
+                    AccesoDatos datos = new AccesoDatos();
+                    datos.setearProcedimiento("SP_InsertDetalleYActualizarStock");
+                    datos.setearParametro("@idCompra", detalle.IdCompra);
+                    datos.setearParametro("@idProducto", detalle.Producto.IdProducto);
+                    datos.setearParametro("@cantidad", detalle.Cantidad);
+                    datos.setearParametro("@precioUnit", detalle.PrecioUnitario);
+
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

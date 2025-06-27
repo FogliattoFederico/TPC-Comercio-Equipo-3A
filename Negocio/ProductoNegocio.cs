@@ -501,5 +501,26 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public int GetIdproducto(string CodigoProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int idProducto = 0;
+
+            string consulta = @"SELECT IdProducto
+                        FROM Productos
+                        WHERE CodigoArticulo = @codArticulo";
+
+            datos.setearConsulta(consulta);
+            datos.setearParametro("@codArticulo", CodigoProducto);
+            datos.ejecutarLectura();
+
+            while (datos.Lector.Read())
+            {
+                idProducto = (int)datos.Lector["IdProducto"];
+            }
+
+            return idProducto;
+        }
     }
 }

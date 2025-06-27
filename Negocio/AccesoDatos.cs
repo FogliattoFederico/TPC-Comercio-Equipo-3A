@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -108,5 +109,23 @@ namespace Negocio
             }
         }
 
+        /********************* EXTRAS PARA SP "SP_InsertarCompraCompleta" ***************************/
+
+        public void setearParametroTVP(string nombre, DataTable tabla)
+        {
+            SqlParameter param = comando.Parameters.AddWithValue(nombre, tabla);
+            param.SqlDbType = SqlDbType.Structured;
+        }
+
+        public void abrirConexion()
+        {
+            comando.Connection = conexion;
+            conexion.Open();
+        }
+
+        public void ejecutarAccionSinCerrar()
+        {
+            comando.ExecuteNonQuery();
+        }
     }
 }

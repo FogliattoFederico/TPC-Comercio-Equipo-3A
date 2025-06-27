@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,8 +106,79 @@ namespace Negocio
             }
         }
 
+        public void GuardarCompra(Compra compra)
+        {
+            CompraDetalleNegocio negocio = new CompraDetalleNegocio();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"INSERT INTO Compras (idProveedor, IdUsuario, Total) 
+                                    VALUES (@idProveedor, @idUsuario, @total);
+                                    SELECT SCOPE_IDENTITY();";
+
+                datos.setearConsulta(consulta);
+                //datos.setearParametro("@fecha", compra.Fecha); // FECHA ESTA COMO DEFAULT GETDATE EN DB
+                datos.setearParametro("@idProveedor", compra.Proveedor.IdProveedor);
+                datos.setearParametro("@idUsuario", compra.Usuario.IdUsuario);
+
+                decimal total = negocio.ObtenerMontoTotal(compra.Detalles);
+                datos.setearParametro("@total", total);
+
+                // OBTENGO IdCompra GENERADO DEL INSERT EN TABLA "Compras"
+                int idCompra = Convert.ToInt32(datos.ejecutarScalar());
+
+                // ASIGNO IdCompra A CADA CompraDetalle DE LA LISTA
+                foreach (var detalle in compra.Detalles)
+                {
+                    detalle.IdCompra = idCompra;
+                }
+
+                // GUARDO DETALLES (USANDO UNA CONEXION INDEPENDIENTE)
+                negocio.GuardarDetalleCompraConSP(compra.Detalles);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void GuardarCompraConSP(Compra compra)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_InsertarCompraCompleta");
+                datos.setearParametro("@IdProveedor", compra.Proveedor.IdProveedor);
+                datos.setearParametro("@IdUsuario", compra.Usuario.IdUsuario);
+
+                // CREO DATATABLE PARA GUARDAR CADA CompraDetalle
+                DataTable tablaDetalles = new DataTable();
+                // DEFINO LAS COLUMNAS CON LOS MISMOS NOMBRES Y TIPOS CREADOS EN DB ("dbo.CompraDetalleType")
+                tablaDetalles.Columns.Add("IdProducto", typeof(int));
+                tablaDetalles.Columns.Add("Cantidad", typeof(int));
+                tablaDetalles.Columns.Add("PrecioUnit", typeof(decimal));
+
+                foreach (var detalle in compra.Detalles)
+                {   
+                    // EN CADA ITERACION AGREGO FILA EN DATATABLE CON DATOS OBTENIDOS
+                    tablaDetalles.Rows.Add(
+                        detalle.Producto.IdProducto,
+                        detalle.Cantidad,
+                        detalle.PrecioUnitario
+                    );
+                }
+
+                // SETEO PARAMETROS EN TVP "Detalles" (Table-Valued Parameter) CON EL DATATABLE QUE INSTANCIAMOS
+                datos.setearParametroTVP("@Detalles", tablaDetalles);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
-
-   
-
 }
