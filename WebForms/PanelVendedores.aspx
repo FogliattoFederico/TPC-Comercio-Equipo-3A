@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="Css/StylePanelVendedores.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   <!-- <div class="d-flex justify-content-center align-items-center" style="height: 700px;">
+    <!-- <div class="d-flex justify-content-center align-items-center" style="height: 700px;">
         <div style="max-width: 800px; margin: 60px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             <h2 class="text-center mt-4">Panel de Vendedores</h2>
 
@@ -89,7 +89,7 @@
                     <input type="text" class="form-control">
                 </div>
             </div>
-            
+
             <div class="col-8">
                 <h6 class="subtit">Detalle de venta</h6>
                 <div class="row mb-3">
@@ -106,7 +106,7 @@
                         <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" />
                     </div>
                 </div>
-            
+
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="table-dark">
                         <tr>
@@ -143,7 +143,7 @@
                         </tr>
                     </tbody>
                 </table>
-            
+
                 <div class="text-end mt-2">
                     <label class="fw-bold">Total:</label>
                     <span>$1.000.000</span>
@@ -151,30 +151,30 @@
             </div>
         </div>
 
-		<div class="row mt-4">
-			<div class="col-6 seccionDC">
-				<h6 class="subtit">Factura</h6>
-				<div class="d-flex flex-wrap gap-1">
-					<!--<button class="btn btn-secondary">Ver</button>-->
-					<asp:LinkButton ID="lkbVer" runat="server" CssClass="btn-factura">
+        <div class="row mt-4">
+            <div class="col-6 seccionDC">
+                <h6 class="subtit">Factura</h6>
+                <div class="d-flex flex-wrap gap-1">
+                    <!--<button class="btn btn-secondary">Ver</button>-->
+                    <asp:LinkButton ID="lkbVer" runat="server" CssClass="btn-factura">
 <img src="/Icon/Ver.png" style="width: 20px; height: 20px;" />
 Ver factura
-					</asp:LinkButton>
-					<!--<button class="btn btn-secondary">Imprimir</button>-->
-					<asp:LinkButton ID="lkbImprimir" runat="server" CssClass="btn-factura">
+                    </asp:LinkButton>
+                    <!--<button class="btn btn-secondary">Imprimir</button>-->
+                    <asp:LinkButton ID="lkbImprimir" runat="server" CssClass="btn-factura">
 <img src="/Icon/Imprimir.png" style="width: 20px; height: 20px;" />
 Imprimir factura
-					</asp:LinkButton>
-					<!--<button class="btn btn-secondary">Enviar mail</button>-->
-					<asp:LinkButton ID="lkbEnviar" runat="server" CssClass="btn-factura">
+                    </asp:LinkButton>
+                    <!--<button class="btn btn-secondary">Enviar mail</button>-->
+                    <asp:LinkButton ID="lkbEnviar" runat="server" CssClass="btn-factura">
 <img src="/Icon/Correo.png" style="width: 20px; height: 20px;" />
 Enviar factura
-					</asp:LinkButton>
-				</div>
-			</div>
-			<div class="col-6 text-center">
-				<button class="btnfacturar">Facturar</button>
-			</div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+            <div class="col-6 text-center">
+                <button class="btnfacturar">Facturar</button>
+            </div>
         </div>
     </div>
 
