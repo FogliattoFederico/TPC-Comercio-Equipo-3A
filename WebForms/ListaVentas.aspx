@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Vendedores.Master" AutoEventWireup="true" CodeBehind="ListaVentas.aspx.cs" Inherits="WebForms.Ventas1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Venta.Master" AutoEventWireup="true" CodeBehind="ListaVentas.aspx.cs" Inherits="WebForms.Ventas1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Css/StyleListVentas.css">
@@ -16,7 +16,7 @@
                     <img class="imgback" src="/Icon/FlechaI.png"></a> <%}
                                                                           else
                                                                           { %>
-                <a href="PanelVendedores.aspx" class="back">
+                <a href="PanelVentas.aspx" class="back">
                     <img class="imgback" src="/Icon/FlechaI.png"></a> <%} %>
                 <asp:Button runat="server" Text="Agregar venta" ID="btnAgregarVenta" OnClick="btnAgregarVenta_Click"
                     CssClass="btn btn-primary btn-lg shadow-sm" />

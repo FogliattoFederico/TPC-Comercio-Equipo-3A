@@ -82,7 +82,7 @@
     <Content Include="Css\StyleListProductos.css" />
     <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
-    <Content Include="Css\StylePanelVendedores.css" />
+    <Content Include="Css\StylePanelVentas.css" />
     <Content Include="Css\StyleVendedores.css" />
     <Content Include="Css\Style_default.css" />
     <Content Include="Error.aspx" />
@@ -112,7 +112,7 @@
     <Content Include="ListaProveedores.aspx" />
     <Content Include="Recuperar.aspx" />
     <Content Include="Scripts\Funciones.js" />
-    <Content Include="PanelVendedores.aspx" />
+    <Content Include="PanelVentas.aspx" />
     <Content Include="VentaDetalles.aspx" />
     <Content Include="ListaVentas.aspx" />
     <Content Include="Web.config" />
@@ -308,20 +308,20 @@
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
-    <Compile Include="PanelVendedores.aspx.cs">
-      <DependentUpon>PanelVendedores.aspx</DependentUpon>
+    <Compile Include="PanelVentas.aspx.cs">
+      <DependentUpon>PanelVentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PanelVendedores.aspx.designer.cs">
-      <DependentUpon>PanelVendedores.aspx</DependentUpon>
+    <Compile Include="PanelVentas.aspx.designer.cs">
+      <DependentUpon>PanelVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="ValidacionCampo.cs" />
-    <Compile Include="Vendedores.Master.cs">
-      <DependentUpon>Vendedores.Master</DependentUpon>
+    <Compile Include="Venta.Master.cs">
+      <DependentUpon>Venta.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vendedores.Master.designer.cs">
-      <DependentUpon>Vendedores.Master</DependentUpon>
+    <Compile Include="Venta.Master.designer.cs">
+      <DependentUpon>Venta.Master</DependentUpon>
     </Compile>
     <Compile Include="VentaDetalles.aspx.cs">
       <DependentUpon>VentaDetalles.aspx</DependentUpon>
@@ -342,7 +342,7 @@
     <Content Include="Administradores.Master" />
     <None Include="packages.config" />
     <Content Include="Site1.Master" />
-    <Content Include="Vendedores.Master" />
+    <Content Include="Venta.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

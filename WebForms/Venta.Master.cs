@@ -22,7 +22,7 @@ namespace WebForms
 
         protected void lnkVenta_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PanelVendedores.aspx", false);
+            Response.Redirect("PanelVentas.aspx", false);
         }
 
         protected void lnkProductos_Click(object sender, EventArgs e)

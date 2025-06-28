@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Vendedores.Master" AutoEventWireup="true" CodeBehind="PanelVendedores.aspx.cs" Inherits="WebForms.Vendedores" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Venta.Master" AutoEventWireup="true" CodeBehind="PanelVentas.aspx.cs" Inherits="WebForms.Vendedores" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="Css/StylePanelVendedores.css">
+    <link rel="stylesheet" href="Css/StylePanelVentas.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- <div class="d-flex justify-content-center align-items-center" style="height: 700px;">

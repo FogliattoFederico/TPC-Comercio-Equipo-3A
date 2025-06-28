@@ -48,7 +48,7 @@ namespace WebForms
                     }
                     else
                     {
-                        Response.Redirect("PanelVendedores.aspx", false);
+                        Response.Redirect("PanelVentas.aspx", false);
 
                     }
                 }
