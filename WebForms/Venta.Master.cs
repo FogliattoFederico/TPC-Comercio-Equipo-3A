@@ -22,7 +22,7 @@ namespace WebForms
 
         protected void lnkVenta_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PanelVentas.aspx", false);
+            Response.Redirect("AltaVenta.aspx", false);
         }
 
         protected void lnkProductos_Click(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace WebForms
 
         protected void lnkFacturas_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ListaVentas.aspx", false);
         }
     }
 }

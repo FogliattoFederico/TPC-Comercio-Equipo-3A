@@ -112,7 +112,7 @@
     <Content Include="ListaProveedores.aspx" />
     <Content Include="Recuperar.aspx" />
     <Content Include="Scripts\Funciones.js" />
-    <Content Include="PanelVentas.aspx" />
+    <Content Include="AltaVenta.aspx" />
     <Content Include="VentaDetalles.aspx" />
     <Content Include="ListaVentas.aspx" />
     <Content Include="Web.config" />
@@ -308,12 +308,12 @@
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
-    <Compile Include="PanelVentas.aspx.cs">
-      <DependentUpon>PanelVentas.aspx</DependentUpon>
+    <Compile Include="AltaVenta.aspx.cs">
+      <DependentUpon>AltaVenta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PanelVentas.aspx.designer.cs">
-      <DependentUpon>PanelVentas.aspx</DependentUpon>
+    <Compile Include="AltaVenta.aspx.designer.cs">
+      <DependentUpon>AltaVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="ValidacionCampo.cs" />
     <Compile Include="Venta.Master.cs">

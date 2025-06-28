@@ -21,12 +21,12 @@ namespace WebForms
                 return;
             }
 
-            if (Seguridad.esAdmin((Usuario)Session["Usuario"]))
-            {
-                Session.Add("Error", "Debes tener usar el panel administrador");
-                Response.Redirect("Error.aspx", false);
-                return;
-            }
+            //if (Seguridad.esAdmin((Usuario)Session["Usuario"]))
+            //{
+            //    Session.Add("Error", "Debes tener usar el panel administrador");
+            //    Response.Redirect("Error.aspx", false);
+            //    return;
+            //}
 
         }
     }

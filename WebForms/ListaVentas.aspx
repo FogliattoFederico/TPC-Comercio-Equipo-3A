@@ -7,17 +7,13 @@
     <div class="row mb-4">
         <div class="col-12">
             <h1 class="display-4 text-center mb-4 mt-4">Listado de Ventas</h1>
-            <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex justify-content-end">
                 <!--<asp:Button runat="server" Text="Regresar" ID="btnVolver" OnClick="btnVolver_Click"
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->
-                <%if (Session["Usuario"] != null && ((Dominio.Usuario)Session["Usuario"]).Admin == true)
-                    {  %>
-                <a href="PanelAdmin.aspx" class="back">
-                    <img class="imgback" src="/Icon/FlechaI.png"></a> <%}
-                                                                          else
-                                                                          { %>
-                <a href="PanelVentas.aspx" class="back">
-                    <img class="imgback" src="/Icon/FlechaI.png"></a> <%} %>
+
+           <%--     <a href="PanelAdmin.aspx" class="back">
+                    <img class="imgback" src="/Icon/FlechaI.png"></a>--%>
+                
                 <asp:Button runat="server" Text="Agregar venta" ID="btnAgregarVenta" OnClick="btnAgregarVenta_Click"
                     CssClass="btn btn-primary btn-lg shadow-sm" />
             </div>

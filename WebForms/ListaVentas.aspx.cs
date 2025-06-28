@@ -28,7 +28,7 @@ namespace WebForms
 
         protected void btnAgregarVenta_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("AltaVenta.aspx", false );
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
