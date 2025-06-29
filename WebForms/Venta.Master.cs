@@ -44,5 +44,11 @@ namespace WebForms
         {
             Response.Redirect("ListaVentas.aspx", false);
         }
+
+        protected void lkbSalir_Click(object sender, EventArgs e)
+        {
+            Session.Remove("Usuario");
+            Response.Redirect("Default.aspx", false);
+        }
     }
 }
