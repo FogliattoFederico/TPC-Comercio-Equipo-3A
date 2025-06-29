@@ -27,6 +27,7 @@ namespace WebForms
             //    Response.Redirect("Error.aspx", false);
             //    return;
             //}
+            Session["PaginaAnterior"] = Request.UrlReferrer?.AbsoluteUri;
 
         }
 

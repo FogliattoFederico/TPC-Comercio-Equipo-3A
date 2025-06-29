@@ -27,7 +27,7 @@
                 {
             %>
             <div>
-                <asp:ImageButton ID="btnCerrarSesion" CssClass="btn-logout" runat="server" OnClick="btnCerrarSesion_Click1" Text="Cerrar Sesión" ImageUrl="./Icon/Salir.png"/>
+                <%--<asp:ImageButton ID="btnCerrarSesion" CssClass="btn-logout" runat="server" OnClick="btnCerrarSesion_Click1" Text="Cerrar Sesión" ImageUrl="./Icon/Salir.png"/>--%>
                 
             </div>
             <%}
