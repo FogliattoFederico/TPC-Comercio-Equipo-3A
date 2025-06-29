@@ -53,7 +53,7 @@
             <div>
                 <asp:Label ID="lblUsuario" runat="server" Text="Usuario" Style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 16px; font-weight: 500;"></asp:Label>
                 <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Width="100%"
-                    Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa; ;" />
+                    Style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: #f8f9fa;" />
             </div>
 
             <div>
