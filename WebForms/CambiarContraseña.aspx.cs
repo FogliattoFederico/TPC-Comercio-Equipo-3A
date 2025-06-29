@@ -14,12 +14,12 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
-            //{
-            //    Session.Add("Error", "Debes estar logueado");
-            //    Response.Redirect("Error.aspx", false);
-            //    return;
-            //}
+            if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
+            {
+                Session.Add("Error", "Debes estar logueado");
+                Response.Redirect("Error.aspx", false);
+                return;
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
