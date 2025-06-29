@@ -49,10 +49,38 @@ window.addEventListener('popstate', function (event) {
     }
 });
 
-
 function cerrarLogin() {
     document.getElementById('registro-login').classList.remove('active');
 };
+
+
+
+
+function mostrarCambioPass() {
+    const overlay = document.getElementById('registro-CambioPass');
+    overlay.classList.add('active');
+
+    history.pushState({ modal: true }, '', '#CP');
+};
+
+window.addEventListener2('popstate', function (event) {
+    const overlay = document.getElementById('registro-CambioPass');
+
+    if (overlay.classList.contains('active')) {
+        cerrarCambioPass();
+
+
+        if (location.hash === "#CP") {
+            history.replaceState(null, '', location.pathname);
+        }
+    }
+});
+
+function cerrarCambioPass() {
+    document.getElementById('registro-CambioPass').classList.remove('active');
+};
+
+
 /*
 function mostrarRegistrar() {
     const overlay = document.getElementById('registro-form');

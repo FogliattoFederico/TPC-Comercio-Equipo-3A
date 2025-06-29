@@ -33,51 +33,57 @@ namespace WebForms
             {
                 if (ValidarCampos())
                 {
-
-                    lblMensaje.Text = string.Empty;
-
-                    if (!validaContraseña(txtPassNueva.Text))
-                    {
-                        lblMensaje.Text = "Formato incorrecto";
-                        return;
-                    }
                     string contraseñaActual = txtPassActual.Text.Trim();
                     string contraseñaNueva = txtPassNueva.Text.Trim();
                     string contraseñaNueva2 = txtPassNueva2.Text.Trim();
-
-
-                    if (contraseñaNueva != contraseñaNueva2)
-                    {
-                        lblMensaje.Text = "Las contraseñas nuevas no coinciden";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        return;
-                    }
-
-
-                    if (contraseñaActual == contraseñaNueva)
-                    {
-                        lblMensaje.Text = "La nueva contraseña debe ser diferente a la actual";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        return;
-                    }
 
                     UsuarioNegocio negocio = new UsuarioNegocio();
 
                     Usuario usuario = negocio.Listar()
                         .FirstOrDefault(u => u.Contrasena.Equals(txtPassActual.Text.Trim(), StringComparison.OrdinalIgnoreCase));
 
-                    if (usuario == null)
+                    lblMensaje.Text = string.Empty;
+
+                    if (!validaContraseña(txtPassNueva.Text))
                     {
-                        lblMensaje.Text = "La contraseña actual es incorrecta";
-                        return;
+                        lblMensaje.Text = "Formato incorrecto";
+                        //return;
                     }
 
-                    usuario.Contrasena = txtPassNueva.Text;
 
-                    negocio.ModificarUsuario(usuario);
+                    else if (contraseñaNueva != contraseñaNueva2)
+                    {
+                        lblMensaje.Text = "Las contraseñas nuevas no coinciden";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        //return;
+                    }
 
-                    Session.Remove("Usuario");
-                    Response.Redirect("Default.aspx", false);
+
+                    else if (contraseñaActual == contraseñaNueva)
+                    {
+                        lblMensaje.Text = "La nueva contraseña debe ser diferente a la actual";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        //return;
+                    }
+
+                    
+
+                    else if (usuario == null)
+                    {
+                        lblMensaje.Text = "La contraseña actual es incorrecta";
+                        //return;
+                    }
+                    else
+                    {
+                        usuario.Contrasena = txtPassNueva.Text;
+
+                        negocio.ModificarUsuario(usuario);
+
+                        Session.Remove("Usuario");
+                        Response.Redirect("Default.aspx", false);
+                    }
+
+                   
 
                 }
 

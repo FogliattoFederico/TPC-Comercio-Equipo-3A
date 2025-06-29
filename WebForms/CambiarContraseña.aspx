@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Panel ID="pnlCambioContraseña" runat="server" DefaultButton="btnAceptar">
+    <!--<asp:Panel ID="pnlCambioContraseña" runat="server" DefaultButton="btnAceptar">
         <div style="height: auto; max-width: 500px; margin: 0 auto; margin-bottom: 60px; margin-top: 60px; padding: 40px; background: linear-gradient(145deg, #ffffff, #f5f7fa); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); font-family: 'Segoe UI', Arial, sans-serif;">
             <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600; font-size: 28px;">Cambio de contraseña</h2>
 
@@ -39,7 +39,7 @@
                     OnClick="btnCancelar_Click" CausesValidation="false" />
             </div>
         </div>
-    </asp:Panel>
+    </asp:Panel>-->
 </asp:Content>
 
 
