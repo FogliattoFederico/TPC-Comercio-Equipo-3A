@@ -31,8 +31,8 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonSalir">
                         <li>
-                            <!--<a class="dropdown-item" href="CambiarContraseña.aspx">Cambiar contraseña</a>-->
-                            <button class="dropdown-item" onclick="mostrarCambioPass()">Cambiar contraseña</button>
+                            <a class="dropdown-item" href="CambiarContraseña.aspx">Cambiar contraseña</a>
+                            <%--<button class="dropdown-item" onclick="mostrarCambioPass()">Cambiar contraseña</button>--%>
                         </li>
                         <li>
                             
