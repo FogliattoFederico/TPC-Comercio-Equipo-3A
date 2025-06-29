@@ -14,7 +14,13 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!MostrarModalLogin && IsPostBack)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "mostrarLogin", "mostrarLogin();", true);
+            }
             
+
+
         }
         
         
@@ -36,7 +42,9 @@ namespace WebForms
 
                     if (!encontrado)
                     {
+                       
                         lblMensaje.Text = "Usuario y/o contraseña incorrectos";
+                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarLogin", "mostrarLogin();", true);
                         return;
                     }
 
@@ -44,10 +52,12 @@ namespace WebForms
 
                     if (usuario.Admin == true)
                     {
+                        MostrarModalLogin = false;
                         Response.Redirect("PanelAdmin.aspx", false);
                     }
                     else
                     {
+                        MostrarModalLogin = false;
                         Response.Redirect("AltaVenta.aspx", false);
 
                     }
@@ -86,5 +96,18 @@ namespace WebForms
             Session.Remove("Usuario");
             Response.Redirect("Default.aspx", false);
         }
+
+        public bool MostrarModalLogin
+        {
+            get
+            {
+                return ViewState["MostrarModalLogin"] != null && (bool)ViewState["MostrarModalLogin"];
+            }
+            set
+            {
+                ViewState["MostrarModalLogin"] = value;
+            }
+        }
+
     }
 }

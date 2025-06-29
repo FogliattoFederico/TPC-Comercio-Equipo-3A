@@ -29,5 +29,15 @@ namespace WebForms
             //}
 
         }
+
+        protected void btnMenos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnMas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

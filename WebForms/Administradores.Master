@@ -22,13 +22,21 @@
                 </div>
             </div>
             <!--Aca hay que codificar que muestre boton de cerrar sesion y foto-->
+           <div class="dropdown">
+  <button class="btn-logout" type="button" id="dropdownMenuButtonSalir" data-bs-toggle="dropdown" aria-expanded="false" ><img src="/Icon/Usuario.png" style="width: 20px; height: 20px;" />
+    Usuario
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonSalir">
+    <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+    <li><a class="dropdown-item" href="#">Salir</a></li>
+  </ul>
+</div>
            
-           
-            <asp:LinkButton ID="lkbCerrarSesion" runat="server" CssClass="btn-logout" OnClick="lkbCerrarSesion_Click">
+            <!--<asp:LinkButton ID="lkbCerrarSesion" runat="server" CssClass="btn-logout" OnClick="lkbCerrarSesion_Click">
     <img src="/Icon/Salir.png" style="width: 20px; height: 20px;" />
     Cerrar Sesión
-</asp:LinkButton>
-
+</asp:LinkButton>-->
+            
             
         </nav>
         <div class="container">

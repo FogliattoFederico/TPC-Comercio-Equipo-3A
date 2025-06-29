@@ -90,59 +90,69 @@
                 </div>
             </div>
 
-            <div class="col-8">
-                <h6 class="subtit">Detalle de venta</h6>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label>Producto</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col">
-                        <label>Cantidad</label>
-                        <input type="number" class="form-control">
-                    </div>
-                    <div class="col-auto d-flex align-items-end">
-                        <!--<button class="btn btn-success">Agregar</button>-->
-                        <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" />
-                    </div>
-                </div>
+			<div class="col-8">
+				<h6 class="subtit">Detalle de venta</h6>
+				<div class="row mb-3">
+					<div class="col-8">
+						<label>Producto</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="col-2">
+						<label>Cantidad</label>
+						<!--<input type="number" class="form-control">-->
+						<div class="qty" style="width: 100px; display: flex; align-items: center;">
+							<asp:Button ID="btnMenos" runat="server" Text="-" OnClick="btnMenos_Click" Enabled="false"
+								Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
 
-                <table class="table table-striped table-bordered table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Tele</td>
-                            <td>3</td>
-                            <td>$50,000</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Heladera</td>
-                            <td>5</td>
-                            <td>$84,000</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Lavarropas</td>
-                            <td>2</td>
-                            <td>$97,000</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Horno eléctrico</td>
-                            <td>5</td>
-                            <td>$27,000</td>
-                        </tr>
-                    </tbody>
-                </table>
+							<asp:TextBox ID="txtCantidad" runat="server" Text="0" ReadOnly="true" Enabled="false"
+								Style="width: 40px; margin: 0 5px; border: none; background-color: transparent; font-weight: bold; font-size: 14px; text-align: center;" />
+
+							<asp:Button ID="btnMas" runat="server" Text="+" OnClick="btnMas_Click" Enabled="false"
+								Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
+						</div>
+					</div>
+					<div class="col-2" style="display:flex; align-items:flex-end;">
+						<!--<button class="btn btn-success">Agregar</button>-->
+						<asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" />
+					</div>
+				</div>
+
+				<table class="table table-striped table-bordered table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th>#</th>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Precio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Tele</td>
+							<td>3</td>
+							<td>$50,000</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Heladera</td>
+							<td>5</td>
+							<td>$84,000</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>Lavarropas</td>
+							<td>2</td>
+							<td>$97,000</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>Horno eléctrico</td>
+							<td>5</td>
+							<td>$27,000</td>
+						</tr>
+					</tbody>
+				</table>
 
                 <div class="text-end mt-2">
                     <label class="fw-bold">Total:</label>

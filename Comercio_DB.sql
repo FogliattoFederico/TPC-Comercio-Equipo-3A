@@ -501,4 +501,60 @@ END
 
 --select * from Clientes
 
-select * from Usuario
+--select * from Usuario
+/*
+CREATE TYPE dbo.CompraDetalleType AS TABLE -- TABLA PARA ALOJAR DATOS DE LOS CompraDetalle PARA DESPUES INSERTARLOS EN "SP_InsertarCompraCompleta"
+(
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnit DECIMAL(18,2) NOT NULL
+);
+
+GO
+CREATE OR ALTER PROCEDURE SP_InsertarCompraCompleta 
+    @IdProveedor INT,
+    @IdUsuario INT,
+    @Detalles dbo.CompraDetalleType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- INSERTO LA COMPRA
+        INSERT INTO Compras (IdProveedor, IdUsuario, Total)
+        VALUES (
+            @IdProveedor,
+            @IdUsuario,
+            (SELECT SUM(Cantidad * PrecioUnit) FROM @Detalles)
+        );
+
+        -- OBTENGO IdCompra GENERADO
+        DECLARE @IdCompra INT = SCOPE_IDENTITY();
+
+        -- INSERTO DETALLES
+        INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnit)
+        SELECT
+            @IdCompra,
+            IdProducto,
+            Cantidad,
+            PrecioUnit
+        FROM @Detalles;
+
+        -- ACTUALIZO STOCK EN CADA PRODUCTO
+        UPDATE p
+        SET p.StockActual = p.StockActual + d.Cantidad
+        FROM Productos p
+        INNER JOIN @Detalles d ON p.IdProducto = d.IdProducto;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+
+        -- Re-lanzar el error
+        THROW;
+    END CATCH
+END
+*/
