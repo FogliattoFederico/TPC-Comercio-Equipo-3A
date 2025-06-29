@@ -29,7 +29,7 @@
 						Usuario
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonSalir">
-						<li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+						<li><a class="dropdown-item" href="CambiarContraseña.aspx">Cambiar contraseña</a></li>
 						<li><a class="dropdown-item" href="#">Salir</a></li>
 					</ul>
 				</div>

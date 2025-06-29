@@ -71,6 +71,7 @@
     <Content Include="AltaMarca.aspx" />
     <Content Include="AltaTipoProducto.aspx" />
     <Content Include="AltaUsuario.aspx" />
+    <Content Include="CambiarContraseña.aspx" />
     <Content Include="CompraDetalles.aspx" />
     <Content Include="Confirmacion.aspx" />
     <Content Include="Css\StyleError.css" />
@@ -145,6 +146,13 @@
     </Compile>
     <Compile Include="AltaUsuario.aspx.designer.cs">
       <DependentUpon>AltaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CambiarContraseña.aspx.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambiarContraseña.aspx.designer.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompraDetalles.aspx.cs">
       <DependentUpon>CompraDetalles.aspx</DependentUpon>

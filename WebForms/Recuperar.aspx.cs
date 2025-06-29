@@ -25,7 +25,7 @@ namespace WebForms
                     UsuarioNegocio negocio = new UsuarioNegocio();
                     EmailService email = new EmailService();
 
-                    List<Usuario> lista = negocio.Listar();
+                    //List<Usuario> lista = negocio.Listar();
 
                     Usuario usuario = negocio.Listar()
                     .FirstOrDefault(u => u.Email.Equals(txtEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase));
