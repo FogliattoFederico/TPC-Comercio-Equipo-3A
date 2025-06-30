@@ -121,10 +121,72 @@ BEGIN
     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
     WHERE VD.IdVenta = @idVenta;
 END;
+
+
+	--- INSERTAR VENTA COMPLETA CON DETALLES Y TODO
 GO
+CREATE TYPE dbo.VentaDetalleType AS TABLE -- TABLA PARA ALOJAR DATOS DE LOS VentaDetalle PARA DESPUES INSERTARLOS EN "SP_InsertarVentaCompleta"
+(
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnit DECIMAL(18,2) NOT NULL
+);
+
+GO
+CREATE OR ALTER PROCEDURE SP_InsertarVentaCompleta 
+    @IdCliente INT,
+    @IdUsuario INT,
+    @Detalles dbo.VentaDetalleType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- INSERTO LA VENTA
+        INSERT INTO Ventas (IdCliente, IdUsuario, Total)
+        VALUES (
+            @IdCliente,
+            @IdUsuario,
+            (SELECT SUM(Cantidad * PrecioUnit) FROM @Detalles)
+        );
+
+        -- OBTENGO IdVenta GENERADO
+        DECLARE @IdVenta INT = SCOPE_IDENTITY();
+
+        -- INSERTO DETALLES
+        INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnit)
+        SELECT
+            @IdVenta,
+            IdProducto,
+            Cantidad,
+            PrecioUnit
+        FROM @Detalles;
+
+        -- ACTUALIZO STOCK EN CADA PRODUCTO
+        UPDATE p
+        SET p.StockActual = p.StockActual - d.Cantidad
+        FROM Productos p
+        INNER JOIN @Detalles d ON p.IdProducto = d.IdProducto;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+
+        -- Re-lanzar el error
+        THROW;
+    END CATCH
+END
+
+--- FIN DE INSERT DE VENTA COMPLETA CON DETALLES Y TODO
+
+
+
 
 /*CLIENTES*/
-
+GO
 CREATE OR ALTER PROCEDURE SP_ListarClientes
 AS
 BEGIN

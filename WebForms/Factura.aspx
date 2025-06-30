@@ -85,7 +85,7 @@
                     CUIT: 30-12345678-9<br />
                     Av. Siempre Viva 123, CABA<br />
                     Tel: (011) 4567-8900<br />
-                    Email: contacto@electrotec.com.ar
+                    Email: contacto@tecnohogar.com.ar
                 </p>
             </div>
 

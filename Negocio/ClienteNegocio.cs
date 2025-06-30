@@ -177,5 +177,42 @@ namespace Negocio
 
 
         }
+
+        public Cliente BuscarClienteDNI(string dni)
+        {
+            Cliente cliente = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT *
+                                    FROM Clientes
+                                    WHERE Dni = @dni";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@dni", dni);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    cliente = new Cliente();
+                    cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                    cliente.Nombre = datos.Lector["Nombre"].ToString();
+                    cliente.Apellido = datos.Lector["Apellido"].ToString();
+                    cliente.Dni = datos.Lector["Dni"].ToString();
+                    cliente.Direccion = datos.Lector["Direccion"].ToString();
+                    cliente.Telefono = datos.Lector["Telefono"].ToString();
+                    cliente.Email = datos.Lector["Email"].ToString();
+                    cliente.Activo = (bool)datos.Lector["Activo"];
+                }
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

@@ -18,32 +18,32 @@ namespace WebForms
                 Venta ventaActual = null;
                 VentaNegocio negocio = new VentaNegocio();
 
-                // 1. Buscar por QueryString
+                // CAPTURO ID DE URL
                 if (int.TryParse(Request.QueryString["ID"], out int idVenta))
                 {
-                    // Simular carga desde BD (ajustá a tu lógica real)
-                    ventaActual = negocio.BuscarVenta(idVenta); // método que devuelve una Venta por ID
+                    // ME TRAIGO LA VENTA DESDE BD
+                    ventaActual = negocio.BuscarVenta(idVenta);
                 }
                 else
                 {
-                    // 2. Intentar obtener venta en curso desde sesión
-                    ventaActual = Session["VentaEnCurso"] as Venta;
+                    // O CAPTURO LA VENTA EN CURSO
+                    ventaActual = (Venta)Session["VentaEnCurso"];
                 }
 
                 if (ventaActual != null)
                 {
-                    // Encabezado
+                    // ENCABEZADO
                     lblNumeroFactura.Text = ventaActual.IdVenta.ToString("D8"); // Ej: 00000012
                     //lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
                     lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy");
                     lblUsuario.Text = ventaActual.Usuario.NombreUsuario + " " + ventaActual.Usuario.Apellido;
 
-                    // Cliente
+                    // CLIENTE
                     lblClienteNombre.Text = ventaActual.Cliente.Nombre + " " + ventaActual.Cliente.Apellido;
                     lblClienteDireccion.Text = ventaActual.Cliente.Direccion;
                     lblClienteDNI.Text = ventaActual.Cliente?.Dni ?? "-";
 
-                    //// Detalles
+                    // DETALLES
                     var lista = new List<object>();
 
                     foreach (var detalle in ventaActual.Detalles)

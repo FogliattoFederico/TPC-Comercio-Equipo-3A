@@ -236,5 +236,184 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+        /***************** FILTROS *************/
+        public List<TipoProducto> ListarTipoProductosFiltro()
+        {
+            List<TipoProducto> lista = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT DISTINCT
+	                                    TP.IdTipoProducto,	
+	                                    TP.Nombre AS NombreTipoProducto
+                                    FROM Productos P
+                                    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                                    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria";
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto tipoProducto = new TipoProducto();
+                    tipoProducto.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    tipoProducto.Nombre = datos.Lector["NombreTipoProducto"].ToString();
+                    //tipoProducto.categoria = new Categoria();
+                    //tipoProducto.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    //tipoProducto.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+                    lista.Add(tipoProducto);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<TipoProducto> ListarTiposPorMarca(int IdMarca)
+        {
+            List<TipoProducto> lista = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT DISTINCT
+                                TP.IdTipoProducto,
+                                TP.Nombre AS NombreTipoProducto,
+                                C.IdCategoria,
+                                C.Nombre AS NombreCategoria
+                            FROM Productos P
+                            INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                            INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                            INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                            WHERE P.Activo = 1 AND M.IdMarca = @IdMarca";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdMarca", IdMarca);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto tipoProducto = new TipoProducto();
+                    tipoProducto.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    tipoProducto.Nombre = datos.Lector["NombreTipoProducto"].ToString();
+                    tipoProducto.categoria = new Categoria();
+                    tipoProducto.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    tipoProducto.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+                    lista.Add(tipoProducto);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<TipoProducto> ListarTiposPorCategoria(int IdCategoria)
+        {
+            List<TipoProducto> lista = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT DISTINCT
+                                        TP.IdTipoProducto,
+                                        TP.Nombre AS NombreTipoProducto,
+                                        C.IdCategoria,
+                                        C.Nombre AS NombreCategoria
+                                    FROM Productos P
+                                    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                                    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                                    WHERE P.Activo = 1 AND C.IdCategoria = @IdCategoria";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdCategoria", IdCategoria);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto tipoProducto = new TipoProducto();
+                    tipoProducto.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    tipoProducto.Nombre = datos.Lector["NombreTipoProducto"].ToString();
+                    tipoProducto.categoria = new Categoria();
+                    tipoProducto.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    tipoProducto.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+                    lista.Add(tipoProducto);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<TipoProducto> ListarTiposPorMarcaCategoria(int IdMarca, int IdCategoria)
+        {
+            List<TipoProducto> lista = new List<TipoProducto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT DISTINCT
+                                TP.IdTipoProducto,
+                                TP.Nombre AS NombreTipoProducto,
+                                C.IdCategoria,
+                                C.Nombre AS NombreCategoria
+                            FROM Productos P
+                            INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                            INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                            INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                            WHERE P.Activo = 1 AND M.IdMarca = @IdMarca AND C.IdCategoria = @IdCategoria";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdMarca", IdMarca);
+                datos.setearParametro("@IdCategoria", IdCategoria);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoProducto tipoProducto = new TipoProducto();
+                    tipoProducto.IdTipoProducto = (int)datos.Lector["IdTipoProducto"];
+                    tipoProducto.Nombre = datos.Lector["NombreTipoProducto"].ToString();
+                    tipoProducto.categoria = new Categoria();
+                    tipoProducto.categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    tipoProducto.categoria.Nombre = datos.Lector["NombreCategoria"].ToString();
+                    lista.Add(tipoProducto);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        /***************** FILTROS *************/
     }
 }

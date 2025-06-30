@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -191,12 +192,65 @@ namespace Negocio
                 venta.Usuario.Admin = (bool)datos.Lector["Admin"];
                 venta.Detalles = new List<VentaDetalle>();
                 venta.Detalles = negocio.ObtenerDetallesPorVenta(venta.IdVenta);
-
-
-
-
             }
             return venta;
+        }
+
+        public int obtenerNumProxVenta()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int num = 0;
+
+            string consulta = @"SELECT MAX(IdVenta) AS IdVenta
+                                FROM Ventas";
+
+            datos.setearConsulta(consulta);
+            datos.ejecutarLectura();
+
+            while (datos.Lector.Read())
+            {
+                num = (int)datos.Lector["IdVenta"] + 1;
+            }
+
+            return num;
+        }
+
+        public void GuardarVentaConSP(Venta venta)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_InsertarVentaCompleta");
+                datos.setearParametro("@IdCliente", venta.Cliente.IdCliente);
+                datos.setearParametro("@IdUsuario", venta.Usuario.IdUsuario);
+
+                // CREO DATATABLE PARA GUARDAR CADA CompraDetalle
+                DataTable tablaDetalles = new DataTable();
+                // DEFINO LAS COLUMNAS CON LOS MISMOS NOMBRES Y TIPOS CREADOS EN DB ("dbo.CompraDetalleType")
+                tablaDetalles.Columns.Add("IdProducto", typeof(int));
+                tablaDetalles.Columns.Add("Cantidad", typeof(int));
+                tablaDetalles.Columns.Add("PrecioUnit", typeof(decimal));
+
+                foreach (var detalle in venta.Detalles)
+                {
+                    // EN CADA ITERACION AGREGO FILA EN DATATABLE CON DATOS OBTENIDOS
+                    tablaDetalles.Rows.Add(
+                        detalle.Producto.IdProducto,
+                        detalle.Cantidad,
+                        detalle.PrecioVenta
+                    );
+                }
+
+                // SETEO PARAMETROS EN TVP "Detalles" (Table-Valued Parameter) CON EL DATATABLE QUE INSTANCIAMOS
+                datos.setearParametroTVP("@Detalles", tablaDetalles);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
