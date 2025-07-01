@@ -41,7 +41,7 @@
         </div>
     </div>-->
 
-
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="venta">
         <div class="row info-venta">
             <div class="col">
