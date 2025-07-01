@@ -12,36 +12,45 @@
                     CssClass="btn btn-outline-secondary btn-lg shadow-sm" />-->
 
            <%--     <a href="PanelAdmin.aspx" class="back">
-                    <img class="imgback" src="/Icon/FlechaI.png"></a>--%>
+                    <img class="imgback" src="/Icon/FlechaI.png"></a>
                 
                 <asp:Button runat="server" Text="Agregar venta" ID="btnAgregarVenta" OnClick="btnAgregarVenta_Click"
-                    CssClass="btn btn-primary btn-lg shadow-sm" />
+                    CssClass="btn btn-primary btn-lg shadow-sm" />--%>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive shadow-sm rounded">
-                <asp:GridView ID="GVVentas" runat="server" AutoGenerateColumns="False"
-                    CssClass="table table-striped table-bordered table-hover text-center gridview"
-                    HeaderStyle-CssClass="bg-primary text-white text-center">
-                    <Columns>
-                        <asp:BoundField DataField="IdVenta" HeaderText="IdVenta" />
-                        <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
-                        <asp:BoundField DataField="Cliente.Apellido" HeaderText="Apellido" />
-                        <asp:BoundField DataField="Cliente.Nombre" HeaderText="Nombre" />
-                        <asp:BoundField DataField="Total" HeaderText="Monto" DataFormatString="{0:C}" HtmlEncode="false" />
-                        <asp:TemplateField HeaderText="Detalles">
-                            <ItemTemplate>
-                                <asp:Button ID="btnDetalles" runat="server" Text="Ver Detalles" CssClass="btn btn-primary" PostBackUrl='<%# "VentaDetalles.aspx?ID=" + Eval("IdVenta") %>' />
-                                <a href='<%# "VentaDetalles.aspx?ID=" + Eval("IdVenta") %>' class="icono" title="Ver Detalles">
-                                    <i class="fa-solid fa-search" style="color: dimgrey; margin: 10px"></i>
-                                </a>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
+	<div class="row">
+		<div class="col-12">
+			<div class="table-responsive shadow-sm rounded">
+				<asp:GridView ID="GVVentas" runat="server" AutoGenerateColumns="False"
+					CssClass="table table-striped table-bordered table-hover text-center gridview"
+					HeaderStyle-CssClass="bg-primary text-white text-center">
+					<Columns>
+						<asp:BoundField DataField="IdVenta" HeaderText="IdVenta" />
+						<asp:BoundField DataField="Fecha" HeaderText="Fecha" />
+						<asp:BoundField DataField="Cliente.Apellido" HeaderText="Apellido" />
+						<asp:BoundField DataField="Cliente.Nombre" HeaderText="Nombre" />
+						<asp:BoundField DataField="Total" HeaderText="Monto" DataFormatString="{0:C}" HtmlEncode="false" />
+						<asp:TemplateField HeaderText="Factura">
+							<ItemTemplate>
+								<%--<asp:Button ID="btnDetalles" runat="server" Text="Ver Detalles" CssClass="btn btn-primary" PostBackUrl='<%# "VentaDetalles.aspx?ID=" + Eval("IdVenta") %>' />
+								<a href='<%# "VentaDetalles.aspx?ID=" + Eval("IdVenta") %>' class="icono" title="Ver Detalles">
+									<i class="fa-solid fa-search" style="color: dimgrey; margin: 10px"></i>
+								</a>--%>
+
+
+								<asp:LinkButton ID="lnkFactura" runat="server"
+									CommandName="Select"
+									CommandArgument='<%# Eval("IdVenta") %>'
+									CssClass="btnEdit_Delete"
+									ToolTip="Factura" PostBackUrl='<%# "Factura.aspx?ID=" + Eval("IdVenta") %>'>
+<img src='<%= ResolveUrl("~/Icon/Factura2.png") %>' alt="Factura"/>
+								</asp:LinkButton>
+							</ItemTemplate>
+						</asp:TemplateField>
+					</Columns>
+				</asp:GridView>
             </div>
         </div>
     </div>
