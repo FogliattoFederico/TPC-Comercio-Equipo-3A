@@ -96,18 +96,7 @@ namespace WebForms
             return Regex.IsMatch(contraseña, patron);
         }
 
-        public bool MostrarModalCambioPass
-        {
-            get
-            {
-                return ViewState["MostrarModalCambioPass"] != null && (bool)ViewState["MostrarModalCambioPass"];
-            }
-            set
-            {
-                ViewState["MostrarModalCambioPass"] = value;
-            }
-        }
-
+        
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try
