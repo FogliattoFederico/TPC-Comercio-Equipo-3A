@@ -2,8 +2,23 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Css/StylePanelVentas.css">
+  
+
+     <script type="text/javascript">
+		 const toastTrigger = document.getElementById('BtnFacturar')
+		 const toastLiveExample = document.getElementById('liveToast')
+
+		 if (toastTrigger) {
+			 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+			 toastTrigger.addEventListener('click', () => {
+				 toastBootstrap.show()
+			 })
+		 }
+	 </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <!-- <div class="d-flex justify-content-center align-items-center" style="height: 700px;">
         <div style="max-width: 800px; margin: 60px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             <h2 class="text-center mt-4">Panel de Vendedores</h2>
@@ -26,12 +41,15 @@
         </div>
     </div>-->
 
-    <h3 class="titulo">Venta</h3>
+    
     <div class="venta">
         <div class="row info-venta">
             <div class="col">
                 <label>Fecha</label>
                 <asp:Label ID="lblFechaVenta" runat="server" Text="Label"></asp:Label>
+            </div>
+            <div class="col">
+                <h3 class="titulo">Venta</h3>
             </div>
             <div class="col text-end">
                 <label>Número de factura</label>
@@ -122,15 +140,18 @@
 
                 <!-- Fila 2: Producto y Cantidad -->
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-9">
                         <label>Producto</label>
                         <asp:DropDownList ID="DDLProductos" runat="server" OnSelectedIndexChanged="DDLProductos_SelectedIndexChanged" AutoPostBack="true"
                             Style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background-color: white; transition: border 0.3s;">
                         </asp:DropDownList>
                     </div>
+                    <div class="col-2">
+                        <label>Cantidad</label>
                     <div class="qty" style="width: 100px; display: flex; align-items: center;">
                         <asp:Button ID="btnMenos" runat="server" Text="-" OnClick="btnMenos_Click" Enabled="false"
                             Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
+
 
                         <asp:TextBox ID="txtCantidad" runat="server" Text="0" ReadOnly="true" Enabled="false"
                             Style="width: 40px; margin: 0 5px; border: none; background-color: transparent; font-weight: bold; font-size: 14px; text-align: center;" />
@@ -138,7 +159,8 @@
                         <asp:Button ID="btnMas" runat="server" Text="+" OnClick="btnMas_Click" Enabled="false"
                             Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
                     </div>
-                    <div class="col-auto d-flex align-items-end">
+                        </div>
+                    <div class="col-1" style="display:block; margin-top:30px; justify-content:center">
                         <asp:ImageButton ID="BtnPlus" CssClass="btnimgPlus" ImageUrl="./Icon/plus3.png" runat="server" OnClick="BtnPlus_Click" />
                     </div>
                 </div>
@@ -227,11 +249,16 @@ Enviar factura
                     </asp:LinkButton>
                 </div>
             </div>
+
             <div class="col-6 text-center">
                 <asp:Button ID="btnFacturar" runat="server" class="btnfacturar" Text="Facturar" OnClick="btnFacturar_Click" />
             </div>
         </div>
     </div>
 
+
+
+   
+    
 
 </asp:Content>

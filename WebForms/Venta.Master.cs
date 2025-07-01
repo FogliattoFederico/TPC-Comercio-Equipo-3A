@@ -20,47 +20,41 @@ namespace WebForms
                 Response.Redirect("Error.aspx", false);
                 return;
             }
-
-            if (!MostrarModalCambioPass && IsPostBack)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarCambioPass();", true);
-            }
-
+          
         }
-
-        /*protected void lkbCerrarSesion_Click(object sender, EventArgs e)
-        {
-            Session.Remove("Usuario");
-            Response.Redirect("Default.aspx", false);
-        }*/
-
         protected void lnkVenta_Click(object sender, EventArgs e)
         {
+         
             Response.Redirect("AltaVenta.aspx", false);
         }
 
         protected void lnkProductos_Click(object sender, EventArgs e)
         {
+           
             Response.Redirect("ListaProductos.aspx", false);
         }
 
         protected void lnkClientes_Click(object sender, EventArgs e)
         {
+            
             Response.Redirect("ListaClientes.aspx", false);
         }
 
         protected void lnkNuevoCliente_Click(object sender, EventArgs e)
         {
+            
             Response.Redirect("AltaCliente.aspx", false);
         }
 
         protected void lnkFacturas_Click(object sender, EventArgs e)
         {
+          
             Response.Redirect("ListaVentas.aspx", false);
         }
         
         protected void lkbSalir_Click(object sender, EventArgs e)
         {
+            
             Session.Remove("Usuario");
             Response.Redirect("Default.aspx", false);
         }
@@ -127,41 +121,41 @@ namespace WebForms
                     UsuarioNegocio negocio = new UsuarioNegocio();
 
                     Usuario usuario = negocio.Listar()
-                        .FirstOrDefault(u => u.Contrasena.Equals(txtPassActual.Text.Trim(), StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(u => u.Contrasena.Equals(txtPassActual.Text.Trim(), StringComparison.OrdinalIgnoreCase) && u.Email.Equals(((Usuario)Session["Usuario"]).Email, StringComparison.OrdinalIgnoreCase));
 
                     lblMensaje.Text = string.Empty;
 
                     if (!validaContraseña(txtPassNueva.Text))
                     {
                         lblMensaje.Text = "Formato incorrecto";
-                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarCambioPass();", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarModalCambioPass();", true);
                         return;
                     }
 
 
-                    else if (contraseñaNueva != contraseñaNueva2)
+                    if (contraseñaNueva != contraseñaNueva2)
                     {
                         lblMensaje.Text = "Las contraseñas nuevas no coinciden";
                         lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarCambioPass();", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarModalCambioPass();", true);
                         return;
                     }
 
 
-                    else if (contraseñaActual == contraseñaNueva)
+                    if (contraseñaActual == contraseñaNueva)
                     {
                         lblMensaje.Text = "La nueva contraseña debe ser diferente a la actual";
                         lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarCambioPass();", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarModalCambioPass();", true);
                         return;
                     }
 
 
 
-                    else if (usuario == null)
+                    if(usuario == null)
                     {
                         lblMensaje.Text = "La contraseña actual es incorrecta";
-                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarCambioPass();", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarModalCambioPass();", true);
                         return;
                     }
                     else
@@ -169,15 +163,16 @@ namespace WebForms
                         usuario.Contrasena = txtPassNueva.Text;
 
                         negocio.ModificarUsuario(usuario);
-
                         Session.Remove("Usuario");
                         Response.Redirect("Default.aspx", false);
                     }
-
-
-
+                    
                 }
-
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "mostrarCambioPass", "mostrarModalCambioPass();", true);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -188,6 +183,7 @@ namespace WebForms
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            //MostrarModalCambioPass = false;
             Response.Redirect("AltaVenta.aspx", false);
         }
     }

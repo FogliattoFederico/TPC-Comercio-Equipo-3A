@@ -501,7 +501,7 @@ END
 
 --select * from Clientes
 
---select * from Usuario
+
 /*
 CREATE TYPE dbo.CompraDetalleType AS TABLE -- TABLA PARA ALOJAR DATOS DE LOS CompraDetalle PARA DESPUES INSERTARLOS EN "SP_InsertarCompraCompleta"
 (
@@ -558,3 +558,5 @@ BEGIN
     END CATCH
 END
 */
+
+select * from Usuario
