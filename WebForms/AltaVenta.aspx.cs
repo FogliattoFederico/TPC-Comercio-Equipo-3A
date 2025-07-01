@@ -14,7 +14,7 @@ namespace WebForms
         List<VentaDetalle> listaVentaDetalle = new List<VentaDetalle>();//
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+
             if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
             {
                 Session.Add("Error", "Debes estar logueado");
@@ -33,7 +33,6 @@ namespace WebForms
             if (!IsPostBack)
             {
                 cargarDropdowns();
-
             }
 
             Usuario usuario = (Usuario)Session["Usuario"];
@@ -308,6 +307,8 @@ namespace WebForms
 
         }
 
+
+        // BOTON BUSCAR CLIENTE DNI
         protected void btnimg_Click(object sender, ImageClickEventArgs e)
         {
             ClienteNegocio negocio = new ClienteNegocio();
@@ -331,25 +332,20 @@ namespace WebForms
             }
             else
             {
-                /***** NOTA <script src="<%= ResolveUrl("~/Scripts/Funciones.js") %>"></script>  EN VENTA.MASTER ME LO INTERCEPTA *******/
-
-                /*// CARTEL INDICANDO QUE EL DNI NO ESTA REGISTRADO ENTRE LOS CLIENTES Y QUE SI DESEA REGISTRARLO
-                  
-                // MSJ Y PESTAÑA
-                ScriptManager.RegisterStartupScript(this, GetType(), "alerta",
-                    "alert('El DNI ingresado no está registrado.');", true);                
-                string urlRegistro = "/AltaCliente.aspx";
-                string script = "window.open('" + urlRegistro + "', '_blank');";
-                ScriptManager.RegisterStartupScript(this, GetType(), "abrir", script, true);*/
-
-
-
-                // MSJ Y POPUP
-                string script = @"
-                    alert('El DNI ingresado no está registrado.');
-                    window.open('/AltaCliente.aspx', 'RegistroCliente', 'width=600,height=900');
-                ";
-                ScriptManager.RegisterStartupScript(this, GetType(), "popup", script, true);
+                if (txtDNICliente.Text != "")
+                {
+                    string script = @"
+                        if (confirm('El DNI ingresado no está registrado.\n¿Desea registrar un nuevo cliente?')) {
+                            window.open('/AltaCliente.aspx', 'RegistroCliente', 'width=600,height=900');
+                        }
+                    ";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "popup", script, true);
+                }
+                else
+                {
+                    string script = "alert('Debe ingresar un DNI antes de continuar.');";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alerta", script, true);
+                }
 
             }
         }
@@ -368,6 +364,8 @@ namespace WebForms
                     {
                         listaVentaDetalle.RemoveAt(index);
                         Session["ListaVentaDetalle"] = listaVentaDetalle;
+                        LblAlertaOK.Text = "Producto removido correctamente";
+                        PanelAlertaOK.Visible = true;
                     }
                 }
                 ActualizarGridDetalle();
@@ -377,12 +375,15 @@ namespace WebForms
 
         protected void btnMas_Click(object sender, EventArgs e) //
         {
+            PanelAleta.Visible = false;
+
             if (Session["StockDisponibleProducto"] == null)
                 Session["StockDisponibleProducto"] = new int();
             int StockActualProducto = (int)Session["StockDisponibleProducto"];
 
             if (txtCantidad.Text == "0")
             {
+                // ME GUARDO EL STOCK DISPONIBLE DEL PRODUCTO SELECCIONADO
                 string codigoProducto = DDLProductos.SelectedValue;
                 ProductoNegocio negocio = new ProductoNegocio();
                 StockActualProducto = negocio.StockActualProducto(codigoProducto);
@@ -400,12 +401,15 @@ namespace WebForms
                 else
                 {
                     // msj MAXIMO STOCK DISPONIBLE
+                    lblAlerta2.Text = "La cantidad esta sujeta a stock disponible";
+                    PanelAleta.Visible = true;
                 }
             }
         }
 
         protected void btnMenos_Click(object sender, EventArgs e) //
         {
+            PanelAleta.Visible = false;
             int cantidad = 0;
             int.TryParse(txtCantidad.Text, out cantidad);
             if (cantidad > 0)
@@ -415,6 +419,9 @@ namespace WebForms
 
         protected void DDLProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAlertaOK.Visible = false;
+            PanelAleta.Visible = false;
             txtCantidad.Text = "0";
 
             // SI NO SE SELECCIONO UN PRODUCTO
@@ -451,41 +458,15 @@ namespace WebForms
                 //// RESET Valores
                 //txtCantidad.Text = "0";
             }
-            else
-            {
-                //// HABILITO CONTROLES
-                //btnMas.Enabled = true;
-                //btnMenos.Enabled = true;
-                //txtCantidad.Enabled = true;
 
-                //// BUSCO PRODUCTO EN LISTA PARA GUARDARME SUS VALORES
-                //ProductoNegocio negocioProd = new ProductoNegocio();
-                //string codigoSeleccionado = DDLProductos.SelectedValue;
-                //Producto producto = negocioProd.ListarConSp()
-                //                        .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
-
-                //if (producto != null)
-                //{
-                //    // RECUPERO LISTA ACTUAL DE COMPRADETALLE
-                //    if (Session["ListaVentaDetalle"] == null)
-                //        Session["ListaVentaDetalle"] = new List<VentaDetalle>();
-
-                //    List<VentaDetalle> listaVentaDetalle = (List<VentaDetalle>)Session["ListaVentaDetalle"];
-
-                //    // BUSCO SI EL PRODUCTO SELECCIONADO YA SE ENCUENTRA EN LA LISTA ACTUAL DE COMPRADETALLE
-                //    VentaDetalle detalleExistente = listaVentaDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
-
-                //    if (detalleExistente != null)
-                //    {
-                //        // SI EL PRODUCTO YA ESTABA EN LA LISTA, PRECARGO LA CANTIDAD QUE LE ASIGNARON LA ANTERIOR VEZ
-                //        txtCantidad.Text = detalleExistente.Cantidad.ToString();
-                //    }
-                //}
-            }
         }
 
         protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
         {
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAleta.Visible = false;
+            PanelAlertaOK.Visible = false;
+
             // GUARDO PRODUCTO A AGREGAR PARA LUEGO CARGARLO EN SU CORRESPONDIENTE VENTADETALLE
             ProductoNegocio negocioProd = new ProductoNegocio();
             string codigoSeleccionado = DDLProductos.SelectedValue;
@@ -494,8 +475,8 @@ namespace WebForms
 
             if (producto == null)
             {
-                //lblAlerta2.Text = "El producto no existe en la base de datos.";
-                //PanelAleta.Visible = true;
+                lblAlerta2.Text = "Debe Seleccionar un producto";
+                PanelAleta.Visible = true;
                 return;
             }
 
@@ -510,8 +491,8 @@ namespace WebForms
             int.TryParse(txtCantidad.Text, out cantidad);
             if (cantidad < 1)
             {
-                //lblAlerta2.Text = "La cantidad debe ser mayor a 0";
-                //PanelAleta.Visible = true;
+                lblAlerta2.Text = "La cantidad debe ser mayor a 0";
+                PanelAleta.Visible = true;
                 return;
             }
 
@@ -522,8 +503,9 @@ namespace WebForms
             {
                 // SI YA ESTABA AGREGADO LE ACTUALIZO SU CANTIDAD CON LA CANTIDAD NUEVA INGRESADA
                 detalleExistente.Cantidad = cantidad;
-                //LblAlertaOK.Text = "Cantidad actualizada correctamente.";
-                //PanelAlertaOK.Visible = true;
+                detalleExistente.Subtotal = detalleExistente.PrecioVenta * cantidad;
+                LblAlertaOK.Text = "Cantidad actualizada correctamente.";
+                PanelAlertaOK.Visible = true;
             }
             else
             {
@@ -541,8 +523,8 @@ namespace WebForms
                 //listaVentaDetalle.Add(nuevo); // ULTIMO AGREGADO AL FINAL DE LISTA
                 listaVentaDetalle.Insert(0, nuevo); // EL ULTIMO AGREGADO AL INICIO DE LA LISTA
 
-                //LblAlertaOK.Text = "Producto agregado correctamente.";
-                //PanelAlertaOK.Visible = true;
+                LblAlertaOK.Text = "Producto agregado correctamente.";
+                PanelAlertaOK.Visible = true;
             }
 
             // RESGUARDO LA LISTA EN SESSION PARA ACTUALIZARLE CON EL PROXIMO PRODUCTO A AGREGAR
@@ -578,6 +560,10 @@ namespace WebForms
 
         protected void btnFacturar_Click(object sender, EventArgs e)
         {
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAleta.Visible = false;
+            PanelAlertaOK.Visible = false;
+
             if (Session["VentaActual"] == null)
                 Session["VentaActual"] = new Venta();
             Venta VentaActual = (Venta)Session["VentaActual"];
@@ -586,15 +572,16 @@ namespace WebForms
             VentaActual.Detalles = (List<VentaDetalle>)Session["ListaVentaDetalle"];
             if (VentaActual.Detalles == null)
             {
-                //lblAlerta2.Text = "Debe agregar al menos un producto para generar la venta.";
-                //PanelAleta.Visible = true;
+                lblAlerta2.Text = "Debe agregar al menos un producto para generar factura de la venta.";
+                PanelAleta.Visible = true;
                 return;
             }
 
             // COMPRUEBO SI CLIENTE ESTA CARGADO
             if (VentaActual.Cliente == null)
             {
-                // CARTEL INDICANDO QUE DEBE CARGAR UN CLIENTE
+                lblAlerta2.Text = "Campos de cliente vacios. Ingrese su DNI y presione el boton de busqueda.";
+                PanelAleta.Visible = true;
                 return;
             }
 
@@ -605,8 +592,8 @@ namespace WebForms
             // GUARDA LA COMPRA EN DB MEDIANTE TRANSACCION ACTUALIZANDO TABLAS Compras, CompraDetalle y Productos(actualizando stock)
             negocio.GuardarVentaConSP(VentaActual);
 
-            //LblAlertaOK.Text = "La compra se agrego correctamente.";
-            //PanelAlertaOK.Visible = true;
+            LblAlertaOK.Text = "La factura se genero correctamente.";
+            PanelAlertaOK.Visible = true;
 
             // RESETO GENERAL
             txtDNICliente.Text = "";
@@ -634,6 +621,23 @@ namespace WebForms
             ActualizarGridDetalle();
             ActualizarTotal();
             //CargarOC();
+        }
+
+        protected void lkbVer_Click(object sender, EventArgs e)
+        {
+            VentaNegocio negocio = new VentaNegocio();
+            int idVentaFactura = negocio.obtenerNumProxVenta() - 1;
+            Response.Redirect("Factura.aspx?ID=" + idVentaFactura, false);
+        }
+
+        protected void lkbImprimir_Click(object sender, EventArgs e)
+        {
+            VentaNegocio negocio = new VentaNegocio();
+            int idVentaFactura = negocio.obtenerNumProxVenta() - 1;
+            //string script = "window.open('/Factura.aspx?ID=" + idVentaFactura + "', '_blank');";
+            string script = "window.open('/Factura.aspx?ID=" + idVentaFactura + "&imprimir=true', '_blank', 'width=1000,height=900');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "imprimirFactura", script, true);
+
         }
     }
 }

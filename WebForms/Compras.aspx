@@ -16,11 +16,11 @@
         }
 
    </script>
-
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:HiddenField ID="hfSeccionActiva" runat="server" />
-
+    
     <div class="sidebar">
         <ul class="nav flex-column ">
             <li>

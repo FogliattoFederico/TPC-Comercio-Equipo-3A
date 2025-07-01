@@ -66,6 +66,12 @@ namespace WebForms
                 {
                     Response.Redirect("ListaVentas.aspx");
                 }
+
+                // SOLO IMPRIMIR SI ES TRUE
+                if (Request.QueryString["imprimir"] == "true")
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "printFactura", "window.print();", true);
+                }
             }
         }
 

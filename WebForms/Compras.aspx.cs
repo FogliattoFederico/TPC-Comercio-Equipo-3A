@@ -95,6 +95,8 @@ namespace WebForms
 
         protected void DDLProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
+            OcultarAlertas();
+
             // SI NO SE SELECCIONO UN PRODUCTO
             if (DDLProducto.SelectedIndex == 0)
             {
@@ -141,14 +143,12 @@ namespace WebForms
 
         protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
         {
-            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
-            PanelAleta.Visible = false;
-            PanelAlertaOK.Visible = false;
+            OcultarAlertas();
 
             if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue) ||
                 DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue))
             {
-                lblAlerta2.Text = "Debe ingresar al menos un producto y un proveedor";
+                lblAlerta2.Text = "Debe ingresar un producto y un proveedor";
                 PanelAleta.Visible = true;
                 return;
             }
@@ -195,9 +195,6 @@ namespace WebForms
             }
             else
             {
-                //int IdProducto = producto.IdProducto;
-                //decimal precio = producto.PrecioCompra;
-                //string codigo = producto.CodigoArticulo;
                 // SI NO ESTABA AGREGADO LO AÑADO A LA LISTA
                 CompraDetalle nuevo = new CompraDetalle();
                 nuevo.Producto = new Producto();
@@ -211,6 +208,7 @@ namespace WebForms
                 listaCompraDetalle.Insert(0, nuevo); // EL ULTIMO AGREGADO AL INICIO DE LA LISTA
                 LblAlertaOK.Text = "Producto agregado correctamente.";
                 PanelAlertaOK.Visible = true;
+                DDLProveedor.Enabled = false;
             }
 
             // RESGUARDO LA LISTA EN SESSION PARA ACTUALIZARLE CON EL PROXIMO PRODUCTO A AGREGAR
@@ -260,6 +258,8 @@ namespace WebForms
                     {
                         listaCompraDetalle.RemoveAt(index);
                         Session["ListaCompraDetalle"] = listaCompraDetalle;
+                        LblAlertaOK.Text = "Producto removido correctamente";
+                        PanelAlertaOK.Visible = true;
                     }
                 }
                 ActualizarGridDetalle();
@@ -269,6 +269,8 @@ namespace WebForms
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            OcultarAlertas();
+
             // COMPRUEBO SI LA LISTA DEL GRID ACTUAL ES NULL O ESTA VACIA
             if (Session["ListaCompraDetalle"] == null || ((List<CompraDetalle>)Session["ListaCompraDetalle"]).Count == 0)
             {
@@ -281,7 +283,7 @@ namespace WebForms
             CompraActual.Detalles = (List<CompraDetalle>)Session["ListaCompraDetalle"];
 
             CompraActual.Proveedor = new Proveedor();
-            CompraActual.Proveedor.IdProveedor = 5; // HARDCODEADO Y A DEFINIR
+            CompraActual.Proveedor.IdProveedor = int.Parse(DDLProveedor.SelectedValue);
 
             CompraActual.Usuario = (Usuario)Session["Usuario"];
 
@@ -289,10 +291,11 @@ namespace WebForms
 
             //negocio.GuardarCompra(CompraActual);
             // GUARDA LA COMPRA EN DB MEDIANTE TRANSACCION ACTUALIZANDO TABLAS Compras, CompraDetalle y Productos(actualizando stock)
-            negocio.GuardarCompraConSP(CompraActual); 
+            negocio.GuardarCompraConSP(CompraActual);
 
             LblAlertaOK.Text = "La compra se agrego correctamente.";
             PanelAlertaOK.Visible = true;
+            DDLProveedor.Enabled = true;
 
             // RESETO GENERAL
             DDLProducto.SelectedIndex = 0;
@@ -315,6 +318,8 @@ namespace WebForms
 
         protected void btnMas_Click(object sender, EventArgs e) //
         {
+            OcultarAlertas();
+
             int cantidad = 0;
             int.TryParse(txtCantidad.Text, out cantidad);
             cantidad++;
@@ -332,6 +337,8 @@ namespace WebForms
 
         protected void DDLProveedor_SelectedIndexChanged(object sender, EventArgs e) //
         {
+            OcultarAlertas();
+
             if (DDLProducto.SelectedIndex != 0)
             {
                 // SECCION "CANTIDAD" HABILITADA
@@ -361,6 +368,13 @@ namespace WebForms
                 btnMas.Enabled = false;
                 btnMenos.Enabled = false;
             }
+        }
+
+        protected void OcultarAlertas()
+        {
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAleta.Visible = false;
+            PanelAlertaOK.Visible = false;
         }
 
 
@@ -536,15 +550,6 @@ namespace WebForms
         }
 
 
-    
+
     }
 }
-
-
-
-
-
-
-
-
-

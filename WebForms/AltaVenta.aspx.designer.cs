@@ -141,6 +141,15 @@ namespace WebForms
         protected global::System.Web.UI.WebControls.TextBox txtDireccionCliente;
 
         /// <summary>
+        /// Control UpdatePanelVenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanelVenta;
+
+        /// <summary>
         /// Control DDLMarcas.
         /// </summary>
         /// <remarks>
@@ -211,6 +220,42 @@ namespace WebForms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton BtnPlus;
+
+        /// <summary>
+        /// Control PanelAleta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAleta;
+
+        /// <summary>
+        /// Control lblAlerta2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlerta2;
+
+        /// <summary>
+        /// Control PanelAlertaOK.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelAlertaOK;
+
+        /// <summary>
+        /// Control LblAlertaOK.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblAlertaOK;
 
         /// <summary>
         /// Control GVVenta.
