@@ -81,6 +81,11 @@
                         <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="PrecioCompra" HeaderText="Precio Compra" DataFormatString="{0:C2}" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="PorcentajeGanancia" HeaderText="% Ganancia" DataFormatString="{0}%" HeaderStyle-CssClass="py-3" />
+                        <asp:TemplateField HeaderText="Precio Venta" HeaderStyle-CssClass="py-3">
+                            <ItemTemplate>
+                                <%# CalculoPrecioVenta(Eval("PrecioCompra"), Eval("PorcentajeGanancia")) %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="StockActual" HeaderText="Stock" HeaderStyle-CssClass="py-3" />
                         <asp:BoundField DataField="StockMinimo" HeaderText="Stock Mín" HeaderStyle-CssClass="py-3" />
                         <asp:TemplateField HeaderText="Imagen">

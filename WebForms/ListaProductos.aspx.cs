@@ -23,6 +23,11 @@ namespace WebForms
             if (Session["Usuario"] != null && !Seguridad.esAdmin((Usuario)Session["Usuario"]))
             {
                 btnAgregarProducto.Visible = false;
+
+                // OCULTO COLUMNAS AL VENDEDOR
+                GVProductos.Columns[5].Visible = false; // PRECIO COMPRA
+                GVProductos.Columns[6].Visible = false; // GANANCIA
+                GVProductos.Columns[11].Visible = false; // ACCIONES
             }
 
             if (!IsPostBack)
@@ -147,6 +152,15 @@ namespace WebForms
 
             }
 
+        }
+
+        public string CalculoPrecioVenta(object precioCompraObj, object porcentajeGananciaObj)
+        {
+            decimal precioCompra = Convert.ToDecimal(precioCompraObj);
+            decimal porcentajeGanancia = Convert.ToDecimal(porcentajeGananciaObj);
+            decimal precioVenta = precioCompra * (1 + (porcentajeGanancia / 100));
+
+            return precioVenta.ToString("C2");
         }
     }
 }

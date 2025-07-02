@@ -105,13 +105,27 @@ namespace WebForms
                     btnAgregar.Enabled = false;
                     btnCancelar.Enabled = false;
 
+                    // RESETEAR CAMPOS y DDLs
+                    ResetCampos();
+                    //txtNombre.Text = string.Empty;
+                    //txtCodProducto.Text = string.Empty;
+                    //txtDescripcion.Text = string.Empty;
+                    //TxtPrecio.Text = string.Empty;
+                    //txtPorcentaje.Text = string.Empty;
+                    //txtImagenUrl.Text = string.Empty;
+                    //txtStockActual.Text = string.Empty;
+                    //txtStockMinimo.Text = string.Empty;
+                    //ddlTipoProducto.SelectedIndex = 0;
+                    //ddlCategoria.SelectedIndex = 0;
+                    //ddlMarca.SelectedIndex = 0;
+
                     // O Sacarlos de la vista
                     //btnAgregar.Visible = false;
                     //btnCancelar.Visible = false;
 
 
                     /* DELAY POST AGREGAR PRODUCTO Y POSTERIOR REDIRECCIONAMIENTO */
-                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
+                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 1000);</script>";
                     ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
 
                 }
@@ -152,10 +166,12 @@ namespace WebForms
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Text = "Producto modificado exitosamente.";
 
+                    ResetCampos();
+
                     btnAgregar.Visible = false;
                     btnModificar.Visible = false;
 
-                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 3000);</script>";
+                    string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 1000);</script>";
                     ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
                 }
             }
@@ -331,6 +347,34 @@ namespace WebForms
 
             ddlTipoProducto.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
             ddlTipoProducto.Enabled = true;
+        }
+
+        private void ResetCampos()
+        {
+            // RESETEAR CAMPOS y DDLs
+            txtNombre.Text = string.Empty;
+            txtCodProducto.Text = string.Empty;
+            txtDescripcion.Text = string.Empty;
+            TxtPrecio.Text = string.Empty;
+            txtPorcentaje.Text = string.Empty;
+            txtImagenUrl.Text = string.Empty;
+            txtStockActual.Text = string.Empty;
+            txtStockMinimo.Text = string.Empty;
+            ddlTipoProducto.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            ddlMarca.SelectedIndex = 0;
+
+            txtNombre.Enabled = false;
+            txtCodProducto.Enabled = false;
+            txtDescripcion.Enabled = false;
+            TxtPrecio.Enabled = false;
+            txtPorcentaje.Enabled = false;
+            txtImagenUrl.Enabled = false;
+            txtStockActual.Enabled = false;
+            txtStockMinimo.Enabled = false;
+            ddlTipoProducto.Enabled = false;
+            ddlCategoria.Enabled = false;
+            ddlMarca.Enabled = false;
         }
     }
 }
