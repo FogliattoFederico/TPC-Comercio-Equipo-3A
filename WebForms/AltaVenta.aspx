@@ -15,7 +15,7 @@
             })
         }
 	 </script>
-    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -72,43 +72,64 @@
         <div class="row">
             <div class="col-4 seccionDC">
                 <h6 class="subtit">Datos del cliente</h6>
-                <div class="row mb-2 align-items-end">
-                    <div class="col">
-                        <label>DNI</label>
-                        <asp:TextBox ID="txtDNICliente" runat="server" class="form-control" placeholder="Ingrese su DNI"
-                            MaxLength="8"
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"></asp:TextBox>
-                    </div>
-                    <div class="col text-end">
-                        <!--<button class="btn btn-primary">Buscar</button>-->
-                        <asp:ImageButton ID="btnimg" CssClass="btnimg_lup" ImageUrl="~/Icon/Lupa.png" runat="server" OnClick="btnimg_Click" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <label>Nombre</label>
-                        <asp:TextBox ID="txtNombreCliente" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>
-                    <div class="col">
-                        <label>Apellido</label>
-                        <asp:TextBox ID="txtApellidoCliente" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <label>Teléfono</label>
-                        <asp:TextBox ID="txtTelefonoCliente" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>
-                    <div class="col">
-                        <label>Mail</label>
-                        <asp:TextBox ID="txtMailCliente" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>
-                </div>
-                <div>
-                    <label>Dirección</label>
-                    <asp:TextBox ID="txtDireccionCliente" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                </div>
+                <asp:UpdatePanel ID="UpdatePanelBuscarCliente" runat="server">
+                    <ContentTemplate>
+                        <div class="row mb-2 align-items-end">
+                            <div class="col">
+                                <label>DNI</label>
+                                <asp:TextBox ID="txtDNICliente" runat="server" class="form-control" placeholder="Ingrese su DNI"
+                                    MaxLength="8"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                </asp:TextBox>
+<%--                                <asp:TextBox ID="txtDNICliente" runat="server"
+                                    class="form-control"
+                                    placeholder="Ingrese su DNI"
+                                    MaxLength="8"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                    pattern="\d{8}"
+                                    title="Debe ingresar exactamente 8 dígitos">
+                                </asp:TextBox>--%>
+                            </div>
+                            <div class="col text-end">
+                                <asp:ImageButton ID="btnimg" CssClass="btnimg_lup"
+                                    ImageUrl="~/Icon/Lupa.png"
+                                    runat="server"
+                                    OnClick="btnimg_Click" />
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label>Nombre</label>
+                                <asp:TextBox ID="txtNombreCliente" runat="server"
+                                    class="form-control" ReadOnly="true"></asp:TextBox>
+                            </div>
+                            <div class="col">
+                                <label>Apellido</label>
+                                <asp:TextBox ID="txtApellidoCliente" runat="server"
+                                    class="form-control" ReadOnly="true"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label>Teléfono</label>
+                                <asp:TextBox ID="txtTelefonoCliente" runat="server"
+                                    class="form-control" ReadOnly="true"></asp:TextBox>
+                            </div>
+                            <div class="col">
+                                <label>Mail</label>
+                                <asp:TextBox ID="txtMailCliente" runat="server"
+                                    class="form-control" ReadOnly="true"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Dirección</label>
+                            <asp:TextBox ID="txtDireccionCliente" runat="server"
+                                class="form-control" ReadOnly="true"></asp:TextBox>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
+
 
             <div class="col-8">
                 <asp:UpdatePanel ID="UpdatePanelVenta" runat="server">

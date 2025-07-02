@@ -311,11 +311,31 @@ namespace WebForms
         // BOTON BUSCAR CLIENTE DNI
         protected void btnimg_Click(object sender, ImageClickEventArgs e)
         {
+            string dniIngresado = txtDNICliente.Text.Trim();
+
+            if (string.IsNullOrEmpty(dniIngresado))
+            {
+                // DNI VACIO
+                string script = "alert('Debe ingresar un DNI antes de continuar.');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaVacio", script, true);
+                return;
+            }
+
+            if (dniIngresado.Length != 8)
+            {
+                // DNI < 8 DIGITOS
+                string script = "alert('Debe ingresar un DNI de 8 dígitos.');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaLongitud", script, true);
+                return;
+            }
+
+            // DNI CON 8 DIGITOS
             ClienteNegocio negocio = new ClienteNegocio();
-            Cliente cliente = negocio.BuscarClienteDNI(txtDNICliente.Text);
+            Cliente cliente = negocio.BuscarClienteDNI(dniIngresado);
 
             if (cliente != null)
             {
+                // DNI 8 DIGITOS REGISTRADO
                 txtDNICliente.Text = cliente.Dni;
                 txtNombreCliente.Text = cliente.Nombre;
                 txtApellidoCliente.Text = cliente.Apellido;
@@ -325,28 +345,22 @@ namespace WebForms
 
                 if (Session["VentaActual"] == null)
                     Session["VentaActual"] = new Venta();
-                Venta VentaActual = (Venta)Session["VentaActual"];
 
-                VentaActual.Cliente = new Cliente();
+                Venta VentaActual = (Venta)Session["VentaActual"];
                 VentaActual.Cliente = cliente;
+
+                string script = "alert('Cliente encontrado y datos cargados.');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertaEncontrado", script, true);
             }
             else
             {
-                if (txtDNICliente.Text != "")
-                {
-                    string script = @"
-                        if (confirm('El DNI ingresado no está registrado.\n¿Desea registrar un nuevo cliente?')) {
-                            window.open('/AltaCliente.aspx', 'RegistroCliente', 'width=600,height=900');
-                        }
-                    ";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "popup", script, true);
-                }
-                else
-                {
-                    string script = "alert('Debe ingresar un DNI antes de continuar.');";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alerta", script, true);
-                }
-
+                // DNI 8 DIGITOS NO REGISTRADO
+                string script = @"
+                                if (confirm('El DNI ingresado no está registrado.\n¿Desea registrar un nuevo cliente?')) {
+                                    window.open('/AltaCliente.aspx', 'RegistroCliente', 'width=600,height=900');
+                                }
+                            ";
+                ScriptManager.RegisterStartupScript(this, GetType(), "popupRegistro", script, true);
             }
         }
 
