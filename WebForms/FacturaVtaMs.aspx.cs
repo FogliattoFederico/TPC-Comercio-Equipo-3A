@@ -9,7 +9,7 @@ using Negocio;
 
 namespace WebForms
 {
-    public partial class Factura : System.Web.UI.Page
+    public partial class FacturaVtaMs : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

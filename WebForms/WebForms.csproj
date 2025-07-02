@@ -88,6 +88,7 @@
     <Content Include="Css\Style_default.css" />
     <Content Include="Error.aspx" />
     <Content Include="Factura.aspx" />
+    <Content Include="FacturaVtaMs.aspx" />
     <Content Include="ListaCategorias.aspx" />
     <Content Include="ListaCompras.aspx" />
     <Content Include="ListaMarcas.aspx" />
@@ -181,6 +182,13 @@
     </Compile>
     <Compile Include="Factura.aspx.designer.cs">
       <DependentUpon>Factura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FacturaVtaMs.aspx.cs">
+      <DependentUpon>FacturaVtaMs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FacturaVtaMs.aspx.designer.cs">
+      <DependentUpon>FacturaVtaMs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListaCategorias.aspx.cs">
       <DependentUpon>ListaCategorias.aspx</DependentUpon>

@@ -419,9 +419,7 @@ namespace WebForms
 
         protected void DDLProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
-            PanelAlertaOK.Visible = false;
-            PanelAleta.Visible = false;
+            OcultarAlertas();
             txtCantidad.Text = "0";
 
             // SI NO SE SELECCIONO UN PRODUCTO
@@ -463,9 +461,7 @@ namespace WebForms
 
         protected void BtnPlus_Click(object sender, ImageClickEventArgs e)
         {
-            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
-            PanelAleta.Visible = false;
-            PanelAlertaOK.Visible = false;
+            OcultarAlertas();
 
             // GUARDO PRODUCTO A AGREGAR PARA LUEGO CARGARLO EN SU CORRESPONDIENTE VENTADETALLE
             ProductoNegocio negocioProd = new ProductoNegocio();
@@ -536,7 +532,11 @@ namespace WebForms
             btnMas.Enabled = false;
             btnMenos.Enabled = false;
 
+            cargarDropdowns();
             DDLProductos.SelectedIndex = 0;
+            DDLCategorias.SelectedIndex = 0;
+            DDLMarcas.SelectedIndex = 0;
+            DDLTipoProductos.SelectedIndex = 0;
 
             //// ACTUALIZO
             ActualizarGridDetalle();
@@ -560,9 +560,8 @@ namespace WebForms
 
         protected void btnFacturar_Click(object sender, EventArgs e)
         {
-            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
-            PanelAleta.Visible = false;
-            PanelAlertaOK.Visible = false;
+
+            OcultarAlertas();
 
             if (Session["VentaActual"] == null)
                 Session["VentaActual"] = new Venta();
@@ -627,17 +626,24 @@ namespace WebForms
         {
             VentaNegocio negocio = new VentaNegocio();
             int idVentaFactura = negocio.obtenerNumProxVenta() - 1;
-            Response.Redirect("Factura.aspx?ID=" + idVentaFactura, false);
+            string script = "window.open('/Factura.aspx?ID=" + idVentaFactura + "', '_blank', 'width=1000,height=900');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "imprimirFactura", script, true);
         }
 
         protected void lkbImprimir_Click(object sender, EventArgs e)
         {
             VentaNegocio negocio = new VentaNegocio();
             int idVentaFactura = negocio.obtenerNumProxVenta() - 1;
-            //string script = "window.open('/Factura.aspx?ID=" + idVentaFactura + "', '_blank');";
             string script = "window.open('/Factura.aspx?ID=" + idVentaFactura + "&imprimir=true', '_blank', 'width=1000,height=900');";
             ScriptManager.RegisterStartupScript(this, GetType(), "imprimirFactura", script, true);
 
+        }
+
+        protected void OcultarAlertas()
+        {
+            // OCULTO ALERTAS PARA QUE NO SE SUPERPONGAN
+            PanelAleta.Visible = false;
+            PanelAlertaOK.Visible = false;
         }
     }
 }
