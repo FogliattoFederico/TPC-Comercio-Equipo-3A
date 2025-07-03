@@ -543,6 +543,13 @@ namespace Negocio
 
             return StockActual;
         }
+        public bool CodExistente(string codArticulo)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> lista = negocio.ListarConSp();
+
+            return lista.Any(x => x.CodigoArticulo == codArticulo);
+        }
 
 
         /***************** FILTROS *************/

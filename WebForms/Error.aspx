@@ -17,8 +17,27 @@
 
         <asp:Label ID="lblMensaje" runat="server" CssClass="fs-5 text-muted mb-4 d-block" Text=""></asp:Label>
 
+        <%if (Session["Usuario"] == null)
+            {  %>;
+        <a href="Default.aspx" class="btn-home">
+            <i class="bi bi-house-door me-2"></i>Volver al inicio
+</a>
+        <%}
 
-        <%if (Session["Usuario"] != null && ((Dominio.Usuario)Session["Usuario"]).Admin)
+            else if (Session["Usuario"] != null && ((Dominio.Usuario)Session["Usuario"]).Admin)
+            {  %>;
+       
+        <a href="PanelAdmin.aspx" class="btn-home">
+            <i class="bi bi-house-door me-2"></i>Volver al inicio
+</a>
+        <%}
+            else
+            {  %>
+        <a href="AltaVenta.aspx" class="btn-home">
+            <i class="bi bi-house-door me-2"></i>Volver al inicio
+</a>
+        <%} %>
+        <%--        <%if (Session["Usuario"] != null && ((Dominio.Usuario)Session["Usuario"]).Admin)
             {  %>;
         <a href="PanelAdmin.aspx" class="btn-home">
             <i class="bi bi-house-door me-2"></i>Volver al inicio
@@ -29,7 +48,7 @@
         <a href="AltaVenta.aspx" class="btn-home">
             <i class="bi bi-house-door me-2"></i>Volver al inicio
         </a>
-        <%} %>
+        <%} %>--%>
     </div>
 
 </asp:Content>

@@ -102,26 +102,15 @@ namespace WebForms
 
                     /* BOTONES */
                     // Deshabilitarlos
-                    btnAgregar.Enabled = false;
-                    btnCancelar.Enabled = false;
+                    //btnAgregar.Enabled = false;
+                    //btnCancelar.Enabled = false;
 
                     // RESETEAR CAMPOS y DDLs
                     ResetCampos();
-                    //txtNombre.Text = string.Empty;
-                    //txtCodProducto.Text = string.Empty;
-                    //txtDescripcion.Text = string.Empty;
-                    //TxtPrecio.Text = string.Empty;
-                    //txtPorcentaje.Text = string.Empty;
-                    //txtImagenUrl.Text = string.Empty;
-                    //txtStockActual.Text = string.Empty;
-                    //txtStockMinimo.Text = string.Empty;
-                    //ddlTipoProducto.SelectedIndex = 0;
-                    //ddlCategoria.SelectedIndex = 0;
-                    //ddlMarca.SelectedIndex = 0;
 
                     // O Sacarlos de la vista
-                    //btnAgregar.Visible = false;
-                    //btnCancelar.Visible = false;
+                    btnAgregar.Visible = false;
+                    btnCancelar.Visible = false;
 
 
                     /* DELAY POST AGREGAR PRODUCTO Y POSTERIOR REDIRECCIONAMIENTO */
@@ -170,6 +159,7 @@ namespace WebForms
 
                     btnAgregar.Visible = false;
                     btnModificar.Visible = false;
+                    btnCancelar.Visible = false;
 
                     string script = "<script>setTimeout(function() { window.location.href = 'ListaProductos.aspx'; }, 1000);</script>";
                     ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
@@ -243,10 +233,32 @@ namespace WebForms
             }
 
             /* Valida Codigo */
+            ProductoNegocio negocio = new ProductoNegocio();
             if (string.IsNullOrWhiteSpace(codigo))
             {
                 lblMensaje.Text = "El código de producto no puede estar vacío.";
                 return false;
+            }
+            else if (btnAgregar.Visible) // Producto Nuevo
+            {
+                if (negocio.CodExistente(codigo))
+                {
+                    lblMensaje.Text = "El código de producto ya existe. Por favor ingrese otro.";
+                    return false;
+                }
+
+            }
+            else // Producto modificar
+            {
+                int id = int.Parse(Request.QueryString["Id"]);
+                Producto producto = negocio.buscarProducto(id);
+
+                if (producto.CodigoArticulo != codigo && negocio.CodExistente(codigo))
+                {
+                    lblMensaje.Text = "El código de producto ya existe. Por favor ingrese otro.";
+                    return false;
+                }
+
             }
             if (!Regex.IsMatch(codigo, @"^[a-zA-Z0-9\-]+$"))
             {
