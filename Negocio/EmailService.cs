@@ -14,7 +14,7 @@ public class EmailService : IDisposable
         _server = new SmtpClient("sandbox.smtp.mailtrap.io")
         {
             Port = 2525,
-            Credentials = new NetworkCredential("c244cd59d10b5e", "60a07ac6126213"),
+            Credentials = new NetworkCredential("b2d191b9e2be6d", "69a9a4bb692cee"),
             EnableSsl = true,
             Timeout = 30000, // 30 segundos
             DeliveryMethod = SmtpDeliveryMethod.Network
@@ -24,17 +24,17 @@ public class EmailService : IDisposable
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
     }
 
-    public void ArmarCorreo(string destinatario, string asunto, string cuerpo)
+    public void ArmarCorreo(string destinatario, string asunto, string cuerpo, bool esHtml = false)
     {
         
         _email?.Dispose();
 
         _email = new MailMessage
         {
-            From = new MailAddress("noresponder@tucurso.edu.ar"),
+            From = new MailAddress("hola.tecnohogar@gmail.com"),
             Subject = asunto,
             Body = cuerpo,
-            IsBodyHtml = true,
+            IsBodyHtml = esHtml,
             BodyEncoding = Encoding.UTF8
         };
         _email.To.Add(destinatario.Trim());
@@ -62,6 +62,11 @@ public class EmailService : IDisposable
     {
         _email?.Dispose();
         _server?.Dispose();
+    }
+
+    public void AgregarAdjunto(Attachment adjunto)
+    {
+        _email.Attachments.Add(adjunto);
     }
 }
 

@@ -6,6 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace WebForms
 {
@@ -52,7 +57,7 @@ namespace WebForms
             DDLProductos.DataTextField = "Nombre";
             DDLProductos.DataValueField = "CodigoArticulo";
             DDLProductos.DataBind();
-            DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+            DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
 
             TipoProductoNegocio negocioTipo = new TipoProductoNegocio();
             List<TipoProducto> listaTipoProductos = negocioTipo.ListarTipoProductosFiltro();
@@ -60,7 +65,7 @@ namespace WebForms
             DDLTipoProductos.DataTextField = "Nombre";
             DDLTipoProductos.DataValueField = "IdTipoProducto";
             DDLTipoProductos.DataBind();
-            DDLTipoProductos.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+            DDLTipoProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Tipo --", "0"));
 
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
             List<Categoria> listaCategorias = negocioCategoria.ListarCategoriasfiltro();
@@ -68,7 +73,7 @@ namespace WebForms
             DDLCategorias.DataTextField = "Nombre";
             DDLCategorias.DataValueField = "IdCategoria";
             DDLCategorias.DataBind();
-            DDLCategorias.Items.Insert(0, new ListItem("-- Seleccionar Categoria --", "0"));
+            DDLCategorias.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Categoria --", "0"));
 
             MarcaNegocio negocioMarca = new MarcaNegocio();
             List<Marca> listaMarcas = negocioMarca.listarMarcasFiltro();
@@ -76,7 +81,7 @@ namespace WebForms
             DDLMarcas.DataTextField = "Nombre";
             DDLMarcas.DataValueField = "IdMarca";
             DDLMarcas.DataBind();
-            DDLMarcas.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
+            DDLMarcas.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Marca --", "0"));
         }
 
         protected void DDLMarcas_SelectedIndexChanged(object sender, EventArgs e) // OK
@@ -118,7 +123,7 @@ namespace WebForms
                 DDLMarcas.DataTextField = "Nombre";
                 DDLMarcas.DataValueField = "IdMarca";
                 DDLMarcas.DataBind();
-                DDLMarcas.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
+                DDLMarcas.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Marca --", "0"));
 
                 // CARGAR DDL CATEGORIA
                 CategoriaNegocio negocioCategoria = new CategoriaNegocio();
@@ -127,7 +132,7 @@ namespace WebForms
                 DDLCategorias.DataTextField = "Nombre";
                 DDLCategorias.DataValueField = "IdCategoria";
                 DDLCategorias.DataBind();
-                DDLCategorias.Items.Insert(0, new ListItem("-- Seleccionar Categoria --", "0"));
+                DDLCategorias.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Categoria --", "0"));
 
                 // CARGAR DDL TIPOPRODUCTO
                 TipoProductoNegocio negocioTipo = new TipoProductoNegocio();
@@ -136,7 +141,7 @@ namespace WebForms
                 DDLTipoProductos.DataTextField = "Nombre";
                 DDLTipoProductos.DataValueField = "IdTipoProducto";
                 DDLTipoProductos.DataBind();
-                DDLTipoProductos.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+                DDLTipoProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Tipo --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -145,7 +150,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca != 0 && idCategoria == 0 && idTipoProducto == 0)
             {
@@ -156,7 +161,7 @@ namespace WebForms
                 DDLCategorias.DataTextField = "Nombre";
                 DDLCategorias.DataValueField = "IdCategoria";
                 DDLCategorias.DataBind();
-                DDLCategorias.Items.Insert(0, new ListItem("-- Seleccionar Categoria --", "0"));
+                DDLCategorias.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Categoria --", "0"));
 
                 // CARGAR DDL TIPOPRODUCTO
                 TipoProductoNegocio negocioTipo = new TipoProductoNegocio();
@@ -165,7 +170,7 @@ namespace WebForms
                 DDLTipoProductos.DataTextField = "Nombre";
                 DDLTipoProductos.DataValueField = "IdTipoProducto";
                 DDLTipoProductos.DataBind();
-                DDLTipoProductos.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+                DDLTipoProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Tipo --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -174,7 +179,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca == 0 && idCategoria != 0 && idTipoProducto == 0)
             {
@@ -185,7 +190,7 @@ namespace WebForms
                 DDLTipoProductos.DataTextField = "Nombre";
                 DDLTipoProductos.DataValueField = "IdTipoProducto";
                 DDLTipoProductos.DataBind();
-                DDLTipoProductos.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+                DDLTipoProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Tipo --", "0"));
 
                 // CARGAR DDL MARCAS
                 MarcaNegocio negocioMarca = new MarcaNegocio();
@@ -194,7 +199,7 @@ namespace WebForms
                 DDLMarcas.DataTextField = "Nombre";
                 DDLMarcas.DataValueField = "IdMarca";
                 DDLMarcas.DataBind();
-                DDLMarcas.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
+                DDLMarcas.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Marca --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -203,7 +208,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca == 0 && idCategoria == 0 && idTipoProducto != 0)
             {
@@ -214,7 +219,7 @@ namespace WebForms
                 DDLCategorias.DataTextField = "Nombre";
                 DDLCategorias.DataValueField = "IdCategoria";
                 DDLCategorias.DataBind();
-                DDLCategorias.Items.Insert(0, new ListItem("-- Seleccionar Categoria --", "0"));
+                DDLCategorias.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Categoria --", "0"));
 
                 // CARGAR DDL MARCAS
                 MarcaNegocio negocioMarca = new MarcaNegocio();
@@ -223,7 +228,7 @@ namespace WebForms
                 DDLMarcas.DataTextField = "Nombre";
                 DDLMarcas.DataValueField = "IdMarca";
                 DDLMarcas.DataBind();
-                DDLMarcas.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
+                DDLMarcas.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Marca --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -232,7 +237,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca != 0 && idCategoria != 0 && idTipoProducto == 0)
             {
@@ -243,7 +248,7 @@ namespace WebForms
                 DDLTipoProductos.DataTextField = "Nombre";
                 DDLTipoProductos.DataValueField = "IdTipoProducto";
                 DDLTipoProductos.DataBind();
-                DDLTipoProductos.Items.Insert(0, new ListItem("-- Seleccionar Tipo --", "0"));
+                DDLTipoProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Tipo --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -252,7 +257,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca != 0 && idCategoria == 0 && idTipoProducto != 0)
             {
@@ -263,7 +268,7 @@ namespace WebForms
                 DDLCategorias.DataTextField = "Nombre";
                 DDLCategorias.DataValueField = "IdCategoria";
                 DDLCategorias.DataBind();
-                DDLCategorias.Items.Insert(0, new ListItem("-- Seleccionar Categoria --", "0"));
+                DDLCategorias.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Categoria --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -272,7 +277,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca == 0 && idCategoria != 0 && idTipoProducto != 0)
             {
@@ -283,7 +288,7 @@ namespace WebForms
                 DDLMarcas.DataTextField = "Nombre";
                 DDLMarcas.DataValueField = "IdMarca";
                 DDLMarcas.DataBind();
-                DDLMarcas.Items.Insert(0, new ListItem("-- Seleccionar Marca --", "0"));
+                DDLMarcas.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Marca --", "0"));
 
                 // CARGAR DDL PRODUCTO
                 ProductoNegocio negocioProducto = new ProductoNegocio();
@@ -292,7 +297,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
             else if (idMarca != 0 && idCategoria != 0 && idTipoProducto != 0)
             {
@@ -302,7 +307,7 @@ namespace WebForms
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
                 DDLProductos.DataBind();
-                DDLProductos.Items.Insert(0, new ListItem("-- Seleccionar Producto --", "0"));
+                DDLProductos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccionar Producto --", "0"));
             }
 
         }
@@ -659,5 +664,121 @@ namespace WebForms
             PanelAleta.Visible = false;
             PanelAlertaOK.Visible = false;
         }
+
+        protected void lkbEnviar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                int idUltimaVenta = ventaNegocio.obtenerNumProxVenta() - 1;
+                Venta venta = ventaNegocio.BuscarVenta(idUltimaVenta);
+
+                if (venta == null)
+                {
+                    lblAlerta2.Text = "No existe la factura que intenta enviar.";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+
+                string cuerpoHTML = $@"
+            <html>
+            <head>
+                <style>
+                    body {{ font-family: Arial, sans-serif; }}
+                    .header {{ color: #3498db; font-size: 18px; }}
+                    .footer {{ margin-top: 20px; font-style: italic; color: #7f8c8d; }}
+                    .saludo {{ margin-top: 15px; }}
+                </style>
+            </head>
+            <body>
+                <div class='header'>Factura Tecno Hogar Nº {venta.IdVenta}</div>
+                <p class='saludo'>Estimado cliente,</p>
+                <p>Adjunto encontrará la factura de su compra realizada el {venta.Fecha?.ToShortDateString() ?? "fecha no disponible"}.</p>
+                <p>Gracias por elegirnos.</p>
+                <p>Atentamente,</p>
+                <p><strong>Equipo de ventas</strong></p>
+                <p><strong>Tecno Hogar</strong></p>
+                <div class='footer'>
+                    <p>Este es un correo automático, por favor no responda.</p>
+                </div>
+            </body>
+            </html>";
+
+
+                EmailService emailService = new EmailService();
+                emailService.ArmarCorreo(venta.Cliente.Email,$"Factura Tecno Hogar Nº {venta.IdVenta}",cuerpoHTML, true);
+
+                // Generar PDF
+                byte[] pdfBytes = GenerarPdfFactura(venta);
+
+                // Adjuntar PDF
+                System.Net.Mail.Attachment adj = new System.Net.Mail.Attachment(new MemoryStream(pdfBytes), $"Factura_{venta.IdVenta}.pdf", "application/pdf");
+                emailService.AgregarAdjunto(adj);
+
+                emailService.EnviarEmail();
+
+                LblAlertaOK.Text = "La factura fue enviada correctamente.";
+                PanelAlertaOK.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+
+        }
+
+        public byte[] GenerarPdfFactura(Venta venta)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
+                PdfWriter.GetInstance(doc, ms);
+                doc.Open();
+
+                // Título
+                Paragraph titulo = new Paragraph("Factura Tecno Hogar", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+                titulo.Alignment = Element.ALIGN_CENTER;
+                doc.Add(titulo);
+
+                doc.Add(new Paragraph($"Factura Nº: {venta.IdVenta}"));
+                //doc.Add(new Paragraph($"Fecha: {venta.Fecha.ToShortDateString()}"));
+                doc.Add(new Paragraph($"Fecha: {venta.Fecha?.ToShortDateString() ?? "Fecha no disponible"}"));
+                doc.Add(new Paragraph($"Cliente: {venta.Cliente.Nombre} {venta.Cliente.Apellido}"));
+                doc.Add(new Paragraph($"DNI: {venta.Cliente.Dni}"));
+                doc.Add(new Paragraph($"Dirección: {venta.Cliente.Direccion}"));
+                doc.Add(new Paragraph(" "));
+
+                // Tabla con detalle
+                PdfPTable tabla = new PdfPTable(4) { WidthPercentage = 100 };
+                tabla.SetWidths(new float[] { 40, 15, 20, 25 });
+
+                tabla.AddCell("Producto");
+                tabla.AddCell("Cantidad");
+                tabla.AddCell("Precio Unitario");
+                tabla.AddCell("Subtotal");
+
+                foreach (var detalle in venta.Detalles)
+                {
+                    tabla.AddCell(detalle.Producto.Nombre);
+                    tabla.AddCell(detalle.Cantidad.ToString());
+                    tabla.AddCell(detalle.PrecioVenta.ToString("C"));
+                    tabla.AddCell((detalle.Cantidad * detalle.PrecioVenta).ToString("C"));
+                }
+
+                doc.Add(tabla);
+
+                doc.Add(new Paragraph(" "));
+                doc.Add(new Paragraph($"Total: {venta.Total.ToString("C")}", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+
+                doc.Close();
+
+                return ms.ToArray(); // bytes del PDF
+            }
+        }
+
+
+
+
     }
 }

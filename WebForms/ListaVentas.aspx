@@ -50,7 +50,7 @@
                                 <asp:LinkButton
                                     ID="LinkButton1"
                                     runat="server"
-                                    CssClass="btn-factura"
+                                    CssClass="btnEdit_Delete"
                                     ToolTip="Factura"
                                     OnClientClick='<%# "window.open(\"Factura.aspx?ID=" + Eval("IdVenta") + "\", \"_blank\", \"width=1000,height=900\"); return false;" %>'>
 				                    <img src="/Icon/Factura2.png" style="width: 20px; height: 20px;" alt="Factura" />

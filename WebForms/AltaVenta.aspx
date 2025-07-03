@@ -276,7 +276,7 @@
                     Imprimir ultima 
                     </asp:LinkButton>
                     <!--<button class="btn btn-secondary">Enviar mail</button>-->
-                    <asp:LinkButton ID="lkbEnviar" runat="server" CssClass="btn-factura">
+                    <asp:LinkButton ID="lkbEnviar" runat="server" CssClass="btn-factura" OnClick="lkbEnviar_Click">
                     <img src="/Icon/Correo.png" style="width: 20px; height: 20px;" />
                     Enviar 
                     </asp:LinkButton>
