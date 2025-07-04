@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Css/StyleListVentas.css">
+    <link rel="stylesheet" href="Css/StyleListProveedores.css">
+    <link rel="stylesheet" href="Css/StyleListMarcas.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mb-4">
@@ -25,7 +27,7 @@
             <div class="table-responsive shadow-sm rounded">
                 <asp:GridView ID="GVVentas" runat="server" AutoGenerateColumns="False"
                     CssClass="table table-striped table-bordered table-hover text-center gridview"
-                    HeaderStyle-CssClass="bg-primary text-white text-center">
+                    HeaderStyle-CssClass="thead-dark text-white titCol">
                     <Columns>
                         <asp:BoundField DataField="IdVenta" HeaderText="IdVenta" />
                         <asp:BoundField DataField="Fecha" HeaderText="Fecha" />

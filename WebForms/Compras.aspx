@@ -15,12 +15,12 @@
             document.getElementById('<%= hfSeccionActiva.ClientID %>').value = id;
         }
 
-   </script>
-    
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:HiddenField ID="hfSeccionActiva" runat="server" />
-    
+
     <div class="sidebar">
         <ul class="nav flex-column ">
             <li>
@@ -32,12 +32,12 @@
                     <li>
                         <asp:LinkButton ID="lnkOCPendientes" runat="server" OnClick="MostrarSeccion" CommandArgument="OCPendientes">
                     OC Realizadas
-                </asp:LinkButton>
+                        </asp:LinkButton>
                     </li>
                     <li>
                         <asp:LinkButton ID="lnkNuevaOC" runat="server" OnClick="MostrarSeccion" CommandArgument="NuevaOC">
                     OC Nueva
-                </asp:LinkButton>
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </li>
@@ -55,7 +55,7 @@
                 </div>
                 <asp:LinkButton ID="lnkProveedores" CssClass="btnMenu" runat="server" OnClick="MostrarSeccion" CommandArgument="Proveedores">
             Proveedores
-        </asp:LinkButton>
+                </asp:LinkButton>
             </li>
             <li>
                 <div class="icon-wrapper">
@@ -63,7 +63,7 @@
                 </div>
                 <asp:LinkButton ID="lnkProductos" CssClass="btnMenu" runat="server" OnClick="MostrarSeccion" CommandArgument="Productos">
             Productos
-        </asp:LinkButton>
+                </asp:LinkButton>
             </li>
             <li>
                 <div class="icon-wrapper">
@@ -74,7 +74,7 @@
                 </asp:Panel>
                 <asp:LinkButton ID="lnkNotificaciones" CssClass="btnMenu" runat="server" OnClick="MostrarSeccion" CommandArgument="StockCritico">
                 Stock crítico
-			</asp:LinkButton>
+                </asp:LinkButton>
             </li>
         </ul>
     </div>
@@ -82,7 +82,7 @@
     <asp:UpdatePanel ID="upSecciones" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <a href="PanelAdmin.aspx" class="back">
-				<img class="imgback" src="/Icon/FlechaI.png"></a>
+                <img class="imgback mt-4" src="/Icon/FlechaI.png"></a>
             <div id="contenedor-secciones">
                 <!--Pantalla OC pendientes-->
                 <div id="OCPendientes" runat="server">
@@ -150,7 +150,7 @@
                             </div>
                             <div class="col-2">
                                 <label>Cantidad</label>
-                       
+
                                 <div class="qty" style="width: 100px; display: flex; align-items: center;">
                                     <asp:Button ID="btnMenos" runat="server" Text="-" OnClick="btnMenos_Click" Enabled="false"
                                         Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
@@ -188,7 +188,7 @@
                             <asp:GridView ID="gvDetalleOC" runat="server" AutoGenerateColumns="False"
                                 CssClass="table" OnRowCommand="gvDetalleOC_RowCommand">
                                 <Columns>
-                               <%-- <asp:BoundField DataField="IdProducto" HeaderText="ID" Visible="False" />
+                                    <%-- <asp:BoundField DataField="IdProducto" HeaderText="ID" Visible="False" />
                                     <asp:BoundField DataField="Nombre" HeaderText="Producto" />
                                     <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
                                     <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
@@ -311,7 +311,7 @@
                         </asp:GridView>
 
                     </div>
-                   
+
                 </div>
                 <!--Pantalla Proveedores-->
                 <div id="Proveedores" runat="server">
@@ -339,7 +339,7 @@
                             </asp:GridView>
                         </div>
                     </div>
-                  
+
                 </div>
                 <!--Pantalla Stock crítico-->
                 <div id="StockCritico" runat="server">

@@ -22,7 +22,7 @@
    	<%if (Session["Usuario"] != null && ((Dominio.Usuario)Session["Usuario"]).Admin == true)
 		{  %>	
 	    <a href="PanelAdmin.aspx" class="back">
-		<img class="imgback" src="/Icon/FlechaI.png"></a> <%}
+		<img class="imgback mt-4" src="/Icon/FlechaI.png"></a> <%}
 	else
 	{ %>
 		
