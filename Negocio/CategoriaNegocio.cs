@@ -166,7 +166,9 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1";
+                                    WHERE P.Activo = 1
+                                    ORDER BY C.Nombre";
+
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
@@ -203,7 +205,8 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca";
+                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca
+                                    ORDER BY C.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdMarca", IdMarca);
@@ -243,7 +246,8 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1 AND TP.IdTipoProducto = @IdTipoProducto";
+                                    WHERE P.Activo = 1 AND TP.IdTipoProducto = @IdTipoProducto
+                                    ORDER BY C.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdTipoProducto", IdTipoProducto);
@@ -283,7 +287,8 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca AND TP.IdTipoProducto = @IdTipoProducto";
+                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca AND TP.IdTipoProducto = @IdTipoProducto
+                                    ORDER BY C.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdMarca", IdMarca);

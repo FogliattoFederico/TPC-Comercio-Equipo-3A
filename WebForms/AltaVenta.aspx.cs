@@ -47,7 +47,7 @@ namespace WebForms
             try
             {
                 ProductoNegocio negocioProducto = new ProductoNegocio();
-                List<Producto> listaProductos = negocioProducto.ListarConSp();
+                List<Producto> listaProductos = negocioProducto.ListarProductosFiltro();
                 DDLProductos.DataSource = listaProductos;
                 DDLProductos.DataTextField = "Nombre";
                 DDLProductos.DataValueField = "CodigoArticulo";
@@ -689,7 +689,13 @@ namespace WebForms
                 txtTelefonoCliente.Text = "";
                 txtMailCliente.Text = "";
                 txtDireccionCliente.Text = "";
+
+                // DDLs A 0
                 DDLProductos.SelectedIndex = 0;
+                DDLCategorias.SelectedIndex = 0;
+                DDLMarcas.SelectedIndex = 0;
+                DDLTipoProductos.SelectedIndex = 0;
+
                 lblTotal.Text = "$ 0,00";
                 txtCantidad.Text = "0";
                 txtCantidad.Enabled = false;

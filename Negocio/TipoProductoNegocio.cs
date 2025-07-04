@@ -253,7 +253,9 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1";
+                                    WHERE P.Activo = 1
+                                    ORDER BY TP.Nombre";
+
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
 
@@ -288,15 +290,16 @@ namespace Negocio
             try
             {
                 string consulta = @"SELECT DISTINCT
-                                TP.IdTipoProducto,
-                                TP.Nombre AS NombreTipoProducto,
-                                C.IdCategoria,
-                                C.Nombre AS NombreCategoria
-                            FROM Productos P
-                            INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
-                            INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
-                            INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                            WHERE P.Activo = 1 AND M.IdMarca = @IdMarca";
+                                        TP.IdTipoProducto,
+                                        TP.Nombre AS NombreTipoProducto,
+                                        C.IdCategoria,
+                                        C.Nombre AS NombreCategoria
+                                    FROM Productos P
+                                    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                                    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca
+                                    ORDER BY TP.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdMarca", IdMarca);
@@ -341,7 +344,8 @@ namespace Negocio
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
                                     INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                                    WHERE P.Activo = 1 AND C.IdCategoria = @IdCategoria";
+                                    WHERE P.Activo = 1 AND C.IdCategoria = @IdCategoria
+                                    ORDER BY TP.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdCategoria", IdCategoria);
@@ -378,15 +382,16 @@ namespace Negocio
             try
             {
                 string consulta = @"SELECT DISTINCT
-                                TP.IdTipoProducto,
-                                TP.Nombre AS NombreTipoProducto,
-                                C.IdCategoria,
-                                C.Nombre AS NombreCategoria
-                            FROM Productos P
-                            INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
-                            INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
-                            INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
-                            WHERE P.Activo = 1 AND M.IdMarca = @IdMarca AND C.IdCategoria = @IdCategoria";
+                                        TP.IdTipoProducto,
+                                        TP.Nombre AS NombreTipoProducto,
+                                        C.IdCategoria,
+                                        C.Nombre AS NombreCategoria
+                                    FROM Productos P
+                                    INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
+                                    INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
+                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                                    WHERE P.Activo = 1 AND M.IdMarca = @IdMarca AND C.IdCategoria = @IdCategoria
+                                    ORDER BY TP.Nombre";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@IdMarca", IdMarca);
