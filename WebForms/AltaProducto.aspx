@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel ID="pnlProductos" runat="server" DefaultButton="btnAgregar">
-        <div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); font-family: 'Segoe UI', Arial, sans-serif;">
+        <div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; font-family: 'Segoe UI', Arial, sans-serif;">
             <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600;">Gestión de Productos</h2>
 
             <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Style="display: block; margin-bottom: 20px; text-align: center;"></asp:Label>

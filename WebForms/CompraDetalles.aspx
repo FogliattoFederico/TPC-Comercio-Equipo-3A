@@ -3,10 +3,10 @@
      <link rel="stylesheet" href="Css/StyleCompras.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <h1 class="text-center m-5">Detalle de Compra</h1>
+        <h1 class="display-4 text-center mt-5 mb-4">Detalle de Compra</h1>
 <asp:GridView ID="GVCompraDetalle" runat="server" AutoGenerateColumns="False"
     CssClass="table table-striped table-bordered table-hover text-center gridview"
-    HeaderStyle-CssClass="thead-dark">
+    HeaderStyle-CssClass="thead-dark text-white titCol">
     <Columns>
         <asp:BoundField DataField="Producto.CodigoArticulo" HeaderText="Codigo" />            
         <asp:BoundField DataField="Producto.Nombre" HeaderText="Nombre" />

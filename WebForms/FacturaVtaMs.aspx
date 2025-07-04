@@ -1,85 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Venta.Master" AutoEventWireup="true" CodeBehind="FacturaVtaMs.aspx.cs" Inherits="WebForms.FacturaVtaMs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="Css/StyleFactura.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        @media print {
-            .no-print, .navbar, .sidebar, header, footer {
-                display: none !important;
-            }
-        }
-
-        .invoice-box {
-            max-width: 900px;
-            margin: auto;
-            padding: 40px;
-            border: 1px solid #dee2e6;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
-            background: #fff;
-            font-family: 'Segoe UI', sans-serif;
-            color: #333;
-        }
-
-            .invoice-box h2, .invoice-box h4 {
-                margin-bottom: 10px;
-            }
-
-            .invoice-box table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-                .invoice-box table td {
-                    padding: 8px;
-                    vertical-align: top;
-                }
-
-                .invoice-box table tr.heading td {
-                    background: #007bff;
-                    color: white;
-                    font-weight: bold;
-                    text-align: center;
-                }
-
-                .invoice-box table tr.item td {
-                    border-bottom: 1px solid #ddd;
-                }
-
-            .invoice-box .total {
-                font-size: 1.3rem;
-                font-weight: bold;
-                text-align: right;
-                margin-top: 15px;
-                border-top: 2px solid #007bff;
-                padding-top: 10px;
-            }
-
-            .invoice-box .footer {
-                margin-top: 50px;
-                text-align: center;
-                font-size: 0.9rem;
-                color: #666;
-            }
-
-        .firma-linea {
-            margin-top: 60px;
-            border-top: 1px solid #333;
-            width: 200px;
-            text-align: center;
-            margin-left: auto;
-        }
-
-        .logo-img {
-            float: left;
-            width: 29px;
-            height: auto;
-            margin-right: 10px;
-        }
-    </style>
 
     <div class="invoice-box">
         <div class="row mb-4 align-items-center">

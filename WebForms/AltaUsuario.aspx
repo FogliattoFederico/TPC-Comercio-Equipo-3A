@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel ID="pnlUsuario" runat="server" DefaultButton="btnAceptar">
-        <div style="max-width: 500px; margin: 40px auto; margin-bottom: 60px; padding: 30px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-family: 'Segoe UI', Arial, sans-serif;">
+        <div style="max-width: 500px; margin: 40px auto; margin-bottom: 60px; padding: 30px; background-color: #ffffff; border-radius: 10px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; font-family: 'Segoe UI', Arial, sans-serif;">
             <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px;">
                 <i class="fas fa-user-cog" style="margin-right: 10px;"></i>Gestión de Usuario
             </h2>

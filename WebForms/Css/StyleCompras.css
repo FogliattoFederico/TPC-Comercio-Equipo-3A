@@ -112,11 +112,15 @@
     padding: 0 15px;
 }
 
-
+/*
 .titulo {
     text-align: center;
-    /*font-family: Arial, sans-serif;*/
     margin-top:20px;
+}*/
+
+/*Tabla*/
+.titCol {
+    background: #5e8470;
 }
 
 /******Historial de precios************/

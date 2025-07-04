@@ -15,22 +15,13 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control btnVolver.
+        /// Control lkbAdregar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVolver;
-
-        /// <summary>
-        /// Control btnAgregarCliente.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarCliente;
+        protected global::System.Web.UI.WebControls.LinkButton lkbAdregar;
 
         /// <summary>
         /// Control txtBuscarDni.
@@ -42,13 +33,13 @@ namespace WebForms
         protected global::System.Web.UI.WebControls.TextBox txtBuscarDni;
 
         /// <summary>
-        /// Control btnBuscar.
+        /// Control btnimgBuscar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.ImageButton btnimgBuscar;
 
         /// <summary>
         /// Control CheckEliminados.

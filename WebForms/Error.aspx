@@ -45,7 +45,7 @@
         <%}
             else
             {  %>
-        <a href="AltaVenta.aspx" class="btn-home">
+        <a href="Default.aspx" class="btn-home">
             <i class="bi bi-house-door me-2"></i>Volver al inicio
         </a>
         <%} %>--%>

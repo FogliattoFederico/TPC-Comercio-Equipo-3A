@@ -22,7 +22,7 @@ namespace WebForms
 
             if (Session["Usuario"] != null && !Seguridad.esAdmin((Usuario)Session["Usuario"]))
             {
-                btnAgregarProducto.Visible = false;
+                
 
                 // OCULTO COLUMNAS AL VENDEDOR
                 GVProductos.Columns[5].Visible = false; // PRECIO COMPRA
@@ -57,21 +57,12 @@ namespace WebForms
 
             }
         }
-        protected void btnAgregar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AltaProducto.aspx", false);
-        }
-
+      
         protected void GVProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVProductos.PageIndex = e.NewPageIndex;
             //GVProductos.DataBind();
             CargarProductos();
-        }
-
-        protected void btnAgregarProducto_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AltaProducto.aspx", false);
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -88,33 +79,6 @@ namespace WebForms
         protected void GVProductos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             e.Cancel = true;
-        }
-
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            ProductoNegocio negocio = new ProductoNegocio();
-
-            try
-            {
-                List<Producto> lista = (List<Producto>)Session["listaProducto"];
-                string filtro = txtBuscarCuit.Text.Trim().ToLower();
-
-                List<Producto> listaFiltrada = lista.Where(c =>
-                    c.Nombre.Trim().ToLower().Contains(filtro) ||
-                    c.Descripcion.Trim().ToLower().Contains(filtro)
-                ).ToList();
-
-                GVProductos.DataSource = listaFiltrada;
-                GVProductos.DataBind();
-                txtBuscarCuit.Text = "";
-
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-
-            }
         }
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
@@ -161,6 +125,38 @@ namespace WebForms
             decimal precioVenta = precioCompra * (1 + (porcentajeGanancia / 100));
 
             return precioVenta.ToString("C2");
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaProducto.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+
+            try
+            {
+                List<Producto> lista = (List<Producto>)Session["listaProducto"];
+                string filtro = txtBuscarCuit.Text.Trim().ToLower();
+
+                List<Producto> listaFiltrada = lista.Where(c =>
+                    c.Nombre.Trim().ToLower().Contains(filtro) ||
+                    c.Descripcion.Trim().ToLower().Contains(filtro)
+                ).ToList();
+
+                GVProductos.DataSource = listaFiltrada;
+                GVProductos.DataBind();
+                txtBuscarCuit.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
         }
     }
 }

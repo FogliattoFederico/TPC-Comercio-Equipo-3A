@@ -66,12 +66,7 @@ namespace WebForms
             GVProveedores.PageIndex = e.NewPageIndex;
             CargarProveedor();
         }
-
-        protected void btnAgregarProveedor_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AltaProveedor.aspx", false);
-        }
-
+       
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("PanelAdmin.aspx", false);
@@ -88,28 +83,7 @@ namespace WebForms
         {
             e.Cancel = true;
         }
-
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            ProveedorNegocio negocio = new ProveedorNegocio();
-
-            try
-            {
-                List<Proveedor> lista = (List<Proveedor>)Session["listaProveedor"];
-                List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Trim().Contains(txtBuscarCuit.Text.Trim()) || c.RazonSocial.Trim().ToLower().Contains(txtBuscarCuit.Text.Trim().ToLower())).ToList();
-
-                GVProveedores.DataSource = listaFiltrada;
-                GVProveedores.DataBind();
-                txtBuscarCuit.Text = "";
-
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-
-            }
-        }
+       
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
@@ -146,6 +120,33 @@ namespace WebForms
             }
 
             
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaProveedor.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+
+            try
+            {
+                List<Proveedor> lista = (List<Proveedor>)Session["listaProveedor"];
+                List<Proveedor> listaFiltrada = lista.Where(c => c.CUIT.Trim().Contains(txtBuscarCuit.Text.Trim()) || c.RazonSocial.Trim().ToLower().Contains(txtBuscarCuit.Text.Trim().ToLower())).ToList();
+
+                GVProveedores.DataSource = listaFiltrada;
+                GVProveedores.DataBind();
+                txtBuscarCuit.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
         }
     }
 }

@@ -20,6 +20,16 @@ namespace WebForms
                 Response.Redirect("Error.aspx", false);
                 return;
             }
+
+            string paginaActual = System.IO.Path.GetFileName(Request.Path);
+
+            if (paginaActual.Equals("PanelAdmin.aspx", StringComparison.OrdinalIgnoreCase)||
+                paginaActual.Equals("Compras.aspx", StringComparison.OrdinalIgnoreCase)||
+                paginaActual.Equals("AltaVentas.aspx", StringComparison.OrdinalIgnoreCase)||
+                paginaActual.Equals("ListaProductos.aspx", StringComparison.OrdinalIgnoreCase))
+            {
+                menuSidebar.Visible = false;
+            }
         }
 
         private bool ValidarCampos()
@@ -143,6 +153,51 @@ namespace WebForms
 
                 Session.Add("Error", ex.ToString());
             }
+        }
+
+        protected void lnkProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaProductos.aspx", false);
+        }
+
+        protected void lnkCliente_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaClientes.aspx", false);
+        }
+
+        protected void lnkVenta_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaVenta.aspx", false);
+        }
+
+        protected void lnkUsuario_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaUsuarios.aspx", false);
+        }
+
+        protected void lnkProveedores_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaProveedores.aspx", false);
+        }
+
+        protected void lnkCompras_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Compras.aspx", false);
+        }
+
+        protected void lnkMarcas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaMarcas.aspx", false);
+        }
+
+        protected void lnkCategorias_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaCategorias.aspx", false);
+        }
+
+        protected void lnkTipoProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaTipoProducto.aspx", false);
         }
     }
 }

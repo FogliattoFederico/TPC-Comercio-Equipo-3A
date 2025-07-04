@@ -99,7 +99,7 @@
 				</li>
 				<li>
 					<div class="icon-wrapper">
-						<img src="/Icon/Producto.png">
+						<img src="/Icon/Stock.png">
 					</div>
 					<asp:LinkButton ID="lnkProductos" CssClass="btnMenu" runat="server" OnClick="lnkProductos_Click">
         Lista de productos

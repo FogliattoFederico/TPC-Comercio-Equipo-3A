@@ -77,10 +77,10 @@
     <Content Include="AltaMarca.aspx" />
     <Content Include="AltaTipoProducto.aspx" />
     <Content Include="AltaUsuario.aspx" />
-    <Content Include="CambiarContraseña.aspx" />
     <Content Include="CompraDetalles.aspx" />
     <Content Include="Confirmacion.aspx" />
     <Content Include="Css\StyleError.css" />
+    <Content Include="Css\StyleFactura.css" />
     <Content Include="Css\StyleListaTipoProducto.css" />
     <Content Include="Css\StyleListClientes.css" />
     <Content Include="Css\StyleListMarcas.css" />
@@ -89,6 +89,7 @@
     <Content Include="Css\StyleListProductos.css" />
     <Content Include="Css\StyleListProveedores.css" />
     <Content Include="Css\StyleListUsuarios.css" />
+    <Content Include="Css\StylePanelAdmin.css" />
     <Content Include="Css\StylePanelVentas.css" />
     <Content Include="Css\StyleVendedores.css" />
     <Content Include="Css\Style_default.css" />
@@ -115,7 +116,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Css\style.css" />
     <Content Include="ListaProductos.aspx" />
-    <Content Include="Login.aspx" />
     <Content Include="AltaProducto.aspx" />
     <Content Include="ListaProveedores.aspx" />
     <Content Include="Recuperar.aspx" />
@@ -153,13 +153,6 @@
     </Compile>
     <Compile Include="AltaUsuario.aspx.designer.cs">
       <DependentUpon>AltaUsuario.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CambiarContraseña.aspx.cs">
-      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CambiarContraseña.aspx.designer.cs">
-      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompraDetalles.aspx.cs">
       <DependentUpon>CompraDetalles.aspx</DependentUpon>
@@ -293,13 +286,6 @@
     </Compile>
     <Compile Include="ListaProductos.aspx.designer.cs">
       <DependentUpon>ListaProductos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="AltaProducto.aspx.cs">
       <DependentUpon>AltaProducto.aspx</DependentUpon>

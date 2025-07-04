@@ -41,7 +41,7 @@ namespace WebForms
             }
 
         }
-
+        /*
         protected void btnAgregarTP_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaTipoProducto.aspx", false);
@@ -55,7 +55,7 @@ namespace WebForms
             GVTP.DataSource = filtrada;
             GVTP.DataBind();
         }
-
+        */
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
             CargarTP();
@@ -96,6 +96,20 @@ namespace WebForms
         protected void GVTP_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaTipoProducto.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            List<TipoProducto> listaTP = (List<TipoProducto>)Session["listaTipoProductos"];
+            List<TipoProducto> filtrada = listaTP.Where(TP => TP.Nombre.Trim().ToLower().Contains(txtBuscarTP.Text.Trim().ToLower())).ToList();
+
+            GVTP.DataSource = filtrada;
+            GVTP.DataBind();
         }
     }
 }

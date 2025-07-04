@@ -15,93 +15,84 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control btnProductos.
+        /// Control lkbProductos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProductos;
+        protected global::System.Web.UI.WebControls.LinkButton lkbProductos;
 
         /// <summary>
-        /// Control btnClientes.
+        /// Control lkbCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClientes;
+        protected global::System.Web.UI.WebControls.LinkButton lkbCliente;
 
         /// <summary>
-        /// Control btnVentas.
+        /// Control lkbVentas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVentas;
+        protected global::System.Web.UI.WebControls.LinkButton lkbVentas;
 
         /// <summary>
-        /// Control btnUsuarios.
+        /// Control lkbUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUsuarios;
+        protected global::System.Web.UI.WebControls.LinkButton lkbUsuario;
 
         /// <summary>
-        /// Control btnProveedores.
+        /// Control lkbProveedores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProveedores;
+        protected global::System.Web.UI.WebControls.LinkButton lkbProveedores;
 
         /// <summary>
-        /// Control btnCompras.
+        /// Control lkbCompras.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCompras;
+        protected global::System.Web.UI.WebControls.LinkButton lkbCompras;
 
         /// <summary>
-        /// Control btnListaCompras.
+        /// Control lkbMarcas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnListaCompras;
+        protected global::System.Web.UI.WebControls.LinkButton lkbMarcas;
 
         /// <summary>
-        /// Control BtnMarcas.
+        /// Control lkbCategoria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnMarcas;
+        protected global::System.Web.UI.WebControls.LinkButton lkbCategoria;
 
         /// <summary>
-        /// Control BtnCategorias.
+        /// Control lkbTipoProducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCategorias;
-
-        /// <summary>
-        /// Control BtnTProd.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnTProd;
+        protected global::System.Web.UI.WebControls.LinkButton lkbTipoProducto;
     }
 }

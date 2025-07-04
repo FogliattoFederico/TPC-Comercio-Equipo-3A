@@ -41,14 +41,14 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <!--<li>
                 <div class="icon-wrapper">
                     <img src="/Icon/GraficoB.png">
                 </div>
                 <asp:LinkButton ID="lnkHistorialPrecios" CssClass="btnMenu" runat="server" OnClick="MostrarSeccion" CommandArgument="HistorialPrecios">
             Historial de precios
         </asp:LinkButton>
-            </li>
+            </li>-->
             <li>
                 <div class="icon-wrapper">
                     <img src="/Icon/PortafolioB.png">
@@ -81,10 +81,12 @@
     <!--Pantallas-->
     <asp:UpdatePanel ID="upSecciones" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <a href="PanelAdmin.aspx" class="back">
+				<img class="imgback" src="/Icon/FlechaI.png"></a>
             <div id="contenedor-secciones">
                 <!--Pantalla OC pendientes-->
                 <div id="OCPendientes" runat="server">
-                    <h1 class="titulo">Ordenes de compra realizadas</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Ordenes de compra realizadas</h1>
                     <asp:Repeater ID="rptCompras" runat="server">
                         <HeaderTemplate>
                             <table class="table tblOC">
@@ -109,9 +111,9 @@
 
                                     <asp:ImageButton ID="btnDetalle"
                                         OnClick="btnDetalle_Click"
-                                        CssClass="lupa"
+                                        CssClass="btnEdit_Delete"
                                         CommandArgument='<%# Eval("IdCompra") %>'
-                                        ImageUrl="~/Icon/lupa2.png" runat="server" />
+                                        ImageUrl="~/Icon/lupa3.png" runat="server" alt="Buscar" />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -125,7 +127,7 @@
                 </div>
                 <!--Pantalla OC Nueva-->
                 <div id="NuevaOC" runat="server">
-                    <h1 class="titulo">Orden de compra</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Orden de compra</h1>
                     <div class="NewOC">
                         <div class="row">
                             <div class="NOC col">
@@ -148,23 +150,7 @@
                             </div>
                             <div class="col-2">
                                 <label>Cantidad</label>
-                                <%--<div class="qty" style="width: 100px;">
-                            <button type="button">
-                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
-                                        stroke="#47484b" d="M20 12L4 12"></path>
-                                </svg>
-                            </button>
-                            <label>0</label>
-                            <button type="button">
-                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
-                                        stroke="#47484b" d="M12 4V20M20 12H4"></path>
-                                </svg>
-                            </button>
-                        </div>--%>
+                       
                                 <div class="qty" style="width: 100px; display: flex; align-items: center;">
                                     <asp:Button ID="btnMenos" runat="server" Text="-" OnClick="btnMenos_Click" Enabled="false"
                                         Style="width: 30px; height: 30px; font-size: 16px; font-weight: bold; border: none; background-color: transparent; color: #47484b; cursor: pointer; padding: 0;" />
@@ -228,12 +214,11 @@
                         </div>
                         <asp:Button ID="Button1" runat="server" CssClass="btnaceptar" Text="Agregar" OnClick="btnAgregar_Click" />
 
-<%--                        <button class="btnaceptar">Agregar</button>--%>
                     </div>
                 </div>
                 <!--Pantalla Historial de precios-->
                 <div id="HistorialPrecios" runat="server">
-                    <h1 class="titulo">Historial de precios</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Historial de precios</h1>
 
                     <div class="container-fluid busqueda">
                         <label>Producto</label>
@@ -242,7 +227,7 @@
                             CssClass="btnimg_lup"
                             CausesValidation="false"
                             UseSubmitBehavior="true"
-                            OnClick="btnimg_Click" ImageUrl="~/Icon/Lupa.png" runat="server" />
+                            OnClick="btnimg_Click" ImageUrl="~/Icon/Lupa2.png" runat="server" />
                     </div>
 
                     <asp:Panel ID="pnlAlerta" runat="server" CssClass="alert alert-warning mt-3" Visible="false">
@@ -285,12 +270,12 @@
 
                 <!--Pantalla Productos-->
                 <div id="Productos" runat="server">
-                    <h1 class="titulo">Productos</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Productos</h1>
 
                     <div class="tblProd fixed-header-gridview shadow-sm rounded">
                         <asp:GridView ID="GridProductos" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10"
                             CssClass="table table-striped table-bordered table-hover text-center gridview"
-                            HeaderStyle-CssClass="thead-dark"
+                            HeaderStyle-CssClass="thead-dark text-white titCol"
                             RowStyle-CssClass="align-middle"
                             AlternatingRowStyle-CssClass="align-middle"
                             GridLines="None" OnPageIndexChanging="GridProductos_PageIndexChanging"
@@ -326,29 +311,16 @@
                         </asp:GridView>
 
                     </div>
-                    <div class="row" style="margin-left: 150px">
-                        <div class="col">
-                            <!--<button class="btnABM">Agregar</button>-->
-                            <asp:Button ID="BtnAgregar" CssClass="btnABM" runat="server" Text="Agregar" />
-                        </div>
-                        <div class="col">
-                            <!--<button class="btnABM">Modificar</button>-->
-                            <asp:Button ID="BtnModificar" CssClass="btnABM" runat="server" ClientIDMode="Static" Enabled="false" Text="Modificar" />
-                        </div>
-                        <div class="col">
-                            <!--<button class="btnABM">Eliminar</button>-->
-                            <asp:Button ID="BtnEliminar" CssClass="btnABM" runat="server" ClientIDMode="Static" Enabled="false" Text="Eliminar" />
-                        </div>
-                    </div>
+                   
                 </div>
                 <!--Pantalla Proveedores-->
                 <div id="Proveedores" runat="server">
-                    <h1 class="titulo">Proveedores</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Proveedores</h1>
                     <div class="tblProd">
                         <div class="table-responsive shadow-sm rounded">
                             <asp:GridView ID="GridProveedores" runat="server" AutoGenerateColumns="False" AllowPaging="true"
                                 CssClass="table table-striped table-bordered table-hover text-center gridview"
-                                HeaderStyle-CssClass="thead-dark"
+                                HeaderStyle-CssClass="thead-dark text-white titCol"
                                 GridLines="None" OnPageIndexChanging="GridProveedores_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="✔" ItemStyle-HorizontalAlign="Center">
@@ -367,21 +339,11 @@
                             </asp:GridView>
                         </div>
                     </div>
-                    <div class="row" style="margin-left: 150px">
-                        <div class="col">
-                            <button class="btnABM">Agregar</button>
-                        </div>
-                        <div class="col">
-                            <button class="btnABM">Modificar</button>
-                        </div>
-                        <div class="col">
-                            <button class="btnABM">Eliminar</button>
-                        </div>
-                    </div>
+                  
                 </div>
                 <!--Pantalla Stock crítico-->
                 <div id="StockCritico" runat="server">
-                    <h1 class="titulo">Productos con stock crítico</h1>
+                    <h1 class="display-4 text-center mt-5 mb-4">Productos con stock crítico</h1>
                     <asp:Panel ID="pnlSinStockCritico" runat="server" CssClass="alert alert-info mt-5" Visible="false">
                         No hay productos con stock crítico en este momento.
 		
@@ -390,7 +352,7 @@
                         <div class="table-responsive shadow-sm rounded">
                             <asp:GridView ID="GVStockCritico" runat="server" AutoGenerateColumns="False" AllowPaging="true"
                                 CssClass="table table-striped table-bordered table-hover text-center gridview"
-                                HeaderStyle-CssClass="thead-dark"
+                                HeaderStyle-CssClass="thead-dark text-white titCol"
                                 GridLines="None" OnPageIndexChanging="GVStockCritico_PageIndexChanging">
                                 <Columns>
                                     <asp:BoundField DataField="CodigoArticulo" HeaderText="Código" />

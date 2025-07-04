@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+<div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #f9f9f9; border-radius: 10px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
         <h2 style="text-align: center; margin-bottom: 30px;">Gestión de Marca, Categoría y Tipo</h2>
 
         <%-- Sección: Agregar Marca --%>

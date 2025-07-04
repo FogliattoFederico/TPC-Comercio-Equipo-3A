@@ -56,12 +56,12 @@ namespace WebForms
             }
 
         }
-
+        /*
         protected void btnAgregarMarca_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaMarca.aspx", false);
         }
-
+        
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Marca> lista = (List<Marca>)Session["listaMarca"];
@@ -70,7 +70,7 @@ namespace WebForms
             GVMarcas.DataSource = filtrada;
             GVMarcas.DataBind();
         }
-
+        */
         protected void GVMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVMarcas.PageIndex = e.NewPageIndex;
@@ -122,6 +122,20 @@ namespace WebForms
         protected void GVMarcas_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaMarca.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            List<Marca> lista = (List<Marca>)Session["listaMarca"];
+            List<Marca> filtrada = lista.Where(M => M.Nombre.Trim().ToLower().Contains(txtBuscarMarca.Text.Trim().ToLower())).ToList();
+
+            GVMarcas.DataSource = filtrada;
+            GVMarcas.DataBind();
         }
     }
 }

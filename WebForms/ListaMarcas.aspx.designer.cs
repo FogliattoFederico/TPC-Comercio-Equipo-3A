@@ -15,13 +15,13 @@ namespace WebForms
     {
 
         /// <summary>
-        /// Control btnAgregarMarca.
+        /// Control lkbAdregar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarMarca;
+        protected global::System.Web.UI.WebControls.LinkButton lkbAdregar;
 
         /// <summary>
         /// Control txtBuscarMarca.
@@ -33,13 +33,13 @@ namespace WebForms
         protected global::System.Web.UI.WebControls.TextBox txtBuscarMarca;
 
         /// <summary>
-        /// Control btnBuscar.
+        /// Control btnimg.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.ImageButton btnimg;
 
         /// <summary>
         /// Control CheckEliminados.

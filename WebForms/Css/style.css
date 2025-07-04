@@ -194,3 +194,126 @@ input[type="number"] {
         opacity: 1;
         visibility: visible;
     }
+
+
+.tituloPrincipal {
+    color: #dfdfdf;
+    font-size: 35px;
+    display: inline-block;
+    text-align: start;
+}
+
+/*Menu vertical*/
+.nav {
+    list-style: none;
+    margin-left: 0px;
+    margin-top: 85px;
+    padding: 0;
+    width: 100%;
+    gap: 10px;
+    background-color: #707579 /*#2c3e50*/;
+    font-family: Arial, sans-serif;
+    height: 153vh;
+}
+
+    .nav > li {
+        position: relative;
+    }
+
+    .nav li {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+        .nav li img {
+            width: 30px;
+            height: auto;
+        }
+
+    .nav > li > a,
+    .nav > li > span {
+        display: block;
+        color: white;
+        padding: 15px 20px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav > li:hover {
+        background-color: #34495e;
+        color: #ffffff;
+    }
+
+    .nav li ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background-color: #34495e;
+        min-width: 180px;
+        display: none;
+        z-index: 1000;
+    }
+
+    .nav li:hover > ul {
+        display: inline-block;
+        left: 250px;
+        overflow: visible;
+    }
+
+
+    .nav li ul li a {
+        color: white;
+        padding: 12px 15px;
+        display: block;
+        text-decoration: none;
+    }
+
+        .nav li ul li a:hover {
+            background-color: #3e5871;
+        }
+
+.btnMenu {
+    border-left: 2px solid white;
+    margin-left: 20px;
+}
+
+.sidebar {
+    width: 45px;
+    transition: width 0.3s ease;
+    position: absolute;
+    top: 85px;
+    left: 0;
+    height: 92vh;
+    background-color: #707579 /*#2c3e50*/;
+    z-index: 100;
+}
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
+    .sidebar .btnMenu {
+        display: none;
+    }
+
+    .sidebar:hover .btnMenu {
+        display: inline;
+    }
+
+.icon-wrapper {
+    width: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav li {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 15px;
+}

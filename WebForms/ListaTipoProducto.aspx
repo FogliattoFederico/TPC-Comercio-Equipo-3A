@@ -6,11 +6,15 @@
 		<div class="row mb-4">
 	<div class="col-12">
 		<h1 class="display-4 text-center mt-5 mb-4">Listado de Tipo de Productos</h1>
-		<div class="d-flex justify-content-between mb-3">
-			<a href="PanelAdmin.aspx" class="back">
-				<img class="imgback" src="/Icon/FlechaI.png"></a>
-			<asp:Button runat="server" Text="Agregar Tipo" ID="btnAgregarTP" OnClick="btnAgregarTP_Click"
-				CssClass="btn btn-primary btn-lg shadow-sm" />
+		<div class="d-flex justify-content-end">
+			<!--<a href="PanelAdmin.aspx" class="back">
+				<img class="imgback" src="/Icon/FlechaI.png"></a>-->
+			<%--<asp:Button runat="server" Text="Agregar Tipo" ID="btnAgregarTP" OnClick="btnAgregarTP_Click"
+				CssClass="btn btn-primary btn-lg shadow-sm" />--%>
+							<asp:LinkButton ID="lkbAdregar" runat="server" CssClass="btn-agregar" OnClick="lkbAdregar_Click">
+<img src="/Icon/add.png" style="width: 20px; height: 20px;" />
+Agregar categoría 
+				</asp:LinkButton>
 		</div>
 	</div>
 </div>
@@ -24,8 +28,11 @@
 						placeholder="Ingrese un tipo de producto "
 						MaxLength="13"></asp:TextBox>
 					<div class="input-group-append">
-						<asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
-							CssClass="btn btn-primary btn-lg" />
+						<%--<asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" Text="Buscar"
+							CssClass="btn btn-primary btn-lg" />--%>
+						<asp:ImageButton ID="btnimg" CssClass="btnimg_lup" 
+ImageUrl="~/Icon/Lupa2.png"
+runat="server" OnClick="btnimg_Click"/>
 					</div>
 				</div>
 			</div>
@@ -47,7 +54,7 @@
 		<div class="table-responsive shadow-sm rounded">
 			<asp:GridView ID="GVTP" runat="server" AutoGenerateColumns="False"
 				CssClass="table table-striped table-bordered table-hover text-center gridview"
-				HeaderStyle-CssClass="thead-dark bg-primary text-white"
+				HeaderStyle-CssClass="thead-dark text-white titCol"
 				RowStyle-CssClass="align-middle"
 				AlternatingRowStyle-CssClass="table-light"
 				EmptyDataText="No se encontró el tipo de producto que buscaba"

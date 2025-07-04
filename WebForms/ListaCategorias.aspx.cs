@@ -55,11 +55,11 @@ namespace WebForms
             }
 
         }
-
+        /*
         protected void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaCategoria.aspx", false);
-        }
+        }*/
 
         protected void GVCategorias_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -109,18 +109,32 @@ namespace WebForms
             e.Cancel = true;
         }
 
-        protected void btnBuscar_Click(object sender, EventArgs e)
+       /* protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Categoria> lista = (List<Categoria>)Session["listaCategoria"];
             List<Categoria> filtrada = lista.Where(C => C.Nombre.Trim().ToLower().Contains(txtBuscarCategoria.Text.Trim().ToLower())).ToList();
 
             GVCategorias.DataSource = filtrada;
             GVCategorias.DataBind();
-        }
+        }*/
 
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
             CargarCategorias();
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaCategoria.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            List<Categoria> lista = (List<Categoria>)Session["listaCategoria"];
+            List<Categoria> filtrada = lista.Where(C => C.Nombre.Trim().ToLower().Contains(txtBuscarCategoria.Text.Trim().ToLower())).ToList();
+
+            GVCategorias.DataSource = filtrada;
+            GVCategorias.DataBind();
         }
     }
 }

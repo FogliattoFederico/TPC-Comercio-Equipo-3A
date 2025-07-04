@@ -57,12 +57,7 @@ namespace WebForms
             }
 
         }
-
-        protected void btnAgregarUsuario_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AltaUsuario.aspx", false);
-        }
-
+        
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("PanelAdmin.aspx", false);
@@ -81,27 +76,7 @@ namespace WebForms
 
 
         }
-
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                UsuarioNegocio negocio = new UsuarioNegocio();
-
-                List<Usuario> lista = (List<Usuario>)Session["listaUsuario"];
-                List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Apellido.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Nombre.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower())).ToList();
-                GVUsuarios.DataSource = filtrada;
-                GVUsuarios.DataBind();
-                txtBuscarUsuario.Text = "";
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-
-            }
-        }
-
+        
         protected void GVUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVUsuarios.PageIndex = e.NewPageIndex;
@@ -143,6 +118,31 @@ namespace WebForms
 
             }
 
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaUsuario.aspx", false);
+        }
+
+        protected void btnimg_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                List<Usuario> lista = (List<Usuario>)Session["listaUsuario"];
+                List<Usuario> filtrada = lista.Where(c => c.NombreUsuario.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Apellido.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower()) || c.Nombre.Trim().ToLower().Contains(txtBuscarUsuario.Text.Trim().ToLower())).ToList();
+                GVUsuarios.DataSource = filtrada;
+                GVUsuarios.DataBind();
+                txtBuscarUsuario.Text = "";
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+
+            }
         }
     }
 }

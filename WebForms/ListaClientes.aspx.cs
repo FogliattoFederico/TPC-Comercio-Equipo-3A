@@ -50,12 +50,12 @@ namespace WebForms
             }
 
         }
-
+        /*
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaCliente.aspx", false);
         }
-
+        */
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             /*Logica para redirigir al panel que corresponda egun su perfil*/
@@ -79,7 +79,7 @@ namespace WebForms
         {
             e.Cancel = true;
         }
-
+        /*
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Cliente> lista = (List<Cliente>)Session["listaCliente"];
@@ -90,7 +90,7 @@ namespace WebForms
 
             txtBuscarDni.Text = "";
         }
-
+        */
         protected void CheckEliminados_CheckedChanged(object sender, EventArgs e)
         {
             CargarClientes();
@@ -127,6 +127,22 @@ namespace WebForms
             }
 
 
+        }
+
+        protected void btnimgBuscar_Click(object sender, ImageClickEventArgs e)
+        {
+            List<Cliente> lista = (List<Cliente>)Session["listaCliente"];
+            List<Cliente> filtrada = lista.Where(c => c.Dni.Trim().Contains(txtBuscarDni.Text.Trim())).ToList();
+
+            dgvClientes.DataSource = filtrada;
+            dgvClientes.DataBind();
+
+            txtBuscarDni.Text = "";
+        }
+
+        protected void lkbAdregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaCliente.aspx", false);
         }
     }
 }
