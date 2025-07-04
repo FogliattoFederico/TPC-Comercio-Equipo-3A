@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Venta.Master" AutoEventWireup="true" CodeBehind="AltaProducto.aspx.cs" Inherits="WebForms.Productos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="Css/StyleListProductos.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Panel ID="pnlProductos" runat="server" DefaultButton="btnAgregar">
-        <div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; font-family: 'Segoe UI', Arial, sans-serif;">
+    <div  class="centered-container"> 
+    <asp:Panel ID="pnlProductos" runat="server" DefaultButton="btnAgregar" CssClass="form-container">
+       
             <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600;">Gestión de Productos</h2>
 
             <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Style="display: block; margin-bottom: 20px; text-align: center;"></asp:Label>
@@ -87,6 +89,7 @@
                     Style="flex: 1; padding: 12px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: background-color 0.3s;"
                     onmouseover="this.style.backgroundColor='#c0392b'" onmouseout="this.style.backgroundColor='#e74c3c'" />
             </div>
-        </div>
+        
     </asp:Panel>
+        </div>
 </asp:Content>

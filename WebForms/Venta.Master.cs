@@ -12,6 +12,7 @@ namespace WebForms
 {
     public partial class vendedores : System.Web.UI.MasterPage
     {
+        public string name;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
@@ -20,7 +21,9 @@ namespace WebForms
                 Response.Redirect("Error.aspx", false);
                 return;
             }
-          
+            Usuario usuario = (Usuario)Session["Usuario"];
+
+            name = $"{usuario.Nombre} {usuario.Apellido}";
         }
         protected void lnkVenta_Click(object sender, EventArgs e)
         {

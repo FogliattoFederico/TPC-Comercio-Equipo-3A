@@ -1,13 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Venta.Master" AutoEventWireup="true" CodeBehind="AltaCliente.aspx.cs" Inherits="WebForms.AltaCliente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="Css/StyleListClientes.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
-            <asp:Panel ID="pnlAltaCliente" runat="server" DefaultButton="btnAceptar">
-                <div style="height: auto; max-width: 500px; margin: 0 auto; margin-bottom: 60px; margin-top: 60px; padding: 40px; background: linear-gradient(145deg, #ffffff, #f5f7fa); border-radius: 12px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; font-family: 'Segoe UI', Arial, sans-serif;">
+            <div  class="centered-container"> 
+            <asp:Panel ID="pnlAltaCliente" runat="server" DefaultButton="btnAceptar" CssClass="form-container">
+                
                     <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600; font-size: 28px;">Registro de Cliente</h2>
 
                     <asp:Label ID="lblMensaje" runat="server" ForeColor="#e74c3c" Style="display: block; margin-bottom: 20px; text-align: center;"></asp:Label>
@@ -81,8 +83,9 @@
                     </div>--%>
                     <asp:Label ID="lblAviso" runat="server" Text=""
                         Style="color: red; font-size: 17px; font-weight: 500; margin-top: 10px; display: inline-block;" />
-                </div>
+                
             </asp:Panel>
+                </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

@@ -12,6 +12,7 @@ namespace WebForms
 {
     public partial class Administradores : System.Web.UI.MasterPage
     {
+        public string name;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
@@ -19,7 +20,12 @@ namespace WebForms
                 Session.Add("Error", "Debes estar logueado");
                 Response.Redirect("Error.aspx", false);
                 return;
+
+
             }
+            Usuario usuario = (Usuario)Session["Usuario"];
+
+            name = $"{usuario.Nombre} {usuario.Apellido}";
 
             string paginaActual = System.IO.Path.GetFileName(Request.Path);
 

@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Administradores.Master" AutoEventWireup="true" CodeBehind="AltaCategoria.aspx.cs" Inherits="WebForms.AltaCategoria" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="Css/StyleListCategorias.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	 <asp:Panel ID="pnlCategorias" runat="server" DefaultButton="btnAceptar">
-     <div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; font-family: 'Segoe UI', Arial, sans-serif;">
+	<div  class="centered-container"> 
+    <asp:Panel ID="pnlCategorias" runat="server" DefaultButton="btnAceptar" CssClass="form-container">
+     
          <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50; font-weight: 600;">Alta de categorias</h2>
 
 
@@ -24,6 +26,7 @@
                  CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
          </div>
          <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Style="display: block; margin-top: 20px; text-align: center;"></asp:Label>
-     </div>
+ 
  </asp:Panel>
+        </div>
 </asp:Content>

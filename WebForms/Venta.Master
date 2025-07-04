@@ -28,7 +28,7 @@
 				<div class="dropdown">
 					<button class="btn-logout" type="button" id="dropdownMenuButtonSalir" data-bs-toggle="dropdown" aria-expanded="false">
 						<img src="/Icon/Usuario.png" style="width: 20px; height: 20px;" />
-						Usuario
+						<%:name %>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonSalir">
 						<li>
