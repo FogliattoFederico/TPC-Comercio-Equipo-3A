@@ -1,7 +1,3 @@
---USE master
---ALTER DATABASE Comercio_DB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
---DROP DATABASE Comercio_DB;
-
 USE Comercio_DB
 
 GO
@@ -119,6 +115,7 @@ INSERT INTO Usuario (NombreUsuario, Nombre, Apellido, Email, Contrasena, FechaAl
 ('Ale', 'Alejandro', 'Olguera', 'ale@gmail.com', 'admin', '2025-05-30', 1),
 ('Fede', 'Federico', 'Fogliatto', 'fede@gmail.com', 'vendedor', '2025-05-29', 0);
 
+----------------------- INSERTS 54 PRODUCTOS -----------------------
 GO
 INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, PorcentajeGanancia, StockActual, StockMinimo, ImagenUrl, IdMarca, IdTipoProducto) VALUES
 ('SAMS-MWO23L', 'Microondas ME731K', 'Capacidad 23L, 800W, 6 niveles de potencia', 95000.00, 35.00, 10, 3, 'https://http2.mlstatic.com/D_NQ_NP_832347-MLA84549796072_052025-O.webp', 1, 1), -- Microondas
@@ -144,6 +141,45 @@ INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, Porcen
 ('ASUS-MON27VG', 'Monitor ASUS TUF 27" 165Hz', 'Resolución FHD, 1ms, HDMI/DP, G-Sync Compatible', 140000, 25.00, 4, 1, 'https://www.asus.com/media/global/products/vu6dtkhyjqxf93km/P_setting_xxx_0_90_end_500.png', 10, 12), -- Monitores
 ('WHIRL-MICGRILL20L', 'Microondas Whirlpool Grill 20L', '700W + grill, 6 niveles de potencia, blanco', 95000, 30.00, 5, 2, 'https://whirlpoolarg.vtexassets.com/arquivos/ids/165738/frente_cerrado.jpg', 8, 1), -- Microondas
 ('SAMS-TV32T4300', 'Smart TV Samsung 32” T4300', 'HD, HDR, Tizen OS, HDMI/USB, Wi-Fi', 165000, 32.00, 6, 2, 'https://d2pr1pn9ywx3vo.cloudfront.net/spree/products/20500/large/sam32t4300_primera_con_logo.jpg', 1, 39); -- Smart TV 4K
+
+GO
+INSERT INTO Productos (CodigoArticulo, Nombre, Descripcion, PrecioCompra, PorcentajeGanancia, StockActual, StockMinimo, ImagenUrl, IdMarca, IdTipoProducto) VALUES
+('ELECT-MIC23L', 'Microondas Electrolux MEF23', '23L, 800W, 6 niveles de potencia, blanco', 88000, 32.00, 8, 2, 'https://http2.mlstatic.com/D_NQ_NP_896968-MLA52389830543_112022-O.webp', 9, 1),
+('WHIRL-HEL340', 'Heladera Whirlpool WRM34', '340L, No Frost, freezer superior, blanca', 390000, 28.00, 5, 1, 'https://http2.mlstatic.com/D_609066-MLU77451603578_072024-C.jpg', 8, 2),
+('SONY-MDRZX110', 'Auriculares Sony MDR-ZX110', 'Diadema, cable 1.2m, con micrófono', 18000, 35.00, 20, 5, 'https://http2.mlstatic.com/D_Q_NP_601841-MLU78228664220_082024-O.webp', 3, 6),
+('LG-HT805', 'Home Theater LG HT805', '5.1 canales, Bluetooth, HDMI ARC', 145000, 30.00, 4, 1, 'https://www.lg.com/ae/images/home-theater-systems/ht805st/gallery/medium01.jpg', 2, 7),
+('HP-X24C', 'Monitor Curvo HP X24c', '23.6", FHD, 144Hz, FreeSync', 130000, 25.00, 6, 2, 'https://thumb.pccomponentes.com/w-530-530/articles/32/324659/3296-hp-x24c-236-led-fullhd-144hz-freesync-curvo-mejor-precio.jpg', 6, 12),
+('ASUS-ROGCHAIR', 'Silla Gamer ASUS ROG Chariot', 'Reposabrazos 4D, respaldo reclinable, color negro', 220000, 30.00, 3, 1, 'https://core.gamerfactory.com.ar/static/images/d3595970-a428-11ef-a1b9-3bf8c9f3636f.webp', 10, 19),
+('PHIL-CAFHD7432', 'Cafetera Philips HD7432', 'Filtro permanente, capacidad 1.2L, 1000W', 35000, 28.00, 12, 3, 'https://gw.alicdn.com/imgextra/O1CN010ohM9G1w82u0KsL01_!!6000000006262-0-yinhe.jpg_540x540.jpg', 4, 23),
+('SAMS-GALW5', 'Galaxy Watch5 44mm', 'AMOLED, GPS, resistencia 5ATM', 165000, 30.00, 8, 2, 'https://multipoint.com.ar/Image/0/750_750-SM-R910NZBAARO-2.jpg', 1, 34),
+('LG-AAC18INV', 'Aire Acondicionado LG Dual Inverter 4500W', 'Frío/Calor, eficiencia A++, WiFi', 480000, 25.00, 4, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgFKqT10a8leFFV8HnRBnlBlOMWvao43B2o0eRs7WDTGLikwe3-DAozoQnBFZELYcM-ok&usqp=CAU', 2, 47),
+('PHIL-AFET3000', 'Afeitadora Philips Series 3000', 'Cuchillas PowerCut, batería 60 min', 55000, 28.00, 10, 3, 'https://http2.mlstatic.com/D_659533-MLA75704626288_042024-C.jpg', 4, 54),
+('LG-HEL420', 'Heladera LG GN-B420', '394L, No Frost, freezer superior, color silver', 450000, 28.00, 4, 1, 'https://www.lg.com/ar/images/heladeras/md06051016/gallery/D01.jpg', 2, 2),
+('SAMS-LAV9K', 'Lavarropas Samsung WW90J5455FW', '9kg, carga frontal, 1400 rpm, Inverter', 380000, 30.00, 6, 2, 'https://http2.mlstatic.com/D_NQ_NP_624791-MLU70065154747_062023-O.webp', 1, 3),
+('WHIRL-MIC25L', 'Microondas Whirlpool Magicook 25L', '25L, 900W, grill, display digital', 112000, 32.00, 6, 2, 'https://www.megatone.net/Images/Articulos/zoom2x/32/COC2520PHI.jpg', 8, 1),
+('ELECT-PLANCHA3500', 'Plancha a Vapor Electrolux Easyline', 'Potencia 2200W, vapor continuo, suela cerámica', 32000, 30.00, 9, 2, 'https://http2.mlstatic.com/D_NQ_NP_640872-MLB41286286198_032020-O.webp', 9, 5),
+('PHIL-CALEF3000', 'Calefactor Philips HeatFlow', '1500W, silencioso, doble potencia', 58000, 30.00, 8, 2, 'https://images.philips.com/is/image/philipsconsumer/vrs_42611a905931f5cb25f971a049d449358d6e5d05?$pnglarge$&wid=1250', 4, 4),
+('SAMS-SOUNDBAR-T420', 'Barra de Sonido Samsung HW-T420', 'Potencia 150W, Bluetooth, Subwoofer inalámbrico', 110000, 30.00, 5, 2, 'https://www.todo-vision.com.ar/Image/0/500_500-descarga%20(3).jpeg', 1, 8),
+('LEN-PCM90', 'Lenovo IdeaCentre 3', 'Ryzen 5, 8GB RAM, 1TB HDD, Windows 11', 280000, 28.00, 4, 1, 'https://http2.mlstatic.com/D_NQ_NP_699949-MLA50696477595_072022-O.webp', 5, 11),
+('HP-DESK3775', 'Impresora HP DeskJet 3775', 'Multifunción WiFi, impresión móvil, inyección térmica', 75000, 30.00, 6, 2, 'https://ar-media.hptiendaenlinea.com/wysiwyg/landings/deskjet-3775/hp-deskjet-3700-innovaciones.jpg', 6, 13),
+('SEG-EXT1TB', 'Seagate Expansion 1TB', 'USB 3.0, formato portátil, color negro', 60000, 28.00, 10, 3, 'https://www.cordobadigital.net/wp-content/uploads/2020/07/disco-duro-1tb-externo-seagate-expansion-25-usb-30-compatible-pc-mac-pn3eeap1-570.jpg', 10, 14),
+('ASUS-GAMHEADSET', 'Auriculares Gamer ASUS TUF H3', 'Sonido envolvente, micrófono retráctil, compatibles PC/PS4', 42000, 30.00, 8, 2, 'https://http2.mlstatic.com/D_NQ_NP_935638-MLU54958609885_042023-O.webp', 10, 20),
+('LOGI-GAMKEYG213', 'Teclado Logitech G213 Prodigy', 'RGB, resistencia salpicaduras, teclas multimedia', 38000, 30.00, 9, 3, 'https://http2.mlstatic.com/D_NQ_NP_801830-MLA81204444560_122024-O.webp', 4, 21),
+('PHIL-AIRFRYERHD9200', 'Freidora de aire Philips HD9200', 'Capacidad 4.1L, tecnología Rapid Air', 105000, 28.00, 6, 2, 'https://tccommercear.vtexassets.com/arquivos/ids/158014-800-auto?v=638749891634800000&width=800&height=auto&aspect=true', 4, 29),
+('ELECT-HOR60L', 'Horno Eléctrico Electrolux 60L', 'Temporizador, convección, grill superior', 145000, 28.00, 3, 1, 'https://http2.mlstatic.com/D_NQ_NP_951476-MLA49632731441_042022-O.webp', 9, 30),
+('AMAZ-ECHODOT5', 'Amazon Echo Dot 5ta Gen', 'Alexa, WiFi, Bluetooth, control por voz', 68000, 28.00, 10, 3, 'https://http2.mlstatic.com/D_NQ_NP_746297-MLA79401219670_092024-O.webp', 4, 53),
+('LG-SOUNDBAR-SN4', 'Barra de Sonido LG SN4', '300W, subwoofer inalámbrico, Bluetooth', 120000, 28.00, 5, 2, 'https://dcdn-us.mitiendanube.com/stores/004/616/743/products/barra-de-sonido-sn4-lg-3webp-b1c755b78db3aa559217316914006313-1024-1024.jpg', 2, 8),
+('SONY-INZONEH3', 'Auriculares Sony INZONE H3', 'Sonido envolvente 360, micrófono, PC/PS5', 95000, 30.00, 6, 2, 'https://http2.mlstatic.com/D_NQ_NP_998584-MLA84838335465_052025-O.webp', 3, 20),
+('ASUS-STRIXFLARE', 'Teclado ASUS ROG Strix Flare', 'Switches mecánicos Cherry MX, RGB', 135000, 28.00, 4, 1, 'https://http2.mlstatic.com/D_NQ_NP_618951-MLA79639062838_102024-O.webp', 10, 21),
+('ASUS-ROGGLADIUS', 'Mouse Gamer ASUS ROG Gladius III', '19000 DPI, RGB, cable desmontable', 88000, 30.00, 8, 2, 'https://http2.mlstatic.com/D_NQ_NP_837594-MLU54982228569_052023-O.webp', 10, 22),
+('PHIL-FOODPRO700W', 'Procesadora Philips HR7630', '700W, 2 velocidades, 1.5L', 75000, 28.00, 5, 2, 'https://http2.mlstatic.com/D_NQ_NP_646905-MLA25084337461_102016-O.webp', 4, 27),
+('PHIL-BAT700W', 'Batidora Philips Viva HR3745', '700W, 5 velocidades, bowl giratorio', 56000, 28.00, 6, 2, 'https://images.tiendavolar.com.uy/medium/P501738-8.jpg?20221122171552,Batidora-PHILIPS-HR3745-en-Itau', 4, 28),
+('PHIL-JUICER500W', 'Extractor de jugo Philips HR1855', '700W, tecnología QuickClean', 89000, 28.00, 4, 1, 'https://jumboargentina.vtexassets.com/arquivos/ids/585145/Juguera-Philips-Hr1855-00-1-4398.jpg?v=637251960300330000', 4, 32),
+('XIA-TVBOXS', 'Xiaomi Mi Box S', 'Android TV, 4K HDR, Chromecast integrado', 80000, 28.00, 10, 3, 'https://http2.mlstatic.com/D_807700-MLA84320554212_052025-C.jpg', 7, 41),
+('XIA-CAM360', 'Xiaomi Mi 360 Camera 2K', 'Visión 360°, detección de movimiento, WiFi', 49000, 30.00, 7, 2, 'https://acdn-us.mitiendanube.com/stores/001/844/364/products/mi-360-31-723e565f2af83357ef16875294517429-1024-1024.png', 7, 52),
+('XIA-PLUGSMART', 'Xiaomi Smart Plug', 'Control remoto, temporizador, compatible Alexa', 25000, 28.00, 12, 3, 'https://http2.mlstatic.com/D_NQ_NP_618175-MLA50745040104_072022-O.webp', 7, 51);
+
+----------------------- FIN PRODUCTOS -----------------------
 
 GO
 INSERT INTO Proveedores (RazonSocial, CUIT, Direccion, Telefono, Email) VALUES
