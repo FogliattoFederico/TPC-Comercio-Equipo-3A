@@ -252,7 +252,8 @@ namespace Negocio
                                     FROM Productos P
                                     INNER JOIN Marcas M ON P.IdMarca = M.IdMarca
                                     INNER JOIN TiposProducto TP ON P.IdTipoProducto = TP.IdTipoProducto
-                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria";
+                                    INNER JOIN Categorias C ON TP.IdCategoria = C.IdCategoria
+                                    WHERE P.Activo = 1";
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
 

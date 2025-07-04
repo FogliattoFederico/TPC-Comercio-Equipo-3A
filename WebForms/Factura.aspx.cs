@@ -17,64 +17,80 @@ namespace WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.sesionActiva((Usuario)Session["Usuario"]))
+            {
+                Session.Add("Error", "Debes estar logueado");
+                Response.Redirect("Error.aspx", false);
+                return;
+            }
+
             if (!IsPostBack)
             {
                 Venta ventaActual = null;
                 VentaNegocio negocio = new VentaNegocio();
 
-                // CAPTURO ID DE URL
-                if (int.TryParse(Request.QueryString["ID"], out int idVenta))
+                try
                 {
-                    // ME TRAIGO LA VENTA DESDE BD
-                    ventaActual = negocio.BuscarVenta(idVenta);
-                }
-                else
-                {
-                    // O CAPTURO LA VENTA EN CURSO
-                    ventaActual = (Venta)Session["VentaEnCurso"];
-                }
-
-                if (ventaActual != null)
-                {
-                    // ENCABEZADO
-                    lblNumeroFactura.Text = ventaActual.IdVenta.ToString("D8"); // Ej: 00000012
-                    //lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
-                    lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy");
-                    lblUsuario.Text = ventaActual.Usuario.NombreUsuario + " " + ventaActual.Usuario.Apellido;
-
-                    // CLIENTE
-                    lblClienteNombre.Text = ventaActual.Cliente.Nombre + " " + ventaActual.Cliente.Apellido;
-                    lblClienteDireccion.Text = ventaActual.Cliente.Direccion;
-                    lblClienteDNI.Text = ventaActual.Cliente?.Dni ?? "-";
-
-                    // DETALLES
-                    var lista = new List<object>();
-
-                    foreach (var detalle in ventaActual.Detalles)
+                    // CAPTURO ID DE URL
+                    if (int.TryParse(Request.QueryString["ID"], out int idVenta))
                     {
-                        lista.Add(new
-                        {
-                            Producto = detalle.Producto,
-                            Cantidad = detalle.Cantidad,
-                            PrecioVenta = detalle.PrecioVenta,
-                            Subtotal = detalle.Cantidad * detalle.PrecioVenta
-                        });
+                        // ME TRAIGO LA VENTA DESDE BD
+                        ventaActual = negocio.BuscarVenta(idVenta);
                     }
-                    rptDetalles.DataSource = lista;
-                    rptDetalles.DataBind();
+                    else
+                    {
+                        // O CAPTURO LA VENTA EN CURSO
+                        ventaActual = (Venta)Session["VentaEnCurso"];
+                    }
 
-                    // Total
-                    lblTotal.Text = $"${ventaActual.Total:N0}";
-                }
-                else
-                {
-                    Response.Redirect("ListaVentas.aspx");
-                }
+                    if (ventaActual != null)
+                    {
+                        // ENCABEZADO
+                        lblNumeroFactura.Text = ventaActual.IdVenta.ToString("D8"); // Ej: 00000012
+                        //lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
+                        lblFecha.Text = ventaActual.Fecha?.ToString("dd/MM/yyyy");
+                        lblUsuario.Text = ventaActual.Usuario.NombreUsuario + " " + ventaActual.Usuario.Apellido;
 
-                // SOLO IMPRIMIR SI ES TRUE
-                if (Request.QueryString["imprimir"] == "true")
+                        // CLIENTE
+                        lblClienteNombre.Text = ventaActual.Cliente.Nombre + " " + ventaActual.Cliente.Apellido;
+                        lblClienteDireccion.Text = ventaActual.Cliente.Direccion;
+                        lblClienteDNI.Text = ventaActual.Cliente?.Dni ?? "-";
+
+                        // DETALLES
+                        var lista = new List<object>();
+
+                        foreach (var detalle in ventaActual.Detalles)
+                        {
+                            lista.Add(new
+                            {
+                                Producto = detalle.Producto,
+                                Cantidad = detalle.Cantidad,
+                                PrecioVenta = detalle.PrecioVenta,
+                                Subtotal = detalle.Cantidad * detalle.PrecioVenta
+                            });
+                        }
+                        rptDetalles.DataSource = lista;
+                        rptDetalles.DataBind();
+
+                        // Total
+                        lblTotal.Text = $"${ventaActual.Total:N0}";
+                    }
+                    else
+                    {
+                        Response.Redirect("ListaVentas.aspx");
+                    }
+
+                    // SOLO IMPRIMIR SI ES TRUE
+                    if (Request.QueryString["imprimir"] == "true")
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "printFactura", "window.print();", true);
+                    }
+
+                }
+                catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "printFactura", "window.print();", true);
+                    Session["Error"] = "Ocurrió un error al procesar la venta: " + ex.Message;
+                    Response.Redirect("Error.aspx", false);
                 }
             }
         }

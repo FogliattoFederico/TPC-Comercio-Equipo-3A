@@ -75,22 +75,31 @@ namespace WebForms
 
         private void cargarDropdowns()
         {
-            ProveedorNegocio PNegocio = new ProveedorNegocio();
-            DDLProveedor.DataSource = PNegocio.Listar();
-            DDLProveedor.DataTextField = "RazonSocial";
-            DDLProveedor.DataValueField = "IdProveedor";
-            DDLProveedor.DataBind();
+            try
+            {
+                ProveedorNegocio PNegocio = new ProveedorNegocio();
+                DDLProveedor.DataSource = PNegocio.Listar();
+                DDLProveedor.DataTextField = "RazonSocial";
+                DDLProveedor.DataValueField = "IdProveedor";
+                DDLProveedor.DataBind();
 
-            DDLProveedor.Items.Insert(0, new ListItem("- Seleccionar proveedor -", "0"));
+                DDLProveedor.Items.Insert(0, new ListItem("- Seleccionar proveedor -", "0"));
 
-            ProductoNegocio Negocio = new ProductoNegocio();
-            DDLProducto.DataSource = Negocio.ListarConSp();
+                ProductoNegocio Negocio = new ProductoNegocio();
+                DDLProducto.DataSource = Negocio.ListarConSp();
 
-            DDLProducto.DataTextField = "Nombre";
-            DDLProducto.DataValueField = "CodigoArticulo"; //
-            DDLProducto.DataBind();
+                DDLProducto.DataTextField = "Nombre";
+                DDLProducto.DataValueField = "CodigoArticulo";
+                DDLProducto.DataBind();
 
-            DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -", "0"));
+                DDLProducto.Items.Insert(0, new ListItem("- Seleccionar producto -", "0"));
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Ocurrió un problema al cargar los desplegables: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void DDLProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,30 +122,39 @@ namespace WebForms
                 Producto producto = negocioProd.ListarConSp()
                                         .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
 
-                if (producto != null)
+                try
                 {
-                    TxtBPrecio.Text = producto.PrecioCompra.ToString("C");
-
-                    // RECUPERO LISTA ACTUAL DE COMPRADETALLE
-                    if (Session["ListaCompraDetalle"] == null)
-                        Session["ListaCompraDetalle"] = new List<CompraDetalle>();
-
-                    List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
-
-                    // BUSCO SI EL PRODUCTO SELECCIONADO YA SE ENCUENTRA EN LA LISTA ACTUAL DE COMPRADETALLE
-                    CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
-
-                    if (detalleExistente != null)
+                    if (producto != null)
                     {
-                        // SI EL PRODUCTO YA ESTABA EN LA LISTA, PRECARGO LA CANTIDAD QUE LE ASIGNARON LA ANTERIOR VEZ
-                        txtCantidad.Text = detalleExistente.Cantidad.ToString();
+                        TxtBPrecio.Text = producto.PrecioCompra.ToString("C");
+
+                        // RECUPERO LISTA ACTUAL DE COMPRADETALLE
+                        if (Session["ListaCompraDetalle"] == null)
+                            Session["ListaCompraDetalle"] = new List<CompraDetalle>();
+
+                        List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                        // BUSCO SI EL PRODUCTO SELECCIONADO YA SE ENCUENTRA EN LA LISTA ACTUAL DE COMPRADETALLE
+                        CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
+
+                        if (detalleExistente != null)
+                        {
+                            // SI EL PRODUCTO YA ESTABA EN LA LISTA, PRECARGO LA CANTIDAD QUE LE ASIGNARON LA ANTERIOR VEZ
+                            txtCantidad.Text = detalleExistente.Cantidad.ToString();
+                        }
+
+                        // SECCION "CANTIDAD" SOLO HABILITADA SI PROVEEDOR Y PRODUCTO YA FUERON SELECCIONADOS
+                        if (DDLProveedor.SelectedIndex != 0)
+                            SeccionCantidadActiva(true);
+                        else
+                            SeccionCantidadActiva(false);
                     }
 
-                    // SECCION "CANTIDAD" SOLO HABILITADA SI PROVEEDOR Y PRODUCTO YA FUERON SELECCIONADOS
-                    if (DDLProveedor.SelectedIndex != 0)
-                        SeccionCantidadActiva(true);
-                    else
-                        SeccionCantidadActiva(false);
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", "Ocurrió un problema al actualizar cantidad: " + ex.Message);
+                    Response.Redirect("Error.aspx", false);
                 }
             }
         }
@@ -145,125 +163,161 @@ namespace WebForms
         {
             OcultarAlertas();
 
-            if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue) ||
-                DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue))
+            try
             {
-                lblAlerta2.Text = "Debe ingresar un producto y un proveedor";
-                PanelAleta.Visible = true;
-                return;
+                if (DDLProducto.SelectedValue == "0" || string.IsNullOrEmpty(DDLProducto.SelectedValue) ||
+                    DDLProveedor.SelectedValue == "0" || string.IsNullOrEmpty(DDLProveedor.SelectedValue))
+                {
+                    lblAlerta2.Text = "Debe ingresar un producto y un proveedor";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+
+                // GUARDO PRODUCTO A AGREGAR PARA LUEGO CARGARLO EN SU CORRESPONDIENTE COMPRADETALLE
+                ProductoNegocio negocioProd = new ProductoNegocio();
+                string codigoSeleccionado = DDLProducto.SelectedValue;
+                Producto producto = negocioProd.ListarConSp()
+                                      .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
+
+                if (producto == null)
+                {
+                    lblAlerta2.Text = "El producto no existe en la base de datos.";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+
+                // RECUPERO LISTA ACTUAL DE COMPRADETALLE
+                if (Session["ListaCompraDetalle"] == null)
+                    Session["ListaCompraDetalle"] = new List<CompraDetalle>();
+
+                List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                // GUARDO LA CANTIDAD SETEADA
+                int cantidad = 0;
+                int.TryParse(txtCantidad.Text, out cantidad);
+                if (cantidad < 1)
+                {
+                    lblAlerta2.Text = "La cantidad debe ser mayor a 0";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+
+                // COMPRUEBO SI EL PRODUCTO A AGREGAR YA SE ENCUENTRA CARGADO EN EL GRID
+                CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
+
+
+                if (detalleExistente != null)
+                {
+                    // SI YA ESTABA AGREGADO LE ACTUALIZO SU CANTIDAD CON LA CANTIDAD NUEVA INGRESADA
+                    detalleExistente.Cantidad = cantidad;
+                    LblAlertaOK.Text = "Cantidad actualizada correctamente.";
+                    PanelAlertaOK.Visible = true;
+                }
+                else
+                {
+                    // SI NO ESTABA AGREGADO LO AÑADO A LA LISTA
+                    CompraDetalle nuevo = new CompraDetalle();
+                    nuevo.Producto = new Producto();
+                    nuevo.Producto = producto;
+                    nuevo.Producto.IdProducto = negocioProd.GetIdproducto(producto.CodigoArticulo);
+                    nuevo.Cantidad = cantidad;
+                    nuevo.PrecioUnitario = producto.PrecioCompra;
+
+                    // ORDEN DE LISTA EN GRID OPCIONAL
+                    //listaCompraDetalle.Add(nuevo); // ULTIMO AGREGADO AL FINAL DE LISTA
+                    listaCompraDetalle.Insert(0, nuevo); // EL ULTIMO AGREGADO AL INICIO DE LA LISTA
+                    LblAlertaOK.Text = "Producto agregado correctamente.";
+                    PanelAlertaOK.Visible = true;
+                    DDLProveedor.Enabled = false;
+                }
+
+                // RESGUARDO LA LISTA EN SESSION PARA ACTUALIZARLE CON EL PROXIMO PRODUCTO A AGREGAR
+                Session["ListaCompraDetalle"] = listaCompraDetalle;
+
+                // RESET Valor y controles
+                txtCantidad.Text = "0";
+                txtCantidad.Enabled = false;
+                btnMas.Enabled = false;
+                btnMenos.Enabled = false;
+
+                DDLProducto.SelectedIndex = 0;
+                TxtBPrecio.Text = "$";
+
+                // ACTUALIZO
+                ActualizarGridDetalle();
+                ActualizarTotal();
+
             }
-
-            // GUARDO PRODUCTO A AGREGAR PARA LUEGO CARGARLO EN SU CORRESPONDIENTE COMPRADETALLE
-            ProductoNegocio negocioProd = new ProductoNegocio();
-            string codigoSeleccionado = DDLProducto.SelectedValue;
-            Producto producto = negocioProd.ListarConSp()
-                                  .FirstOrDefault(p => p.CodigoArticulo == codigoSeleccionado);
-
-            if (producto == null)
+            catch (Exception ex)
             {
-                lblAlerta2.Text = "El producto no existe en la base de datos.";
-                PanelAleta.Visible = true;
-                return;
+                Session.Add("Error", "Ocurrió un problema al agregar producto al grid: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
             }
-
-            // RECUPERO LISTA ACTUAL DE COMPRADETALLE
-            if (Session["ListaCompraDetalle"] == null)
-                Session["ListaCompraDetalle"] = new List<CompraDetalle>();
-
-            List<CompraDetalle> listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
-
-            // GUARDO LA CANTIDAD SETEADA
-            int cantidad = 0;
-            int.TryParse(txtCantidad.Text, out cantidad);
-            if (cantidad < 1)
-            {
-                lblAlerta2.Text = "La cantidad debe ser mayor a 0";
-                PanelAleta.Visible = true;
-                return;
-            }
-
-            // COMPRUEBO SI EL PRODUCTO A AGREGAR YA SE ENCUENTRA CARGADO EN EL GRID
-            CompraDetalle detalleExistente = listaCompraDetalle.FirstOrDefault(d => d.Producto.CodigoArticulo == codigoSeleccionado);
-
-
-            if (detalleExistente != null)
-            {
-                // SI YA ESTABA AGREGADO LE ACTUALIZO SU CANTIDAD CON LA CANTIDAD NUEVA INGRESADA
-                detalleExistente.Cantidad = cantidad;
-                LblAlertaOK.Text = "Cantidad actualizada correctamente.";
-                PanelAlertaOK.Visible = true;
-            }
-            else
-            {
-                // SI NO ESTABA AGREGADO LO AÑADO A LA LISTA
-                CompraDetalle nuevo = new CompraDetalle();
-                nuevo.Producto = new Producto();
-                nuevo.Producto = producto;
-                nuevo.Producto.IdProducto = negocioProd.GetIdproducto(producto.CodigoArticulo);
-                nuevo.Cantidad = cantidad;
-                nuevo.PrecioUnitario = producto.PrecioCompra;
-
-                // ORDEN DE LISTA EN GRID OPCIONAL
-                //listaCompraDetalle.Add(nuevo); // ULTIMO AGREGADO AL FINAL DE LISTA
-                listaCompraDetalle.Insert(0, nuevo); // EL ULTIMO AGREGADO AL INICIO DE LA LISTA
-                LblAlertaOK.Text = "Producto agregado correctamente.";
-                PanelAlertaOK.Visible = true;
-                DDLProveedor.Enabled = false;
-            }
-
-            // RESGUARDO LA LISTA EN SESSION PARA ACTUALIZARLE CON EL PROXIMO PRODUCTO A AGREGAR
-            Session["ListaCompraDetalle"] = listaCompraDetalle;
-
-            // RESET Valor y controles
-            txtCantidad.Text = "0";
-            txtCantidad.Enabled = false;
-            btnMas.Enabled = false;
-            btnMenos.Enabled = false;
-
-            DDLProducto.SelectedIndex = 0;
-            TxtBPrecio.Text = "$";
-
-            // ACTUALIZO
-            ActualizarGridDetalle();
-            ActualizarTotal();
         }
 
 
         private void ActualizarGridDetalle()
         {
-            if (Session["ListaCompraDetalle"] == null)  //
-                Session["ListaCompraDetalle"] = new List<CompraDetalle>(); //
-            listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"]; //
-            gvDetalleOC.DataSource = listaCompraDetalle; //
-            gvDetalleOC.DataBind();
+            try
+            {
+                if (Session["ListaCompraDetalle"] == null)
+                    Session["ListaCompraDetalle"] = new List<CompraDetalle>();
+                listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+                gvDetalleOC.DataSource = listaCompraDetalle;
+                gvDetalleOC.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Ocurrió un problema al actualizar grid detalle: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void ActualizarTotal()
         {
-            decimal total = listaCompraDetalle.Sum(d => d.Subtotal);
-            lblTotal.Text = total.ToString("C");
+            try
+            {
+                decimal total = listaCompraDetalle.Sum(d => d.Subtotal);
+                lblTotal.Text = total.ToString("C");
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Ocurrió un problema al actualizar monto total: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void gvDetalleOC_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Eliminar")
+            try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-
-                if (Session["ListaCompraDetalle"] != null)
+                if (e.CommandName == "Eliminar")
                 {
-                    listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+                    int index = Convert.ToInt32(e.CommandArgument);
 
-                    if (index >= 0 && index < listaCompraDetalle.Count)
+                    if (Session["ListaCompraDetalle"] != null)
                     {
-                        listaCompraDetalle.RemoveAt(index);
-                        Session["ListaCompraDetalle"] = listaCompraDetalle;
-                        LblAlertaOK.Text = "Producto removido correctamente";
-                        PanelAlertaOK.Visible = true;
+                        listaCompraDetalle = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                        if (index >= 0 && index < listaCompraDetalle.Count)
+                        {
+                            listaCompraDetalle.RemoveAt(index);
+                            Session["ListaCompraDetalle"] = listaCompraDetalle;
+                            LblAlertaOK.Text = "Producto removido correctamente";
+                            PanelAlertaOK.Visible = true;
+                        }
                     }
+                    ActualizarGridDetalle();
+                    ActualizarTotal();
                 }
-                ActualizarGridDetalle();
-                ActualizarTotal();
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Ocurrió un problema al eliminar producto del grid: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -271,48 +325,57 @@ namespace WebForms
         {
             OcultarAlertas();
 
-            // COMPRUEBO SI LA LISTA DEL GRID ACTUAL ES NULL O ESTA VACIA
-            if (Session["ListaCompraDetalle"] == null || ((List<CompraDetalle>)Session["ListaCompraDetalle"]).Count == 0)
+            try
             {
-                lblAlerta2.Text = "Debe agregar al menos un producto para generar la compra.";
-                PanelAleta.Visible = true;
-                return;
+                // COMPRUEBO SI LA LISTA DEL GRID ACTUAL ES NULL O ESTA VACIA
+                if (Session["ListaCompraDetalle"] == null || ((List<CompraDetalle>)Session["ListaCompraDetalle"]).Count == 0)
+                {
+                    lblAlerta2.Text = "Debe agregar al menos un producto para generar la compra.";
+                    PanelAleta.Visible = true;
+                    return;
+                }
+
+                Compra CompraActual = new Compra();
+                CompraActual.Detalles = (List<CompraDetalle>)Session["ListaCompraDetalle"];
+
+                CompraActual.Proveedor = new Proveedor();
+                CompraActual.Proveedor.IdProveedor = int.Parse(DDLProveedor.SelectedValue);
+
+                CompraActual.Usuario = (Usuario)Session["Usuario"];
+
+                ComprasNegocio negocio = new ComprasNegocio();
+
+                //negocio.GuardarCompra(CompraActual);
+                // GUARDA LA COMPRA EN DB MEDIANTE TRANSACCION ACTUALIZANDO TABLAS Compras, CompraDetalle y Productos(actualizando stock)
+                negocio.GuardarCompraConSP(CompraActual);
+
+                LblAlertaOK.Text = "La compra se agrego correctamente.";
+                PanelAlertaOK.Visible = true;
+                DDLProveedor.Enabled = true;
+
+                // RESETO GENERAL
+                DDLProducto.SelectedIndex = 0;
+                DDLProveedor.SelectedIndex = 0;
+                TxtBPrecio.Text = "$";
+                txtCantidad.Text = "0";
+                txtCantidad.Enabled = false;
+                btnMas.Enabled = false;
+                btnMenos.Enabled = false;
+
+                // RESET SESSION de LISTA:
+                Session["ListaCompraDetalle"] = null;
+
+                // VACIAR Y REFRESCAR GRID:
+                ActualizarGridDetalle();
+                ActualizarTotal();
+                CargarOC();
+
             }
-
-            Compra CompraActual = new Compra();
-            CompraActual.Detalles = (List<CompraDetalle>)Session["ListaCompraDetalle"];
-
-            CompraActual.Proveedor = new Proveedor();
-            CompraActual.Proveedor.IdProveedor = int.Parse(DDLProveedor.SelectedValue);
-
-            CompraActual.Usuario = (Usuario)Session["Usuario"];
-
-            ComprasNegocio negocio = new ComprasNegocio();
-
-            //negocio.GuardarCompra(CompraActual);
-            // GUARDA LA COMPRA EN DB MEDIANTE TRANSACCION ACTUALIZANDO TABLAS Compras, CompraDetalle y Productos(actualizando stock)
-            negocio.GuardarCompraConSP(CompraActual);
-
-            LblAlertaOK.Text = "La compra se agrego correctamente.";
-            PanelAlertaOK.Visible = true;
-            DDLProveedor.Enabled = true;
-
-            // RESETO GENERAL
-            DDLProducto.SelectedIndex = 0;
-            DDLProveedor.SelectedIndex = 0;
-            TxtBPrecio.Text = "$";
-            txtCantidad.Text = "0";
-            txtCantidad.Enabled = false;
-            btnMas.Enabled = false;
-            btnMenos.Enabled = false;
-
-            // RESET SESSION de LISTA:
-            Session["ListaCompraDetalle"] = null;
-
-            // VACIAR Y REFRESCAR GRID:
-            ActualizarGridDetalle();
-            ActualizarTotal();
-            CargarOC();
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Ocurrió un problema al efectuar compra: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
 
         }
 
@@ -339,15 +402,19 @@ namespace WebForms
         {
             OcultarAlertas();
 
-            if (DDLProducto.SelectedIndex != 0)
+            if (DDLProveedor.SelectedIndex != 0)
             {
-                // SECCION "CANTIDAD" HABILITADA
-                SeccionCantidadActiva(true);
+                if (DDLProducto.SelectedIndex != 0)
+                {
+                    // SECCION "CANTIDAD" HABILITADA
+                    SeccionCantidadActiva(true);
 
-            }
-            else
-            {
-                SeccionCantidadActiva(false);
+                }
+                else
+                {
+                    SeccionCantidadActiva(false);
+                }
+
             }
         }
 
