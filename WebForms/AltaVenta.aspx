@@ -221,7 +221,7 @@
                    
                     <asp:LinkButton ID="lkbEnviar" runat="server" CssClass="btn-factura" OnClick="lkbEnviar_Click">
                     <img src="/Icon/Correo.png" style="width: 20px; height: 20px;" />
-                    Enviar 
+                    Enviar ultima
                     </asp:LinkButton>
                 </div>
             </div>

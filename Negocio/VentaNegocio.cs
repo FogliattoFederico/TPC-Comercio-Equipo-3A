@@ -184,7 +184,7 @@ namespace Negocio
                 venta.Cliente.Direccion = datos.Lector["Direccion"].ToString();
                 venta.Usuario = new Usuario();
                 venta.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
-                venta.Usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                venta.Usuario.Nombre = datos.Lector["NombreUsuario"].ToString();
                 venta.Usuario.Apellido = datos.Lector["ApellidoUsuario"].ToString();
                 venta.Usuario.Email = datos.Lector["EmailUsuario"].ToString();
                 //venta.Usuario.Contrasena = datos.Lector["Contrasena"].ToString();

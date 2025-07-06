@@ -10,7 +10,9 @@ using System.Net.Mail;
 using System.Net;
 using System.IO;
 using iTextSharp.text;
-using iTextSharp.text.pdf;
+//using iTextSharp.text.pdf;
+using SelectPdf;
+using System.Text;
 
 namespace WebForms
 {
@@ -749,117 +751,173 @@ namespace WebForms
         {
             OcultarAlertas();
 
-            try
-            {
-                VentaNegocio ventaNegocio = new VentaNegocio();
-                int idUltimaVenta = ventaNegocio.obtenerNumProxVenta() - 1;
-                Venta venta = ventaNegocio.BuscarVenta(idUltimaVenta);
+            VentaNegocio ventaNegocio = new VentaNegocio();
+            int idUltimaVenta = ventaNegocio.obtenerNumProxVenta() - 1;
+            Venta venta = ventaNegocio.BuscarVenta(idUltimaVenta);
 
-                if (venta == null)
-                {
-                    lblAlerta2.Text = "No existe la factura que intenta enviar.";
-                    PanelAleta.Visible = true;
-                    return;
-                }
-
-                string cuerpoHTML = $@"
-            <html>
-            <head>
-                <style>
-                    body {{ font-family: Arial, sans-serif; }}
-                    .header {{ color: #3498db; font-size: 18px; }}
-                    .footer {{ margin-top: 20px; font-style: italic; color: #7f8c8d; }}
-                    .saludo {{ margin-top: 15px; }}
-                </style>
-            </head>
-            <body>
-                <div class='header'>Factura Tecno Hogar Nº {venta.IdVenta}</div>
-                <p class='saludo'>Estimado cliente,</p>
-                <p>Adjunto encontrará la factura de su compra realizada el {venta.Fecha?.ToShortDateString() ?? "fecha no disponible"}.</p>
-                <p>Gracias por elegirnos.</p>
-                <p>Atentamente,</p>
-                <p><strong>Equipo de ventas</strong></p>
-                <p><strong>Tecno Hogar</strong></p>
-                <div class='footer'>
-                    <p>Este es un correo automático, por favor no responda.</p>
-                </div>
-            </body>
-            </html>";
+            // VENTA A HTML PARA LUEGO GENERAR PDF
+            string html = GenerarHtmlFactura(venta);
 
 
-                EmailService emailService = new EmailService();
-                emailService.ArmarCorreo(venta.Cliente.Email,$"Factura Tecno Hogar Nº {venta.IdVenta}",cuerpoHTML, true);
+            /**************** SIN GUARDAR PDF EN ESCRITORIO ***************/
+            // CONVIERTE HTML a PDF
+            HtmlToPdf converter = new HtmlToPdf();
+            PdfDocument doc = converter.ConvertHtmlString(html);
 
-                // Generar PDF
-                byte[] pdfBytes = GenerarPdfFactura(venta);
+            // GUARDO EN MEMORIA
+            byte[] pdf = doc.Save();
+            doc.Close();
 
-                // Adjuntar PDF
-                System.Net.Mail.Attachment adj = new System.Net.Mail.Attachment(new MemoryStream(pdfBytes), $"Factura_{venta.IdVenta}.pdf", "application/pdf");
-                emailService.AgregarAdjunto(adj);
+            /******  OPCIONAL SI QUIERO GUARDAR PDF EN MI ESCRITORIO LOCAL *******/
+            /*
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // GENERO PATH ESCRITORIO
+            string filePath = Path.Combine(desktopPath, $"Factura{idUltimaVenta.ToString("D8")}.pdf");
+            // CONVIERTE HTML a PDF
+            HtmlToPdf converter = new HtmlToPdf();
+            PdfDocument doc = converter.ConvertHtmlString(html);
+            // GUARDA PDF EN ESCRITORIO LOCAL (OPCIONAL)
+            doc.Save(filePath);            
+            doc.Close();
+            // LEO ARCHIVO GUARDADO
+            byte[] pdf = File.ReadAllBytes(filePath);*/
 
-                emailService.EnviarEmail();
 
-                LblAlertaOK.Text = "La factura fue enviada correctamente.";
-                PanelAlertaOK.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-            }
+            // ENVIO FACTURA MAIL
+            EnviarFacturaPorEmail(venta.Cliente.Email, pdf);
 
+            LblAlertaOK.Text = "La factura se envio correctamente.";
+            PanelAlertaOK.Visible = true;
         }
 
-        public byte[] GenerarPdfFactura(Venta venta)
+        private string GenerarHtmlFactura(Venta venta)
         {
-            using (MemoryStream ms = new MemoryStream())
+            var sb = new StringBuilder();
+
+            sb.Append(@"<!DOCTYPE html>
+                        <html lang='es'>
+                        <head>
+                        <meta charset='utf-8' />
+                        <title>Factura B</title>
+                        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>
+                        <style>
+                        /* TODO: tu CSS aquí */
+                        .invoice-box { max-width:900px; margin:auto; padding:40px; border:1px solid #dee2e6; }
+                        .invoice-box h2, .invoice-box h4 { margin-bottom:10px; }
+                        .invoice-box table { width:100%; border-collapse:collapse; }
+                        .invoice-box table td { padding:8px; vertical-align:top; }
+                        .invoice-box table tr.heading td { background:#007bff; color:white; font-weight:bold; text-align:center; }
+                        .invoice-box table tr.item td { border-bottom:1px solid #ddd; }
+                        .invoice-box .total { font-size:1.3rem; font-weight:bold; text-align:right; margin-top:15px; border-top:2px solid #007bff; padding-top:10px; }
+                        .firma-linea { margin-top:60px; border-top:1px solid #333; width:200px; text-align:center; margin-left:auto; }
+                        .logo-img { float:left; width:29px; height:auto; margin-right:10px; }
+                        </style>
+                        </head>
+                        <body>
+                        <div class='invoice-box'>
+                        <div class='row mb-4 align-items-center'>
+                        <div class='col-md-6'>
+                        <img src='https://i.postimg.cc/nzXfK78z/Logo-Sin-Marca.png' class='logo-img' alt='Logo' />
+                        <h4 class='mt-1'>Tecno Hogar S.A.</h4>
+                        <p class='mb-0'>
+                        CUIT: 30-12345678-9<br />
+                        Av. Siempre Viva 123, CABA<br />
+                        Tel: (011) 4567-8900<br />
+                        Email: contacto@tecnohogar.com.ar
+                        </p>
+                        </div>
+                        <div class='col-md-6 text-end'>
+                        <h2 class='mb-1'>FACTURA B</h2>
+                        <p class='mb-0'>
+                        Nº: " + venta.IdVenta.ToString("D8") + @"<br />
+                        Fecha: " + venta.Fecha + @"<br />
+                        Usuario: " + venta.Usuario.Nombre + " " + venta.Usuario.Apellido + @"
+                        </p>
+                        </div>
+                        </div>
+                        <hr />
+                        <h5 class='mb-2'>Datos del Cliente</h5>
+                        <p>
+                        Nombre: " + venta.Cliente.Nombre + " " + venta.Cliente.Apellido + @"<br />
+                        Dirección: " + venta.Cliente.Direccion + @"<br />
+                        DNI: " + venta.Cliente.Dni + @"
+                        </p>
+                        <table class='table table-bordered'>
+                        <thead>
+                        <tr class='heading'>
+                        <td>Producto</td>
+                        <td>Cantidad</td>
+                        <td>Precio Unitario</td>
+                        <td>Subtotal</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        ");
+
+            foreach (VentaDetalle item in venta.Detalles)
             {
-                Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
-                PdfWriter.GetInstance(doc, ms);
-                doc.Open();
-
-                // Título
-                Paragraph titulo = new Paragraph("Factura Tecno Hogar", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
-                titulo.Alignment = Element.ALIGN_CENTER;
-                doc.Add(titulo);
-
-                doc.Add(new Paragraph($"Factura Nº: {venta.IdVenta}"));
-                //doc.Add(new Paragraph($"Fecha: {venta.Fecha.ToShortDateString()}"));
-                doc.Add(new Paragraph($"Fecha: {venta.Fecha?.ToShortDateString() ?? "Fecha no disponible"}"));
-                doc.Add(new Paragraph($"Cliente: {venta.Cliente.Nombre} {venta.Cliente.Apellido}"));
-                doc.Add(new Paragraph($"DNI: {venta.Cliente.Dni}"));
-                doc.Add(new Paragraph($"Dirección: {venta.Cliente.Direccion}"));
-                doc.Add(new Paragraph(" "));
-
-                // Tabla con detalle
-                PdfPTable tabla = new PdfPTable(4) { WidthPercentage = 100 };
-                tabla.SetWidths(new float[] { 40, 15, 20, 25 });
-
-                tabla.AddCell("Producto");
-                tabla.AddCell("Cantidad");
-                tabla.AddCell("Precio Unitario");
-                tabla.AddCell("Subtotal");
-
-                foreach (var detalle in venta.Detalles)
-                {
-                    tabla.AddCell(detalle.Producto.Nombre);
-                    tabla.AddCell(detalle.Cantidad.ToString());
-                    tabla.AddCell(detalle.PrecioVenta.ToString("C"));
-                    tabla.AddCell((detalle.Cantidad * detalle.PrecioVenta).ToString("C"));
-                }
-
-                doc.Add(tabla);
-
-                doc.Add(new Paragraph(" "));
-                doc.Add(new Paragraph($"Total: {venta.Total.ToString("C")}", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
-
-                doc.Close();
-
-                return ms.ToArray(); // bytes del PDF
+                sb.Append("<tr class='item'>");
+                sb.Append("<td>" + item.Producto.Nombre + "</td>");
+                sb.Append("<td style='text-align:right;'>" + item.Cantidad + "</td>");
+                sb.Append("<td style='text-align:right;'>$" + item.PrecioVenta.ToString("N0") + "</td>");
+                sb.Append("<td style='text-align:right;'>$" + (item.Cantidad * item.PrecioVenta).ToString("N0") + "</td>");
+                sb.Append("</tr>");
             }
+
+            sb.Append(@"
+                        </tbody>
+                        </table>
+                        <div class='total'>
+                        Total: $" + venta.Total.ToString("N0") + @"
+                        </div>
+                        <p class='mt-4'><strong>Método de pago:</strong> Tarjeta de Crédito (Visa 1 pago)</p>
+                        <p><strong>Observaciones:</strong> Garantía oficial de fábrica en todos los productos. Entrega en 48 hs.</p>
+                        <div class='firma-linea mt-5'>Firma Cliente</div>
+                        </div>
+                        </body>
+                        </html>");
+
+            return sb.ToString();
         }
 
+        private void EnviarFacturaPorEmail(string destinatario, byte[] pdfAdjunto)
+        {
+            VentaNegocio ventaNegocio = new VentaNegocio();
+            int idUltimaVenta = ventaNegocio.obtenerNumProxVenta() - 1;
+            Venta venta = ventaNegocio.BuscarVenta(idUltimaVenta);
 
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("hola.tecnohogar@gmail.com");
+            mail.To.Add(destinatario);
+            mail.Subject = "Factura electrónica de su compra - Tecno Hogar S.A.";
+            string cuerpo = $@"
+                        <p>Estimado/a <strong>{venta.Cliente.Nombre + " " + venta.Cliente.Apellido}</strong>,</p>
+                        <p>Gracias por confiar en <strong>Tecno Hogar S.A.</strong> para su compra.</p>
+                        <p>Adjuntamos a este correo su <strong>Factura Electrónica</strong> correspondiente a la transacción realizada.</p>
+                        <p>Por favor, conserve este comprobante como respaldo de su compra y para eventuales gestiones de garantía.</p>
+                        <p><strong>Datos de contacto:</strong><br>
+                        Teléfono: (011) 4567-8900<br>
+                        Email: contacto@tecnohogar.com.ar<br>
+                        Sitio web: www.tecnohogar.com.ar
+                        </p>
+                        <p>Ante cualquier consulta, no dude en comunicarse con nuestro equipo de atención al cliente.</p>
+                        <p>Atentamente,<br>
+                        El equipo de Tecno Hogar S.A.</p>";
+
+            mail.Body = cuerpo;
+            mail.IsBodyHtml = true;
+
+
+
+            // ADJUNTO FACTURA PDF
+            mail.Attachments.Add(new Attachment(new MemoryStream(pdfAdjunto), $"Factura{idUltimaVenta.ToString("D8")}.pdf"));
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("hola.tecnohogar@gmail.com", "exletewvvmqnvflo"); // CONTRASEÑA DE APP
+
+            smtp.Send(mail);
+        }
 
 
     }
